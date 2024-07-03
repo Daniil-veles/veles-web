@@ -1,0 +1,12 @@
+.item {
+    margin-right: 40px;
+    text-decoration: none;
+    cursor: pointer;
+    transition-timing-function: ease;
+    transition-duration: 0.3s;
+    transition-property: color;
+
+    &:hover {
+        color: var(--text-eight);
+    }
+}

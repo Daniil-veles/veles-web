@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  // Цвет фона
+  --bg-first: #000; /* черный */
+  --bg-second: #fff; /* белый */
+  --bg-third: rgb(239, 239, 239); /* серый */
+  --bg-fourth: #1f5bff; /* голубой */
+  --bg-fifth: #f5f8ff; /* светло-голубой-фон */
+  --bg-six: #1f5bff99; /* голубой с прозрачностью 0.60 */
+  --bg-seven: #2edeff; /* светло-голубой */
+
+  // Цвет текста
+  --text-first: #fff; /* белый */
+  --text-second: #000; /* черный */
+  --text-third: #f26e00; /* оранжевый */
+  --text-fourth: #3d4f9f; /* оксфордский синий */
+  --text-fifth: #8d96bd; /* оловянно-синий */
+  --text-six: #adb3cb; /* кадетский синий */
+  --text-seven: #d43f3f; /* циннабарит */
+  --text-eight: #3a79ff; /* королевский синий */
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+}
