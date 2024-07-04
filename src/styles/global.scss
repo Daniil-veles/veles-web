@@ -11,6 +11,7 @@
   --bg-fourth: #1f5bff; /* синий */
   --bg-six: #1f5bff99; /* голубой с прозрачностью 0.60 */
   --bg-seven: #2edeff; /* светло-голубой */
+  --bg-eight: #f26e00; /* оранжевый */
 
   // Цвет текста
   --text-first: #fff; /* белый */
@@ -33,16 +34,32 @@ body {
   line-height: 24px;
 }
 
-img, svg {
+img,
+svg {
   width: 100%;
   height: auto;
   object-fit: cover;
 }
 
+h1 {
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
 h2 {
-  font-size: 20px;
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
 }
 
 p {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.7;
 }

@@ -1,11 +1,19 @@
 import About from "@/components/blocks/about/About";
+import Features from "@/components/blocks/features/Features";
+import Rate from "@/components/blocks/rate/Rate";
 import Layout from "@/layouts/Layout";
 
 const MainScreen: React.FC = () => {
     return (
         <div className="">
                 <Layout>
+
                     <About />
+
+                    <Features />
+
+                    <Rate />
+
 
                     <p className="mb-40">
                         Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия.

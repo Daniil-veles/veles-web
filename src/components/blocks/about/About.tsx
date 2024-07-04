@@ -24,7 +24,7 @@ const About: React.FC = () => {
           </p>
 
           <Button
-            className={`${styles.button} px-4 py-3`}
+            className={`${styles.button} px-3 py-2`}
             onClick={() => console.log()}
           >
             <span className="flex align-center">

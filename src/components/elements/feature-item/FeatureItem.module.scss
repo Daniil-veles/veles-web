@@ -1,0 +1,12 @@
+.item {
+    border: 1px solid var(--bg-third);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    background: radial-gradient(600px circle at 0px 0px, var(--bg-third-easy), transparent, 40%);
+    animation-duration: .3s;
+
+    .img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+    }
+}

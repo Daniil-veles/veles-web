@@ -4,10 +4,11 @@
     .customContainer {
         display: grid;
         grid-template-columns: 46% 1fr;
+        padding: 40px 0;
     }
 
     .content {
-        padding: 100px 0;
+        padding-top: 100px;
         padding-left: 120px;
     }
     
@@ -32,6 +33,16 @@
             width: 20px;
             height: auto;
             margin-left: 10px;
+        }
+    }
+
+    .wrapper {
+        width: 90%;
+        height: auto;
+        overflow: hidden;
+
+        .img {
+            clip-path: inset(0 0 10% 0); 
         }
     }
 }
