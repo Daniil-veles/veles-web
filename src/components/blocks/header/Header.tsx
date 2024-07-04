@@ -17,8 +17,7 @@ const Header: React.FC = () => {
 
           <div className="flex items-center">
             <Button
-              bgColor="--bg-six"
-              color="--text-primary"
+              className={styles.button}
               onClick={() => console.log("Clicked")}
             >
               Регистрация

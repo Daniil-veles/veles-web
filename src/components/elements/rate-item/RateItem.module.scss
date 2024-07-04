@@ -1,5 +1,5 @@
 .item {
-  border: 1px solid var(--bg-eight);
+  border: 1px solid var(--bg-fifth);
   height: min-content;
   align-self: center;
 
@@ -24,18 +24,18 @@
   }
 
   .button {
-    border: 1px solid var(--bg-eight);
+    border: 1px solid var(--bg-fifth);
 
     &.current {
-        background-color: var(--bg-six);
-        border: 1px solid var(--bg-six);
+        background-color: var(--bg-fourth);
+        border: 1px solid var(--bg-fourth);
     }
   }
 
   &.current {
     padding-top: 60px;
     padding-bottom: 60px;
-    background-color: var(--bg-nine);
+    background-color: var(--bg-six);
     border: none;
     color: var(--text-first);
   }
