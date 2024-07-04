@@ -1,6 +1,7 @@
 import About from "@/components/blocks/about/About";
 import Features from "@/components/blocks/features/Features";
 import Rate from "@/components/blocks/rate/Rate";
+import Reviews from "@/components/blocks/reviews/Reviews";
 import Layout from "@/layouts/Layout";
 
 const MainScreen: React.FC = () => {
@@ -13,6 +14,8 @@ const MainScreen: React.FC = () => {
                     <Features />
 
                     <Rate />
+
+                    <Reviews />
 
 
                     <p className="mb-40">

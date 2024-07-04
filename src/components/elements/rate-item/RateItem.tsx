@@ -13,19 +13,19 @@ const RateItem: React.FC<RateItemProps> = ({ rate }) => {
 
   return (
     <li
-      className={`${styles.item} ${isSecond ? `${styles.item}--current` : ""} rounded-lg p-6`}
+      className={`${styles.item} ${isSecond ? `${styles.current}` : ""} rounded-lg px-7 py-6`}
     >
       <h3 className={`${styles.title} mb-3`}>{title}</h3>
 
-      <p className={`${styles.price} mb-3`}>{price}</p>
+      <p className={`${styles.price} ${isSecond ? `${styles.current}` : ""} mb-3`}>{price}</p>
 
       <p className={`${styles.text} mb-4`}>{text}</p>
 
-      <ul className={`${styles.subList} mb-4`}>
+      <ul className={`${styles.subList} mb-6`}>
         {options
           ? options.map((option) => (
               <li key={option.id} className={styles.subItem}>
-                <CircleCheckBig className={styles.subIcon} stroke={`${isSecond ? "#f26e00" : "#000"}`} />
+                <CircleCheckBig className={styles.subIcon} stroke={`${isSecond ? "#FFE492" : "#000"}`} />
 
                 <p className={styles.subText}>{option.text}</p>
               </li>
@@ -33,7 +33,7 @@ const RateItem: React.FC<RateItemProps> = ({ rate }) => {
           : ""}
       </ul>
 
-      <Button className={`${styles.button} px-5 py-2`}>
+      <Button className={`${styles.button} ${isSecond ? `${styles.current}` : ""} px-5 py-2`}>
         Подробнее
       </Button>
     </li>
