@@ -1,0 +1,37 @@
+.about {
+    background-color: var(--bg-first);
+    
+    .customContainer {
+        display: grid;
+        grid-template-columns: 46% 1fr;
+    }
+
+    .content {
+        padding: 100px 0;
+        padding-left: 120px;
+    }
+    
+    .title {
+        margin-bottom: 30px;
+        font-size: 36px;
+
+        span {
+            color: var(--text-second);
+        }
+    }
+
+    .text {
+        margin-bottom: 50px;
+    }
+
+    .button {
+        background-color: var(--bg-six);
+        color: var(--text-first);
+        
+        .arrow {
+            width: 20px;
+            height: auto;
+            margin-left: 10px;
+        }
+    }
+}

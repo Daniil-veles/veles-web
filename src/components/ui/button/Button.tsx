@@ -1,15 +1,16 @@
-import styles from './Button.module.scss';
+import styled from 'styled-components';
 
 interface ButtonProps {
-    onClick: () => void;
+    onClick?: () => void;
     children: React.ReactNode;
+    className: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, children }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, children, className }) => {
     return (
         <button
             onClick={onClick}
-            className={`${styles.button} rounded-md`}
+            className={`${className} rounded-md`}
         >
             {children}
         </button>

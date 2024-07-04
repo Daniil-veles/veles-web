@@ -1,22 +1,35 @@
-import HeaderMenu from '../../elements/header-menu/HeaderMenu';
-import Button from '../../ui/button/Button';
-import styles from './Header.module.scss';
-
+import { CircleUser, MoveRight } from "lucide-react";
+import HeaderMenu from "../../elements/header-menu/HeaderMenu";
+import Button from "../../ui/button/Button";
+import styles from "./Header.module.scss";
+import Container from "@/components/container/Container";
 
 const Header: React.FC = () => {
-    return (
-        <div className={styles.header}>
-            <div className={`${styles.wrapper} container mx-auto flex justify-between items-center rounded-md`}>
-                <img src="" alt="" className={styles.logo} />
+  return (
+    <div className={styles.header}>
+      <Container>
+        <div
+          className={`${styles.wrapper} container mx-auto flex justify-between items-center rounded-md`}
+        >
+          <img src="" alt="" className={styles.logo} />
 
-                <HeaderMenu />
+          <HeaderMenu />
 
-                    <Button onClick={() => console.log('Клик')}>
-                        Попробовать
-                    </Button>
-            </div>
+          <div className="flex items-center">
+            <Button
+              bgColor="--bg-six"
+              color="--text-primary"
+              onClick={() => console.log("Clicked")}
+            >
+              Регистрация
+            </Button>
+
+            <CircleUser className={styles.user} />
+          </div>
         </div>
-    );
+      </Container>
+    </div>
+  );
 };
 
 export default Header;

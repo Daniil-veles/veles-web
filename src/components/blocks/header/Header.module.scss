@@ -5,7 +5,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
-    background-color: var(--bg-third);
+    background-color: var(--bg-third-easy);
     padding: 16px 30px;
 
     &::before {
@@ -26,5 +26,9 @@
     width: 100px;
     height: 30px;
     margin-right: 40px;
+  }
+
+  .user {
+    margin-left: 20px;
   }
 }

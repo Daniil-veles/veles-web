@@ -1,4 +1,8 @@
 .item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-height: 30px;
     margin-right: 40px;
     text-decoration: none;
     cursor: pointer;
@@ -6,7 +10,12 @@
     transition-duration: 0.3s;
     transition-property: color;
 
-    &:hover {
-        color: var(--text-eight);
+    a {
+        display: block;
+        height: 100%;
+
+        &:hover {
+            color: var(--text-second);
+        }
     }
 }

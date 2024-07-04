@@ -1,8 +1,13 @@
 import React, { ReactNode } from "react";
 
-const Container: React.FC<{children: ReactNode}> = ({children}) => {
+interface ContainerProps {
+    className?: string;
+    children: React.ReactNode;
+}
+
+const Container: React.FC<ContainerProps> = ({className, children}) => {
    return (
-       <div className='container mx-auto'>
+       <div className={`${className} container mx-auto`}>
            {children}
        </div>
    );
