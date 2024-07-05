@@ -1,8 +1,8 @@
 import { CircleUser, MoveRight } from "lucide-react";
 import HeaderMenu from "../../elements/header-menu/HeaderMenu";
-import Button from "../../ui/button/Button";
 import styles from "./Header.module.scss";
 import Container from "@/components/container/Container";
+import CustomButton from "@/components/ui/custom-button/CustomButton";
 
 const Header: React.FC = () => {
   return (
@@ -16,12 +16,12 @@ const Header: React.FC = () => {
           <HeaderMenu />
 
           <div className="flex items-center">
-            <Button
+            <CustomButton
               className={styles.button}
               onClick={() => console.log("Clicked")}
             >
               Регистрация
-            </Button>
+            </CustomButton>
 
             <CircleUser className={styles.user} />
           </div>

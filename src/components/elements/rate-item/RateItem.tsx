@@ -1,7 +1,7 @@
 import { Rate } from "@/types/types";
 import styles from "./RateItem.module.scss";
 import { CircleCheckBig } from "lucide-react";
-import Button from "@/components/ui/button/Button";
+import CustomButton from "@/components/ui/custom-button/CustomButton";
 
 interface RateItemProps {
   rate: Rate;
@@ -33,9 +33,9 @@ const RateItem: React.FC<RateItemProps> = ({ rate }) => {
           : ""}
       </ul>
 
-      <Button className={`${styles.button} ${isSecond ? `${styles.current}` : ""} px-5 py-2`}>
+      <CustomButton className={`${styles.button} ${isSecond ? `${styles.current}` : ""} px-5 py-2`}>
         Подробнее
-      </Button>
+      </CustomButton>
     </li>
   );
 };

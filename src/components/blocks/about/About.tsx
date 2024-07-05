@@ -1,6 +1,6 @@
-import Button from "@/components/ui/button/Button";
 import styles from "./About.module.scss";
 import Container from "@/components/container/Container";
+import CustomButton from "@/components/ui/custom-button/CustomButton";
 import { MoveRight } from "lucide-react";
 
 const About: React.FC = () => {
@@ -23,7 +23,7 @@ const About: React.FC = () => {
             oporteat. Eum an expetenda consequat.
           </p>
 
-          <Button
+          <CustomButton
             className={`${styles.button} px-3 py-2`}
             onClick={() => console.log()}
           >
@@ -31,7 +31,7 @@ const About: React.FC = () => {
               Узнать больше
               <MoveRight className={styles.arrow} size={10} />
             </span>
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.wrapper}>

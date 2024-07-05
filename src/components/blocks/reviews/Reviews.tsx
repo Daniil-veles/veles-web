@@ -1,6 +1,8 @@
 import styles from "./Reviews.module.scss";
 import React from "react";
 import Container from "@/components/container/Container";
+import { Carousel } from "@/components/ui/carousel";
+
 
 const Reviews: React.FC = () => {
   return (
@@ -16,7 +18,15 @@ const Reviews: React.FC = () => {
             </p>
           </div>
 
-          {/* <CustomCarousel /> */}
+          {/* <Carousel> */}
+            {/* <CarouselContent> */}
+              {/* <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem> */}
+            {/* </CarouselContent> */}
+            {/* <CarouselPrevious /> */}
+            {/* <CarouselNext /> */}
+          {/* </Carousel> */}
         </div>
       </Container>
     </div>

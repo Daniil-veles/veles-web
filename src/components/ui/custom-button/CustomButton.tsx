@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 interface ButtonProps {
     onClick?: () => void;
@@ -6,7 +6,7 @@ interface ButtonProps {
     className: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, children, className }) => {
+const CustomButton: React.FC<ButtonProps> = ({ onClick, children, className }) => {
     return (
         <button
             onClick={onClick}
@@ -17,4 +17,4 @@ const Button: React.FC<ButtonProps> = ({ onClick, children, className }) => {
     );
 };
 
-export default Button;
+export default CustomButton;

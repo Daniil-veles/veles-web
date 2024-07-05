@@ -158,3 +158,32 @@ export const rates = [
         ],
     }
 ]
+
+
+export const carousel = [
+    {
+        id: 1,
+        text: 'Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu usu vidit tractatos, vero tractatos ius an, in mel diceret persecuti.',
+        img: '/img-1.png'
+    },
+    {
+        id: 2,
+        text: 'Text-2 Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu usu vidit tractatos, vero tractatos ius an, in mel diceret persecuti.',
+        img: '/img-2.png'
+    },
+    {
+        id: 3,
+        text: 'Text-3 Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu usu vidit tractatos, vero tractatos ius an, in mel diceret persecuti.',
+        img: '/img-3.png'
+    },
+    {
+        id: 4,
+        text: 'Text-4 Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu usu vidit tractatos, vero tractatos ius an, in mel diceret persecuti.',
+        img: '/img-4.png'
+    },
+    {
+        id: 5,
+        text: 'Text-5 Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu usu vidit tractatos, vero tractatos ius an, in mel diceret persecuti.',
+        img: '/img-5.png'
+    },
+]
