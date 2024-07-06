@@ -7,7 +7,7 @@ const RateList: React.FC = () => {
     <ul className={styles.list}>
       {rates
         ? rates.map((rate) => (
-            <RateItem key={`feature-${rate.id}`} rate={rate} />
+            <RateItem key={`rate-${rate.id}`} rate={rate} />
           ))
         : ""}
     </ul>

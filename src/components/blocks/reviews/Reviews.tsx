@@ -1,7 +1,7 @@
 import styles from "./Reviews.module.scss";
 import React from "react";
 import Container from "@/components/container/Container";
-import { Carousel } from "@/components/ui/carousel";
+// import { Carousel } from "@/components/ui/carousel";
 
 
 const Reviews: React.FC = () => {
