@@ -41,19 +41,30 @@ const Reviews: React.FC = () => {
     <div className={styles.container}>
       <Container className={styles.customContainer}>
         <div className={styles.content}>
-          <h2 className={styles.title}>Customers quotes</h2>
+          <h2 className="mb-5 text-second">Customers quotes</h2>
 
-          <p className={styles.text}>
+          <p className="">
             Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
             atqui laudem an.
           </p>
         </div>
 
         <div className={styles.slider} ref={emblaRef}>
-          <div className={styles.container}>
+          <div className={styles.sliderContainer}>
             {Array.from({ length: 5 }).map((_, index) => (
-              <div className={styles.slide} key={index}>
-                <Card className={styles.content}>
+              <div key={index} className={styles.slide}>
+                <div
+                  className={`${styles.slideCover} ${
+                    selectedIndex !== index
+                      ? styles["slideCover--unActive"]
+                      : ""
+                  }`}
+                ></div>
+                <Card
+                  className={`${styles.card} ${
+                    selectedIndex === index ? styles["card--active"] : ""
+                  }`}
+                >
                   <CardContent className="flex justify-center p-6">
                     <p className="">{carousel[index].text}</p>
                   </CardContent>
@@ -69,7 +80,7 @@ const Reviews: React.FC = () => {
               <button
                 key={index}
                 className={`${styles.dot} ${
-                  selectedIndex === index ? `${styles.dot}--selected` : ""
+                  selectedIndex === index ? styles["dot--selected"] : ""
                 }`}
                 onClick={() => scrollTo(index)}
               />

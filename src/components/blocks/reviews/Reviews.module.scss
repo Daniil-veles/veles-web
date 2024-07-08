@@ -2,7 +2,15 @@
   .customContainer {
     display: grid;
     grid-template-columns: 46% 1fr;
-    padding: 40px 0;
+    padding: 100px 0;
+    gap: 40px;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 120px;
+    }
   }
 
   .slider {
@@ -10,36 +18,63 @@
     width: 100%;
     margin-bottom: 0;
 
-    .container {
+    .sliderContainer {
       display: flex;
       align-items: center;
-      padding-bottom: 50px;
 
       .slide {
         position: relative;
-        min-width: 60%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        min-width: 65%;
         height: 100%;
         min-height: 240px;
+        padding: 0 10px;
+        padding-bottom: 20px;
         margin-right: 60px;
+        align-self: center;
 
-        .content {
-            position: relative;
-            display: flex;
-            align-items: center;
-            min-height: 100%;
+        .slideCover {
+          position: absolute;
+          width: 100%;
+          height: 100%;
 
-            .img {
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translate(-50%, 50%);
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                z-index: 2;
-                background-color: var(--bg-third);
-                border: none;
-            }
+          &--unActive {
+            background-color: rgba(255, 255, 255, 0.5);
+            z-index: 2;
+          }
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .card {
+          position: relative;
+          display: flex;
+          align-items: center;
+          min-height: 100%;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
+
+          &--active {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.07);
+            transform: translateY(-7px);
+          }
+
+          .img {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            z-index: 2;
+            background-color: var(--bg-third);
+            border: none;
+          }
         }
       }
     }
@@ -47,8 +82,7 @@
 
   .dots {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    margin-left: 23.5%;
 
     .dot {
       width: 10px;
@@ -57,9 +91,10 @@
       background-color: gray;
       margin: 0 5px;
       cursor: pointer;
+      background-color: var(--bg-third);
 
       &--selected {
-        background-color: black;
+        background-color: var(--bg-fourth);
       }
     }
   }

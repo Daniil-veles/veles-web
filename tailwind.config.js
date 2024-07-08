@@ -1,5 +1,26 @@
 const { fontFamily } = require("tailwindcss/defaultTheme")
 
+const bgColors = {
+  'first': 'var(--bg-first)',
+  'second': 'var(--bg-second)',
+  'third': 'var(--bg-third)',
+  'third-easy': 'var(--bg-third-easy)',
+  'fourth': 'var(--bg-fourth)',
+  'fourth-light': 'var(--bg-fourth-light)',
+  'fifth': 'var(--bg-fifth)',
+  'six': 'var(--bg-six)',
+}
+
+const textColors = {
+  'first': 'var(--text-first)',
+  'second': 'var(--text-second)',
+  'third': 'var(--text-third)',
+  'fourth': 'var(--text-fourth)',
+  'fifth': 'var(--text-fifth)',
+  'six': 'var(--text-six)',
+};
+
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -23,6 +44,8 @@ module.exports = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       colors: {
+        ...bgColors,
+        ...textColors,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

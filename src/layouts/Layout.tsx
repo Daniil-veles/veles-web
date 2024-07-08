@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import Header from '../components/blocks/header/Header';
 import styles from './Layout.module.scss';
+import Footer from '@/components/blocks/footer/Footer';
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
     return (
@@ -9,7 +10,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
             {children}
 
-            {/* <Footer></Footer> */}
+            <Footer></Footer>
         </div>
     );
 };
