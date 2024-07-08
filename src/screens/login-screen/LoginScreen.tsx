@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,22 +17,36 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Container from "@/components/container/Container";
+import { Select, SelectContent, SelectItem } from "@/components/ui/select";
 
 // Создание схемы валидации с помощью Zod
 const formSchema = z.object({
   name: z.string().min(1, { message: "Имя обязательно." }),
-  phone: z.string().regex(/^(?:\+7|8)\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{2}[\s.-]?\d{2}$/, {
-    message: "Неверный формат телефона. Пример: +7 (123) 456-78-90 или 8 (123) 456-78-90.",
-  }),
+  phone: z
+    .string()
+    .regex(/^(?:\+7|8)\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{2}[\s.-]?\d{2}$/, {
+      message:
+        "Неверный формат телефона. Пример: +7 (123) 456-78-90 или 8 (123) 456-78-90.",
+    }),
   email: z.string().email({ message: "Неверный адрес электронной почты." }),
   address: z.string().min(1, { message: "Адрес обязателен." }),
   location: z.string().min(1, { message: "Местоположение обязательно." }),
   info: z.string().min(1, { message: "Информация обязательна." }),
-  type: z.string().min(1, { message: "Тип обязателен." }),
+  type: z.enum(
+    [
+      "ООО", // Общество с ограниченной ответственностью (ООО)
+      "АО", // Акционерное общество (АО)
+      "ТНВ", // Товарищество на вере (ТНВ)
+      "ИП", // Индивидуальный предприниматель (ИП)
+    ],
+    { message: "Тип обязателен." }
+  ),
   name_legal: z.string().min(1, { message: "Юридическое имя обязательно." }),
-  INN: z.string().min(1, { message: "ИНН обязателен." }),
-  KPP: z.string().min(1, { message: "КПП обязателен." }),
-  OGRN: z.string().min(1, { message: "ОГРН обязателен." }),
+  INN: z.string().length(10, { message: "ИНН обязателен." }),
+  KPP: z.string().length(9, { message: "КПП обязателен." }),
+  OGRN: z
+    .string()
+    .length(13, { message: "ОГРН должен содержать 13 символов." }),
   OKPO: z.string().min(1, { message: "ОКПО обязательно." }),
   BIK: z.string().min(1, { message: "БИК обязателен." }),
   bank_name: z.string().min(1, { message: "Название банка обязательно." }),
@@ -56,7 +70,17 @@ const fields = [
     placeholder: "Введите местоположение",
   },
   { name: "info", label: "Информация", placeholder: "Введите информацию" },
-  { name: "type", label: "Тип", placeholder: "Введите тип" },
+  {
+    name: "type",
+    label: "Организационная структура",
+    placeholder: "Выберите тип",
+    options: [
+      { label: "Общество с ограниченной ответственностью (ООО)", value: "ООО" },
+      { label: "Акционерное общество (АО)", value: "АО" },
+      { label: "Товарищество на вере (ТНВ)", value: "ТНВ" },
+      { label: "Индивидуальный предприниматель (ИП)", value: "ИП" },
+    ],
+  },
   {
     name: "name_legal",
     label: "Юридическое имя",
@@ -147,10 +171,30 @@ const LoginScreen: React.FC = () => {
                         <FormItem>
                           <FormLabel>{field.label}</FormLabel>
                           <FormControl>
-                            <Input
-                              placeholder={field.placeholder}
-                              {...formField}
-                            />
+                            {field.options ? (
+                              <Select
+                                defaultValue={form.getValues()[field.name]}
+                                onValueChange={(value) =>
+                                  form.setValue(field.name, value)
+                                }
+                              >
+                                <SelectContent>
+                                  {field.options.map((option) => (
+                                    <SelectItem
+                                      key={option.value}
+                                      value={option.value}
+                                    >
+                                      {option.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Input
+                                placeholder={field.placeholder}
+                                {...formField}
+                              />
+                            )}
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -158,7 +202,9 @@ const LoginScreen: React.FC = () => {
                     />
                   ))}
 
-                  <Button className="col-start-2 col-end-3" type="submit">Submit</Button>
+                  <Button className="col-start-2 col-end-3" type="submit">
+                    Submit
+                  </Button>
                 </form>
               </Form>
             </div>
