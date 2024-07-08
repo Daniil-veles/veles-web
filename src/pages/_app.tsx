@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div
       className={cn(
-        "min-h-screen bg-background font-sans antialiased",
+        "min-h-screen font-sans antialiased",
         fontSans.variable
       )}
     >
