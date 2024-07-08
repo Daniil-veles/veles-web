@@ -1,48 +1,80 @@
 import styles from "./Reviews.module.scss";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import Container from "@/components/container/Container";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import useEmblaCarousel from "embla-carousel-react";
 import { Card, CardContent } from "@/components/ui/card";
-// import { Carousel } from "@/components/ui/carousel";
+import "embla-carousel-class-names";
+import { carousel } from "@/const/const";
 
 const Reviews: React.FC = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    skipSnaps: false,
+    align: "start",
+    containScroll: "trimSnaps",
+  });
+
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on("select", onSelect);
+  }, [emblaApi, setScrollSnaps, onSelect]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (!emblaApi) return;
+      emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+
   return (
     <div className={styles.container}>
       <Container className={styles.customContainer}>
-        <div className="flex">
-          <div className={styles.content}>
-            <h2 className={styles.title}>Customers quotes</h2>
+        <div className={styles.content}>
+          <h2 className={styles.title}>Customers quotes</h2>
 
-            <p className={styles.text}>
-              Brute laoreet efficiendi id his, ea illum nonumes luptatum pro.
-              Usu atqui laudem an.
-            </p>
+          <p className={styles.text}>
+            Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
+            atqui laudem an.
+          </p>
+        </div>
+
+        <div className={styles.slider} ref={emblaRef}>
+          <div className={styles.container}>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div className={styles.slide} key={index}>
+                <Card className={styles.content}>
+                  <CardContent className="flex justify-center p-6">
+                    <p className="">{carousel[index].text}</p>
+                  </CardContent>
+
+                  <img className={styles.img} src="" alt="" />
+                </Card>
+              </div>
+            ))}
           </div>
 
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full max-w-sm"
-          >
-            <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <span className="text-3xl font-semibold">
-                          {index + 1}
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <div className={styles.dots}>
+            {scrollSnaps.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.dot} ${
+                  selectedIndex === index ? `${styles.dot}--selected` : ""
+                }`}
+                onClick={() => scrollTo(index)}
+              />
+            ))}
+          </div>
         </div>
       </Container>
     </div>
