@@ -4,7 +4,7 @@
     top: 16px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
+    z-index: 10;
     background-color: var(--bg-third-easy);
     padding: 16px 30px;
 
@@ -28,7 +28,13 @@
     margin-right: 40px;
   }
 
-  .user {
+  .dropdown {
+    position: relative;
     margin-left: 20px;
   }
+
+  // .dropdownContent {
+  //   position: absolute;
+  // }
+
 }
