@@ -10,13 +10,9 @@ const MainScreen: React.FC = () => {
     <div className="">
       <Layout>
         <About />
-
         <Features />
-
         <Rate />
-
         <Reviews />
-
         <Faq />
       </Layout>
     </div>

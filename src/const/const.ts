@@ -2,7 +2,7 @@ export const menu = [
     {
         'id': 1,
         'text': 'Главная',
-        'link': '#',
+        'link': '/',
     },
     {
         'id': 2,

@@ -2,15 +2,13 @@ import { CircleUser } from "lucide-react";
 import HeaderMenu from "../../elements/header-menu/HeaderMenu";
 import styles from "./Header.module.scss";
 import Container from "@/components/container/Container";
-import CustomButton from "@/components/ui/custom-button/CustomButton";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
@@ -24,12 +22,7 @@ const Header: React.FC = () => {
           <HeaderMenu />
 
           <div className="flex items-center">
-            <CustomButton
-              className={styles.button}
-              onClick={() => console.log("Clicked")}
-            >
-              Регистрация
-            </CustomButton>
+            <Link className={styles.link} href={"/login"}>Регистрация</Link>
 
             <div className="relative flex z-2 items-center">
               <DropdownMenu>
