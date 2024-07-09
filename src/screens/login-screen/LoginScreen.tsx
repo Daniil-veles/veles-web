@@ -2,14 +2,13 @@
 
 import Layout from "@/layouts/Layout";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,132 +16,83 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Container from "@/components/container/Container";
-import { Select, SelectContent, SelectItem } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useEffect, useState } from "react";
+import {
+  createFormValidation,
+  fields,
+  organizationSelect,
+  OrganizationType,
+} from "./utils";
 
-// Создание схемы валидации с помощью Zod
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Имя обязательно." }),
-  phone: z
-    .string()
-    .regex(/^(?:\+7|8)\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{2}[\s.-]?\d{2}$/, {
-      message:
-        "Неверный формат телефона. Пример: +7 (123) 456-78-90 или 8 (123) 456-78-90.",
-    }),
-  email: z.string().email({ message: "Неверный адрес электронной почты." }),
-  address: z.string().min(1, { message: "Адрес обязателен." }),
-  location: z.string().min(1, { message: "Местоположение обязательно." }),
-  info: z.string().min(1, { message: "Информация обязательна." }),
-  type: z.enum(
-    [
-      "ООО", // Общество с ограниченной ответственностью (ООО)
-      "АО", // Акционерное общество (АО)
-      "ТНВ", // Товарищество на вере (ТНВ)
-      "ИП", // Индивидуальный предприниматель (ИП)
-    ],
-    { message: "Тип обязателен." }
-  ),
-  name_legal: z.string().min(1, { message: "Юридическое имя обязательно." }),
-  INN: z.string().length(10, { message: "ИНН обязателен." }),
-  KPP: z.string().length(9, { message: "КПП обязателен." }),
-  OGRN: z
-    .string()
-    .length(13, { message: "ОГРН должен содержать 13 символов." }),
-  OKPO: z.string().min(1, { message: "ОКПО обязательно." }),
-  BIK: z.string().min(1, { message: "БИК обязателен." }),
-  bank_name: z.string().min(1, { message: "Название банка обязательно." }),
-  bank_address: z.string().min(1, { message: "Адрес банка обязателен." }),
-  corr_account: z
-    .string()
-    .min(1, { message: "Корреспондентский счёт обязателен." }),
-  employees: z
-    .array(z.string())
-    .nonempty({ message: "Как минимум один сотрудник обязателен." }),
-});
+const createFormFields = (formSchema: OrganizationType) => {
+  const schema = formSchema; // Создаем схему для указанного типа организации
 
-const fields = [
-  { name: "name", label: "Имя", placeholder: "Введите имя" },
-  { name: "phone", label: "Телефон", placeholder: "Введите телефон" },
-  { name: "email", label: "Email", placeholder: "Введите email" },
-  { name: "address", label: "Адрес", placeholder: "Введите адрес" },
-  {
-    name: "location",
-    label: "Местоположение",
-    placeholder: "Введите местоположение",
-  },
-  { name: "info", label: "Информация", placeholder: "Введите информацию" },
-  {
-    name: "type",
-    label: "Организационная структура",
-    placeholder: "Выберите тип",
-    options: [
-      { label: "Общество с ограниченной ответственностью (ООО)", value: "ООО" },
-      { label: "Акционерное общество (АО)", value: "АО" },
-      { label: "Товарищество на вере (ТНВ)", value: "ТНВ" },
-      { label: "Индивидуальный предприниматель (ИП)", value: "ИП" },
-    ],
-  },
-  {
-    name: "name_legal",
-    label: "Юридическое имя",
-    placeholder: "Введите юридическое имя",
-  },
-  { name: "INN", label: "ИНН", placeholder: "Введите ИНН" },
-  { name: "KPP", label: "КПП", placeholder: "Введите КПП" },
-  { name: "OGRN", label: "ОГРН", placeholder: "Введите ОГРН" },
-  { name: "OKPO", label: "ОКПО", placeholder: "Введите ОКПО" },
-  { name: "BIK", label: "БИК", placeholder: "Введите БИК" },
-  {
-    name: "bank_name",
-    label: "Название банка",
-    placeholder: "Введите название банка",
-  },
-  {
-    name: "bank_address",
-    label: "Адрес банка",
-    placeholder: "Введите адрес банка",
-  },
-  {
-    name: "corr_account",
-    label: "Корреспондентский счёт",
-    placeholder: "Введите корреспондентский счёт",
-  },
-  {
-    name: "employees",
-    label: "Сотрудники",
-    placeholder: "Введите сотрудников через запятую",
-  },
-];
+  // Фильтруем поля формы на основе наличия их в схеме
+  const formFields = fields.filter(
+    (field) => schema.shape[field.name] !== undefined
+  );
+
+  return formFields;
+};
 
 const LoginScreen: React.FC = () => {
-  // 1. Определение формы.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      phone: "",
-      email: "",
-      address: "",
-      location: "",
-      info: "",
-      type: "",
-      name_legal: "",
-      INN: "",
-      KPP: "",
-      OGRN: "",
-      OKPO: "",
-      BIK: "",
-      bank_name: "",
-      bank_address: "",
-      corr_account: "",
-      employees: [""],
-    },
+  const [organizationType, setOrganizationType] = useState(
+    organizationSelect.options[0].value
+  );
+  const [formData, setFormData] = useState<any>({
+    type: organizationType,
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    location: "",
+    info: "",
+    name_legal: "",
+    INN: "",
+    KPP: "",
+    OGRN: "",
+    OKPO: "",
+    BIK: "",
+    bank_name: "",
+    bank_address: "",
+    corr_account: "",
+    employees: [""],
   });
+
+  // Cоздает поля формы и схему валидации для организации по Орг. структуре
+  const formSchema = createFormValidation(organizationType as OrganizationType);
+  const formFields = createFormFields(formSchema);
+  console.log(`Поля формы для ${organizationType}:`, formFields);
+
+  // 1. Создаем hook форму.
+  const { handleSubmit, control, ...form } = useForm<
+    z.infer<typeof formSchema>
+  >({
+    resolver: zodResolver(formSchema),
+    defaultValues: formData,
+  });
+
+  // useEffect(() => {
+  //   // Save form data to state when form values change
+  //   const subscription = watch((value, { name }) => {
+  //     setFormData({ ...formData, [name]: value });
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch, formData]);
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+    // Optionally, perform form submission logic here
+    // reset(); // Reset form after submission
+    setFormData({ ...formData, ...values });
   }
 
   return (
@@ -157,44 +107,66 @@ const LoginScreen: React.FC = () => {
             <div className="w-full">
               <h2 className="text-center mb-3">Регистрация</h2>
 
-              <Form {...form}>
+              <Form
+                {...form}
+                // handleSubmit={handleSubmit(onSubmit)}
+                // onSubmit={handleSubmit(onSubmit)}
+              >
                 <form
-                  onSubmit={form.handleSubmit(onSubmit)}
+                  onSubmit={handleSubmit(onSubmit)}
                   className="grid grid-cols-3 gap-4"
                 >
-                  {fields.map((field) => (
+                  <FormField
+                    key={organizationSelect.name}
+                    control={control}
+                    name={
+                      organizationSelect.name as keyof z.infer<
+                        typeof formSchema
+                      >
+                    }
+                    render={() => (
+                      <FormItem className="row-span-full col-span-full">
+                        <FormLabel>{organizationSelect.label}</FormLabel>
+                        <FormControl>
+                          <Select
+                            defaultValue={organizationSelect.options[0].value}
+                            onValueChange={(value) =>
+                              setOrganizationType(value)
+                            }
+                          >
+                            <SelectTrigger className="text-left">
+                              <SelectValue placeholder="Выберите тип" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {organizationSelect.options.map((option) => (
+                                <SelectItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {formFields.map((field) => (
                     <FormField
                       key={field.name}
-                      control={form.control}
+                      control={control}
                       name={field.name as keyof z.infer<typeof formSchema>}
                       render={({ field: formField }) => (
                         <FormItem>
                           <FormLabel>{field.label}</FormLabel>
                           <FormControl>
-                            {field.options ? (
-                              <Select
-                                defaultValue={form.getValues()[field.name]}
-                                onValueChange={(value) =>
-                                  form.setValue(field.name, value)
-                                }
-                              >
-                                <SelectContent>
-                                  {field.options.map((option) => (
-                                    <SelectItem
-                                      key={option.value}
-                                      value={option.value}
-                                    >
-                                      {option.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            ) : (
-                              <Input
-                                placeholder={field.placeholder}
-                                {...formField}
-                              />
-                            )}
+                            <Input
+                              placeholder={field.placeholder}
+                              {...formField}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -202,9 +174,14 @@ const LoginScreen: React.FC = () => {
                     />
                   ))}
 
-                  <Button className="col-start-2 col-end-3" type="submit">
-                    Submit
-                  </Button>
+                  <div className="row-start-auto row-end-auto col-span-full grid grid-cols-3 gap-4">
+                    <Button
+                      className="col-start-2 col-end-3 col-span-1"
+                      type="submit"
+                    >
+                      Отправить
+                    </Button>
+                  </div>
                 </form>
               </Form>
             </div>
