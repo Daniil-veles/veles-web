@@ -8,7 +8,7 @@ import Layout from "@/layouts/Layout";
 const MainScreen: React.FC = () => {
   return (
     <div className="">
-      <Layout>
+      <Layout title="Главная страница" description="Это главная страница сайта">
         <About />
         <Features />
         <Rate />
