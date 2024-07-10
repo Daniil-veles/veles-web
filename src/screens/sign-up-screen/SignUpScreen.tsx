@@ -1,3 +1,7 @@
+// import "react-day-picker/dist/style.css";
+// import "react-day-picker/dist/style.css";
+import { default as defaultStyles } from "react-day-picker/dist/style.module.css";
+
 import styles from "./SignUpScreen.module.scss";
 import Layout from "@/layouts/Layout";
 
@@ -14,20 +18,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Container from "@/components/container/Container";
-import {
-  FormControl,
-} from "@/components/ui/form";
 import { useState } from "react";
-// import { Calendar } from "@/components/ui/calendar";
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover";
-// import { CalendarIcon } from "lucide-react";
-// import { Calendar as ReactDatePicker } from 'react-datepicker';
-// import { CalendarIcon } from '@heroicons/react/outline'; // используйте ваш иконопак
-// import { Popover, PopoverTrigger, PopoverContent } from '@radix-ui/react-popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { DayPicker } from "react-day-picker";
+// import { default as defaultStyles } from "react-day-picker/dist/style.module.css";
+import { ru } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
 
 const SignUpScreen: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -55,6 +56,7 @@ const SignUpScreen: React.FC = () => {
                     <Input id="last-name" placeholder="Robinson" required />
                   </div>
                 </div>
+
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -64,42 +66,16 @@ const SignUpScreen: React.FC = () => {
                     required
                   />
                 </div>
+                
                 <div className="grid gap-2">
                   <Label htmlFor="password">Password</Label>
                   <Input id="password" type="password" />
                 </div>
-
-                {/* <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button variant="outline">
-                        <span>
-                          {selectedDate
-                            ? selectedDate.toDateString()
-                            : "Pick a date"}
-                        </span>
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <ReactDatePicker
-                      selected={selectedDate}
-                      onChange={(date) => setSelectedDate(date)}
-                      filterDate={(date) =>
-                        date <= new Date() && date >= new Date("1900-01-01")
-                      }
-                      inline
-                    />
-                  </PopoverContent>
-                </Popover> */}
-
-                {/* <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border"
-                /> */}
+                
+                <div className="grid gap-2">
+                  <Label htmlFor="date">Password</Label>
+                  <Input id="date" type="date" />
+                </div>
 
                 <Button type="submit" className="w-full">
                   Create an account
