@@ -17,3 +17,5 @@ export const OrganizationService = {
         return data;
     }
 }
+
+// /auth/register
