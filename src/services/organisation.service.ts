@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhosh:4200';
-axios.defaults.baseURL = API_URL;
+axios.defaults.baseURL = process.env.API_URL;
 
 export const OrganizationService = {
     async addNew() {
