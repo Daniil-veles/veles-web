@@ -5,19 +5,15 @@ import Footer from "@/components/blocks/footer/Footer";
 import Meta, { IMeta } from "@/seo/Meta";
 
 interface ILayout extends IMeta {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Layout: React.FC<ILayout> = ({
-  children,
-  title,
-  description,
-}) => {
+const Layout: React.FC<ILayout> = ({ children, title, description }) => {
   return (
     <Meta title={title} description={description}>
       <div className={styles.layout}>
         <Header></Header>
-        {children}
+        <main className={styles.main}>{children}</main>
         <Footer></Footer>
       </div>
     </Meta>

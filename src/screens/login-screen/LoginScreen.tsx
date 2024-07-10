@@ -1,194 +1,81 @@
-"use client";
-
+import styles from "./LoginScreen.module.scss";
 import Layout from "@/layouts/Layout";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormContext } from "react-hook-form";
-import { z } from "zod";
+
+import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Container from "@/components/container/Container";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useEffect, useState } from "react";
-import {
-  createFormValidation,
-  fields,
-  organizationSelect,
-  OrganizationType,
-} from "./utils";
-
-const createFormFields = (formSchema: OrganizationType) => {
-  const schema = formSchema; // Создаем схему для указанного типа организации
-
-  // Фильтруем поля формы на основе наличия их в схеме
-  const formFields = fields.filter(
-    (field) => schema.shape[field.name] !== undefined
-  );
-
-  return formFields;
-};
 
 const LoginScreen: React.FC = () => {
-  const [organizationType, setOrganizationType] = useState(
-    organizationSelect.options[0].value
-  );
-  const [formData, setFormData] = useState<any>({
-    type: organizationType,
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    location: "",
-    info: "",
-    name_legal: "",
-    INN: "",
-    KPP: "",
-    OGRN: "",
-    OKPO: "",
-    BIK: "",
-    bank_name: "",
-    bank_address: "",
-    corr_account: "",
-    employees: [""],
-  });
-
-  // Cоздает поля формы и схему валидации для организации по Орг. структуре
-  const formSchema = createFormValidation(organizationType as OrganizationType);
-  const formFields = createFormFields(formSchema);
-  console.log(`Поля формы для ${organizationType}:`, formFields);
-
-  // 1. Создаем hook форму.
-  const { handleSubmit, control, ...form } = useForm<
-    z.infer<typeof formSchema>
-  >({
-    resolver: zodResolver(formSchema),
-    defaultValues: formData,
-  });
-
-  // useEffect(() => {
-  //   // Save form data to state when form values change
-  //   const subscription = watch((value, { name }) => {
-  //     setFormData({ ...formData, [name]: value });
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch, formData]);
-
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Optionally, perform form submission logic here
-    // reset(); // Reset form after submission
-    setFormData({ ...formData, ...values });
-  }
-
   return (
-    <div className="">
-      <Layout>
-        <Container>
-          <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
-            <div className="w-full">
-              <img className="bg-fourth h-full" src="" alt="" />
-            </div>
-
-            <div className="w-full">
-              <h2 className="text-center mb-3">Регистрация</h2>
-
-              <Form
-                {...form}
-                // handleSubmit={handleSubmit(onSubmit)}
-                // onSubmit={handleSubmit(onSubmit)}
-              >
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="grid grid-cols-3 gap-4"
-                >
-                  <FormField
-                    key={organizationSelect.name}
-                    control={control}
-                    name={
-                      organizationSelect.name as keyof z.infer<
-                        typeof formSchema
-                      >
-                    }
-                    render={() => (
-                      <FormItem className="row-span-full col-span-full">
-                        <FormLabel>{organizationSelect.label}</FormLabel>
-                        <FormControl>
-                          <Select
-                            defaultValue={organizationSelect.options[0].value}
-                            onValueChange={(value) =>
-                              setOrganizationType(value)
-                            }
-                          >
-                            <SelectTrigger className="text-left">
-                              <SelectValue placeholder="Выберите тип" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {organizationSelect.options.map((option) => (
-                                <SelectItem
-                                  key={option.value}
-                                  value={option.value}
-                                >
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {formFields.map((field) => (
-                    <FormField
-                      key={field.name}
-                      control={control}
-                      name={field.name as keyof z.infer<typeof formSchema>}
-                      render={({ field: formField }) => (
-                        <FormItem>
-                          <FormLabel>{field.label}</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder={field.placeholder}
-                              {...formField}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+    <>
+      <Layout
+        title="Авторизация"
+        description="Это главная страница сайта"
+      >
+        <Container className={styles.customContainer}>
+          <div className="w-full h-full grid grid-cols-2">
+            <div className="flex items-center justify-center">
+              <div className="mx-auto grid w-[350px] gap-6">
+                <div className="grid gap-2 text-center">
+                  <h1 className="text-3xl font-bold">Login</h1>
+                  <p className="text-balance text-muted-foreground">
+                    Enter your email below to login to your account
+                  </p>
+                </div>
+                <div className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="m@example.com"
+                      required
                     />
-                  ))}
-
-                  <div className="row-start-auto row-end-auto col-span-full grid grid-cols-3 gap-4">
-                    <Button
-                      className="col-start-2 col-end-3 col-span-1"
-                      type="submit"
-                    >
-                      Отправить
-                    </Button>
                   </div>
-                </form>
-              </Form>
+                  <div className="grid gap-2">
+                    <div className="flex items-center">
+                      <Label htmlFor="password">Password</Label>
+                      <Link
+                        href="/forgot-password"
+                        className="ml-auto inline-block text-sm underline"
+                      >
+                        Forgot your password?
+                      </Link>
+                    </div>
+                    <Input id="password" type="password" required />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Login
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    Login with Google
+                  </Button>
+                </div>
+                <div className="mt-4 text-center text-sm">
+                  Don&apos;t have an account?{" "}
+                  <Link href="#" className="underline">
+                    Sign up
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="hidden bg-muted lg:block">
+              <Image
+                src="/placeholder.svg"
+                alt="Image"
+                width="1920"
+                height="1080"
+                className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              />
             </div>
           </div>
         </Container>
       </Layout>
-    </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const Header: React.FC = () => {
           <HeaderMenu />
 
           <div className="flex items-center">
-            <Link className={styles.link} href={"/login"}>Регистрация</Link>
+            <Link className={styles.link} href={"/sign-up"}>Регистрация</Link>
 
             <div className="relative flex z-2 items-center">
               <DropdownMenu>
