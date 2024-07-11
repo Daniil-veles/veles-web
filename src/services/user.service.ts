@@ -1,34 +1,23 @@
-import { UserData } from '@/types/types';
 import axios from 'axios';
+import { UserData } from '@/types/types';
 
-// axios.defaults.baseURL = process.env.API_URL;
+const apiClient = axios.create({
+    baseURL: process.env.IS_DEV ? '/api' : process.env.API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
 export const UserService = {
-    // async createUser(value: Omit<UserData, 'firstName' | 'lastName'>) {
-    //     try {
-    //         const { data } = await axios.post('/auth/register', value, {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //         return data;
-    //     } catch (error) {
-    //         console.error("Error creating user:", error.message);
-    //         throw error;
-    //     }
-    // },
-
-    async createUser(value: Omit<UserData, 'firstName' | 'lastName'>) {
+    async createUser(userData: Omit<UserData, 'firstName' | 'lastName'>) {
         try {
-            const { data } = await axios.post('/api/auth/register', value, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            return data;
+            const response = await apiClient.post('/auth/register', userData);
+            return response.data;
         } catch (error) {
-            console.error("Error creating user:", error.message.data);
-            throw error; 
+            console.error('Error creating user:', error.message);
+            throw error;
         }
     },
-}
+
+    // Другие методы для работы с пользователем
+};
