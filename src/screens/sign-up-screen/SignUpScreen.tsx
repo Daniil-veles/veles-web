@@ -17,35 +17,37 @@ import Container from "@/components/container/Container";
 import React, { useState } from "react";
 import { UserService } from "@/services/user.service";
 
-interface UserData {
-  email: string;
-  password: string;
-  isActive: boolean | null;
-  isSuperUser: boolean | null;
-  isVerified: boolean | null;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  picture: string;
-  birthDate: string | null;
-}
-
 const SignUpScreen: React.FC = () => {
   const [userData, setUserData] = useState<UserData>({
-    email: "",
-    password: "",
+    email: "dsd@mail.ru",
+    password: "ddsd",
     isActive: true,
     isSuperUser: false,
     isVerified: false,
-    firstName: "",
-    lastName: "",
-    phone: "",
+    fullName: "",
+    firstName: "dsd",
+    lastName: "ds",
+    phone: "dsds",
     picture: "",
     birthDate: "",
   });
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = evt.target;
+
+    if (name === "firstName" || name === "lastName") {
+      const firstName = name === "firstName" ? value : userData["firstName"];
+      const lastName = name === "lastName" ? value : userData["lastName"];
+
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        fullName: `${firstName} ${lastName}`,
+        [name]: value,
+      }));
+
+      return;
+    }
+
     setUserData((prevUserData) => ({
       ...prevUserData,
       [name]: value,
@@ -54,11 +56,22 @@ const SignUpScreen: React.FC = () => {
     console.log(userData);
   }
 
-  function handleSubmit(evt: React.FormEvent) {
+  async function handleSubmit(evt: React.FormEvent) {
     evt.preventDefault();
-    
+    const { firstName, lastName, ...data } = userData;
 
-    // UserService.createUser(userData);
+    console.log(data);
+
+    // const result = UserService.createUser(data);
+    // console.log(result);
+
+    try {
+      const response = await UserService.createUser(data);
+      console.log("User created successfully:", response);
+    } catch (error) {
+      console.error("Failed to create user:", error);
+      // Обработка ошибок, например, показ сообщения пользователю
+    }
   }
 
   return (
@@ -79,6 +92,7 @@ const SignUpScreen: React.FC = () => {
                     <div className="grid gap-2">
                       <Label htmlFor="first-name">First name</Label>
                       <Input
+                        value={userData.firstName}
                         onChange={handleChange}
                         id="first-name"
                         name="firstName"
@@ -90,6 +104,7 @@ const SignUpScreen: React.FC = () => {
                     <div className="grid gap-2">
                       <Label htmlFor="last-name">Last name</Label>
                       <Input
+                        value={userData.lastName}
                         onChange={handleChange}
                         id="last-name"
                         name="lastName"
@@ -103,6 +118,7 @@ const SignUpScreen: React.FC = () => {
                     <div className="grid gap-2">
                       <Label htmlFor="email">Email</Label>
                       <Input
+                        value={userData.email}
                         onChange={handleChange}
                         id="email"
                         name="email"
@@ -115,6 +131,7 @@ const SignUpScreen: React.FC = () => {
                     <div className="grid gap-2">
                       <Label htmlFor="tel">Phone</Label>
                       <Input
+                        value={userData.phone}
                         onChange={handleChange}
                         id="tel"
                         name="phone"
@@ -129,6 +146,7 @@ const SignUpScreen: React.FC = () => {
                     <div className="grid gap-2">
                       <Label htmlFor="password">Password</Label>
                       <Input
+                        value={userData.password}
                         onChange={handleChange}
                         id="password"
                         name="password"
@@ -140,6 +158,7 @@ const SignUpScreen: React.FC = () => {
                     <div className="grid gap-2">
                       <Label htmlFor="date">Date</Label>
                       <Input
+                        value={userData.birthDate}
                         onChange={handleChange}
                         id="date"
                         name="birthDate"

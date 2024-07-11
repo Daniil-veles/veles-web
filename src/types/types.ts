@@ -25,3 +25,18 @@ export interface OptionRate {
     id: number;
     text: string;
 }
+
+
+export interface UserData {
+    email: string;
+    password: string;
+    isActive: boolean | null;
+    isSuperUser: boolean | null;
+    isVerified: boolean | null;
+    fullName: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    picture: string;
+    birthDate: string | null;
+  }
