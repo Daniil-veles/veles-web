@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserData } from '@/types/types';
+import { CreateUserRequest } from '@/types/types';
 
 const apiClient = axios.create({
     baseURL: process.env.IS_DEV ? '/api' : process.env.API_URL,
@@ -9,7 +9,7 @@ const apiClient = axios.create({
 });
 
 export const UserService = {
-    async createUser(userData: Omit<UserData, 'firstName' | 'lastName'>) {
+    async createUser(userData: CreateUserRequest) {
         try {
             const response = await apiClient.post('/auth/register', userData);
             return response.data;
