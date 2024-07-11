@@ -62,15 +62,11 @@ const SignUpScreen: React.FC = () => {
 
     console.log(data);
 
-    // const result = UserService.createUser(data);
-    // console.log(result);
-
     try {
       const response = await UserService.createUser(data);
       console.log("User created successfully:", response);
     } catch (error) {
-      console.error("Failed to create user:", error);
-      // Обработка ошибок, например, показ сообщения пользователю
+      console.error("Failed to create user:", error.response);
     }
   }
 
