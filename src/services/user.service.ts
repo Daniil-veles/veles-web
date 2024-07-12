@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CreateUserRequest } from '@/types/types';
 
 const apiClient = axios.create({
-    baseURL: process.env.IS_DEV ? '/api' : process.env.API_URL,
+    baseURL: process.env.IS_DEV === 'development' ? '/api' : process.env.API_URL,
     headers: {
         'Content-Type': 'application/json',
     },

@@ -30,9 +30,6 @@ export interface OptionRate {
 export interface UserData {
     email: string;
     password: string;
-    isActive: boolean | null;
-    isSuperUser: boolean | null;
-    isVerified: boolean | null;
     fullName: string;
     firstName: string;
     lastName: string;

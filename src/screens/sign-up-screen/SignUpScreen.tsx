@@ -18,16 +18,17 @@ import React from "react";
 import { UserService } from "@/services/user.service";
 import { CreateUserRequest, UserData } from "@/types/types";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import FormField from "@/components/ui/field/FormField";
 
 function adaptUserData(userData: UserData): CreateUserRequest {
   const adaptedData: CreateUserRequest = {
     email: userData.email,
     password: userData.password,
-    is_active: userData.isActive,
-    is_superuser: userData.isSuperUser,
-    is_verified: userData.isVerified,
+    is_active: true,
+    is_superuser: false,
+    is_verified: false,
     full_name: `${userData.firstName} ${userData.lastName}`,
     phone: userData.phone,
     picture: userData.picture,
@@ -49,21 +50,13 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const SignUpScreen: React.FC = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>({
+  const methods = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
 
   async function createUser(data: FormValues) {
     const userData = {
       ...data,
-      isActive: true,
-      isSuperUser: false,
-      isVerified: false,
       picture: "",
       fullName: "",
     };
@@ -76,7 +69,7 @@ const SignUpScreen: React.FC = () => {
       console.log("User created successfully:", response);
 
       // Сбрасывает поля формы
-      reset();
+      methods.reset();
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }
@@ -94,121 +87,100 @@ const SignUpScreen: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit(createUser)}>
-                <div className="grid gap-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="first-name">First name</Label>
-                      <Input
-                        {...register("firstName")}
-                        // value={userData.firstName}
-                        // onChange={handleChange}
-                        id="first-name"
-                        name="firstName"
-                        placeholder="Max"
-                        required
-                      />
-                      {errors.firstName && (
-                        <span className="error">First name is required</span>
-                      )}
+              <FormProvider {...methods}>
+                <form onSubmit={methods.handleSubmit(createUser)}>
+                  <div className="grid gap-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <FormField
+                          id="first-name"
+                          name="firstName"
+                          label="First name"
+                          placeholder="Max"
+                          required
+                        />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <FormField
+                          id="last-name"
+                          name="lastName"
+                          label="First name"
+                          placeholder="Robinson"
+                          required
+                        />
+                      </div>
                     </div>
 
-                    <div className="grid gap-2">
-                      <Label htmlFor="last-name">Last name</Label>
-                      <Input
-                        {...register("lastName")}
-                        // value={userData.lastName}
-                        // onChange={handleChange}
-                        id="last-name"
-                        name="lastName"
-                        placeholder="Robinson"
-                        required
-                      />
-                      {errors.lastName && (
-                        <span className="error">Last name is required</span>
-                      )}
-                    </div>
-                  </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <FormField
+                          id="email"
+                          name="email"
+                          label="Email"
+                          placeholder="Robinson"
+                          type="email"
+                          required
+                        />
+                      </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        {...register("email")}
-                        // value={userData.email}
-                        // onChange={handleChange}
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="m@example.com"
-                        required
-                      />
-                      {errors.email && (
-                        <span className="error">Email is required</span>
-                      )}
+                      <div className="grid gap-2">
+                        <FormField
+                          id="tel"
+                          name="phone"
+                          label="First name"
+                          placeholder="+7 (___) ___-__-__"
+                          type="tel"
+                          required
+                        />
+                      </div>
                     </div>
 
-                    <div className="grid gap-2">
-                      <Label htmlFor="tel">Phone</Label>
-                      <Input
-                        {...register("phone")}
-                        // value={userData.phone}
-                        // onChange={handleChange}
-                        id="tel"
-                        name="phone"
-                        type="tel"
-                        placeholder="+7 (___) ___-__-__"
-                        required
-                      />
-                      {errors.phone && (
-                        <span className="error">Phone is required</span>
-                      )}
-                    </div>
-                  </div>
+                    {/* <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                          {...register("password")}
+                          // value={userData.password}
+                          // onChange={handleChange}
+                          id="password"
+                          name="password"
+                          type="password"
+                          required
+                        />
+                        {errors.password && (
+                          <span className="error">Password must 8 cha</span>
+                        )}
+                      </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="password">Password</Label>
-                      <Input
-                        {...register("password")}
-                        // value={userData.password}
-                        // onChange={handleChange}
-                        id="password"
-                        name="password"
-                        type="password"
-                        required
-                      />
-                      {errors.password && (
-                        <span className="error">Password must 8 cha</span>
-                      )}
-                    </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="date">Date</Label>
+                        <Input
+                          {...register("birthDate")}
+                          // value={userData.birthDate}
+                          // onChange={handleChange}
+                          id="date"
+                          name="birthDate"
+                          type="date"
+                          required
+                        />
+                        {errors.birthDate && (
+                          <span className="error">Date is required</span>
+                        )}
+                      </div>
+                    </div> */}
 
-                    <div className="grid gap-2">
-                      <Label htmlFor="date">Date</Label>
-                      <Input
-                        {...register("birthDate")}
-                        // value={userData.birthDate}
-                        // onChange={handleChange}
-                        id="date"
-                        name="birthDate"
-                        type="date"
-                        required
-                      />
-                      {errors.birthDate && (
-                        <span className="error">Date is required</span>
-                      )}
-                    </div>
-                  </div>
+                    <Button type="submit" className="w-full">
+                      Create an account
+                    </Button>
 
-                  <Button type="submit" className="w-full">
-                    Create an account
-                  </Button>
-
-                  {/* <Button variant="outline" className="w-full">
+                    {/* <Button variant="outline" className="w-full">
                   Sign up with GitHub
                 </Button> */}
-                </div>
-              </form>
+                  </div>
+                </form>
+              </FormProvider>
+
               <div className="mt-4 text-center text-sm">
                 Already have an account?{" "}
                 <Link href="/login" className="underline">
