@@ -40,10 +40,20 @@ function adaptUserData(userData: UserData): CreateUserRequest {
 
 const schema = z.object({
   email: z.string().email(),
-  password: z.string().length(8, { message: "Пароль должен быть 8 символов." }),
+  password: z
+    .string()
+    .length(8, { message: "Пароль должен быть 8 символов." })
+    .regex(/^(?=.*[a-z])(?=.*[0-9]).+$/i, {
+      message: "Пароль должен содержать как минимум одну цифру и одну букву.",
+    }),
   firstName: z.string().min(2, { message: "Имя обязательное." }),
   lastName: z.string().min(2, { message: "Фамилия обязательное." }),
-  phone: z.string().min(10),
+  phone: z
+    .string()
+    .min(10, { message: "Телефон должен быть 10 символов." })
+    .regex(/^\d{10}$/, {
+      message: "Телефон должен содержать только цифры.",
+    }),
   birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
 });
 
@@ -52,6 +62,14 @@ type FormValues = z.infer<typeof schema>;
 const SignUpScreen: React.FC = () => {
   const methods = useForm<FormValues>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      birthDate: "",
+    },
   });
 
   async function createUser(data: FormValues) {
@@ -98,6 +116,7 @@ const SignUpScreen: React.FC = () => {
                           label="First name"
                           placeholder="Max"
                           required
+                          componentType="input"
                         />
                       </div>
 
@@ -105,9 +124,10 @@ const SignUpScreen: React.FC = () => {
                         <FormField
                           id="last-name"
                           name="lastName"
-                          label="First name"
+                          label="Last name"
                           placeholder="Robinson"
                           required
+                          componentType="input"
                         />
                       </div>
                     </div>
@@ -118,9 +138,10 @@ const SignUpScreen: React.FC = () => {
                           id="email"
                           name="email"
                           label="Email"
-                          placeholder="Robinson"
+                          placeholder="Roden"
                           type="email"
                           required
+                          componentType="input"
                         />
                       </div>
 
@@ -128,47 +149,40 @@ const SignUpScreen: React.FC = () => {
                         <FormField
                           id="tel"
                           name="phone"
-                          label="First name"
-                          placeholder="+7 (___) ___-__-__"
+                          label="Phone number"
+                          placeholder="7 (___) ___-__-__"
                           type="tel"
                           required
+                          componentType="input"
                         />
                       </div>
                     </div>
 
-                    {/* <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                       <div className="grid gap-2">
-                        <Label htmlFor="password">Password</Label>
-                        <Input
-                          {...register("password")}
-                          // value={userData.password}
-                          // onChange={handleChange}
+                        <FormField
                           id="password"
                           name="password"
+                          label="Password"
+                          placeholder="****"
                           type="password"
                           required
+                          componentType="input"
                         />
-                        {errors.password && (
-                          <span className="error">Password must 8 cha</span>
-                        )}
                       </div>
 
                       <div className="grid gap-2">
-                        <Label htmlFor="date">Date</Label>
-                        <Input
-                          {...register("birthDate")}
-                          // value={userData.birthDate}
-                          // onChange={handleChange}
+                        <FormField
                           id="date"
                           name="birthDate"
+                          label="Date"
+                          placeholder="22.06.1990"
                           type="date"
                           required
+                          componentType="input"
                         />
-                        {errors.birthDate && (
-                          <span className="error">Date is required</span>
-                        )}
                       </div>
-                    </div> */}
+                    </div>
 
                     <Button type="submit" className="w-full">
                       Create an account

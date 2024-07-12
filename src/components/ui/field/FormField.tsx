@@ -1,8 +1,8 @@
 // import styles from "./FormField.module.scss";
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
 import { FormItem, FormLabel, FormMessage } from "../form";
-import FormInput from "../input/FormInput";
-import React from "react";
+import { Input } from "../input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 
 interface IFormFieldProps {
   id: string;
@@ -12,6 +12,8 @@ interface IFormFieldProps {
   type?: string;
   required?: boolean;
   validation?: RegisterOptions;
+  componentType: "input" | "select";
+  options?: { label: string; value: string }[];
 }
 
 const FormField: React.FC<IFormFieldProps> = ({
@@ -22,6 +24,8 @@ const FormField: React.FC<IFormFieldProps> = ({
   type = "text",
   required = false,
   validation,
+  componentType,
+  options = [],
 }) => {
   const { control } = useFormContext();
 
@@ -33,15 +37,34 @@ const FormField: React.FC<IFormFieldProps> = ({
         rules={{ required, ...validation }}
         render={({ field, fieldState: { error } }) => (
           <FormItem>
-            <FormLabel htmlFor={name}>{label}</FormLabel>
-            <FormInput
-              id={id}
-              name={name}
-              placeholder={placeholder}
-              type={type}
-              required={required}
-              validation={validation}
-            />
+            <FormLabel htmlFor={id}>{label}</FormLabel>
+            {componentType === "input" ? (
+              <Input
+                {...field}
+                id={id}
+                name={name}
+                type={type}
+                placeholder={placeholder}
+                required={required}
+              />
+            ) : componentType === "select" ? (
+              <Select
+                {...field}
+                value={field.value || ""}
+                onValueChange={field.onChange}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  {options.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : null}
             {error && <FormMessage>{error.message}</FormMessage>}
           </FormItem>
         )}
