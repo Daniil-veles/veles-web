@@ -9,7 +9,7 @@ export interface UserData {
     birthDate: string;
 }
 
-export interface CreateUserRequest {
+export interface AdaptedUserData {
     email: string;
     password: string;
     is_active: boolean | null;

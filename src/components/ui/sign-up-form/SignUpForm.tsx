@@ -2,12 +2,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormField from "../form-field/FormField";
 import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adaptUserData, FormValues, schema } from "./utils";
-import { CreateUserRequest } from "./SignUpForm.interface";
+import { adaptedUserData, SignUpFormValues, schema } from "./utils";
+import { AdaptedUserData } from "./SignUpForm.interface";
 import { UserService } from "@/services/user.service";
 
 const SignUpForm: React.FC = () => {
-  const methods = useForm<FormValues>({
+  const methods = useForm<SignUpFormValues>({
     mode: "onChange",
     resolver: zodResolver(schema),
     defaultValues: {
@@ -20,14 +20,14 @@ const SignUpForm: React.FC = () => {
     },
   });
 
-  async function onSubmit(data: FormValues) {
+  async function onSubmit(data: SignUpFormValues) {
     const userData = {
       ...data,
       picture: "",
       fullName: "",
     };
 
-    const formattedUserData: CreateUserRequest = adaptUserData(userData);
+    const formattedUserData: AdaptedUserData = adaptedUserData(userData);
     console.log(formattedUserData);
 
     try {
