@@ -43,6 +43,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      padding: {
+        '120px': '120px',
+      },
       colors: {
         ...bgColors,
         ...textColors,

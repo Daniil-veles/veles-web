@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Header from "../components/blocks/header/Header";
-import styles from "./Layout.module.scss";
 import Footer from "@/components/blocks/footer/Footer";
 import Meta, { IMeta } from "@/seo/Meta";
 
@@ -11,9 +10,9 @@ interface ILayout extends IMeta {
 const Layout: React.FC<ILayout> = ({ children, title, description }) => {
   return (
     <Meta title={title} description={description}>
-      <div className={styles.layout}>
+      <div className="flex flex-col min-h-screen pt-[120px]">
         <Header></Header>
-        <main className={styles.main}>{children}</main>
+        <main className="flex flex-col flex-grow justify-center">{children}</main>
         <Footer></Footer>
       </div>
     </Meta>
