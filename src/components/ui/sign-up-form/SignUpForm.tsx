@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import FormField from "../field/FormField";
+import FormField from "../form-field/FormField";
 import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adaptUserData, FormValues, schema } from "./utils";
@@ -35,7 +35,7 @@ const SignUpForm: React.FC = () => {
       console.log("User created successfully:", response);
 
       // Сбрасывает поля формы
-      methods.reset();
+      methods.reset({ phone: "+7" });
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }
@@ -84,13 +84,13 @@ const SignUpForm: React.FC = () => {
 
             <div className="grid gap-2">
               <FormField
-                id="tel"
+                id="phone"
                 name="phone"
                 label="Phone number"
-                placeholder="7 (___) ___-__-__"
-                type="tel"
                 required
-                componentType="input"
+                componentType="phone"
+                country={"ru"}
+                onlyCountries={["ru", "by", "kz"]}
               />
             </div>
           </div>

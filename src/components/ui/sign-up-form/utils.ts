@@ -28,11 +28,11 @@ export const schema = z.object({
     firstName: z.string().min(2, { message: "Имя обязательное." }),
     lastName: z.string().min(2, { message: "Фамилия обязательное." }),
     phone: z
-        .string()
-        .min(10, { message: "Телефон должен быть 10 символов." })
-        .regex(/^\d{10}$/, {
-            message: "Телефон должен содержать только цифры.",
-        }),
+        .string(),
+        // .min(10, { message: "Телефон должен быть 10 символов." })
+        // .regex(/^\d{10}$/, {
+        //     message: "Телефон должен содержать только цифры.",
+        // }),
     birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
 });
 
