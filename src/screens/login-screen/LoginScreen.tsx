@@ -1,4 +1,3 @@
-import styles from "./LoginScreen.module.scss";
 import Layout from "@/layouts/Layout";
 
 import Image from "next/image";
@@ -12,11 +11,8 @@ import Container from "@/components/container/Container";
 const LoginScreen: React.FC = () => {
   return (
     <>
-      <Layout
-        title="Авторизация"
-        description="Это главная страница сайта"
-      >
-        <Container className={styles.customContainer}>
+      <Layout title="Авторизация" description="Это главная страница сайта">
+        <Container className="">
           <div className="w-full h-full grid grid-cols-2">
             <div className="flex items-center justify-center">
               <div className="mx-auto grid w-[350px] gap-6">
@@ -51,10 +47,12 @@ const LoginScreen: React.FC = () => {
                   <Button type="submit" className="w-full">
                     Login
                   </Button>
-                  <Button variant="outline" className="w-full">
+
+                  {/* <Button variant="outline" className="w-full">
                     Login with Google
-                  </Button>
+                  </Button> */}
                 </div>
+
                 <div className="mt-4 text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link href="#" className="underline">
@@ -63,6 +61,7 @@ const LoginScreen: React.FC = () => {
                 </div>
               </div>
             </div>
+
             <div className="hidden bg-muted lg:block">
               <Image
                 src="/placeholder.svg"
