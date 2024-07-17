@@ -70,6 +70,18 @@ export const UserService = {
     },
 
 
+    async getUserInfo() {
+        try {
+            // const response = await apiClient.post('/auth/register', userData);
+
+            return response;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
+        }
+    },
+
+
     // Другие методы для работы с пользователем
 };
 

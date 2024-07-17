@@ -16,18 +16,13 @@ const LoginForm: React.FC = () => {
     },
   });
 
-  // vdsgdhs@mail.ru
-  // 23323222
-
   const router = useRouter();
 
   async function onSubmit(data: LoginFormValues) {
     const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
-    // console.log(formattedUserData);
 
     try {
       const response = await UserService.login(formattedUserData);
-      // console.log(response.data);
 
       if (response.status === 200) {
         methods.reset();

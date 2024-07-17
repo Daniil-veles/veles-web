@@ -29,7 +29,7 @@ import {
   fields,
   organizationSelect,
   OrganizationType,
-} from "./utils";
+} from "../../components/ui/add-organization-form/utils";
 
 const createFormFields = (formSchema: OrganizationType) => {
   const schema = formSchema; // Создаем схему для указанного типа организации
