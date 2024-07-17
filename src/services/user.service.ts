@@ -39,11 +39,6 @@ export const UserService = {
                 }
             });
 
-            // if (response.data.accessToken) {
-            //     // Установка accessToken в localStorage
-            //     localStorage.setItem('accessToken', response.data.access_token);
-            // }
-
             return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
