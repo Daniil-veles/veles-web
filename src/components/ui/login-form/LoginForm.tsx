@@ -1,9 +1,10 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../button";
 import FormField from "../form-field/FormField";
-import styles from "./LoginForm.module.scss";
-
-// interface ILoginFormProps {}
+import { adaptedUserData, LoginFormValues } from "./utils";
+import { UserService } from "@/services/user.service";
+import { AdaptedUserLoginData } from "./LoginForm.interface";
+import { useRouter } from "next/router";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
@@ -14,9 +15,28 @@ const LoginForm: React.FC = () => {
     },
   });
 
-  const onSubmit = () => {
-    console.log("Войти");
-  };
+  // vdsgdhs@mail.ru
+  // 23323222
+
+  const router = useRouter();
+
+  async function onSubmit(data: LoginFormValues) {
+    const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
+    // console.log(formattedUserData);
+
+    try {
+      const response = await UserService.login(formattedUserData);
+      console.log(response.data);
+
+      if (response.status === 200) {
+        methods.reset();
+
+        router.push('/user');
+      }
+    } catch (error) {
+      console.error("Failed to create user:", error.response);
+    }
+  }
 
   return (
     <FormProvider {...methods}>

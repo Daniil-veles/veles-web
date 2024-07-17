@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { adaptedUserData, SignUpFormValues, schema } from "./utils";
 import { AdaptedUserData } from "./SignUpForm.interface";
 import { UserService } from "@/services/user.service";
+import { useRouter } from "next/router";
 
 const SignUpForm: React.FC = () => {
   const methods = useForm<SignUpFormValues>({
@@ -20,6 +21,8 @@ const SignUpForm: React.FC = () => {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit(data: SignUpFormValues) {
     const userData = {
       ...data,
@@ -28,14 +31,20 @@ const SignUpForm: React.FC = () => {
     };
 
     const formattedUserData: AdaptedUserData = adaptedUserData(userData);
-    console.log(formattedUserData);
+    // console.log(formattedUserData);
 
     try {
       const response = await UserService.createUser(formattedUserData);
-      console.log("User created successfully:", response);
 
-      // Сбрасывает поля формы
-      methods.reset({ phone: "+7" });
+      if (response.status === 201) {
+        console.log("User created successfully:", response.data);
+
+        // Сбрасывает поля формы
+        methods.reset({ phone: "+7" });
+
+        // Перенаправялет на страницу Логин
+        router.push("/login");
+      }
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

@@ -1,5 +1,3 @@
-// pages/api/proxy/[...path].js
-
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const apiProxy = createProxyMiddleware({

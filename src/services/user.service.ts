@@ -1,39 +1,77 @@
+import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
 import { AdaptedUserData } from '@/components/ui/sign-up-form/SignUpForm.interface';
 import axios from 'axios';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
+import qs from 'qs';
 
 const apiClient = axios.create({
     baseURL: process.env.IS_DEV === 'development' ? '/api' : process.env.API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
 export const UserService = {
     async createUser(userData: AdaptedUserData) {
         try {
-            const response = await apiClient.post('/auth/register', userData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            return response.data;
+            const response = await apiClient.post('/auth/register', userData);
+
+            return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;
         }
     },
 
-    async login(username: string, password: string) {
-        const response = await axios.post(`/auth/jwt/login`, { username, password }, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+    async login(userData: AdaptedUserLoginData) {
+        try {
+            const urlEncodedData = qs.stringify({
+                ...userData,
+                grant_type: '',
+                scope: '',
+                client_id: '',
+                client_secret: '',
+            });
 
-        if (response.data.accessToken) {
-            Cookies.set('accessToken', response.data.accessToken);
-            Cookies.set('refreshToken', response.data.refreshToken);
+            const response = await apiClient.post(`/auth/jwt/login`, urlEncodedData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (response.data.accessToken) {
+                // Установка accessToken в localStorage
+                localStorage.setItem('accessToken', response.data.accessToken);
+                console.log(localStorage);
+            }
+
+            return response;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
         }
-        
-        return response.data;
+    },
+
+    async logout() {
+        try {
+            const token = localStorage.getItem('accessToken');
+            console.log(token);
+
+            const response = await apiClient.post(`/auth/jwt/logout`,
+                null,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                    },
+                }
+            );
+
+            return response;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
+        }
     },
 
 

@@ -22,7 +22,9 @@ const Header: React.FC = () => {
           <HeaderMenu />
 
           <div className="flex items-center">
-            <Link className={styles.link} href={"/sign-up"}>Регистрация</Link>
+            <Link className={styles.link} href="/sign-up">
+              Регистрация
+            </Link>
 
             <div className="relative flex z-2 items-center">
               <DropdownMenu>
@@ -31,18 +33,24 @@ const Header: React.FC = () => {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent className="absolute right-0 p-2 mt-2 right-0 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
-                  <DropdownMenuItem className="p-3 text-md">
-                    Личный кабинет
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="p-3 text-md">
-                    Пукнт 2
-                  </DropdownMenuItem>
+                  <Link href="/user">
+                    <DropdownMenuItem className="p-3 text-md">
+                      Личный кабинет
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link href="/login">
+                    <DropdownMenuItem className="p-3 text-md">
+                      Войти
+                    </DropdownMenuItem>
+                  </Link>
                   <DropdownMenuItem className="p-3 text-md">
                     Пукнт 3
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="p-3 text-md">
-                    Пукнт 4
-                  </DropdownMenuItem>
+                  <Link href="/logout">
+                    <DropdownMenuItem className="p-3 text-md">
+                      Выйти
+                    </DropdownMenuItem>
+                  </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
