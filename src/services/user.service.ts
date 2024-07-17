@@ -1,5 +1,6 @@
 import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
 import { AdaptedUserData } from '@/components/ui/sign-up-form/SignUpForm.interface';
+import { getAccessToken } from '@/utils/utils';
 import axios from 'axios';
 // import Cookies from 'js-cookie';
 import qs from 'qs';
@@ -49,8 +50,7 @@ export const UserService = {
     async logout() {
         try {
             // Получает accessToken из localStorage
-            const token = localStorage.getItem('accessToken');
-            console.log(token);
+            const token = getAccessToken();
 
             const response = await apiClient.post(`/auth/jwt/logout`,
                 null,

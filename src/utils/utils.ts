@@ -1,6 +1,10 @@
 const getMetaTitle = (title: string) => `${title} | Велесъ`;
 
-export { getMetaTitle };
+const setAccessToken = (token: string) => localStorage.setItem('accessToken', token);
+const getAccessToken = () => localStorage.getItem('accessToken');
+const deleteAccessToken = () => localStorage.removeItem('accessToken');
+
+export { getMetaTitle, setAccessToken, getAccessToken, deleteAccessToken };
 
 
 // Юзер

@@ -1,4 +1,5 @@
 import { UserService } from "@/services/user.service";
+import { deleteAccessToken } from "@/utils/utils";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -11,9 +12,9 @@ const LogOut: React.FC = () => {
         const response = await UserService.logout();
 
         // Успешно выполненный выход
-        console.log('Logout successful:', response);
+        console.log("Logout successful:", response);
 
-        localStorage.clear();
+        deleteAccessToken();
         router.push("/login");
       } catch (error) {
         console.error("Ошибка при выходе:", error.message);
@@ -23,7 +24,7 @@ const LogOut: React.FC = () => {
     handleLogout();
   }, [router]);
 
-  return '';
+  return "";
 };
 
 export default LogOut;

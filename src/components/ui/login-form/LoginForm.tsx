@@ -5,6 +5,7 @@ import { adaptedUserData, LoginFormValues } from "./utils";
 import { UserService } from "@/services/user.service";
 import { AdaptedUserLoginData } from "./LoginForm.interface";
 import { useRouter } from "next/router";
+import { setAccessToken } from "@/utils/utils";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
@@ -31,7 +32,7 @@ const LoginForm: React.FC = () => {
       if (response.status === 200) {
         methods.reset();
 
-        localStorage.setItem('accessToken', response.data.access_token);
+        setAccessToken(response.data.access_token);
         router.push('/user');
       }
     } catch (error) {
