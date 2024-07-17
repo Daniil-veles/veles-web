@@ -26,11 +26,12 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await UserService.login(formattedUserData);
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.status === 200) {
         methods.reset();
 
+        localStorage.setItem('accessToken', response.data.access_token);
         router.push('/user');
       }
     } catch (error) {

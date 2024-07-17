@@ -9,8 +9,11 @@ const LogOut: React.FC = () => {
     async function handleLogout() {
       try {
         const response = await UserService.logout();
-        console.log(response);
 
+        // Успешно выполненный выход
+        console.log('Logout successful:', response);
+
+        localStorage.clear();
         router.push("/login");
       } catch (error) {
         console.error("Ошибка при выходе:", error.message);

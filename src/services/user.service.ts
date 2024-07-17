@@ -39,11 +39,10 @@ export const UserService = {
                 }
             });
 
-            if (response.data.accessToken) {
-                // Установка accessToken в localStorage
-                localStorage.setItem('accessToken', response.data.accessToken);
-                console.log(localStorage);
-            }
+            // if (response.data.accessToken) {
+            //     // Установка accessToken в localStorage
+            //     localStorage.setItem('accessToken', response.data.access_token);
+            // }
 
             return response;
         } catch (error) {
@@ -54,6 +53,7 @@ export const UserService = {
 
     async logout() {
         try {
+            // Получает accessToken из localStorage
             const token = localStorage.getItem('accessToken');
             console.log(token);
 
