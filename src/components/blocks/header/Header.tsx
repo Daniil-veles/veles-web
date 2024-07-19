@@ -11,9 +11,9 @@ import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
-    <div>
-      <Container>
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-10 bg-bg-third-easy p-4 px-6 container mx-auto flex justify-between items-center rounded-md">
+    <Container className="">
+      <div className="fixed container mx-auto w-full left-1/2 top-4 transform -translate-x-1/2 z-10">
+        <div className="w-full bg-bg-third-easy p-4 px-6 flex justify-between items-center rounded-md">
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
           <img src="" alt="" className="w-24 h-8 mr-10" />
@@ -55,8 +55,8 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
 

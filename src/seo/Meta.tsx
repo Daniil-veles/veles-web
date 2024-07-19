@@ -2,12 +2,12 @@ import { getMetaTitle } from "@/utils/utils";
 import Head from "next/head";
 
 export interface IMeta {
-    title: string;
-    description?: string;
+  title: string;
+  description?: string;
 }
 
 interface IMetaProps extends IMeta {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const Meta: React.FC<IMetaProps> = ({ title, description, children }) => {

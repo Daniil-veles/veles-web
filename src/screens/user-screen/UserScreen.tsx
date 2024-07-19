@@ -2,17 +2,18 @@
 
 import Container from "@/components/container/Container";
 import Layout from "@/layouts/Layout";
-import CompanyScreen from "../company-screen/CompanyScreen";
-import AddOrganizationForm from "@/components/ui/add-organization-form/AddOrganizationForm";
+// import CompanyScreen from "../company-screen/CompanyScreen";
+// import AddOrganizationForm from "@/components/ui/add-organization-form/AddOrganizationForm";
 
 const UserScreen: React.FC = () => {
-
-
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
-      <Container className="">
-        <p>Личный кабинет</p>
-        
+      <Container className="grid grid-cols-[20%_1fr] h-full">
+        <div className="bg-bg-third">
+          <p>Личный кабинет</p>
+        </div>
+
+        <div className="w-full h-full"></div>
 
         {/* <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
           <div className="w-full">
