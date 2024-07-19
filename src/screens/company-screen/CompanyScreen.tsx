@@ -93,7 +93,7 @@ const CompanyScreen: React.FC = () => {
         <Container>
           <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
             <div className="w-full">
-              <img className="bg-fourth h-full" src="" alt="" />
+              <img className="bg-bg-fourth h-full" src="" alt="" />
             </div>
 
             <div className="w-full">

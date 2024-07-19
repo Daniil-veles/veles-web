@@ -38,7 +38,7 @@ const SignUpScreen: React.FC = () => {
           </Card>
 
           <div className="rounded-lg overflow-hidden">
-            <img className="w-full h-full bg-fourth" src="" alt="" />
+            <img className="w-full h-full bg-bg-fourth" src="" alt="" />
           </div>
         </Container>
       </Layout>
