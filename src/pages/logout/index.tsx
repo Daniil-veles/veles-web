@@ -1,4 +1,4 @@
-import { UserService } from "@/services/user.service";
+import { AuthService } from "@/services/auth.service";
 import { deleteAccessToken } from "@/utils/utils";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -9,7 +9,7 @@ const LogOut: React.FC = () => {
   useEffect(() => {
     async function handleLogout() {
       try {
-        const response = await UserService.logout();
+        const response = await AuthService.logout();
 
         // Успешно выполненный выход
         console.log("Logout successful:", response);

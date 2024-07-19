@@ -4,8 +4,8 @@ import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adaptedUserData, SignUpFormValues, schema } from "./utils";
 import { AdaptedUserData } from "./SignUpForm.interface";
-import { UserService } from "@/services/user.service";
 import { useRouter } from "next/router";
+import { AuthService } from "@/services/auth.service";
 
 const SignUpForm: React.FC = () => {
   const methods = useForm<SignUpFormValues>({
@@ -34,7 +34,7 @@ const SignUpForm: React.FC = () => {
     // console.log(formattedUserData);
 
     try {
-      const response = await UserService.createUser(formattedUserData);
+      const response = await AuthService.registration(formattedUserData);
 
       if (response.status === 201) {
         console.log("User created successfully:", response.data);

@@ -1,80 +1,11 @@
-import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
-import { AdaptedUserData } from '@/components/ui/sign-up-form/SignUpForm.interface';
-import { getAccessToken } from '@/utils/utils';
-import axios from 'axios';
-// import Cookies from 'js-cookie';
-import qs from 'qs';
-
-const apiClient = axios.create({
-    baseURL: process.env.IS_DEV === 'development' ? '/api' : process.env.API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+import apiClient from '@/api/api';
 
 export const UserService = {
-    async createUser(userData: AdaptedUserData) {
-        try {
-            const response = await apiClient.post('/auth/register', userData);
-
-            return response;
-        } catch (error) {
-            console.error('Error creating user:', error.message);
-            throw error;
-        }
-    },
-
-    async login(userData: AdaptedUserLoginData) {
-        try {
-            const urlEncodedData = qs.stringify({
-                ...userData,
-                grant_type: '',
-                scope: '',
-                client_id: '',
-                client_secret: '',
-            });
-
-            const response = await apiClient.post(`/auth/jwt/login`, urlEncodedData, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
-
-            return response;
-        } catch (error) {
-            console.error('Error creating user:', error.message);
-            throw error;
-        }
-    },
-
-    async logout() {
-        try {
-            // Получает accessToken из localStorage
-            const token = getAccessToken();
-
-            const response = await apiClient.post(`/auth/jwt/logout`,
-                null,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/json',
-                    },
-                }
-            );
-
-            return response;
-        } catch (error) {
-            console.error('Error creating user:', error.message);
-            throw error;
-        }
-    },
-
-
     async getUserInfo() {
         try {
             // const response = await apiClient.post('/auth/register', userData);
 
-            return response;
+            // return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;

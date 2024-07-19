@@ -2,10 +2,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../button";
 import FormField from "../form-field/FormField";
 import { adaptedUserData, LoginFormValues } from "./utils";
-import { UserService } from "@/services/user.service";
 import { AdaptedUserLoginData } from "./LoginForm.interface";
 import { useRouter } from "next/router";
 import { setAccessToken } from "@/utils/utils";
+import { AuthService } from "@/services/auth.service";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
@@ -22,7 +22,7 @@ const LoginForm: React.FC = () => {
     const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
 
     try {
-      const response = await UserService.login(formattedUserData);
+      const response = await AuthService.login(formattedUserData);
 
       if (response.status === 200) {
         methods.reset();
