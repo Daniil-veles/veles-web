@@ -11,10 +11,10 @@ const UserScreen: React.FC = () => {
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
       <Container className="">
-        <CompanyScreen />
         <p>Личный кабинет</p>
+        
 
-        <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
+        {/* <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
           <div className="w-full">
             <img className="bg-fourth h-full" src="" alt="" />
           </div>
@@ -24,7 +24,7 @@ const UserScreen: React.FC = () => {
 
             <AddOrganizationForm />
           </div>
-        </div>
+        </div> */}
       </Container>
     </Layout>
   );

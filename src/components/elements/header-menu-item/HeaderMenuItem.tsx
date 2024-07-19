@@ -1,22 +1,20 @@
-import Link from 'next/link';
-import styles from './HeaderMenuItem.module.scss';
-import { HeaderMenu } from '@/types/types';
+import Link from "next/link";
+import { HeaderMenu } from "@/types/types";
 
 interface HeaderMenuItemProps {
-    value: HeaderMenu;
+  value: HeaderMenu;
 }
 
-
 const HeaderMenuItem: React.FC<HeaderMenuItemProps> = ({ value }) => {
-    const { text, link } = value;
+  const { text, link } = value;
 
-    return (
-        <li className={styles.item}>
-            <Link href={link} className={styles.link}>
-                {text}
-            </Link>
-        </li>
-    );
+  return (
+    <li className="flex items-center h-full min-h-[30px] mr-10 cursor-pointer transition-colors duration-300 ease">
+      <Link href={link} className="block h-full no-underline hover:text-second">
+        {text}
+      </Link>
+    </li>
+  );
 };
 
 export default HeaderMenuItem;

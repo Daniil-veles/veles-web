@@ -1,6 +1,5 @@
 import { CircleUser } from "lucide-react";
 import HeaderMenu from "../../elements/header-menu/HeaderMenu";
-import styles from "./Header.module.scss";
 import Container from "@/components/container/Container";
 import {
   DropdownMenu,
@@ -12,24 +11,24 @@ import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
-    <div className={styles.header}>
+    <div>
       <Container>
-        <div
-          className={`${styles.wrapper} container mx-auto flex justify-between items-center rounded-md`}
-        >
-          <img src="" alt="" className={styles.logo} />
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-10 bg-third-easy p-4 px-6 container mx-auto flex justify-between items-center rounded-md">
+          <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
+
+          <img src="" alt="" className="w-24 h-8 mr-10" />
 
           <HeaderMenu />
 
           <div className="flex items-center">
-            <Link className={styles.link} href="/sign-up">
+            <Link className="text-black" href="/sign-up">
               Регистрация
             </Link>
 
-            <div className="relative flex z-2 items-center">
+            <div className="relative flex ml-5 items-center">
               <DropdownMenu>
-                <DropdownMenuTrigger className={styles.dropdown}>
-                  <CircleUser className={styles.user} />
+                <DropdownMenuTrigger className="relative">
+                  <CircleUser className="text-black" />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent className="absolute right-0 p-2 mt-2 right-0 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
