@@ -1,24 +1,23 @@
 // import styles from './UserScreen.module.scss';
 
 import Container from "@/components/container/Container";
+import UserMenu from "@/components/elements/user-meu/UserMenu";
 import Layout from "@/layouts/Layout";
+import {
+  BadgeRussianRuble,
+  CirclePlus,
+  LogOut,
+  Settings,
+  Users,
+} from "lucide-react";
 // import CompanyScreen from "../company-screen/CompanyScreen";
 // import AddOrganizationForm from "@/components/ui/add-organization-form/AddOrganizationForm";
 
 const UserScreen: React.FC = () => {
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
-      <Container className="grid grid-cols-[20%_1fr] gap-10 grow">
-        <div className="bg-bg-third-easy p-2 rounded-md h-full">
-          <h1 className="mb-6">CRM</h1>
-
-          <ul>
-            <li>Редактировать данные</li>
-            <li>Создать организацию</li>
-            <li>Добавить работников</li>
-            <li>Выбрать тарифный план</li>
-          </ul>
-        </div>
+      <Container className="grid grid-cols-[max-content_1fr] gap-10 grow">
+        <UserMenu />
 
         <div className="w-full h-full">Блок</div>
 
