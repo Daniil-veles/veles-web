@@ -8,12 +8,19 @@ import Layout from "@/layouts/Layout";
 const UserScreen: React.FC = () => {
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
-      <Container className="grid grid-cols-[20%_1fr] h-full">
-        <div className="bg-bg-third">
-          <p>Личный кабинет</p>
+      <Container className="grid grid-cols-[20%_1fr] gap-10 grow">
+        <div className="bg-bg-third-easy p-2 rounded-md h-full">
+          <h1 className="mb-6">CRM</h1>
+
+          <ul>
+            <li>Редактировать данные</li>
+            <li>Создать организацию</li>
+            <li>Добавить работников</li>
+            <li>Выбрать тарифный план</li>
+          </ul>
         </div>
 
-        <div className="w-full h-full"></div>
+        <div className="w-full h-full">Блок</div>
 
         {/* <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
           <div className="w-full">

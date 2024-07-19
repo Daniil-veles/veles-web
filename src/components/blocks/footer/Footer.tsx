@@ -4,26 +4,24 @@ import CustomButton from "@/components/ui/custom-button/CustomButton";
 
 const Footer: React.FC = () => {
   return (
-    <div className="py-6">
-      <Container>
-        <div className="flex justify-between items-center py-4 pb-6">
-          <img src="" alt="" className="w-[100px] h-[30px] mr-10" />
+    <Container>
+      <div className="flex justify-between items-center py-4 pt-6 pb-6">
+        <img src="" alt="" className="w-[100px] h-[30px] mr-10" />
 
-          <HeaderMenu />
+        <HeaderMenu />
 
-          <div className="flex items-center">
-            <CustomButton
-              className="bg-bg-fourth-light text-text-first px-4 py-2"
-              onClick={() => console.log("Clicked")}
-            >
-              Регистрация
-            </CustomButton>
-          </div>
+        <div className="flex items-center">
+          <CustomButton
+            className="bg-bg-fourth-light text-text-first px-4 py-2"
+            onClick={() => console.log("Clicked")}
+          >
+            Регистрация
+          </CustomButton>
         </div>
+      </div>
 
-        <p className="">Copyright © 2018 by Random site</p>
-      </Container>
-    </div>
+      <p className="">Copyright © 2018 by Random site</p>
+    </Container>
   );
 };
 
