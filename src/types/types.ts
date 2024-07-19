@@ -5,7 +5,6 @@ export interface HeaderMenu {
     link: string,
 }
 
-
 export interface Feature {
     id: number,
     img: string,
