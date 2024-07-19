@@ -197,9 +197,9 @@ export const iconMap: Record<string, React.ElementType<LucideProps>> = {
     'Settings': Settings,
 };
 
-export const listItems = [
-    { iconName: 'CirclePlus', text: 'Создать организацию' },
-    { iconName: 'Users', text: 'Добавить работников' },
-    { iconName: 'BadgeRussianRuble', text: 'Выбрать тарифный план' },
-    { iconName: 'Settings', text: 'Настройки' },
+export const userListItems = [
+    { id: 1, iconName: 'CirclePlus', text: 'Создать организацию' },
+    { id: 2, iconName: 'Users', text: 'Добавить работников' },
+    { id: 3, iconName: 'BadgeRussianRuble', text: 'Выбрать тарифный план' },
+    { id: 4, iconName: 'Settings', text: 'Настройки' },
 ];

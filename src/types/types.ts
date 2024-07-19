@@ -1,3 +1,4 @@
+import { number } from "zod";
 
 export interface HeaderMenu {
     id: number,
@@ -22,6 +23,12 @@ export interface Rate {
 
 export interface OptionRate {
     id: number;
+    text: string;
+}
+
+export interface UserListItem {
+    id: number; 
+    iconName: string; 
     text: string;
 }
 

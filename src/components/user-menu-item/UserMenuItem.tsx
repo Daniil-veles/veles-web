@@ -1,11 +1,31 @@
 import { iconMap } from "@/const/const";
+import { UserListItem } from "@/types/types";
+import cn from "classnames";
 
-function UserMenuItem({ iconName, text }): JSX.Element {
+interface IUserMenuItemProps {
+  item: UserListItem;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+function UserMenuItem({
+  item,
+  isActive,
+  onClick,
+}: IUserMenuItemProps): JSX.Element {
+  const { id, iconName, text } = item;
+
   const IconComponent = iconMap[iconName];
+
   return (
-    <li className="flex items-center p-2 py-3 mb-4 bg-black/5 rounded-xl duration-300 transition-colors">
-      <IconComponent className="mr-2" size={24} />{" "}
-      {text}
+    <li
+      onClick={onClick}
+      className={cn("relative flex items-center p-3 mb-4 cursor-pointer", {
+        "text-white active": isActive,
+        "text-black": !isActive,
+      })}
+    >
+      <IconComponent className="mr-2" size={24} /> {text}
     </li>
   );
 }

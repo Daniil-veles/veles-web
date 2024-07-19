@@ -6,12 +6,12 @@ import UserMenuList from "../user-menu-list/UserMenuList";
 function UserMenu(): JSX.Element {
   return (
     <div className="flex flex-col bg-bg-third-easy rounded-2xl p-6">
-      <h2 className="">CRM</h2>
+      <h2 className="mb-10 text-center">CRM</h2>
 
       <UserMenuList />
 
-      <div className="flex items-center">
-        <LogOut />
+      <div className="flex items-center justify-center">
+        <LogOut className="mr-2" />
         Выйти
       </div>
     </div>
