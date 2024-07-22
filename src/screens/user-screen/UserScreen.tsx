@@ -16,7 +16,7 @@ const UserScreen: React.FC = () => {
     async function fetchUserInfo() {
       try {
         const response = await UserService.getUserInfo();
-        const userInfo = adaptToUserData(response.data);
+        const userInfo = adaptToUserData(response);
 
         // Теперь вы можете использовать преобразованные данные
         dispatch(setUserInfo(userInfo));

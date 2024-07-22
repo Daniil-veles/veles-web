@@ -6,7 +6,7 @@ export const UserService = {
         try {
             const response = await apiClient.get<UserInfo>('/users/me');
 
-            return response;
+            return response.data;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;

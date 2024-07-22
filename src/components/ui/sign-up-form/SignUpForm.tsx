@@ -5,8 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormValues, schema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
-import { AdaptedUserData } from "@/types/types";
-import { adaptedUserData } from "@/utils/utils";
+import { adaptUserFormData } from "@/utils/utils";
 
 const SignUpForm: React.FC = () => {
   const methods = useForm<SignUpFormValues>({
@@ -31,8 +30,8 @@ const SignUpForm: React.FC = () => {
       fullName: "",
     };
 
-    const formattedUserData: AdaptedUserData = adaptedUserData(userData);
-    // console.log(formattedUserData);
+    const formattedUserData = adaptUserFormData(userData);
+    console.log(formattedUserData);
 
     try {
       const response = await AuthService.registration(formattedUserData);
@@ -131,7 +130,7 @@ const SignUpForm: React.FC = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-bg-fourth text-text-first">
             Create an account
           </Button>
 
