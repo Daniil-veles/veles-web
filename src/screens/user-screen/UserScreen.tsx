@@ -5,7 +5,8 @@ import UserMenu from "@/components/elements/user-meu/UserMenu";
 import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
 import { UserService } from "@/services/user.service";
-import { setUserInfo } from "@/store/slices/UserSlice";
+import { setUserInfo } from "@/store/slices/userSlice";
+import { UserServerData } from "@/types/user";
 import { adaptToUserData } from "@/utils/utils";
 import { useEffect } from "react";
 
@@ -15,10 +16,10 @@ const UserScreen: React.FC = () => {
   useEffect(() => {
     async function fetchUserInfo() {
       try {
-        const response = await UserService.getUserInfo();
+        const response: UserServerData = await UserService.getUserInfo();
         const userInfo = adaptToUserData(response);
 
-        // Теперь вы можете использовать преобразованные данные
+        // Обновляет данные пользователя в сторе
         dispatch(setUserInfo(userInfo));
 
         console.log(response);

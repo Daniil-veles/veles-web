@@ -42,16 +42,15 @@ function adaptToUserData(data: UserServerData): AdaptToUserData {
   return {
     id: data.id,
     email: data.email,
-    isActive: data.is_active,
-    isSuperuser: data.is_superuser,
-    isVerified: data.is_verified,
+    isActive: data.is_active ?? false,
+    isSuperuser: data.is_superuser ?? false,
+    isVerified: data.is_verified ?? false,
     fullName: data.full_name,
     phone: data.phone,
     picture: data.picture,
     birthDate: data.birth_date,
   };
 }
-
 
 export { getMetaTitle, setAccessToken, getAccessToken, deleteAccessToken, getIndicatorStyle, adaptToUserData };
 

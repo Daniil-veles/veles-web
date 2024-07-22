@@ -1,10 +1,10 @@
 import apiClient from "@/api/api";
-import { UserInfo } from "@/types/state";
+import { UserServerData } from "@/types/user";
 
 export const UserService = {
     async getUserInfo() {
         try {
-            const response = await apiClient.get<UserInfo>('/users/me');
+            const response = await apiClient.get<UserServerData>('/users/me');
 
             return response.data;
         } catch (error) {

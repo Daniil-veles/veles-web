@@ -16,4 +16,3 @@ export interface UserInfo {
     picture: string;
     isAuth: AuthorizationStatus;
 }
-

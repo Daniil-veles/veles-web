@@ -1,4 +1,5 @@
 import { AuthorizationStatus, UserInfo } from '@/types/state';
+import { AdaptToUserData } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
@@ -23,14 +24,14 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUserInfo(state, action: PayloadAction<UserInfo>) {
-            return { ...state.userInfo, ...action.payload }
+        setUserInfo(state, action: PayloadAction<AdaptToUserData>) {
+            state.userInfo = { ...state.userInfo, ...action.payload }
         },
         clearUserInfo(state) {
-            return initialState
+            state.userInfo = initialState.userInfo;
         },
-        setAuthStatus(state, action: PayloadAction<UserInfo>) {
-            return { ...state.userInfo, ...action.payload }
+        setAuthStatus(state, action: PayloadAction<AuthorizationStatus>) {
+            state.userInfo.isAuth = action.payload;
         },
     }
 });

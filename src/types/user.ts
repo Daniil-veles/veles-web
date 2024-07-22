@@ -26,7 +26,7 @@ export interface AdaptedUserFormData extends UserBaseData {
 
 // Интерфейс для данных пользователя, получаемых с сервера
 export interface UserServerData extends UserBaseData {
-    id: number;
+    id: number | null;
     is_active: boolean | null;
     is_superuser: boolean | null;
     is_verified: boolean | null;
@@ -37,9 +37,9 @@ export interface UserServerData extends UserBaseData {
 // Интерфейс для адаптированных данных пользователя
 export interface AdaptToUserData extends UserBaseData {
     id: number | null;
-    isActive: boolean | null;
-    isSuperuser: boolean | null;
-    isVerified: boolean | null;
+    isActive: boolean;
+    isSuperuser: boolean;
+    isVerified: boolean;
     fullName: string;
     birthDate: string;
 }

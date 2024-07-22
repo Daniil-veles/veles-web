@@ -1,6 +1,6 @@
 import { NameSpace } from "@/const/const";
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './slices/UserSlice'; 
+import userReducer from "./slices/userSlice";
 
 const store = configureStore({
     reducer: {
