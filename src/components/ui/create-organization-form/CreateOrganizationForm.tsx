@@ -1,7 +1,12 @@
 // import styles from './AddOrganizationForm.module.scss';
 
 import { useState } from "react";
-import { createFormValidation, fields, organizationSelect, OrganizationType } from "./utils";
+import {
+  createFormValidation,
+  fields,
+  organizationSelect,
+  OrganizationType,
+} from "./utils";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,18 +14,17 @@ import FormField from "../form-field/FormField";
 import { Button } from "../button";
 
 const createFormFields = (formSchema: OrganizationType) => {
-    const schema = formSchema; // Создаем схему для указанного типа организации
-  
-    // Фильтруем поля формы на основе наличия их в схеме
-    const formFields = fields.filter(
-      (field) => schema.shape[field.name] !== undefined
-    );
-  
-    return formFields;
-  };
-  
+  const schema = formSchema; // Создаем схему для указанного типа организации
 
-const AddOrganizationForm: React.FC = () => {
+  // Фильтруем поля формы на основе наличия их в схеме
+  const formFields = fields.filter(
+    (field) => schema.shape[field.name] !== undefined
+  );
+
+  return formFields;
+};
+
+const CreateOrganizationForm: React.FC = () => {
   const [organizationType, setOrganizationType] = useState(
     organizationSelect.options[0].value
   );
@@ -69,7 +73,16 @@ const AddOrganizationForm: React.FC = () => {
         onSubmit={methods.handleSubmit(onSubmit)}
         className="grid grid-cols-3 gap-4"
       >
-        {/* <FormField id="" name="" id="" id="" /> */}
+        <div className="row-span-full col-span-full">
+          <FormField
+            id={organizationSelect.name}
+            name={organizationSelect.name}
+            label={organizationSelect.label}
+            placeholder={organizationSelect.placeholder}
+            componentType="select"
+            options={organizationSelect.options}
+          />
+        </div>
 
         {/* <FormField
           key={organizationSelect.name}
@@ -127,4 +140,4 @@ const AddOrganizationForm: React.FC = () => {
   );
 };
 
-export default AddOrganizationForm;
+export default CreateOrganizationForm;

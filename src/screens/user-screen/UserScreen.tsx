@@ -2,15 +2,25 @@
 
 import Container from "@/components/container/Container";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
+import CreateOrganizationForm from "@/components/ui/create-organization-form/CreateOrganizationForm";
 import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
 import { UserService } from "@/services/user.service";
 import { setUserInfo } from "@/store/slices/userSlice";
 import { UserServerData } from "@/types/user.interface";
 import { adaptToUserData } from "@/utils/utils";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+const categories = {
+  organization: <CreateOrganizationForm />,
+  employee: <p>Блок сотрудников</p>,
+  tariff: <p>Блок тарифных планов</p>,
+  settings: <p>Блок настроек</p>,
+};
+
 const UserScreen: React.FC = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -31,24 +41,24 @@ const UserScreen: React.FC = () => {
     fetchUserInfo();
   }, [dispatch]);
 
+  const { category } = router.query;
+
+  const renderContent = () => {
+    if (!category || typeof category !== "string")
+      return <p>Выберите категорию</p>;
+    return categories[category] || <p>Неизвестная категория</p>;
+  };
+
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
       <Container className="grid grid-cols-[max-content_1fr] gap-10 grow">
         <UserMenu />
 
-        <div className="w-full h-full">Блок</div>
+        <div className="w-full h-full">
+          <div className="mb-6 bg-bg-first p-6 rounded-md">Информация о компании</div>
 
-        {/* <div className="grid grid-cols-[20%_1fr] gap-10 py-4">
-          <div className="w-full">
-            <img className="bg-fourth h-full" src="" alt="" />
-          </div>
-
-          <div className="w-full">
-            <h2 className="text-center mb-3">Регистрация</h2>
-
-            <AddOrganizationForm />
-          </div>
-        </div> */}
+          {renderContent()}
+        </div>
       </Container>
     </Layout>
   );

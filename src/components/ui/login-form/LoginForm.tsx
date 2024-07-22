@@ -65,7 +65,7 @@ const LoginForm: React.FC = () => {
             />
           </div>
 
-          <Button type="submit" className="w-full bg-bg-fourth text-text-first">
+          <Button type="submit" className="w-full bg-bg-fourth text-c-first">
             Login
           </Button>
         </div>

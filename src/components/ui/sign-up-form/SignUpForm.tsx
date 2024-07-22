@@ -81,6 +81,7 @@ const SignUpForm: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <FormField
+                className="bg-red-400"
                 id="email"
                 name="email"
                 label="Email"
@@ -130,7 +131,7 @@ const SignUpForm: React.FC = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full bg-bg-fourth text-text-first">
+          <Button type="submit" className="w-full bg-bg-fourth text-c-first">
             Create an account
           </Button>
 

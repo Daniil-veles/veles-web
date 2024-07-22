@@ -12,12 +12,12 @@ const bgColors = {
 };
 
 const textColors = {
-  'text-first': 'var(--text-first)',
-  'text-second': 'var(--text-second)',
-  'text-third': 'var(--text-third)',
-  'text-fourth': 'var(--text-fourth)',
-  'text-fifth': 'var(--text-fifth)',
-  'text-six': 'var(--text-six)',
+  'c-first': 'var(--text-first)',
+  'c-second': 'var(--text-second)',
+  'c-third': 'var(--text-third)',
+  'c-fourth': 'var(--text-fourth)',
+  'c-fifth': 'var(--text-fifth)',
+  'c-six': 'var(--text-six)',
 };
 
 

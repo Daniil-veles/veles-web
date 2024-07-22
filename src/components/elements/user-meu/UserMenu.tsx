@@ -6,7 +6,7 @@ import UserMenuList from "../user-menu-list/UserMenuList";
 function UserMenu(): JSX.Element {
   return (
     <div className="flex flex-col bg-bg-third-easy rounded-2xl p-6">
-      <h2 className="mb-10 text-center">CRM</h2>
+      <h2 className="mb-10 text-2xl text-center">Личный кабинет</h2>
 
       <UserMenuList />
 

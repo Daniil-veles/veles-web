@@ -28,15 +28,11 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
             const { status } = error.response;
 
             if (status === 401) {
-                // Обработка ошибки авторизации
-                // Например, перенаправление на страницу логина или обновление токена
-                // Для примера можно добавить логику переадресации
+                // Переадресация на логин
                 window.location.href = '/login';
 
                 console.log('Unauthorized - please log in again.');
                 // Здесь можно добавить логику для обновления токена или уведомления пользователя
-
-
             }
         }
 

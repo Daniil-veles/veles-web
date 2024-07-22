@@ -40,11 +40,18 @@ const FormField: React.FC<IFormFieldProps> = ({
   const { control } = useFormContext();
 
   const renderComponent = (field: any) => {
+    const sharedProps = {
+      id,
+      name,
+      placeholder,
+      ...field,
+    };
+
     switch (componentType) {
       case "input":
         return (
           <Input
-            {...field}
+            {...sharedProps}
             id={id}
             name={name}
             type={type}
@@ -55,7 +62,7 @@ const FormField: React.FC<IFormFieldProps> = ({
       case "select":
         return (
           <Select
-            {...field}
+            {...sharedProps}
             value={field.value || ""}
             onValueChange={field.onChange}
           >
@@ -74,7 +81,7 @@ const FormField: React.FC<IFormFieldProps> = ({
       case "phone":
         return (
           <CustomPhoneInput
-            {...field}
+            {...sharedProps}
             country={country}
             onlyCountries={onlyCountries}
             value={field.value}
