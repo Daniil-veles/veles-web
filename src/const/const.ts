@@ -1,4 +1,4 @@
-import { BadgeRussianRuble, CirclePlus, Settings, Users } from "lucide-react";
+import { BadgeRussianRuble, CirclePlus, LucideProps, Settings, Users } from "lucide-react";
 
 export const menu = [
     {
@@ -198,8 +198,8 @@ export const iconMap: Record<string, React.ElementType<LucideProps>> = {
 };
 
 export const userListItems = [
-    { id: 1, iconName: 'CirclePlus', text: 'Создать организацию' },
-    { id: 2, iconName: 'Users', text: 'Добавить работников' },
-    { id: 3, iconName: 'BadgeRussianRuble', text: 'Выбрать тарифный план' },
+    { id: 1, iconName: 'CirclePlus', text: 'Организация' },
+    { id: 2, iconName: 'Users', text: 'Сотрудники' },
+    { id: 3, iconName: 'BadgeRussianRuble', text: 'Тарифный план' },
     { id: 4, iconName: 'Settings', text: 'Настройки' },
 ];

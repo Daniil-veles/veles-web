@@ -59,7 +59,13 @@ export const AuthService = {
 
     async checkAuth() {
         try {
-            
+            const response = await apiClient.post(`/auth/jwt/login`, urlEncodedData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;
