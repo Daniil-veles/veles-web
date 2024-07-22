@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { AdaptedUserData, UserData } from "./SignUpForm.interface";
 
 export const schema = z.object({
     email: z.string().email({ message: "Неверный формат email адреса." }),
@@ -15,22 +14,5 @@ export const schema = z.object({
         .string(),
     birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
 });
-
-export function adaptedUserData(userData: UserData): AdaptedUserData {
-    const adaptedData: AdaptedUserData = {
-        email: userData.email,
-        password: userData.password,
-        is_active: true,
-        is_superuser: false,
-        is_verified: false,
-        full_name: `${userData.firstName} ${userData.lastName}`,
-        phone: userData.phone,
-        picture: userData.picture,
-        birth_date: userData.birthDate,
-    };
-
-    return adaptedData;
-}
-
 
 export type SignUpFormValues = z.infer<typeof schema>;

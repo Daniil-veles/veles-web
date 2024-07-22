@@ -1,11 +1,12 @@
-import apiClient from '@/api/api';
+import apiClient from "@/api/api";
+import { UserInfo } from "@/types/state";
 
 export const UserService = {
     async getUserInfo() {
         try {
-            // const response = await apiClient.post('/auth/register', userData);
+            const response = await apiClient.get<UserInfo>('/users/me');
 
-            // return response;
+            return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;

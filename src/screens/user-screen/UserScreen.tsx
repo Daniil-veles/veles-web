@@ -2,18 +2,34 @@
 
 import Container from "@/components/container/Container";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
+import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
-import {
-  BadgeRussianRuble,
-  CirclePlus,
-  LogOut,
-  Settings,
-  Users,
-} from "lucide-react";
-// import CompanyScreen from "../company-screen/CompanyScreen";
-// import AddOrganizationForm from "@/components/ui/add-organization-form/AddOrganizationForm";
+import { UserService } from "@/services/user.service";
+import { setUserInfo } from "@/store/slices/UserSlice";
+import { adaptToUserData } from "@/utils/utils";
+import { useEffect } from "react";
 
 const UserScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const response = await UserService.getUserInfo();
+        const userInfo = adaptToUserData(response.data);
+
+        // Теперь вы можете использовать преобразованные данные
+        dispatch(setUserInfo(userInfo));
+
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching user info:", error.message);
+      }
+    }
+
+    fetchUserInfo();
+  }, [dispatch]);
+
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
       <Container className="grid grid-cols-[max-content_1fr] gap-10 grow">

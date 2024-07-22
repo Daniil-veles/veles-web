@@ -3,6 +3,8 @@ import "../styles/global.scss";
 import { Roboto as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import AuthProvider from "@/context/AuthContext";
+import { Provider } from "react-redux";
+import store from "@/store/store";
 
 const fontSans = FontSans({
   weight: ["300", "400", "500", "700"],
@@ -12,12 +14,14 @@ const fontSans = FontSans({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div
-      className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
-    >
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </div>
+    <Provider store={store}>
+      <div
+        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+      >
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </div>
+    </Provider>
   );
 }

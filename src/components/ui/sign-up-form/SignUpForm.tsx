@@ -2,10 +2,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormField from "../form-field/FormField";
 import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adaptedUserData, SignUpFormValues, schema } from "./utils";
-import { AdaptedUserData } from "./SignUpForm.interface";
+import { SignUpFormValues, schema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
+import { AdaptedUserData } from "@/types/types";
+import { adaptedUserData } from "@/utils/utils";
 
 const SignUpForm: React.FC = () => {
   const methods = useForm<SignUpFormValues>({

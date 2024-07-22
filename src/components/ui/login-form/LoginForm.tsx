@@ -25,6 +25,8 @@ const LoginForm: React.FC = () => {
       const response = await AuthService.login(formattedUserData);
 
       if (response.status === 200) {
+        console.log(response.data);
+        
         methods.reset();
 
         setAccessToken(response.data.access_token);
@@ -63,7 +65,7 @@ const LoginForm: React.FC = () => {
             />
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-bg-fourth text-text-first">
             Login
           </Button>
         </div>

@@ -23,7 +23,6 @@ export const menu = [
     },
 ];
 
-
 export const features = [
     {
         'id': 1,
@@ -67,8 +66,7 @@ export const features = [
         'title': 'Tailwindcss',
         'description': 'Simple and elegant UI components built with Tailwind CSS',
     },
-]
-
+];
 
 export const rates = [
     {
@@ -159,8 +157,7 @@ export const rates = [
             },
         ],
     }
-]
-
+];
 
 export const carousel = [
     {
@@ -188,7 +185,7 @@ export const carousel = [
         text: 'Text-5 Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu usu vidit tractatos, vero tractatos ius an, in mel diceret persecuti.',
         img: '/img-5.png'
     },
-]
+];
 
 export const iconMap: Record<string, React.ElementType<LucideProps>> = {
     'CirclePlus': CirclePlus,
@@ -203,3 +200,9 @@ export const userListItems = [
     { id: 3, iconName: 'BadgeRussianRuble', text: 'Тарифный план' },
     { id: 4, iconName: 'Settings', text: 'Настройки' },
 ];
+
+export enum NameSpace {
+    Main = 'MAIN',
+    Data = 'DATA',
+    User = 'USER',
+}

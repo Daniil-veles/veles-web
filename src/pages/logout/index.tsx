@@ -18,6 +18,7 @@ const LogOut: React.FC = () => {
         router.push("/login");
       } catch (error) {
         console.error("Ошибка при выходе:", error.message);
+        router.push("/login");
       }
     }
 
