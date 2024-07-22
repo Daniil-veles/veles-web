@@ -6,7 +6,7 @@ import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
 import { UserService } from "@/services/user.service";
 import { setUserInfo } from "@/store/slices/userSlice";
-import { UserServerData } from "@/types/user";
+import { UserServerData } from "@/types/user.interface";
 import { adaptToUserData } from "@/utils/utils";
 import { useEffect } from "react";
 

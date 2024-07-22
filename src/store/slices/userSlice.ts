@@ -1,5 +1,5 @@
-import { AuthorizationStatus, UserInfo } from '@/types/state';
-import { AdaptToUserData } from '@/types/user';
+import { AuthorizationStatus, UserInfo } from '@/types/state.interface';
+import { AdaptToUserData } from '@/types/user.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {

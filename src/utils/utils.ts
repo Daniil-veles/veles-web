@@ -1,4 +1,4 @@
-import { AdaptedUserFormData, AdaptToUserData, UserFormData, UserServerData } from "@/types/user";
+import { AdaptedUserFormData, AdaptToUserData, UserFormData, UserServerData } from "@/types/user.interface";
 
 const getMetaTitle = (title: string) => `${title} | Велесъ`;
 
