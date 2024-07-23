@@ -1,31 +1,17 @@
 // import styles from './AddOrganizationForm.module.scss';
 
 import { useState } from "react";
-import {
-  createFormValidation,
-  fields,
-  organizationSelect,
-  OrganizationType,
-} from "./utils";
+import { createFormValidation, createFormFields, organizationSelect } from "./utils";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormField from "../form-field/FormField";
 import { Button } from "../button";
+import { OrganizationType } from "./CreateOrganizationForm.interface";
 
-const createFormFields = (formSchema: OrganizationType) => {
-  const schema = formSchema; // Создаем схему для указанного типа организации
-
-  // Фильтруем поля формы на основе наличия их в схеме
-  const formFields = fields.filter(
-    (field) => schema.shape[field.name] !== undefined
-  );
-
-  return formFields;
-};
 
 const CreateOrganizationForm: React.FC = () => {
-  const [organizationType, setOrganizationType] = useState(
+  const [organizationType, setOrganizationType] = useState<OrganizationType>(
     organizationSelect.options[0].value
   );
   const [formData, setFormData] = useState<any>({
@@ -55,6 +41,7 @@ const CreateOrganizationForm: React.FC = () => {
 
   // 1. Создаем hook форму.
   const methods = useForm<z.infer<typeof formSchema>>({
+    mode: "onChange",
     resolver: zodResolver(formSchema),
     defaultValues: formData,
   });
@@ -79,59 +66,29 @@ const CreateOrganizationForm: React.FC = () => {
             name={organizationSelect.name}
             label={organizationSelect.label}
             placeholder={organizationSelect.placeholder}
-            componentType="select"
+            componentType={'select'}
             options={organizationSelect.options}
+            defaultValue={organizationSelect.options[0].value}
+            onValueChange={(value) => setOrganizationType(value)}
           />
         </div>
 
-        {/* <FormField
-          key={organizationSelect.name}
-          control={control}
-          name={organizationSelect.name as keyof z.infer<typeof formSchema>}
-          render={() => (
-            <FormItem className="row-span-full col-span-full">
-              <FormLabel>{organizationSelect.label}</FormLabel>
-              <FormControl>
-                <Select
-                  defaultValue={organizationSelect.options[0].value}
-                  onValueChange={(value) => setOrganizationType(value)}
-                >
-                  <SelectTrigger className="text-left">
-                    <SelectValue placeholder="Выберите тип" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {organizationSelect.options.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        {/* {formFields.map((field) => (
+        {formFields.map((field) => (
           <FormField
             key={field.name}
-            control={control}
-            name={field.name as keyof z.infer<typeof formSchema>}
-            render={({ field: formField }) => (
-              <FormItem>
-                <FormLabel>{field.label}</FormLabel>
-                <FormControl>
-                  <Input placeholder={field.placeholder} {...formField} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            id={field.name}
+            name={field.name}
+            label={field.label}
+            placeholder={field.placeholder}
+            componentType={field.type}
           />
-        ))} */}
+        ))}
 
         <div className="row-start-auto row-end-auto col-span-full grid grid-cols-3 gap-4">
-          <Button className="col-start-2 col-end-3 col-span-1" type="submit">
+          <Button
+            className="col-start-2 col-end-3 col-span-1 bg-bg-fourth text-white"
+            type="submit"
+          >
             Отправить
           </Button>
         </div>

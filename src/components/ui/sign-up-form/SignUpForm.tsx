@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import FormField from "../form-field/FormField";
+import FormField, { ComponentFormEnum } from "../form-field/FormField";
 import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormValues, schema } from "./utils";
@@ -8,6 +8,7 @@ import { AuthService } from "@/services/auth.service";
 import { adaptUserFormData } from "@/utils/utils";
 
 const SignUpForm: React.FC = () => {
+  const router = useRouter();
   const methods = useForm<SignUpFormValues>({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -20,8 +21,6 @@ const SignUpForm: React.FC = () => {
       birthDate: "",
     },
   });
-
-  const router = useRouter();
 
   async function onSubmit(data: SignUpFormValues) {
     const userData = {
@@ -81,14 +80,13 @@ const SignUpForm: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <FormField
-                className="bg-red-400"
                 id="email"
                 name="email"
                 label="Email"
                 placeholder="Roden"
                 type="email"
                 required
-                componentType="input"
+                componentType={ComponentFormEnum.INPUT}
               />
             </div>
 
@@ -98,7 +96,7 @@ const SignUpForm: React.FC = () => {
                 name="phone"
                 label="Phone number"
                 required
-                componentType="phone"
+                componentType={ComponentFormEnum.PHONE}
                 country={"ru"}
                 onlyCountries={["ru", "by", "kz"]}
               />
@@ -114,7 +112,7 @@ const SignUpForm: React.FC = () => {
                 placeholder="****"
                 type="password"
                 required
-                componentType="input"
+                componentType={ComponentFormEnum.INPUT}
               />
             </div>
 
@@ -126,7 +124,7 @@ const SignUpForm: React.FC = () => {
                 placeholder="22.06.1990"
                 type="date"
                 required
-                componentType="input"
+                componentType={ComponentFormEnum.INPUT}
               />
             </div>
           </div>

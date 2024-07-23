@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { Field, OrganizationSelect, OrganizationType } from "./CreateOrganizationForm.interface";
+import { ComponentFormEnum } from "../form-field/FormField";
 
 const baseSchema = z.object({
     type: z.enum(
@@ -12,11 +14,7 @@ const baseSchema = z.object({
     ),
     name: z.string().min(1, { message: "Имя обязательно." }),
     phone: z
-        .string()
-        .regex(/^(?:\+7|8)\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{2}[\s.-]?\d{2}$/, {
-            message:
-                "Неверный формат телефона. Пример: +7 (123) 456-78-90 или 8 (123) 456-78-90.",
-        }),
+        .string(),
     email: z.string().email({ message: "Неверный адрес электронной почты." }),
     address: z.string().min(1, { message: "Адрес обязателен." }),
     location: z.string().min(1, { message: "Местоположение обязательно." }),
@@ -60,10 +58,6 @@ const additionalFields = {
     }),
 };
 
-
-// Определение типа для типов организаций
-export type OrganizationType = "ООО" | "АО" | "ТНВ" | "ИП";
-
 // Функция для создания схемы валидации на основе типа организации
 const createFormValidation = (type: OrganizationType) => {
     const isEntity = ["ООО", "АО", "ТНВ"].includes(type) ? "entity" : "individual";
@@ -71,23 +65,12 @@ const createFormValidation = (type: OrganizationType) => {
     return fullSchema;
 };
 
-interface Option {
-    label: string;
-    value: string;
-}
-
-interface OrganizationSelect {
-    name: string;
-    label: string;
-    placeholder: string;
-    options: Option[];
-}
-
 
 const organizationSelect: OrganizationSelect = {
     name: "type",
     label: "Организационная структура",
     placeholder: "Выберите тип",
+    type: ComponentFormEnum.SELECT,
     options: [
         { label: "Общество с ограниченной ответственностью (ООО)", value: "ООО" },
         { label: "Акционерное общество (АО)", value: "АО" },
@@ -96,53 +79,35 @@ const organizationSelect: OrganizationSelect = {
     ],
 };
 
-interface Field {
-    name: string;
-    label: string;
-    placeholder: string;
-}
-
-const fields: Field[] = [
-    { name: "name", label: "Имя", placeholder: "Введите имя" },
-    { name: "phone", label: "Телефон", placeholder: "Введите телефон" },
-    { name: "email", label: "Email", placeholder: "Введите email" },
-    { name: "address", label: "Адрес", placeholder: "Введите адрес" },
-    {
-        name: "location",
-        label: "Местоположение",
-        placeholder: "Введите местоположение",
-    },
-    { name: "info", label: "Информация", placeholder: "Введите информацию" },
-    {
-        name: "name_legal",
-        label: "Юридическое имя",
-        placeholder: "Введите юридическое имя",
-    },
-    { name: "INN", label: "ИНН", placeholder: "Введите ИНН" },
-    { name: "KPP", label: "КПП", placeholder: "Введите КПП" },
-    { name: "OGRN", label: "ОГРН", placeholder: "Введите ОГРН" },
-    { name: "OKPO", label: "ОКПО", placeholder: "Введите ОКПО" },
-    { name: "BIK", label: "БИК", placeholder: "Введите БИК" },
-    {
-        name: "bank_name",
-        label: "Название банка",
-        placeholder: "Введите название банка",
-    },
-    {
-        name: "bank_address",
-        label: "Адрес банка",
-        placeholder: "Введите адрес банка",
-    },
-    {
-        name: "corr_account",
-        label: "Корреспондентский счёт",
-        placeholder: "Введите корреспондентский счёт",
-    },
-    {
-        name: "employees",
-        label: "Сотрудники",
-        placeholder: "Введите сотрудников через запятую",
-    },
+const createOrganizationFields: Field[] = [
+    { name: "name", label: "Имя", placeholder: "Введите имя", type: ComponentFormEnum.INPUT },
+    { name: "phone", label: "Телефон", placeholder: "Введите телефон", type: ComponentFormEnum.PHONE },
+    { name: "email", label: "Email", placeholder: "Введите email", type: ComponentFormEnum.INPUT },
+    { name: "address", label: "Адрес", placeholder: "Введите адрес", type: ComponentFormEnum.INPUT },
+    { name: "location", label: "Местоположение", placeholder: "Введите местоположение", type: ComponentFormEnum.INPUT },
+    { name: "info", label: "Информация", placeholder: "Введите информацию", type: ComponentFormEnum.INPUT },
+    { name: "name_legal", label: "Юридическое имя", placeholder: "Введите юридическое имя", type: ComponentFormEnum.INPUT },
+    { name: "INN", label: "ИНН", placeholder: "Введите ИНН", type: ComponentFormEnum.INPUT },
+    { name: "KPP", label: "КПП", placeholder: "Введите КПП", type: ComponentFormEnum.INPUT },
+    { name: "OGRN", label: "ОГРН", placeholder: "Введите ОГРН", type: ComponentFormEnum.INPUT },
+    { name: "OKPO", label: "ОКПО", placeholder: "Введите ОКПО", type: ComponentFormEnum.INPUT },
+    { name: "BIK", label: "БИК", placeholder: "Введите БИК", type: ComponentFormEnum.INPUT },
+    { name: "bank_name", label: "Название банка", placeholder: "Введите название банка", type: ComponentFormEnum.INPUT },
+    { name: "bank_address", label: "Адрес банка", placeholder: "Введите адрес банка", type: ComponentFormEnum.INPUT },
+    { name: "corr_account", label: "Корреспондентский счёт", placeholder: "Введите корреспондентский счёт", type: ComponentFormEnum.INPUT },
+    { name: "employees", label: "Сотрудники", placeholder: "Введите сотрудников через запятую", type: ComponentFormEnum.INPUT },
 ];
 
-export { baseSchema, additionalFields, createFormValidation, organizationSelect, fields };
+
+const createFormFields = (formSchema: z.ZodObject<any, any, any, any>): Field[] => {
+    const schema = formSchema;
+
+    const formFields = createOrganizationFields.filter(
+        (field) => schema.shape[field.name] !== undefined
+    );
+
+    return formFields;
+};
+
+
+export { baseSchema, additionalFields, createFormValidation, organizationSelect, createOrganizationFields, createFormFields };

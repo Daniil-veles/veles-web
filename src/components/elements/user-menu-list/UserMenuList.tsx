@@ -14,15 +14,23 @@ function UserMenuList(): JSX.Element {
   const listRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const category = searchParams.get("category") || "organization";
+  const category = searchParams.get("category");
+  console.log(category);
+  
+
+  useEffect(() => {
+    if (!category) {
+      router.replace("/user?category=organization");
+    }
+  }, [category, router]);
 
   useEffect(() => {
     // Установить активный ID на основе параметра category
-    const activeItem = userListItems.find(item => item.link === category);
+    const activeItem = userListItems.find((item) => item.link === category);
     if (activeItem) {
       setActiveId(activeItem.id);
     } else {
-      setActiveId(userListItems[0].id); // Если нет совпадений, устанавливаем первый элемент по умолчанию
+      setActiveId(userListItems[0].id);
     }
   }, [category]);
 

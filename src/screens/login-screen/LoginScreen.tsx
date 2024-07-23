@@ -2,10 +2,6 @@ import Layout from "@/layouts/Layout";
 
 import Image from "next/image";
 import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Container from "@/components/container/Container";
 import LoginForm from "@/components/ui/login-form/LoginForm";
 

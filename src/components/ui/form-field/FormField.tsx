@@ -10,6 +10,12 @@ import {
 } from "../select";
 import CustomPhoneInput from "../custom-phone-input/CustomPhoneInput";
 
+export enum ComponentFormEnum {
+  INPUT = "input",
+  SELECT = "select",
+  PHONE = "phone",
+}
+
 interface IFormFieldProps {
   id: string;
   name: string;
@@ -18,10 +24,12 @@ interface IFormFieldProps {
   type?: string;
   required?: boolean;
   validation?: RegisterOptions;
-  componentType: "input" | "select" | "phone";
+  componentType: ComponentFormEnum;
+  defaultValue?: string;
   options?: { label: string; value: string }[];
   country?: string;
   onlyCountries?: string[];
+  onValueChange?: (value: string) => void;
 }
 
 const FormField: React.FC<IFormFieldProps> = ({
@@ -36,6 +44,7 @@ const FormField: React.FC<IFormFieldProps> = ({
   options = [],
   country = "ru",
   onlyCountries = [],
+  onValueChange,
 }) => {
   const { control } = useFormContext();
 
@@ -64,7 +73,11 @@ const FormField: React.FC<IFormFieldProps> = ({
           <Select
             {...sharedProps}
             value={field.value || ""}
-            onValueChange={field.onChange}
+            defaultValue={field.defaultValue}
+            onValueChange={(value) => {
+              field.onChange(value);
+              if (onValueChange) onValueChange(value);
+            }}
           >
             <SelectTrigger>
               <SelectValue placeholder={placeholder} />
@@ -92,6 +105,13 @@ const FormField: React.FC<IFormFieldProps> = ({
         return null;
     }
   };
+
+
+  // focus-visible\:ring-2:focus-visible {
+  //   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  //   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  //   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  // }
 
   return (
     <>
