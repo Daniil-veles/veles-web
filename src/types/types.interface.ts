@@ -28,5 +28,6 @@ export interface UserListItem {
     id: number;
     iconName: string;
     text: string;
+    link: string;
 }
 

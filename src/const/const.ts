@@ -195,10 +195,10 @@ export const iconMap: Record<string, React.ElementType<LucideProps>> = {
 };
 
 export const userListItems = [
-    { id: 1, iconName: 'CirclePlus', text: 'Организация' },
-    { id: 2, iconName: 'Users', text: 'Сотрудники' },
-    { id: 3, iconName: 'BadgeRussianRuble', text: 'Тарифный план' },
-    { id: 4, iconName: 'Settings', text: 'Настройки' },
+    { id: 1, iconName: 'CirclePlus', text: 'Организация', link: 'organization' },
+    { id: 2, iconName: 'Users', text: 'Сотрудники', link: 'employee' },
+    { id: 3, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
+    { id: 4, iconName: 'Settings', text: 'Настройки', link: 'settings' },
 ];
 
 export enum NameSpace {

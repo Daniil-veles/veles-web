@@ -1,5 +1,5 @@
 import { iconMap } from "@/const/const";
-import { UserListItem } from "@/types/types";
+import { UserListItem } from "@/types/types.interface";
 import cn from "classnames";
 
 interface IUserMenuItemProps {
@@ -13,8 +13,7 @@ function UserMenuItem({
   isActive,
   onClick,
 }: IUserMenuItemProps): JSX.Element {
-  const { id, iconName, text } = item;
-
+  const { iconName, text } = item;
   const IconComponent = iconMap[iconName];
 
   return (
