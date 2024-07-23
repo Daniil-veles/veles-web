@@ -1,5 +1,5 @@
 import { CircleUser } from "lucide-react";
-import HeaderMenu from "../../elements/header-menu/HeaderMenu";
+import HeaderMenu from "../header-menu/HeaderMenu";
 import Container from "@/components/container/Container";
 import {
   DropdownMenu,

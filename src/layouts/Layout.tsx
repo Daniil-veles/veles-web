@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/blocks/header/Header";
-import Footer from "@/components/blocks/footer/Footer";
+import Header from "../components/elements/header/Header";
+import Footer from "@/components/elements/footer/Footer";
 import Meta, { IMeta } from "@/seo/Meta";
 
 interface ILayout extends IMeta {

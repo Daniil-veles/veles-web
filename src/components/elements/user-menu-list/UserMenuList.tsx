@@ -1,11 +1,11 @@
 // import './UserMenuList.scss';
 "use client";
 
-import UserMenuItem from "@/components/user-menu-item/UserMenuItem";
 import { userListItems } from "@/const/const";
 import { getIndicatorStyle } from "@/utils/utils";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import UserMenuItem from "../user-menu-item/UserMenuItem";
 
 function getCategoryLinkByUserMenu(activeId: number) {
   const categoryName =
