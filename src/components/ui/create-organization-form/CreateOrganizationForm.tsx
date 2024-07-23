@@ -1,57 +1,96 @@
 // import styles from './AddOrganizationForm.module.scss';
 
-import { useState } from "react";
-import { createFormValidation, createFormFields, organizationSelect } from "./utils";
+import { useEffect, useMemo, useState } from "react";
+import {
+  createFormValidation,
+  createFormFields,
+  organizationSelect,
+} from "./utils";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import FormField from "../form-field/FormField";
+import FormField, { ComponentFormEnum } from "../form-field/FormField";
 import { Button } from "../button";
 import { OrganizationType } from "./CreateOrganizationForm.interface";
-
+import { LOCAL_STORAGE_KEY_ORGANIZATION } from "@/const/const";
+import { OrganizationService } from "@/services/organisation.service";
 
 const CreateOrganizationForm: React.FC = () => {
-  const [organizationType, setOrganizationType] = useState<OrganizationType>(
-    organizationSelect.options[0].value
+  const [organizationType, setOrganizationType] =
+    useState<OrganizationType>("ООО");
+
+  // Меморизируем схему и поля формы, чтобы они пересоздавались только при изменении типа организации
+  const formSchema = useMemo(
+    () => createFormValidation(organizationType),
+    [organizationType]
   );
-  const [formData, setFormData] = useState<any>({
-    type: organizationType,
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    location: "",
-    info: "",
-    name_legal: "",
-    INN: "",
-    KPP: "",
-    OGRN: "",
-    OKPO: "",
-    BIK: "",
-    bank_name: "",
-    bank_address: "",
-    corr_account: "",
-    employees: [""],
-  });
+  const formFields = useMemo(() => createFormFields(formSchema), [formSchema]);
+  // console.log(`Поля формы для ${organizationType}:`, formFields);
 
-  // Cоздает поля формы и схему валидации для организации по Орг. структуре
-  const formSchema = createFormValidation(organizationType as OrganizationType);
-  const formFields = createFormFields(formSchema);
-  console.log(`Поля формы для ${organizationType}:`, formFields);
+  // Инициализация формы из localStorage
+  const initialValues = useMemo(() => {
+    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY_ORGANIZATION);
+    if (savedData) {
+      return JSON.parse(savedData);
+    }
+    return {
+      type: organizationType,
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      location: "",
+      info: "",
+      name_legal: "",
+      INN: "",
+      KPP: "",
+      OGRN: "",
+      OKPO: "",
+      BIK: "",
+      bank_name: "",
+      bank_address: "",
+      corr_account: "",
+      employees: [""],
+    };
+  }, [organizationType]);
 
-  // 1. Создаем hook форму.
+  // Hook форма.
   const methods = useForm<z.infer<typeof formSchema>>({
     mode: "onChange",
     resolver: zodResolver(formSchema),
-    defaultValues: formData,
+    defaultValues: initialValues,
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Optionally, perform form submission logic here
-    // reset(); // Reset form after submission
-    setFormData({ ...formData, ...values });
+  useEffect(() => {
+    // Сохраняем состояние формы в localStorage при каждом изменении
+    const subscription = methods.watch((values) => {
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY_ORGANIZATION,
+        JSON.stringify(values)
+      );
+    });
+
+    // Функция очистки
+    return () => {
+      subscription.unsubscribe(); // Вызов функции отписки
+    };
+  }, [methods]);
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    // console.log(values);
+    try {
+      const response = await OrganizationService.registration(data);
+
+      // Проверяем статус ответа и очищаем форму, если статус в диапазоне от 200 до 204 включительно
+      if (response.status >= 200 && response.status <= 204) {
+        console.log("User created successfully:", response.data);
+
+        localStorage.removeItem(LOCAL_STORAGE_KEY_ORGANIZATION);
+        methods.reset({});
+      }
+    } catch (error) {
+      console.error("Failed to create user:", error.response);
+    }
   }
 
   return (
@@ -66,10 +105,12 @@ const CreateOrganizationForm: React.FC = () => {
             name={organizationSelect.name}
             label={organizationSelect.label}
             placeholder={organizationSelect.placeholder}
-            componentType={'select'}
+            componentType={ComponentFormEnum.SELECT}
             options={organizationSelect.options}
             defaultValue={organizationSelect.options[0].value}
-            onValueChange={(value) => setOrganizationType(value)}
+            onValueChange={(value) =>
+              setOrganizationType(value as OrganizationType)
+            }
           />
         </div>
 

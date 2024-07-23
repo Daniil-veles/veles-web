@@ -2,6 +2,20 @@ import { z } from "zod";
 import { Field, OrganizationSelect, OrganizationType } from "./CreateOrganizationForm.interface";
 import { ComponentFormEnum } from "../form-field/FormField";
 
+// Функция для проверки валидности email
+const emailArraySchema = z.array(
+    z.string().email({ message: "Неверный адрес электронной почты." })
+);
+
+// Функция для проверки строки, содержащей email'ы, разделенные запятыми
+const employeesSchema = z.string()
+    .nonempty({ message: "Как минимум один сотрудник обязателен." })
+    .transform(value => value.split(',').map(email => email.trim()))
+    .refine(emails => emailArraySchema.safeParse(emails).success, {
+        message: "Адрес электронной почты указан некорректно."
+    });
+
+
 const baseSchema = z.object({
     type: z.enum(
         [
@@ -26,9 +40,7 @@ const baseSchema = z.object({
     corr_account: z
         .string()
         .min(1, { message: "Корреспондентский счёт обязателен." }),
-    employees: z
-        .array(z.string())
-        .nonempty({ message: "Как минимум один сотрудник обязателен." }),
+    employees: employeesSchema,
 });
 
 // Дополнительные поля для юридических лиц
@@ -36,25 +48,34 @@ const additionalFields = {
     entity: z.object({
         OGRN: z
             .string()
-            .length(13, { message: "ОГРН должен содержать 13 символов." }),
+            .length(13, { message: "ОГРН должен содержать 13 символов." })
+            .regex(/^\d+$/, { message: "ОГРН должен содержать только цифры." }),
         OKPO: z
             .string()
-            .length(8, { message: "ОКПО должен содержать 8 символов." }),
+            .length(8, { message: "ОКПО должен содержать 8 символов." })
+            .regex(/^\d+$/, { message: "ОКПО должен содержать только цифры." }),
         INN: z
             .string()
-            .length(10, { message: "ИНН должен содержать 10 символов." }),
-        KPP: z.string().length(9, { message: "КПП должен содержать 9 символов." }),
+            .length(10, { message: "ИНН должен содержать 10 символов." })
+            .regex(/^\d+$/, { message: "ИНН должен содержать только цифры." }),
+        KPP: z
+            .string()
+            .length(9, { message: "КПП должен содержать 9 символов." })
+            .regex(/^\d+$/, { message: "КПП должен содержать только цифры." }),
     }),
     individual: z.object({
         OGRN: z
             .string()
-            .length(15, { message: "ОГРНИП должен содержать 15 символов." }),
+            .length(15, { message: "ОГРНИП должен содержать 15 символов." })
+            .regex(/^\d+$/, { message: "ОГРНИП должен содержать только цифры." }),
         INN: z
             .string()
-            .length(12, { message: "ИНН должен содержать 12 символов." }),
+            .length(12, { message: "ИНН должен содержать 12 символов." })
+            .regex(/^\d+$/, { message: "ИНН должен содержать только цифры." }),
         OKPO: z
             .string()
-            .length(10, { message: "ОКПО должен содержать 10 символов." }),
+            .length(10, { message: "ОКПО должен содержать 10 символов." })
+            .regex(/^\d+$/, { message: "ОКПО должен содержать только цифры." }),
     }),
 };
 

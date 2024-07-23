@@ -47,4 +47,4 @@ export type FullSchemaType<T extends OrganizationType> = T extends "ООО" | "�
 
 
 // Определите тип возвращаемого значения функции
-type FormSchemaType = ReturnType<typeof createFormValidation>;
+export type FormSchemaType = z.infer<ReturnType<typeof createFormValidation>>;

@@ -206,3 +206,5 @@ export enum NameSpace {
     Data = 'DATA',
     User = 'USER',
 }
+
+export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';

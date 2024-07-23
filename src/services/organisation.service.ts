@@ -1,21 +1,16 @@
-import axios from 'axios';
-
-axios.defaults.baseURL = process.env.API_URL;
+import apiClient from '@/api/api';
+import { FormSchemaType } from '@/components/ui/create-organization-form/CreateOrganizationForm.interface';
 
 export const OrganizationService = {
-    async addNew() {
-        const { data } = await axios.get('/org');
-        return data;
+    async registration(data: FormSchemaType) {
+        try {
+            const response = await apiClient.post('/company/add', data);
+
+            return response;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
+        }
     },
-
-    async getByID(id: number) {
-        const { data } = await axios.get('/org', {
-            params: {
-                id
-            }
-        });
-        return data;
-    }
+ 
 }
-
-// /auth/register
