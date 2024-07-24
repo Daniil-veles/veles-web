@@ -208,3 +208,23 @@ export enum NameSpace {
 }
 
 export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';
+
+export const companyInfoFields = [
+    { field: 'Организационная структура', value: 'type' },
+    { field: 'Имя', value: 'name' },
+    { field: 'Телефон', value: 'phone' },
+    { field: 'Email', value: 'email' },
+    { field: 'Адрес', value: 'address' },
+    { field: 'Местоположение', value: 'location' },
+    { field: 'Информация', value: 'info' },
+    { field: 'Юридическое имя', value: 'name_legal' },
+    { field: 'ИНН', value: 'INN' },
+    { field: 'КПП', value: 'KPP' },
+    { field: 'ОГРН', value: 'OGRN' },
+    { field: 'ОКПО', value: 'OKPO' },
+    { field: 'БИК', value: 'BIK' },
+    { field: 'Название банка', value: 'bank_name' },
+    { field: 'Адрес банка', value: 'bank_address' },
+    { field: 'Корреспондентский счёт', value: 'corr_account' },
+    { field: 'Сотрудники', value: 'director' }
+]

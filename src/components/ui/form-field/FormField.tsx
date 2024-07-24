@@ -106,13 +106,6 @@ const FormField: React.FC<IFormFieldProps> = ({
     }
   };
 
-
-  // focus-visible\:ring-2:focus-visible {
-  //   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  //   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  //   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-  // }
-
   return (
     <>
       <Controller
@@ -124,7 +117,7 @@ const FormField: React.FC<IFormFieldProps> = ({
             <FormItem>
               <FormLabel htmlFor={id}>{label}</FormLabel>
               {renderComponent(field)}
-              {error && <FormMessage>{error.message}</FormMessage>}
+              {error && <FormMessage className="text-red-500">{error.message}</FormMessage>}
             </FormItem>
           );
         }}

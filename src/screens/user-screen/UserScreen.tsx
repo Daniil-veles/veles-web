@@ -1,8 +1,8 @@
 // import styles from './UserScreen.module.scss';
 
 import Container from "@/components/container/Container";
+import OrganizationInfo from "@/components/elements/organization-info/OrganizationInfo";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
-import CreateOrganizationForm from "@/components/ui/create-organization-form/CreateOrganizationForm";
 import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
 import { UserService } from "@/services/user.service";
@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const categories = {
-  organization: <CreateOrganizationForm />,
+  organization: <OrganizationInfo />,
   employee: <p>Блок сотрудников</p>,
   tariff: <p>Блок тарифных планов</p>,
   settings: <p>Блок настроек</p>,
@@ -32,7 +32,7 @@ const UserScreen: React.FC = () => {
         // Обновляет данные пользователя в сторе
         dispatch(setUserInfo(userInfo));
 
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.error("Error fetching user info:", error.message);
       }
@@ -55,8 +55,6 @@ const UserScreen: React.FC = () => {
         <UserMenu />
 
         <div className="w-full h-full">
-          <div className="mb-6 bg-bg-first p-6 rounded-md">Информация о компании</div>
-
           {renderContent()}
         </div>
       </Container>

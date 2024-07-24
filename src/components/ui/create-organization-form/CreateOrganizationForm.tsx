@@ -13,7 +13,7 @@ import FormField, { ComponentFormEnum } from "../form-field/FormField";
 import { Button } from "../button";
 import { OrganizationType } from "./CreateOrganizationForm.interface";
 import { LOCAL_STORAGE_KEY_ORGANIZATION } from "@/const/const";
-import { OrganizationService } from "@/services/organisation.service";
+import { organizationService } from "@/services/organisation.service";
 
 const CreateOrganizationForm: React.FC = () => {
   const [organizationType, setOrganizationType] =
@@ -79,7 +79,7 @@ const CreateOrganizationForm: React.FC = () => {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     // console.log(values);
     try {
-      const response = await OrganizationService.registration(data);
+      const response = await organizationService.registration(data);
 
       // Проверяем статус ответа и очищаем форму, если статус в диапазоне от 200 до 204 включительно
       if (response.status >= 200 && response.status <= 204) {
@@ -97,7 +97,7 @@ const CreateOrganizationForm: React.FC = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="grid grid-cols-3 gap-4"
+        className="grid grid-cols-3 gap-4 text-md"
       >
         <div className="row-span-full col-span-full">
           <FormField
