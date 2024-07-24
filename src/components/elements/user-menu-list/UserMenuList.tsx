@@ -1,7 +1,10 @@
 // import './UserMenuList.scss';
 "use client";
 
-import { LOCAL_STORAGE_USER_MENU_CATEGORY, userListItems } from "@/const/const";
+import {
+  LOCAL_STORAGE_USER_MENU_CATEGORY,
+  userListItems,
+} from "@/const/const";
 import { getIndicatorStyle } from "@/utils/utils";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -17,8 +20,11 @@ function UserMenuList(): JSX.Element {
   const categoryFromUrl = searchParams.get("category");
 
   useEffect(() => {
-    const categoryFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_USER_MENU_CATEGORY);
-    const finalCategory = categoryFromUrl || categoryFromLocalStorage || "organization";
+    const categoryFromLocalStorage = localStorage.getItem(
+      LOCAL_STORAGE_USER_MENU_CATEGORY
+    );
+    const finalCategory =
+      categoryFromUrl || categoryFromLocalStorage || "organization";
 
     if (categoryFromUrl !== finalCategory) {
       router.replace(`/user?category=${finalCategory}`);
@@ -26,31 +32,40 @@ function UserMenuList(): JSX.Element {
       localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, finalCategory);
     }
 
-    const activeItem = userListItems.find(item => item.link === finalCategory);
+    const activeItem = userListItems.find(
+      (item) => item.link === finalCategory
+    );
     if (activeItem) {
       setActiveId(activeItem.id);
+      updateIndicatorStyle();
     } else {
       setActiveId(userListItems[0].id);
     }
   }, [categoryFromUrl, router]);
 
-  useEffect(() => {
-    const updateIndicatorStyle = () => {
-      if (listRef.current) {
-        const activeItem = listRef.current.querySelector(".active");
-        if (activeItem) {
-          setIndicatorStyle(getIndicatorStyle(activeItem as HTMLElement, listRef.current));
-        }
+  const updateIndicatorStyle = () => {
+    if (listRef.current) {
+      const activeItem = listRef.current.querySelector(".active");
+      if (activeItem) {
+        const style = getIndicatorStyle(
+          activeItem as HTMLElement,
+          listRef.current
+        );
+        setIndicatorStyle(style);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     if (activeId !== null) {
       updateIndicatorStyle();
     }
 
-    window.addEventListener("resize", updateIndicatorStyle);
+    const handleResize = () => requestAnimationFrame(updateIndicatorStyle);
+
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", updateIndicatorStyle);
+      window.removeEventListener("resize", handleResize);
     };
   }, [activeId]);
 
@@ -58,7 +73,7 @@ function UserMenuList(): JSX.Element {
     router.push(`/user?category=${activeLink}`);
     localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, activeLink);
 
-    const activeItem = userListItems.find(item => item.link === activeLink);
+    const activeItem = userListItems.find((item) => item.link === activeLink);
     if (activeItem) {
       setActiveId(activeItem.id);
     }
