@@ -2,6 +2,7 @@
 
 import Container from "@/components/container/Container";
 import OrganizationInfo from "@/components/elements/organization-info/OrganizationInfo";
+import SettingsInfo from "@/components/elements/settings-info/SettingsInfo";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
 import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
@@ -16,7 +17,7 @@ const categories = {
   organization: <OrganizationInfo />,
   employee: <p>Блок сотрудников</p>,
   tariff: <p>Блок тарифных планов</p>,
-  settings: <p>Блок настроек</p>,
+  settings: <SettingsInfo />,
 };
 
 const UserScreen: React.FC = () => {

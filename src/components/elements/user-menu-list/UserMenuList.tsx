@@ -15,8 +15,6 @@ function UserMenuList(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
-  console.log(category);
-  
 
   useEffect(() => {
     if (!category) {

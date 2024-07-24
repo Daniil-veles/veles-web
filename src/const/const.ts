@@ -226,5 +226,5 @@ export const companyInfoFields = [
     { field: 'Название банка', value: 'bank_name' },
     { field: 'Адрес банка', value: 'bank_address' },
     { field: 'Корреспондентский счёт', value: 'corr_account' },
-    { field: 'Сотрудники', value: 'director' }
+    // { field: 'Сотрудники', value: 'director' }
 ]
