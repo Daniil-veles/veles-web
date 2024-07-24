@@ -208,6 +208,7 @@ export enum NameSpace {
 }
 
 export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';
+export const LOCAL_STORAGE_USER_MENU_CATEGORY = 'userMenuCategory';
 
 export const companyInfoFields = [
     { field: 'Организационная структура', value: 'type' },

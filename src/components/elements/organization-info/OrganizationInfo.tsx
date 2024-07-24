@@ -20,8 +20,6 @@ const OrganizationInfo: React.FC = () => {
     getOrganizationInfo(1);
   }, []);
 
-  console.log(organizationInfo);
-
   return (
     <div className="">
       {isSetOrganization ? (

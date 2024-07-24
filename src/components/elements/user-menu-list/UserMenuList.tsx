@@ -1,7 +1,7 @@
 // import './UserMenuList.scss';
 "use client";
 
-import { userListItems } from "@/const/const";
+import { LOCAL_STORAGE_USER_MENU_CATEGORY, userListItems } from "@/const/const";
 import { getIndicatorStyle } from "@/utils/utils";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -14,45 +14,54 @@ function UserMenuList(): JSX.Element {
   const listRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  const categoryFromUrl = searchParams.get("category");
 
   useEffect(() => {
-    if (!category) {
-      router.replace("/user?category=organization");
+    const categoryFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_USER_MENU_CATEGORY);
+    const finalCategory = categoryFromUrl || categoryFromLocalStorage || "organization";
+
+    if (categoryFromUrl !== finalCategory) {
+      router.replace(`/user?category=${finalCategory}`);
+    } else {
+      localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, finalCategory);
     }
-  }, [category, router]);
 
-  useEffect(() => {
-    // Установить активный ID на основе параметра category
-    const activeItem = userListItems.find((item) => item.link === category);
+    const activeItem = userListItems.find(item => item.link === finalCategory);
     if (activeItem) {
       setActiveId(activeItem.id);
     } else {
       setActiveId(userListItems[0].id);
     }
-  }, [category]);
+  }, [categoryFromUrl, router]);
 
   useEffect(() => {
     const updateIndicatorStyle = () => {
       if (listRef.current) {
         const activeItem = listRef.current.querySelector(".active");
         if (activeItem) {
-          setIndicatorStyle(
-            getIndicatorStyle(activeItem as HTMLElement, listRef.current)
-          );
+          setIndicatorStyle(getIndicatorStyle(activeItem as HTMLElement, listRef.current));
         }
       }
     };
 
-    const handleResize = () => requestAnimationFrame(updateIndicatorStyle);
+    if (activeId !== null) {
+      updateIndicatorStyle();
+    }
 
-    updateIndicatorStyle();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", updateIndicatorStyle);
+    return () => {
+      window.removeEventListener("resize", updateIndicatorStyle);
+    };
   }, [activeId]);
 
   const handleChangeActive = (activeLink: string) => {
     router.push(`/user?category=${activeLink}`);
+    localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, activeLink);
+
+    const activeItem = userListItems.find(item => item.link === activeLink);
+    if (activeItem) {
+      setActiveId(activeItem.id);
+    }
   };
 
   return (
