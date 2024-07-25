@@ -9,12 +9,7 @@ import {
   SelectValue,
 } from "../select";
 import CustomPhoneInput from "../custom-phone-input/CustomPhoneInput";
-
-export enum ComponentFormEnum {
-  INPUT = "input",
-  SELECT = "select",
-  PHONE = "phone",
-}
+import { ComponentFormEnum } from "@/types/types.interface";
 
 interface IFormFieldProps {
   id: string;

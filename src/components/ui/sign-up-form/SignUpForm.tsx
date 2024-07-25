@@ -1,11 +1,12 @@
 import { FormProvider, useForm } from "react-hook-form";
-import FormField, { ComponentFormEnum } from "../form-field/FormField";
+import FormField from "../form-field/FormField";
 import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormValues, schema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
 import { adaptUserFormData } from "@/utils/utils";
+import { ComponentFormEnum } from "@/types/types.interface";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
@@ -61,7 +62,7 @@ const SignUpForm: React.FC = () => {
                 label="First name"
                 placeholder="Max"
                 required
-                componentType="input"
+                componentType={ComponentFormEnum.INPUT}
               />
             </div>
 
@@ -72,7 +73,7 @@ const SignUpForm: React.FC = () => {
                 label="Last name"
                 placeholder="Robinson"
                 required
-                componentType="input"
+                componentType={ComponentFormEnum.INPUT}
               />
             </div>
           </div>

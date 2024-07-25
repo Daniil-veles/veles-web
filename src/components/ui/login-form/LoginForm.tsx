@@ -6,6 +6,7 @@ import { AdaptedUserLoginData } from "./LoginForm.interface";
 import { useRouter } from "next/router";
 import { setAccessToken } from "@/utils/utils";
 import { AuthService } from "@/services/auth.service";
+import { ComponentFormEnum } from "@/types/types.interface";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
@@ -26,11 +27,11 @@ const LoginForm: React.FC = () => {
 
       if (response.status === 200) {
         console.log(response.data);
-        
+
         methods.reset();
 
         setAccessToken(response.data.access_token);
-        router.push('/user');
+        router.push("/user");
       }
     } catch (error) {
       console.error("Failed to create user:", error.response);
@@ -48,7 +49,7 @@ const LoginForm: React.FC = () => {
               type="email"
               label="Email"
               placeholder="m@example.com"
-              componentType="input"
+              componentType={ComponentFormEnum.INPUT}
               required
             />
           </div>
@@ -60,7 +61,7 @@ const LoginForm: React.FC = () => {
               type="password"
               label="Password"
               placeholder="*****"
-              componentType="input"
+              componentType={ComponentFormEnum.INPUT}
               required
             />
           </div>

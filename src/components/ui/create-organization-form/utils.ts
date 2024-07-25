@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Field, OrganizationSelect, OrganizationType } from "./CreateOrganizationForm.interface";
-import { ComponentFormEnum } from "../form-field/FormField";
+import { ComponentFormEnum } from "@/types/types.interface";
 
 // Функция для проверки валидности email
 const emailArraySchema = z.array(

@@ -31,3 +31,9 @@ export interface UserListItem {
     link: string;
 }
 
+export enum ComponentFormEnum {
+    INPUT = "input",
+    SELECT = "select",
+    PHONE = "phone",
+}
+

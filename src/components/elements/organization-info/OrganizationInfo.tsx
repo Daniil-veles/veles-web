@@ -1,6 +1,7 @@
 // import styles from './OrganizationInfo.module.scss';
 
 import { Button } from "@/components/ui/button";
+import ChangerData from "@/components/ui/changer-data/ChangerData";
 import CreateOrganizationForm from "@/components/ui/create-organization-form/CreateOrganizationForm";
 import { companyInfoFields } from "@/const/const";
 import { organizationService } from "@/services/organisation.service";
@@ -29,18 +30,16 @@ const OrganizationInfo: React.FC = () => {
           <div className="mb-5">
             {companyInfoFields && organizationInfo
               ? companyInfoFields.map((item) => (
-                  <div key={item.field} className="grid grid-cols-2 gap-5">
+                  <div key={item.field} className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
                     <p className="font-medium">{item.field}</p>
 
-                    <p>{organizationInfo[item.value]}</p>
+                    <ChangerData value={organizationInfo[item.value]} />
                   </div>
                 ))
               : "Организация не найдена"}
           </div>
 
-          <Button className="bg-bg-fourth text-c-first">
-            Редактировать
-          </Button>
+          <Button className="bg-bg-fourth text-c-first">Редактировать</Button>
         </div>
       ) : (
         <CreateOrganizationForm />
