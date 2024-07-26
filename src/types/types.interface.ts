@@ -37,3 +37,6 @@ export enum ComponentFormEnum {
     PHONE = "phone",
 }
 
+// Определяем тип для ключей объекта
+export type CategoryKeys = 'organization' | 'employee' | 'tariff' | 'settings';
+

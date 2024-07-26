@@ -8,12 +8,13 @@ import { useAppDispatch } from "@/hooks";
 import Layout from "@/layouts/Layout";
 import { UserService } from "@/services/user.service";
 import { setUserInfo } from "@/store/slices/userSlice";
+import { CategoryKeys } from "@/types/types.interface";
 import { UserServerData } from "@/types/user.interface";
 import { adaptToUserData } from "@/utils/utils";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const categories = {
+const categories: Record<CategoryKeys, JSX.Element | string> = {
   organization: <OrganizationInfo />,
   employee: <p>Блок сотрудников</p>,
   tariff: <p>Блок тарифных планов</p>,
@@ -23,19 +24,21 @@ const categories = {
 const UserScreen: React.FC = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUserInfo() {
       try {
         const response: UserServerData = await UserService.getUserInfo();
         const userInfo = adaptToUserData(response);
+        console.log(userInfo);
 
         // Обновляет данные пользователя в сторе
         dispatch(setUserInfo(userInfo));
-
-        // console.log(response);
       } catch (error) {
         console.error("Error fetching user info:", error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -45,6 +48,7 @@ const UserScreen: React.FC = () => {
   const { category } = router.query;
 
   const renderContent = () => {
+    if (isLoading) return <p>Загрузка...</p>;
     if (!category || typeof category !== "string")
       return <p>Выберите категорию</p>;
     return categories[category] || <p>Неизвестная категория</p>;
@@ -55,9 +59,7 @@ const UserScreen: React.FC = () => {
       <Container className="grid grid-cols-[max-content_1fr] gap-10 grow">
         <UserMenu />
 
-        <div className="w-full h-full">
-          {renderContent()}
-        </div>
+        <div className="w-full h-full">{renderContent()}</div>
       </Container>
     </Layout>
   );

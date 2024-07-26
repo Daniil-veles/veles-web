@@ -31,7 +31,7 @@ const SignUpForm: React.FC = () => {
     };
 
     const formattedUserData = adaptUserFormData(userData);
-    console.log(formattedUserData);
+    // console.log(formattedUserData);
 
     try {
       const response = await AuthService.registration(formattedUserData);
