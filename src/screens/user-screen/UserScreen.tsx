@@ -51,15 +51,25 @@ const UserScreen: React.FC = () => {
     if (isLoading) return <p>Загрузка...</p>;
     if (!category || typeof category !== "string")
       return <p>Выберите категорию</p>;
-    return categories[category] || <p>Неизвестная категория</p>;
+
+    // Приведение типа категории
+    const categoryKey = category as CategoryKeys;
+
+    // Проверка на существование ключа
+    if (!(categoryKey in categories)) {
+      return <p>Неизвестная категория</p>;
+    }
+
+    return categories[categoryKey] || <p>Неизвестная категория</p>;
   };
 
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
-      <Container className="grid grid-cols-[max-content_1fr] gap-10 grow">
-        <UserMenu />
-
-        <div className="w-full h-full">{renderContent()}</div>
+      <Container className="flex flex-col flex-grow">
+        <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
+          <UserMenu />
+          <div className="w-full h-full overflow-y-auto">{renderContent()}</div>
+        </div>
       </Container>
     </Layout>
   );

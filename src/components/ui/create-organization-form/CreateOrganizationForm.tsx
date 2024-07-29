@@ -100,7 +100,7 @@ const CreateOrganizationForm: React.FC = () => {
         className="grid grid-cols-3 gap-4 text-md"
       >
         <div className="row-span-full col-span-full">
-          <FormField
+          {/* <FormField
             id={organizationSelect.name}
             name={organizationSelect.name}
             label={organizationSelect.label}
@@ -111,7 +111,7 @@ const CreateOrganizationForm: React.FC = () => {
             onValueChange={(value) =>
               setOrganizationType(value as OrganizationType)
             }
-          />
+          /> */}
         </div>
 
         {formFields.map((field) => (
