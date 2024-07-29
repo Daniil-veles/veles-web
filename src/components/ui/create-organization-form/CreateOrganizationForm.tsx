@@ -9,11 +9,12 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import FormField, { ComponentFormEnum } from "../form-field/FormField";
+import FormField from "../form-field/FormField";
 import { Button } from "../button";
 import { OrganizationType } from "./CreateOrganizationForm.interface";
 import { LOCAL_STORAGE_KEY_ORGANIZATION } from "@/const/const";
 import { organizationService } from "@/services/organisation.service";
+import { ComponentFormEnum } from "@/types/types.interface";
 
 const CreateOrganizationForm: React.FC = () => {
   const [organizationType, setOrganizationType] =
@@ -100,7 +101,7 @@ const CreateOrganizationForm: React.FC = () => {
         className="grid grid-cols-3 gap-4 text-md"
       >
         <div className="row-span-full col-span-full">
-          {/* <FormField
+          <FormField
             id={organizationSelect.name}
             name={organizationSelect.name}
             label={organizationSelect.label}
@@ -111,7 +112,7 @@ const CreateOrganizationForm: React.FC = () => {
             onValueChange={(value) =>
               setOrganizationType(value as OrganizationType)
             }
-          /> */}
+          />
         </div>
 
         {formFields.map((field) => (

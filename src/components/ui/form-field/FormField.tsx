@@ -1,4 +1,4 @@
-import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { FormItem, FormLabel, FormMessage } from "../form";
 import { Input } from "../input";
 import {
@@ -9,38 +9,27 @@ import {
   SelectValue,
 } from "../select";
 import CustomPhoneInput from "../custom-phone-input/CustomPhoneInput";
-import { ComponentFormEnum } from "@/types/types.interface";
+import { IFormField } from "@/types/types.interface";
 
 interface IFormFieldProps {
-  id: string;
-  name: string;
-  label: string;
-  placeholder?: string;
-  type?: string;
-  required?: boolean;
-  validation?: RegisterOptions;
-  componentType: ComponentFormEnum;
-  defaultValue?: string;
-  options?: { label: string; value: string }[];
-  country?: string;
-  onlyCountries?: string[];
-  onValueChange?: (value: string) => void;
+  value: IFormField;
 }
 
-const FormField: React.FC<IFormFieldProps> = ({
-  id,
-  name,
-  label,
-  placeholder,
-  type = "text",
-  required = false,
-  validation,
-  componentType,
-  options = [],
-  country = "ru",
-  onlyCountries = [],
-  onValueChange,
-}) => {
+const FormField: React.FC<IFormFieldProps> = ({ value }) => {
+  const {
+    id,
+    name,
+    label,
+    placeholder,
+    type = "text",
+    required = false,
+    validation,
+    componentType,
+    options = [],
+    country = "ru",
+    onlyCountries = [],
+  } = value;
+
   const { control } = useFormContext();
 
   const renderComponent = (field: any) => {
@@ -112,7 +101,11 @@ const FormField: React.FC<IFormFieldProps> = ({
             <FormItem>
               <FormLabel htmlFor={id}>{label}</FormLabel>
               {renderComponent(field)}
-              {error && <FormMessage className="text-red-500">{error.message}</FormMessage>}
+              {error && (
+                <FormMessage className="text-red-500">
+                  {error.message}
+                </FormMessage>
+              )}
             </FormItem>
           );
         }}
