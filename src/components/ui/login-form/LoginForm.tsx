@@ -1,16 +1,17 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../button";
 import FormField from "../form-field/FormField";
-import { adaptedUserData, LoginFormValues } from "./utils";
+import { adaptedUserData, loginFormFields, LoginFormValues, loginSchema } from "./utils";
 import { AdaptedUserLoginData } from "./LoginForm.interface";
 import { useRouter } from "next/router";
 import { setAccessToken } from "@/utils/utils";
 import { AuthService } from "@/services/auth.service";
-import { ComponentFormEnum } from "@/types/types.interface";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
     mode: "onChange",
+    resolver: zodResolver(loginSchema), 
     defaultValues: {
       email: "",
       password: "",
@@ -42,29 +43,13 @@ const LoginForm: React.FC = () => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="grid gap-4">
-          <div className="grid gap-2">
-            <FormField
-              id="email"
-              name="email"
-              type="email"
-              label="Email"
-              placeholder="m@example.com"
-              componentType={ComponentFormEnum.INPUT}
-              required
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <FormField
-              id="password"
-              name="password"
-              type="password"
-              label="Password"
-              placeholder="*****"
-              componentType={ComponentFormEnum.INPUT}
-              required
-            />
-          </div>
+          {loginFormFields
+            ? loginFormFields.map((field) => (
+                <div key={field.name} className="grid gap-2">
+                  <FormField key={field.name} value={field} />
+                </div>
+              ))
+            : null}
 
           <Button type="submit" className="w-full bg-bg-fourth text-c-first">
             Login

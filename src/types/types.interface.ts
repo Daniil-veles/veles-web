@@ -39,21 +39,50 @@ export enum ComponentFormEnum {
     PHONE = "phone",
 }
 
-export interface IFormField {
-    id: string;
-    name: string;
-    label: string;
-    placeholder?: string;
-    type?: string;
-    required?: boolean;
-    validation?: RegisterOptions;
-    componentType: ComponentFormEnum;
-    defaultValue?: string;
-    options?: { label: string; value: string }[];
-    country?: string;
-    onlyCountries?: string[];
-}
 
 // Определяем тип для ключей объекта
 export type CategoryKeys = 'organization' | 'employee' | 'tariff' | 'settings';
 
+// export interface IFormField {
+//     id: string;
+//     name: string;
+//     label: string;
+//     placeholder?: string;
+//     type?: string;
+//     required?: boolean;
+//     validation?: RegisterOptions;
+//     componentType: ComponentFormEnum;
+//     defaultValue?: string;
+//     options?: { label: string; value: string }[];
+//     country?: string;
+//     onlyCountries?: string[];
+// }
+
+
+interface IBaseFormField {
+    id: string;
+    name: string;
+    label: string;
+    placeholder?: string;
+    required?: boolean;
+    validation?: RegisterOptions;
+    defaultValue?: string;
+}
+
+interface IInputFormField extends IBaseFormField {
+    type?: string; // Например, text, password, email и т.д.
+    componentType: ComponentFormEnum.INPUT;
+}
+
+interface ISelectFormField extends IBaseFormField {
+    options: { label: string; value: string }[];
+    componentType: ComponentFormEnum.SELECT;
+}
+
+interface IPhoneFormField extends IBaseFormField {
+    country?: string;
+    onlyCountries?: string[];
+    componentType: ComponentFormEnum.PHONE;
+}
+
+export type IFormField = IInputFormField | ISelectFormField | IPhoneFormField;
