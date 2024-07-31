@@ -43,22 +43,6 @@ export enum ComponentFormEnum {
 // Определяем тип для ключей объекта
 export type CategoryKeys = 'organization' | 'employee' | 'tariff' | 'settings';
 
-// export interface IFormField {
-//     id: string;
-//     name: string;
-//     label: string;
-//     placeholder?: string;
-//     type?: string;
-//     required?: boolean;
-//     validation?: RegisterOptions;
-//     componentType: ComponentFormEnum;
-//     defaultValue?: string;
-//     options?: { label: string; value: string }[];
-//     country?: string;
-//     onlyCountries?: string[];
-// }
-
-
 interface IBaseFormField {
     id: string;
     name: string;

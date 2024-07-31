@@ -146,22 +146,21 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
             type={value.type}
             placeholder={value.placeholder}
             required={value.required}
-            {...field}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
           />
         );
       case ComponentFormEnum.SELECT:
         return (
           <Select
-            id={value.id}
-            name={value.name}
             value={field.value || ""}
             defaultValue={field.defaultValue}
-            onValueChange={(newValue) => {
-              field.onChange(newValue);
-              if (value.onValueChange) value.onValueChange(newValue);
-            }}
+            onValueChange={field.onChange}
+            // onChange={field.onChange}
+            // onBlur={field.onBlur}
           >
-            <SelectTrigger>
+            <SelectTrigger id={value.id} name={value.name}>
               <SelectValue placeholder={value.placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -176,15 +175,14 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
       case ComponentFormEnum.PHONE:
         return (
           <CustomPhoneInput
-            id={value.id}
-            name={value.name}
-            country={value.country}
-            onlyCountries={value.onlyCountries}
+            // name={value.name}
+            country={value.country ?? ""}
+            onlyCountries={value.onlyCountries ?? []}
             value={field.value}
             onChange={field.onChange}
-            placeholder={value.placeholder}
-            required={value.required}
-            {...field}
+            // onBlur={field.onBlur}
+            // placeholder={value.placeholder}
+            // required={value.required}
           />
         );
       default:

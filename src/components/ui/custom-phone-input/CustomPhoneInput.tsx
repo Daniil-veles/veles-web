@@ -1,13 +1,12 @@
 // import './CustomPhoneInput.scss';
 import React from "react";
-import PhoneInput from "react-phone-input-2";
+import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-interface CustomPhoneInputProps {
+
+interface CustomPhoneInputProps extends PhoneInputProps {
   country: string;
   onlyCountries: string[];
-  value: string;
-  onChange: (value: string) => void;
 }
 
 const CustomPhoneInput: React.ForwardRefRenderFunction<
@@ -18,7 +17,7 @@ const CustomPhoneInput: React.ForwardRefRenderFunction<
     <div className="w-full">
       <PhoneInput
         {...field}
-        ref={ref}
+        inputProps={{ ref }}
         country={country}
         onlyCountries={onlyCountries}
         value={value}
