@@ -157,8 +157,7 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
             value={field.value || ""}
             defaultValue={field.defaultValue}
             onValueChange={field.onChange}
-            // onChange={field.onChange}
-            // onBlur={field.onBlur}
+            required={value.required}
           >
             <SelectTrigger id={value.id} name={value.name}>
               <SelectValue placeholder={value.placeholder} />
@@ -175,14 +174,12 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
       case ComponentFormEnum.PHONE:
         return (
           <CustomPhoneInput
-            // name={value.name}
             country={value.country ?? ""}
             onlyCountries={value.onlyCountries ?? []}
             value={field.value}
             onChange={field.onChange}
-            // onBlur={field.onBlur}
-            // placeholder={value.placeholder}
-            // required={value.required}
+            required={value.required ?? false}
+            placeholder={value.placeholder ?? ""}
           />
         );
       default:

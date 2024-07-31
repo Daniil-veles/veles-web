@@ -4,8 +4,8 @@ import { ComponentFormEnum } from "@/types/types.interface";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Неверный формат email адреса." }),
-  password: z.string().length(8, { message: "Пароль должен быть 8 символов." }),
-  // .regex(/^(?=.*[a-z])(?=.*[0-9]).+$/i, { message: "Неверный формат пароля." }),
+  password: z.string().length(8, { message: "Пароль должен быть 8 символов." })
+    .regex(/^(?=.*[a-z])(?=.*[0-9]).+$/i, { message: "Неверный формат пароля." }),
 });
 
 export const adaptedUserData = (userData: UserLoginData) => {
