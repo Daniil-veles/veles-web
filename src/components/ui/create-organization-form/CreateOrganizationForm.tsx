@@ -14,7 +14,6 @@ import { Button } from "../button";
 import { OrganizationType } from "./CreateOrganizationForm.interface";
 import { LOCAL_STORAGE_KEY_ORGANIZATION } from "@/const/const";
 import { organizationService } from "@/services/organisation.service";
-import { ComponentFormEnum } from "@/types/types.interface";
 
 const CreateOrganizationForm: React.FC = () => {
   const [organizationType, setOrganizationType] =
@@ -25,14 +24,19 @@ const CreateOrganizationForm: React.FC = () => {
     () => createFormValidation(organizationType),
     [organizationType]
   );
-  const formFields = useMemo(() => createFormFields(formSchema), [formSchema]);
-  // console.log(`Поля формы для ${organizationType}:`, formFields);
+  const organizationFormFields = useMemo(
+    () => createFormFields(formSchema),
+    [formSchema]
+  );
+  console.log(`Поля формы для ${organizationType}:`, organizationFormFields);
 
   // Инициализация формы из localStorage
   const initialValues = useMemo(() => {
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY_ORGANIZATION);
     if (savedData) {
-      return JSON.parse(savedData);
+      const data = JSON.parse(savedData);
+      setOrganizationType(data.type)
+      return data;
     }
     return {
       type: organizationType,
@@ -102,29 +106,16 @@ const CreateOrganizationForm: React.FC = () => {
       >
         <div className="row-span-full col-span-full">
           <FormField
-            id={organizationSelect.name}
-            name={organizationSelect.name}
-            label={organizationSelect.label}
-            placeholder={organizationSelect.placeholder}
-            componentType={ComponentFormEnum.SELECT}
-            options={organizationSelect.options}
-            defaultValue={organizationSelect.options[0].value}
-            onValueChange={(value) =>
-              setOrganizationType(value as OrganizationType)
-            }
+            onValueChange={(value) => setOrganizationType(value)}
+            value={organizationSelect}
           />
         </div>
 
-        {formFields.map((field) => (
-          <FormField
-            key={field.name}
-            id={field.name}
-            name={field.name}
-            label={field.label}
-            placeholder={field.placeholder}
-            componentType={field.type}
-          />
-        ))}
+        {organizationFormFields
+          ? organizationFormFields.map((field) => (
+              <FormField key={field.name} value={field} />
+            ))
+          : null}
 
         <div className="row-start-auto row-end-auto col-span-full grid grid-cols-3 gap-4">
           <Button

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { UserLoginData } from "./LoginForm.interface";
-import { ComponentFormEnum } from "@/types/types.interface";
+import { ComponentFormEnum, IFormField } from "@/types/types.interface";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Неверный формат email адреса." }),
@@ -17,7 +17,7 @@ export const adaptedUserData = (userData: UserLoginData) => {
   return adaptedData;
 }
 
-export const loginFormFields = [
+export const loginFormFields: IFormField[] = [
   {
     id: 'email',
     name: 'email',
@@ -37,6 +37,7 @@ export const loginFormFields = [
     required: true,
   },
 ];
+
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 

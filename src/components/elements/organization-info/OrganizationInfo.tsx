@@ -15,14 +15,14 @@ const OrganizationInfo: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isSetOrganization = true;
 
-  useEffect(() => {
-    async function getOrganizationInfo(id: number) {
-      const response = await organizationService.getInfo(id);
-      setOrganizationInfo(response);
-    }
+  // useEffect(() => {
+  //   async function getOrganizationInfo(id: number) {
+  //     const response = await organizationService.getInfo(id);
+  //     setOrganizationInfo(response);
+  //   }
 
-    getOrganizationInfo(1);
-  }, []);
+  //   getOrganizationInfo(1);
+  // }, []);
 
   return (
     <>
@@ -63,8 +63,8 @@ const OrganizationInfo: React.FC = () => {
       )} */}
 
       {isModalOpen ? (
-        <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-black/20">
-          <div className="w-2/3 bg-bg-first rounded p-6">
+        <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-black/40">
+          <div className="w-2/3 bg-bg-first shadow rounded p-6 z-10">
           <CreateOrganizationForm />
           </div>
         </div>

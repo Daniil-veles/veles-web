@@ -128,12 +128,14 @@ import {
 } from "../select";
 import CustomPhoneInput from "../custom-phone-input/CustomPhoneInput";
 import { ComponentFormEnum, IFormField } from "@/types/types.interface";
+import React from "react";
 
 interface IFormFieldProps {
   value: IFormField;
+  onValueChange?: (value: any) => void; 
 }
 
-const FormField: React.FC<IFormFieldProps> = ({ value }) => {
+const FormFieldComponent: React.FC<IFormFieldProps> = ({ value, onValueChange }) => {
   const { control } = useFormContext();
 
   const renderComponent = (field: any) => {
@@ -156,13 +158,16 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
           <Select
             value={field.value || ""}
             defaultValue={field.defaultValue}
-            onValueChange={field.onChange}
+            onValueChange={(value) => {
+              field.onChange(value);
+              if (onValueChange) onValueChange(value); // Обработка изменения для Select
+            }}
             required={value.required}
           >
-            <SelectTrigger id={value.id} name={value.name}>
+            <SelectTrigger className="bg-white" id={value.id} name={value.name}>
               <SelectValue placeholder={value.placeholder} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {value.options?.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
@@ -205,5 +210,7 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
     />
   );
 };
+
+const FormField = React.memo(FormFieldComponent);
 
 export default FormField;
