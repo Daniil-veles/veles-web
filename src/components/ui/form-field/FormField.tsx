@@ -160,7 +160,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({ value, onValueChange })
             defaultValue={field.defaultValue}
             onValueChange={(value) => {
               field.onChange(value);
-              if (onValueChange) onValueChange(value); // Обработка изменения для Select
+              if (onValueChange) onValueChange(value);
             }}
             required={value.required}
           >
