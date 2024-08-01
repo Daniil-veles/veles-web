@@ -33,15 +33,16 @@ export interface UserListItem {
     link: string;
 }
 
+
+// Определяем тип для ключей объекта
+export type CategoryKeys = 'organization' | 'employee' | 'tariff' | 'settings';
+
+
 export enum ComponentFormEnum {
     INPUT = "input",
     SELECT = "select",
     PHONE = "phone",
 }
-
-
-// Определяем тип для ключей объекта
-export type CategoryKeys = 'organization' | 'employee' | 'tariff' | 'settings';
 
 interface IBaseFormField {
     id: string;

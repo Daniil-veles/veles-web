@@ -1,4 +1,4 @@
-import { ComponentFormEnum } from "@/types/types.interface";
+import { ComponentFormEnum, IFormField } from "@/types/types.interface";
 import { z } from "zod";
 
 export const signUpSchema = z.object({
@@ -17,23 +17,23 @@ export const signUpSchema = z.object({
 });
 
 
-export const loginFormFields = [
+export const signUpFormFields: IFormField[] = [
     {
         id: 'first-name',
-        name: 'first-name',
+        name: 'firstName',
         label: 'Имя',
         placeholder: 'Павел',
-        type: 'text',
+        type: 'text', 
         componentType: ComponentFormEnum.INPUT,
         required: true,
     },
     {
         id: 'last-name',
-        name: 'last-name',
+        name: 'lastName',
         label: 'Фамилия',
         placeholder: 'Петров',
         type: 'text',
-        componentType: ComponentFormEnum.INPUT,
+        componentType: ComponentFormEnum.INPUT, 
         required: true,
     },
     {
@@ -42,7 +42,7 @@ export const loginFormFields = [
         label: 'Email',
         placeholder: 'm@example.com',
         type: 'email',
-        componentType: ComponentFormEnum.INPUT,
+        componentType: ComponentFormEnum.INPUT, 
         required: true,
     },
     {
@@ -50,7 +50,7 @@ export const loginFormFields = [
         name: 'password',
         label: 'Password',
         placeholder: '*****',
-        type: 'password',
+        type: 'password', 
         componentType: ComponentFormEnum.INPUT,
         required: true,
     },
@@ -59,10 +59,10 @@ export const loginFormFields = [
         name: 'phone',
         label: 'Телефон',
         placeholder: '+7 (123) 456 78 90',
-        componentType: ComponentFormEnum.PHONE,
+        componentType: ComponentFormEnum.PHONE, 
         required: true,
         country: "ru",
-        onlyCountries: ["ru", "by", "kz"],
+        onlyCountries: ["ru", "by", "kz"], 
     },
     {
         id: 'date',

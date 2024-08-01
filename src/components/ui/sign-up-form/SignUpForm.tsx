@@ -2,11 +2,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormField from "../form-field/FormField";
 import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpFormValues, signUpSchema } from "./utils";
+import { signUpFormFields, SignUpFormValues, signUpSchema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
 import { adaptUserFormData } from "@/utils/utils";
-import { ComponentFormEnum } from "@/types/types.interface";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
@@ -18,7 +17,7 @@ const SignUpForm: React.FC = () => {
       password: "",
       firstName: "",
       lastName: "",
-      phone: "",
+      phone: "+7",
       birthDate: "",
     },
   });
@@ -55,100 +54,16 @@ const SignUpForm: React.FC = () => {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <FormField
-                value={{
-                  id: "email",
-                  name: "email",
-                  label: "Email",
-                  placeholder: "m@example.com",
-                  type: "email",
-                  componentType: ComponentFormEnum.INPUT,
-                  required: true,
-                }}
-              />
-
-              {/* <FormField
-                id="first-name"
-                name="firstName"
-                label="First name"
-                placeholder="Max"
-                required
-                componentType={ComponentFormEnum.INPUT}
-              /> */}
-            </div>
-
-            <div className="grid gap-2">
-              {/* <FormField
-                id="last-name"
-                name="lastName"
-                label="Last name"
-                placeholder="Robinson"
-                required
-                componentType={ComponentFormEnum.INPUT}
-              /> */}
-            </div>
+            {signUpFormFields
+              ? signUpFormFields.map((field) => (
+                  <FormField key={field.name} value={field} />
+                ))
+              : null}
           </div>
-
-          {/* <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <FormField
-                id="email"
-                name="email"
-                label="Email"
-                placeholder="Roden"
-                type="email"
-                required
-                componentType={ComponentFormEnum.INPUT}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <FormField
-                id="phone"
-                name="phone"
-                label="Phone number"
-                required
-                componentType={ComponentFormEnum.PHONE}
-                country={"ru"}
-                onlyCountries={["ru", "by", "kz"]}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <FormField
-                id="password"
-                name="password"
-                label="Password"
-                placeholder="****"
-                type="password"
-                required
-                componentType={ComponentFormEnum.INPUT}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <FormField
-                id="date"
-                name="birthDate"
-                label="Date"
-                placeholder="22.06.1990"
-                type="date"
-                required
-                componentType={ComponentFormEnum.INPUT}
-              />
-            </div>
-          </div> */}
 
           <Button type="submit" className="w-full bg-bg-fourth text-c-first">
             Create an account
           </Button>
-
-          {/* <Button variant="outline" className="w-full">
-                  Sign up with GitHub
-                </Button> */}
         </div>
       </form>
     </FormProvider>

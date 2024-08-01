@@ -146,7 +146,7 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
             type={value.type}
             placeholder={value.placeholder}
             required={value.required}
-            value={field.value}
+            value={field.value || ""}
             onChange={field.onChange}
             onBlur={field.onBlur}
           />
@@ -174,10 +174,11 @@ const FormField: React.FC<IFormFieldProps> = ({ value }) => {
       case ComponentFormEnum.PHONE:
         return (
           <CustomPhoneInput
-            country={value.country ?? ""}
-            onlyCountries={value.onlyCountries ?? []}
+            {...field}
             value={field.value}
             onChange={field.onChange}
+            country={value.country ?? ""}
+            onlyCountries={value.onlyCountries ?? []}
             required={value.required ?? false}
             placeholder={value.placeholder ?? ""}
           />
