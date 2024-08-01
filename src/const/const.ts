@@ -1,4 +1,4 @@
-import { BadgeRussianRuble, CirclePlus, LucideProps, Settings, Users } from "lucide-react";
+import { BadgeRussianRuble, CirclePlus, LucideProps, Settings, User, Users } from "lucide-react";
 
 export const menu = [
     {
@@ -188,17 +188,20 @@ export const carousel = [
 ];
 
 export const iconMap: Record<string, React.ElementType<LucideProps>> = {
+    'User': User,
     'CirclePlus': CirclePlus,
     'Users': Users,
     'BadgeRussianRuble': BadgeRussianRuble,
     'Settings': Settings,
 };
 
+
 export const userListItems = [
-    { id: 1, iconName: 'CirclePlus', text: 'Организация', link: 'organization' },
-    { id: 2, iconName: 'Users', text: 'Сотрудники', link: 'employee' },
-    { id: 3, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
-    { id: 4, iconName: 'Settings', text: 'Настройки', link: 'settings' },
+    { id: 1, iconName: 'User', text: 'Личный кабинет', link: 'person' },
+    { id: 2, iconName: 'CirclePlus', text: 'Организация', link: 'organization' },
+    { id: 3, iconName: 'Users', text: 'Сотрудники', link: 'employee' },
+    { id: 4, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
+    { id: 5, iconName: 'Settings', text: 'Настройки', link: 'settings' },
 ];
 
 export enum NameSpace {

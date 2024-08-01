@@ -35,7 +35,7 @@ export interface UserListItem {
 
 
 // Определяем тип для ключей объекта
-export type CategoryKeys = 'organization' | 'employee' | 'tariff' | 'settings';
+export type CategoryKeys = 'person' | 'organization' | 'employee' | 'tariff' | 'settings';
 
 
 export enum ComponentFormEnum {
