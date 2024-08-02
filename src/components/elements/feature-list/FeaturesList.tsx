@@ -1,11 +1,10 @@
 import { features } from "@/const/const";
-import styles from "./FeatureList.module.scss";
 import FeaturesItem from "../feature-item/FeatureItem";
 
 
 const FeatureList: React.FC = () => {
   return (
-    <ul className={styles.list}>
+    <ul className="grid grid-cols-3 gap-5">
       {features
         ? features.map((feature) => (
             <FeaturesItem key={`feature-${feature.id}`} feature={feature} />

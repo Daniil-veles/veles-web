@@ -36,7 +36,7 @@ const OrganizationInfo: React.FC = () => {
       <OrganizationList organizationList={exampleOrgData} />
 
       {/* {isSetOrganization ? (
-        <div className="mb-6 bg-bg-first p-6 rounded-md">
+        <div className="mb-6 bg-blue-50 p-6 rounded-md">
         <Link className="flex items-center mb-2" href={"/"}>
         <ChevronLeft className="mr-1" size={20} />
         Вернуться назад
@@ -56,7 +56,7 @@ const OrganizationInfo: React.FC = () => {
               : "Организация не найдена"}
           </div>
 
-          <Button className="bg-bg-fourth text-c-first">Редактировать</Button>
+          <Button className="bg-blue-500 text-c-first">Редактировать</Button>
         </div>
       ) : (
         <CreateOrganizationForm />
@@ -64,7 +64,7 @@ const OrganizationInfo: React.FC = () => {
 
       {isModalOpen ? (
         <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-black/40">
-          <div className="w-2/3 bg-bg-first shadow rounded p-6 z-10">
+          <div className="w-2/3  bg-blue-50 bg-blue-50 shadow rounded p-6 z-10">
           <CreateOrganizationForm />
           </div>
         </div>

@@ -1,22 +1,21 @@
-import styles from "./About.module.scss";
 import Container from "@/components/container/Container";
 import CustomButton from "@/components/ui/custom-button/CustomButton";
 import { MoveRight } from "lucide-react";
 
 const About: React.FC = () => {
   return (
-    <div className={styles.about}>
-      <Container className={styles.customContainer}>
-        <div className={styles.content}>
-          <h2 className={styles.title}>
-            <span>
-              <b>Plan</b> 
+    <div className="bg-blue-50">
+      <Container className="grid grid-cols-[46%_1fr] py-10">
+        <div className="pt-24 pl-30">
+          <h2 className="mb-8 text-4xl">
+            <span className="text-blue-800">
+              <b>Plan</b>
               &nbsp;and&nbsp;
               <b>manage</b>
             </span>
           </h2>
 
-          <p className={styles.text}>
+          <p className="mb-12 text-blue-800">
             Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
             atqui laudem an, insolens gubergren similique est cu. Et vel modus
             congue vituperata. Solum patrioque no sea. Mea ex malis mollis
@@ -24,18 +23,18 @@ const About: React.FC = () => {
           </p>
 
           <CustomButton
-            className={`${styles.button} px-3 py-2`}
+            className="bg-blue-500 text-white px-3 py-2"
             onClick={() => console.log()}
           >
             <span className="flex align-center">
               Узнать больше
-              <MoveRight className={styles.arrow} size={10} />
+              <MoveRight className="w-5 h-auto ml-2" size={10} />
             </span>
           </CustomButton>
         </div>
 
-        <div className={styles.wrapper}>
-          <img src="./about-img.svg" alt="" className={styles.img} />
+        <div className="h-auto overflow-hidden">
+          <img src="./about-img.svg" alt="" className="clip-inset-0_0_10%_0" />
         </div>
       </Container>
     </div>

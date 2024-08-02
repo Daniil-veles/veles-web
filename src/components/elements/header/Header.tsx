@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <Container className="">
       <div className="fixed container mx-auto w-full left-1/2 top-4 transform -translate-x-1/2 z-10">
-        <div className="w-full bg-bg-third-easy p-4 px-6 flex justify-between items-center rounded-md">
+        <div className="w-full bg-gray-200/30 p-4 px-6 flex justify-between items-center rounded-md">
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
           <img src="" alt="" className="w-24 h-8 mr-10" />

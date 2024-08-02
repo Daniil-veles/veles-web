@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 
         <div className="flex items-center">
           <CustomButton
-            className="bg-bg-fourth text-c-first px-4 py-2"
+            className="bg-blue-500 text-c-first px-4 py-2"
             onClick={() => console.log("Clicked")}
           >
             Регистрация

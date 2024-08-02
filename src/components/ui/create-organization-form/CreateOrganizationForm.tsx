@@ -119,7 +119,7 @@ const CreateOrganizationForm: React.FC = () => {
 
         <div className="row-start-auto row-end-auto col-span-full grid grid-cols-3 gap-4">
           <Button
-            className="col-start-2 col-end-3 col-span-1 bg-bg-fourth text-white"
+            className="col-start-2 col-end-3 col-span-1 bg-blue-500 text-white"
             type="submit"
           >
             Отправить

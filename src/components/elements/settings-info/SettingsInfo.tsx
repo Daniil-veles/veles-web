@@ -12,7 +12,7 @@ const SettingsInfo: React.FC = () => {
   // }
 
   return (
-    <div className="bg-bg-first p-6 rounded-md">
+    <div className="bg-blue-50 p-6 rounded-md">
       <p className="">Ваши данные</p>
 
       <div className="">

@@ -16,31 +16,40 @@
 
   /* Определение теней кольца */
   --tw-ring-offset-width: 2px;
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+    var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+    calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+
   /* Применение теней для элемента */
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
 }
 
-:root {
-  --bg-first: #f5f8ff; /* светло-голубой-фон */
-  --bg-second: #fff; /* белый */
-  --bg-third: rgb(239, 239, 239); /* серый */
-  --bg-third-easy: rgba(232, 232, 232, 0.4); /* светло серый */
-  --bg-fourth: #4c85ff; /* голубой*/
-  --bg-fourth-light: #1f5bff99; /* голубой с прозрачностью 0.60 */
-  --bg-fifth: #f26e00; /* оранжевый */
-  --bg-six: #043873; /* темно-синий */
+//   bg-blue-50
+//   bg-gray-200
+//   bg-gray-200/10
+//   bg-blue-500
+//   bg-orange-600
+//   bg-blue-900
 
-  // Цвет текста
-  --text-first: #fff; /* белый */
-  --text-second: #3d4f9f; /* оксфордский синий */
-  --text-third: #8d96bd; /* оловянно-синий */
-  --text-fourth: #f26e00; /* оранжевый */
-  --text-fifth: #000; /* черный */
-  --text-six: #ffe492; /* оранжевый */
-}
+//   text-blue-800
+//   text-blue-400
+//   text-yellow-200
+
+// :root {
+//   --bg-first: #f5f8ff; /* светло-голубой-фон */
+//   --bg-third: rgb(239, 239, 239); /* серый */
+//   --bg-third-easy: rgba(232, 232, 232, 0.4); /* светло серый */
+//   --bg-fourth: #4c85ff; /* голубой*/
+//   --bg-fifth: #f26e00; /* оранжевый */
+//   --bg-six: #043873; /* темно-синий */
+
+//   // Цвет текста
+//   --text-second: #3d4f9f; /* оксфордский синий */
+//   --text-third: #8d96bd; /* оловянно-синий */
+//   --text-six: #ffe492; /* оранжевый */
+// }
 
 body {
   overflow-x: hidden;

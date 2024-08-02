@@ -1,5 +1,4 @@
-import { Feature } from "@/types/types";
-import styles from "./FeatureItem.module.scss";
+import { Feature } from "@/types/types.interface";
 
 interface FeatureItemProps {
   feature: Feature;
@@ -7,14 +6,14 @@ interface FeatureItemProps {
 
 const FeaturesItem: React.FC<FeatureItemProps> = ({feature}) => {
   return (
-    <li className={`${styles.item} rounded-lg p-6`}>
-      <img src={feature.img} alt="" className={`${styles.img} mb-4`} />
+    <li className="rounded-lg p-6 border border-gray-200 shadow-sm bg-gray-200/10 animate-duration-300">
+      <img className="mb-4 w-12 h-12 rounded-full" src="" alt="" />
 
-      <h3 className={`${styles.title} mb-1`}>
+      <h3 className="mb-1 text-lg font-medium">
         {feature.title}
       </h3>
 
-      <p className={styles.description}>
+      <p className="text-base text-gray-700">
         {feature.description}
       </p>
     </li>
