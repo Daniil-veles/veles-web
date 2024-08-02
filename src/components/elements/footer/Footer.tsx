@@ -6,13 +6,13 @@ const Footer: React.FC = () => {
   return (
     <Container>
       <div className="flex justify-between items-center py-4 pt-8 pb-6">
-        <img src="" alt="" className="w-[100px] h-[30px] mr-10" />
+        <img src="" alt="" className="w-24 h-8 mr-10" />
 
         <HeaderMenu />
 
         <div className="flex items-center">
           <CustomButton
-            className="bg-blue-500 text-c-first px-4 py-2"
+            className="bg-blue-500 text-white px-4 py-2"
             onClick={() => console.log("Clicked")}
           >
             Регистрация

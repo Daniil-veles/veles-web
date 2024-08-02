@@ -1,5 +1,4 @@
 import Container from "@/components/container/Container";
-import styles from "./Faq.module.scss";
 import {
   Accordion,
   AccordionContent,
@@ -10,11 +9,11 @@ import CustomButton from "@/components/ui/custom-button/CustomButton";
 
 const Faq: React.FC = () => {
   return (
-    <div className={styles.container}>
-      <Container className={styles.customContainer}>
+    <div className="">
+      <Container className="py-24">
         <h2 className="mb-7 text-center">Frequently asked questions</h2>
 
-        <div className="max-w-3xl m-auto">
+        <div className="max-w-4xl m-auto">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -23,7 +22,7 @@ const Faq: React.FC = () => {
                   Yes. It adheres to the WAI-ARIA design pattern.
                 </p>
 
-                <CustomButton className={styles.button}>
+                <CustomButton className="p-3 bg-blue-50">
                   Перейти к документации
                 </CustomButton>
               </AccordionContent>
@@ -37,7 +36,7 @@ const Faq: React.FC = () => {
                   Yes. It adheres to the WAI-ARIA design pattern.
                 </p>
 
-                <CustomButton className={styles.button}>
+                <CustomButton className="p-3 bg-blue-50">
                   Перейти к документации
                 </CustomButton>
               </AccordionContent>
@@ -50,7 +49,7 @@ const Faq: React.FC = () => {
                   Yes. It adheres to the WAI-ARIA design pattern.
                 </p>
 
-                <CustomButton className={styles.button}>
+                <CustomButton className="p-3 bg-blue-50">
                   Перейти к документации
                 </CustomButton>
               </AccordionContent>
@@ -63,7 +62,7 @@ const Faq: React.FC = () => {
                   Yes. It adheres to the WAI-ARIA design pattern.
                 </p>
 
-                <CustomButton className={styles.button}>
+                <CustomButton className="p-3 bg-blue-50">
                   Перейти к документации
                 </CustomButton>
               </AccordionContent>
@@ -76,7 +75,7 @@ const Faq: React.FC = () => {
                   Yes. It adheres to the WAI-ARIA design pattern.
                 </p>
 
-                <CustomButton className={styles.button}>
+                <CustomButton className="p-3 bg-blue-50">
                   Перейти к документации
                 </CustomButton>
               </AccordionContent>

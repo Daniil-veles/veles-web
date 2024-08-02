@@ -15,7 +15,12 @@ const About: React.FC = () => {
             </span>
           </h2>
 
-          <p className="mb-12 text-blue-800">
+          <p
+            className="
+            mb-12
+          text-blue-800
+          "
+          >
             Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
             atqui laudem an, insolens gubergren similique est cu. Et vel modus
             congue vituperata. Solum patrioque no sea. Mea ex malis mollis
