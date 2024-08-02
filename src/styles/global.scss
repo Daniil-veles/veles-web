@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  border-color: rgb(226, 232, 240) !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+
+/* Специальные стили для input-элементов внутри react-tel-input при фокусе */
+.react-tel-input .form-control:focus-visible {
+  outline: 2px solid transparent; /* Установка прозрачного контура */
+  outline-offset: 4px; /* Увеличение отступа контура */
+
+  /* Определение теней кольца */
+  --tw-ring-offset-width: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+    var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+    calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+
+  /* Применение теней для элемента */
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
+}
+
+//   bg-blue-50
+//   bg-gray-200
+//   bg-gray-200/10
+//   bg-blue-500
+//   bg-orange-600
+//   bg-blue-900
+
+//   text-blue-800
+//   text-blue-400
+//   text-yellow-200
+
+// :root {
+//   --bg-first: #f5f8ff; /* светло-голубой-фон */
+//   --bg-third: rgb(239, 239, 239); /* серый */
+//   --bg-third-easy: rgba(232, 232, 232, 0.4); /* светло серый */
+//   --bg-fourth: #4c85ff; /* голубой*/
+//   --bg-fifth: #f26e00; /* оранжевый */
+//   --bg-six: #043873; /* темно-синий */
+
+//   // Цвет текста
+//   --text-second: #3d4f9f; /* оксфордский синий */
+//   --text-third: #8d96bd; /* оловянно-синий */
+//   --text-six: #ffe492; /* оранжевый */
+// }
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+  // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+img,
+svg {
+  // width: 100%;
+  // height: auto;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.7;
+}
