@@ -19,10 +19,10 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUserInfo(state, action: PayloadAction<AdaptToUserData>) {
-            state = { ...state, ...action.payload }
+            return { ...state, ...action.payload };
         },
-        clearUserInfo(state) {
-            state = initialState;
+        clearUserInfo() {
+            return initialState;
         },
         setAuthStatus(state, action: PayloadAction<AuthorizationStatus>) {
             state.isAuth = action.payload;
