@@ -9,7 +9,7 @@ interface ILayout extends IMeta {
 const Layout: React.FC<ILayout> = ({ children, title, description }) => {
   return (
     <Meta title={title} description={description}>
-      <div className="flex flex-col min-h-screen pt-[120px] pb-8">
+      <div className="flex flex-col min-h-screen pt-[100px] pb-8">
         <Header></Header>
         <main className="flex flex-col flex-grow justify-center">{children}</main>
       </div>

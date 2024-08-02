@@ -26,30 +26,17 @@
     var(--tw-shadow, 0 0 #0000);
 }
 
-//   bg-blue-50
-//   bg-gray-200
-//   bg-gray-200/10
-//   bg-blue-500
-//   bg-orange-600
-//   bg-blue-900
+// bg-blue-50: Очень светлый голубой (lightest blue)
+// bg-gray-200: Светло-серый (light gray)
+// bg-gray-200/10: Светло-серый с 30% непрозрачностью (light gray with 30% opacity)
+// bg-blue-500: Средний голубой (medium blue)
+// bg-orange-600: Средний оранжевый (medium orange)
+// bg-blue-900: Темно-синий (dark blue)
 
-//   text-blue-800
-//   text-blue-400
-//   text-yellow-200
+// text-blue-800: Темный голубой (dark blue)
+// text-blue-400: Светлый голубой (light blue)
+// text-yellow-200: Светло-желтый (light yellow)
 
-// :root {
-//   --bg-first: #f5f8ff; /* светло-голубой-фон */
-//   --bg-third: rgb(239, 239, 239); /* серый */
-//   --bg-third-easy: rgba(232, 232, 232, 0.4); /* светло серый */
-//   --bg-fourth: #4c85ff; /* голубой*/
-//   --bg-fifth: #f26e00; /* оранжевый */
-//   --bg-six: #043873; /* темно-синий */
-
-//   // Цвет текста
-//   --text-second: #3d4f9f; /* оксфордский синий */
-//   --text-third: #8d96bd; /* оловянно-синий */
-//   --text-six: #ffe492; /* оранжевый */
-// }
 
 body {
   overflow-x: hidden;
