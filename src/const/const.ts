@@ -192,7 +192,7 @@ export const iconMap: Record<string, React.ElementType<LucideProps>> = {
     'CirclePlus': CirclePlus,
     'Users': Users,
     'BadgeRussianRuble': BadgeRussianRuble,
-    'Settings': Settings,
+    // 'Settings': Settings,
 };
 
 
@@ -201,7 +201,7 @@ export const userListItems = [
     { id: 2, iconName: 'CirclePlus', text: 'Организация', link: 'organization' },
     { id: 3, iconName: 'Users', text: 'Сотрудники', link: 'employee' },
     { id: 4, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
-    { id: 5, iconName: 'Settings', text: 'Настройки', link: 'settings' },
+    // { id: 5, iconName: 'Settings', text: 'Настройки', link: 'settings' },
 ];
 
 export enum NameSpace {
