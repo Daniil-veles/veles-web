@@ -11,9 +11,11 @@ import ChangerData from "@/components/ui/changer-data/ChangerData";
 import { Button } from "@/components/ui/button";
 
 const PersonInfo: React.FC = () => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.USER);
-  console.log(userInfo);
+  const userInfoFull = { ...userInfo, organization: "ООО Велесъ" };
+  console.log(isEditing);
 
   useEffect(() => {
     async function fetchUserInfo() {
@@ -29,10 +31,11 @@ const PersonInfo: React.FC = () => {
           birthDate: "1990-01-01", // Дата рождения пользователя
           phone: "+1234567890", // Номер телефона пользователя
           isActive: true, // Статус активности пользователя
-          isSuperuser: false, // Статус суперпользователя
+          isSuperuser: true, // Статус суперпользователя
           isVerified: true, // Статус верификации пользователя
           picture: "https://example.com/picture.jpg", // Ссылка на фото пользователя
           isAuth: "AUTHENTICATED", // Статус аутентификации пользователя
+          organization: "ООО Велесъ", // Статус аутентификации пользователя
         };
         dispatch(setUserInfo(user));
 
@@ -46,6 +49,14 @@ const PersonInfo: React.FC = () => {
     fetchUserInfo();
   }, [dispatch]);
 
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleEditComplete = (field: keyof typeof userInfo, value: string) => {
+    dispatch(setUserInfo({ ...userInfo, [field]: value }));
+  };
+
   return (
     <>
       <h2 className="flex items-center text-xl mb-4 ">Ваша информация</h2>
@@ -54,38 +65,71 @@ const PersonInfo: React.FC = () => {
         <img src="" alt="" className="w-full h-52 rounded-full" />
 
         {userInfo.id ? (
-            <div className="">
-              <div className="mb-5">
-                <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                  <p className="font-medium">ФИО</p>
+          <div className="">
+            <div className="mb-5">
+              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
+                <p className="font-medium">ФИО</p>
 
-                  <ChangerData
-                    className={"border-b"}
-                    value={userInfo.fullName}
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                  <p className="font-medium">Почта</p>
-
-                  <ChangerData className={"border-b"} value={userInfo.email} />
-                </div>
-                <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                  <p className="font-medium">Телефон</p>
-
-                  <ChangerData className={"border-b"} value={userInfo.phone} />
-                </div>
+                <ChangerData
+                  className={"border-b"}
+                  value={userInfo.fullName}
+                  isEditing={isEditing}
+                  onEditComplete={(value) =>
+                    handleEditComplete("fullName", value)
+                  }
+                />
               </div>
 
-              <Button className="bg-blue-500 text-white">Редактировать</Button>
+              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
+                <p className="font-medium">Почта</p>
+
+                <ChangerData
+                  className={"border-b"}
+                  value={userInfo.email}
+                  isEditing={isEditing}
+                  onEditComplete={(value) => handleEditComplete("email", value)}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
+                <p className="font-medium">Телефон</p>
+
+                <ChangerData
+                  className={"border-b"}
+                  value={userInfo.phone}
+                  isEditing={isEditing}
+                  onEditComplete={(value) => handleEditComplete("phone", value)}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
+                <p className="font-medium">Организация</p>
+
+                <p className="border-b h-8 px-2">
+                  {userInfoFull.organization}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
+                <p className="font-medium">Статус</p>
+
+                <p className="border-b h-8 px-2">
+                  {userInfo.isSuperuser ? "Начальник" : "Участник"}
+                </p>
+              </div>
             </div>
+
+            <Button
+              className="bg-blue-500 text-white"
+              onClick={handleEditToggle}
+            >
+              {isEditing ? "Сохранить" : "Редактировать"}
+            </Button>
+          </div>
         ) : null}
 
         <div className="col-span-full mt-8 border border-zinc-200 rounded p-3">
           <div className="flex items-center justify-between">
-            <p className="font-medium">Подтверидите вашу почту</p>
-
-            <ChangerData className={"border-b"} value="email@mail.ru" />
+            <p className="font-medium">
+              Подтверидите вашу почту:&nbsp; {userInfo.email}
+            </p>
 
             <Button className="bg-blue-500 text-white">Подтвердить</Button>
           </div>

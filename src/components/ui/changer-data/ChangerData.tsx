@@ -1,20 +1,24 @@
-// import styles from './ChangeData.module.scss';
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "../input";
 
 interface IChangerData {
   className: string;
   value: string;
+  isEditing: boolean;
+  onEditComplete: (value: string) => void;
 }
 
-const ChangerData: React.FC<IChangerData> = ({ className, value }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+const ChangerData: React.FC<IChangerData> = ({
+  className,
+  value,
+  isEditing,
+  onEditComplete,
+}) => {
   const [inputValue, setInputValue] = useState<string>(value ?? "");
 
-  const handleToggle = () => {
-    setIsChecked(!isChecked);
-  };
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -22,23 +26,27 @@ const ChangerData: React.FC<IChangerData> = ({ className, value }) => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      setIsChecked(!isChecked);
+      onEditComplete(inputValue);
     }
+  };
+
+  const handleBlur = () => {
+    onEditComplete(inputValue);
   };
 
   return (
     <div className={className}>
-      {isChecked ? (
+      {isEditing ? (
         <Input
           className="h-8"
           value={inputValue}
           onChange={handleChange}
-          onBlur={handleToggle}
           onKeyDown={handleKeyDown}
+          onBlur={handleBlur}
           autoFocus
         />
       ) : (
-        <p onClick={handleToggle}>{inputValue}</p>
+        <p className="h-8 px-2">{inputValue}</p>
       )}
     </div>
   );
