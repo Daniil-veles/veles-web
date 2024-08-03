@@ -56,7 +56,7 @@ const OrganizationInfo: React.FC = () => {
               : "Организация не найдена"}
           </div>
 
-          <Button className="bg-blue-500 text-c-first">Редактировать</Button>
+          <Button className="bg-blue-500 text-white">Редактировать</Button>
         </div>
       ) : (
         <CreateOrganizationForm />

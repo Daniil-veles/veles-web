@@ -10,6 +10,8 @@ import {
 import Link from "next/link";
 
 const Header: React.FC = () => {
+  const isAuth = true;
+
   return (
     <Container className="">
       <div className="fixed container mx-auto w-full left-1/2 top-4 transform -translate-x-1/2 z-10">
@@ -21,9 +23,11 @@ const Header: React.FC = () => {
           <HeaderMenu />
 
           <div className="flex items-center">
-            <Link className="text-black" href="/sign-up">
-              Регистрация
-            </Link>
+            {!isAuth ? (
+              <Link href="/login">Войти</Link>
+            ) : (
+              <Link href="/logout">Выйти</Link>
+            )}
 
             <div className="relative flex ml-5 items-center">
               <DropdownMenu>
@@ -37,19 +41,19 @@ const Header: React.FC = () => {
                       Личный кабинет
                     </DropdownMenuItem>
                   </Link>
-                  <Link href="/login">
+                  <Link href="/sign-up">
                     <DropdownMenuItem className="p-3 text-md">
-                      Войти
+                      Регистрация
                     </DropdownMenuItem>
                   </Link>
-                  <DropdownMenuItem className="p-3 text-md">
+                  {/* <DropdownMenuItem className="p-3 text-md">
                     Пукнт 3
-                  </DropdownMenuItem>
-                  <Link href="/logout">
+                  </DropdownMenuItem> */}
+                  {/* <Link href="/logout">
                     <DropdownMenuItem className="p-3 text-md">
                       Выйти
                     </DropdownMenuItem>
-                  </Link>
+                  </Link> */}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

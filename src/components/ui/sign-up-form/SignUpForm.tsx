@@ -61,7 +61,7 @@ const SignUpForm: React.FC = () => {
               : null}
           </div>
 
-          <Button type="submit" className="w-full bg-blue-500 text-c-first">
+          <Button type="submit" className="w-full bg-blue-500 text-white">
             Create an account
           </Button>
         </div>
