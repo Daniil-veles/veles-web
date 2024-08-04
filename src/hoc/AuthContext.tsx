@@ -1,33 +1,83 @@
 // import { useRouter } from "next/router";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { IAuthContextProps } from "./AuthContext.interface";
-import { AdaptedUserData } from "@/components/ui/sign-up-form/SignUpForm.interface";
+import { useRouter } from "next/router";
+import {
+  adaptedUserData,
+  LoginFormValues,
+} from "@/components/ui/login-form/utils";
+import { AdaptedUserLoginData } from "@/components/ui/login-form/LoginForm.interface";
+import { AuthService } from "@/services/auth.service";
+import { AdaptedUserFormData } from "@/types/user.interface";
+import { deleteAccessToken, getAccessToken } from "@/utils/utils";
 
-const AuthContext = createContext<IAuthContextProps | undefined>(undefined);
+export const AuthContext = createContext<IAuthContextProps | undefined>(
+  undefined
+);
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<AdaptedUserData | null>(null);
-  //   const router = useRouter();
-//   console.log(user);
-  
+  const [user, setUser] = useState<AdaptedUserFormData | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const router = useRouter();
 
-  const login = async (username: string, password: string) => {
-    // Логика входа
-    // const loggedInUser = {
-    //   id: "1",
-    //   name: "John Doe",
-    //   email: "john@example.com",
-    // }; // Пример пользователя
-    // setUser(loggedInUser);
+  useEffect(() => {
+    // Проверка аутентификации при загрузке приложения
+    const checkAuth = async () => {
+      try {
+        const token = getAccessToken();
+        // const response = await AuthService.checkAuth();
+
+        if (response.status === 200) {
+          setUser(response.data.user);
+          setAccessToken(response.data.access_token);
+        }
+      } catch (error) {
+        console.error("Failed to check auth:", error);
+      }
+    };
+
+    // checkAuth();
+  }, []);
+
+  console.log(user);
+
+  const login = async (data: LoginFormValues) => {
+    const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
+
+    try {
+      const response = await AuthService.login(formattedUserData);
+
+      if (response.status === 200) {
+        setUser(response.data.user);
+        setAccessToken(response.data.access_token);
+
+        router.push("/user"); // Перенаправление после успешного входа
+
+        // Успешно выполненный вход
+        console.log("Login successful:", response);
+      }
+    } catch (error) {
+      console.error("Failed to login:", error);
+    }
   };
 
   const logout = async () => {
-    // Логика выхода
-    // setUser(null);
+    try {
+      const response = await AuthService.logout();
+      setUser(null);
+      deleteAccessToken();
+
+      router.push("/login"); // Перенаправление после выхода
+
+      // Успешно выполненный выход
+      console.log("Logout successful:", response);
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
   };
 
   return (

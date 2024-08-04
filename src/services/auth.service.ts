@@ -41,14 +41,11 @@ export const AuthService = {
 
     async logout() {
         try {
-            const response = await apiClient.post(`/auth/jwt/logout`,
-                null,
-                {
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                }
-            );
+            const response = await apiClient.post(`/auth/jwt/logout`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
 
             return response;
         } catch (error) {
@@ -57,18 +54,19 @@ export const AuthService = {
         }
     },
 
-    async checkAuth() {
-        try {
-            const response = await apiClient.post(`/auth/jwt/login`, urlEncodedData, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
+    // TODO Переделать
+    // async checkAuth() {
+    //     try {
+    //         const response = await apiClient.post(`/auth/jwt/login`, urlEncodedData, {
+    //             headers: {
+    //                 'Content-Type': 'application/x-www-form-urlencoded'
+    //             }
+    //         });
 
-            return response;
-        } catch (error) {
-            console.error('Error creating user:', error.message);
-            throw error;
-        }
-    }
+    //         return response;
+    //     } catch (error) {
+    //         console.error('Error creating user:', error.message);
+    //         throw error;
+    //     }
+    // }
 }

@@ -1,39 +1,39 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../button";
 import FormField from "../form-field/FormField";
-import { adaptedUserData, loginFormFields, LoginFormValues, loginSchema } from "./utils";
-import { AdaptedUserLoginData } from "./LoginForm.interface";
-import { useRouter } from "next/router";
-import { setAccessToken } from "@/utils/utils";
-import { AuthService } from "@/services/auth.service";
+import {
+  loginFormFields,
+  LoginFormValues,
+  loginSchema,
+} from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
+import { AuthContext } from "@/hoc/AuthContext";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
     mode: "onChange",
-    resolver: zodResolver(loginSchema), 
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const router = useRouter();
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    console.error("AuthContext is not available");
+    return null;
+  }
+
+  const { login } = authContext; // Получаем метод login из контекста
 
   async function onSubmit(data: LoginFormValues) {
-    const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
-
     try {
-      const response = await AuthService.login(formattedUserData);
+      await login(data);
 
-      if (response.status === 200) {
-        console.log(response.data);
-
-        methods.reset();
-
-        setAccessToken(response.data.access_token);
-        router.push("/user");
-      }
+      methods.reset();
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

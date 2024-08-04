@@ -1,21 +1,23 @@
-import { AuthService } from "@/services/auth.service";
-import { deleteAccessToken } from "@/utils/utils";
+import { AuthContext } from "@/hoc/AuthContext";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 const LogOut: React.FC = () => {
   const router = useRouter();
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
+    if (!authContext) {
+      console.error("AuthContext is not available");
+      router.push("/login");
+      return;
+    }
+
+    const { logout } = authContext;
+
     async function handleLogout() {
       try {
-        const response = await AuthService.logout();
-
-        // Успешно выполненный выход
-        console.log("Logout successful:", response);
-
-        deleteAccessToken();
-        router.push("/login");
+        await logout();
       } catch (error) {
         console.error("Ошибка при выходе:", error.message);
         router.push("/login");
@@ -23,9 +25,9 @@ const LogOut: React.FC = () => {
     }
 
     handleLogout();
-  }, [router]);
+  }, [authContext, router]);
 
-  return "";
+  return null;
 };
 
 export default LogOut;

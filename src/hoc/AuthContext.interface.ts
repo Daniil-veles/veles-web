@@ -1,7 +1,8 @@
-import { AdaptedUserData } from "@/types/types";
+import { LoginFormValues } from "@/components/ui/login-form/utils";
+import { AdaptedUserFormData } from "@/types/user.interface";
 
 export interface IAuthContextProps {
-    user: AdaptedUserData | null;
-    login: (username: string, password: string) => Promise<void>;
-    logout: () => void;
+    user: AdaptedUserFormData | null;
+    login: (data: LoginFormValues) => Promise<void>;
+    logout: () => Promise<void>;
 }
