@@ -49,12 +49,14 @@ const LoginForm: React.FC = () => {
 
           <Button
             type="submit"
-            className="w-full h-full text-base py-4 bg-blue-500 text-white rounded-full"
+            className="w-full h-full text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
           >
             Login
           </Button>
 
-          <p className="text-center text-gray-500 underline underline-offset-4">Не помню пароль</p>
+          <p className="text-center text-gray-500 underline underline-offset-4">
+            Не помню пароль
+          </p>
         </div>
       </form>
     </FormProvider>

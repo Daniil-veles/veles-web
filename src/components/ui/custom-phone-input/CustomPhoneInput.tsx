@@ -35,6 +35,11 @@ const CustomPhoneInput: React.ForwardRefRenderFunction<
         inputProps={{ ref, required }}
         country={country}
         onlyCountries={onlyCountries}
+        // containerClass="w-full"
+        // inputClass="h-14 w-full"
+
+         containerClass="w-full rounded-xl"
+        inputClass="h-14 w-full rounded-xl"
       />
     </div>
   );
