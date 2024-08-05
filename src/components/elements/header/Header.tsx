@@ -1,4 +1,4 @@
-import { CircleUser } from "lucide-react";
+import { CircleUser, X } from "lucide-react";
 import HeaderMenu from "../header-menu/HeaderMenu";
 import Container from "@/components/container/Container";
 import {
@@ -8,55 +8,76 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { AuthContext } from "@/hoc/AuthContext";
 
 const Header: React.FC = () => {
-  const isAuth = true;
+  const authContext = useContext(AuthContext);
+  const router = useRouter();
+  const [isAuthRoute, setIsAuthRoute] = useState(false);
+
+  useEffect(() => {
+    if (router.pathname === "/login") {
+      console.log("Вы на странице: /login");
+      setIsAuthRoute(true);
+    }
+  }, [router]);
+
+  if (!authContext) {
+    return <div>Loading...</div>;
+  }
+  
+  const { isAuth } = authContext;
 
   return (
     <Container className="">
       <div className="fixed container mx-auto w-full left-1/2 top-4 transform -translate-x-1/2 z-10">
-        <div className="w-full bg-gray-200/30 p-4 px-6 flex justify-between items-center rounded-md">
+        <div className="relative w-full bg-gray-200/30 p-3 px-6 flex justify-between items-center rounded-md">
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
           <img src="" alt="" className="w-24 h-8 mr-10" />
 
-          <HeaderMenu />
+          {isAuthRoute ? <p>Авторизация</p> : <HeaderMenu />}
 
           <div className="flex items-center">
-            {!isAuth ? (
-              <Link href="/login">Войти</Link>
+            {isAuthRoute ? (
+              <Link href={"/"}>
+                <X size={26} />
+              </Link>
             ) : (
-              <Link href="/logout">Выйти</Link>
+              <div className="relative flex items-center">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="relative">
+                    <CircleUser className="text-black" />
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent className="absolute right-0 p-2 mt-2 -right-3 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
+                    {isAuth ? (
+                      <>
+                        <Link href="/user">
+                          <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
+                            Личный кабинет
+                          </DropdownMenuItem>
+                        </Link>
+
+                        <Link href="/logout">
+                          <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
+                            Выйти
+                          </DropdownMenuItem>
+                        </Link>
+                      </>
+                    ) : (
+                      <Link href="/login">
+                        <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
+                          Войти
+                        </DropdownMenuItem>
+                      </Link>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             )}
-
-            <div className="relative flex ml-5 items-center">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="relative">
-                  <CircleUser className="text-black" />
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent className="absolute right-0 p-2 mt-2 right-0 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
-                  <Link href="/user">
-                    <DropdownMenuItem className="p-3 text-md">
-                      Личный кабинет
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link href="/sign-up">
-                    <DropdownMenuItem className="p-3 text-md">
-                      Регистрация
-                    </DropdownMenuItem>
-                  </Link>
-                  {/* <DropdownMenuItem className="p-3 text-md">
-                    Пукнт 3
-                  </DropdownMenuItem> */}
-                  {/* <Link href="/logout">
-                    <DropdownMenuItem className="p-3 text-md">
-                      Выйти
-                    </DropdownMenuItem>
-                  </Link> */}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
           </div>
         </div>
       </div>

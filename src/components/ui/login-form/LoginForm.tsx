@@ -1,11 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../button";
 import FormField from "../form-field/FormField";
-import {
-  loginFormFields,
-  LoginFormValues,
-  loginSchema,
-} from "./utils";
+import { loginFormFields, LoginFormValues, loginSchema } from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { AuthContext } from "@/hoc/AuthContext";
@@ -51,9 +47,14 @@ const LoginForm: React.FC = () => {
               ))
             : null}
 
-          <Button type="submit" className="w-full bg-blue-500 text-white">
+          <Button
+            type="submit"
+            className="w-full h-full text-base py-4 bg-blue-500 text-white rounded-full"
+          >
             Login
           </Button>
+
+          <p className="text-center text-gray-500 underline underline-offset-4">Не помню пароль</p>
         </div>
       </form>
     </FormProvider>

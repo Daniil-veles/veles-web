@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <div
-        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+        className={cn("relative min-h-screen font-sans antialiased", fontSans.variable)}
       >
         <AuthProvider>
           <Component {...pageProps} />

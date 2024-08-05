@@ -38,7 +38,7 @@ const UserCategoryScreen: React.FC = () => {
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
       <Container className="flex flex-col flex-grow">
-        <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
+        <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10 pt-5">
           <UserMenu />
 
           <div className="">{renderContent()}</div>

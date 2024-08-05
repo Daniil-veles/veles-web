@@ -1,6 +1,6 @@
 // import styles from './OrganizationInfo.module.scss';
 
-import { ChevronLeft, PlusCircle } from "lucide-react";
+import { ChevronLeft, CircleCheck, PlusCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { UserServerData } from "@/types/user.interface";
@@ -9,6 +9,7 @@ import { adaptToUserData } from "@/utils/utils";
 import { setUserInfo } from "@/store/slices/userSlice";
 import ChangerData from "@/components/ui/changer-data/ChangerData";
 import { Button } from "@/components/ui/button";
+import Modal from "@/components/ui/modal/Modal";
 
 const PersonInfo: React.FC = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -16,6 +17,12 @@ const PersonInfo: React.FC = () => {
   const userInfo = useAppSelector((state) => state.USER);
   const userInfoFull = { ...userInfo, organization: "ООО Велесъ" };
   console.log(isEditing);
+
+  const [isVerified, setIsVerified] = useState(true);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     async function fetchUserInfo() {
@@ -61,7 +68,7 @@ const PersonInfo: React.FC = () => {
     <>
       <h2 className="flex items-center text-xl mb-4 ">Ваша информация</h2>
 
-      <div className="grid grid-cols-[208px_1fr] gap-x-10">
+      <div className="grid grid-cols-[208px_1fr] gap-x-14">
         <img src="" alt="" className="w-full h-52 rounded-full" />
 
         {userInfo.id ? (
@@ -103,9 +110,7 @@ const PersonInfo: React.FC = () => {
               <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
                 <p className="font-medium">Организация</p>
 
-                <p className="border-b h-8 px-2">
-                  {userInfoFull.organization}
-                </p>
+                <p className="border-b h-8 px-2">{userInfoFull.organization}</p>
               </div>
               <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
                 <p className="font-medium">Статус</p>
@@ -131,10 +136,44 @@ const PersonInfo: React.FC = () => {
               Подтверидите вашу почту:&nbsp; {userInfo.email}
             </p>
 
-            <Button className="bg-blue-500 text-white">Подтвердить</Button>
+            {isVerified ? (
+              <CircleCheck size={24} className="stroke-green-500" />
+            ) : (
+              <Button className="bg-blue-500 text-white" onClick={openModal}>
+                Подтвердить
+              </Button>
+            )}
           </div>
         </div>
       </div>
+
+      {isModalOpen ? (
+        <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
+          <div className="">
+            <h3 className="mb-3 text-xl font-semibold">
+              Подтвердите вашу почту
+            </h3>
+            <p className="mb-4">
+              Для завершения регистрации и доступа ко всем функциям нашего
+              сервиса, пожалуйста, подтвердите вашу электронную почту. На
+              указанный адрес:
+              <b>&nbsp;{userInfo.email}&nbsp;</b>
+              было отправлено письмо с инструкциями по подтверждению.
+            </p>
+
+            <p>
+              Если вы не получили письмо, проверьте папку "Спам" или нажмите
+              кнопку ниже, чтобы отправить письмо повторно.
+            </p>
+
+            <div className="mt-6 flex justify-center">
+              <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                Отправить письмо повторно
+              </button>
+            </div>
+          </div>
+        </Modal>
+      ) : null}
     </>
   );
 };

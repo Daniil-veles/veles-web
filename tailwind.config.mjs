@@ -23,7 +23,7 @@ export default {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       padding: {
-        '100px': '100px',
+        // '100px': '100px',
       },
       // colors: {
       //   ...bgColors,

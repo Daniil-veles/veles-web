@@ -20,6 +20,7 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [isAuth, setIsAuth] = useState<boolean>(false);
   const [user, setUser] = useState<AdaptedUserFormData | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const router = useRouter();
@@ -29,11 +30,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const checkAuth = async () => {
       try {
         const token = getAccessToken();
-        // const response = await AuthService.checkAuth();
 
-        if (response.status === 200) {
-          setUser(response.data.user);
-          setAccessToken(response.data.access_token);
+        if (token) {
+          // const response = await AuthService.checkAuth();
+
+          if (response.status === 200) {
+            setUser(response.data.user);
+            setAccessToken(response.data.access_token);
+          }
         }
       } catch (error) {
         console.error("Failed to check auth:", error);
@@ -41,6 +45,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     // checkAuth();
+    // setIsAuth(true);
   }, []);
 
   console.log(user);
@@ -54,6 +59,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (response.status === 200) {
         setUser(response.data.user);
         setAccessToken(response.data.access_token);
+        setIsAuth(true);
 
         router.push("/user"); // Перенаправление после успешного входа
 
@@ -70,6 +76,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await AuthService.logout();
       setUser(null);
       deleteAccessToken();
+      setIsAuth(false);
 
       router.push("/login"); // Перенаправление после выхода
 
@@ -81,7 +88,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

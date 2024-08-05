@@ -132,10 +132,13 @@ import React from "react";
 
 interface IFormFieldProps {
   value: IFormField;
-  onValueChange?: (value: any) => void; 
+  onValueChange?: (value: any) => void;
 }
 
-const FormFieldComponent: React.FC<IFormFieldProps> = ({ value, onValueChange }) => {
+const FormFieldComponent: React.FC<IFormFieldProps> = ({
+  value,
+  onValueChange,
+}) => {
   const { control } = useFormContext();
 
   const renderComponent = (field: any) => {
@@ -200,7 +203,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({ value, onValueChange })
       rules={{ required: value.required, ...value.validation }}
       render={({ field, fieldState: { error } }) => (
         <FormItem>
-          <FormLabel htmlFor={value.id}>{value.label}</FormLabel>
+          <FormLabel className="text-md" htmlFor={value.id}>{value.label}</FormLabel>
           {renderComponent(field)}
           {error && (
             <FormMessage className="text-red-500">{error.message}</FormMessage>
