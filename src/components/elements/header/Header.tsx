@@ -27,7 +27,7 @@ const Header: React.FC = () => {
   if (!authContext) {
     return <div>Loading...</div>;
   }
-  
+
   const { isAuth } = authContext;
 
   return (
@@ -36,7 +36,9 @@ const Header: React.FC = () => {
         <div className="relative w-full bg-gray-200/30 p-3 px-6 flex justify-between items-center rounded-md">
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
-          <img src="" alt="" className="w-24 h-8 mr-10" />
+          <Link href={"/"}>
+            <img src="" alt="" className="w-24 h-8 mr-10" />
+          </Link>
 
           {isAuthRoute ? <p>Авторизация</p> : <HeaderMenu />}
 

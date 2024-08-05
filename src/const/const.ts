@@ -3,23 +3,23 @@ import { BadgeRussianRuble, CirclePlus, LucideProps, Settings, User, Users } fro
 export const menu = [
     {
         'id': 1,
-        'text': 'Главная',
-        'link': '/',
+        'text': 'О продукте',
+        'link': '#about',
     },
     {
         'id': 2,
-        'text': 'О продукте',
-        'link': '#',
+        'text': 'Преимущества',
+        'link': '#features',
     },
     {
         'id': 3,
-        'text': 'Преимущества',
-        'link': '#',
+        'text': 'Тарифный план',
+        'link': '#rate',
     },
     {
         'id': 4,
-        'text': 'Тарифный план',
-        'link': '#',
+        'text': 'Вопросы',
+        'link': '#faq',
     },
 ];
 

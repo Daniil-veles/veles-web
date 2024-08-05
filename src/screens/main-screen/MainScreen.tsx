@@ -10,11 +10,21 @@ const MainScreen: React.FC = () => {
   return (
     <>
       <Layout title="Главная страница" description="Это главная страница сайта">
-        <About />
-        <Features />
-        <Rate />
-        {/* <Reviews /> */}
-        <Faq />
+        <div id="about">
+          <About />
+        </div>
+        <div id="features">
+          <Features />
+        </div>
+        <div id="rate">
+          <Rate />
+        </div>
+        {/* <div id="reviews">
+          <Reviews />
+        </div> */}
+        <div id="faq">
+          <Faq />
+        </div>
         <Footer />
       </Layout>
     </>

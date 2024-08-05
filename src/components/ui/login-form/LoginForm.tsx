@@ -51,7 +51,7 @@ const LoginForm: React.FC = () => {
             type="submit"
             className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
           >
-            Login
+            Войти
           </Button>
 
           <p className="text-center text-gray-500 underline underline-offset-4">

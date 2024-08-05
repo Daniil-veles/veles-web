@@ -141,7 +141,9 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
 }) => {
   const { control } = useFormContext();
 
-  const renderComponent = (field: any) => {
+  const renderComponent = (field: any, error: boolean) => {
+    const errorClass = error ? "border-red-500" : "border-gray-300"; // Класс ошибки или нормальный класс
+    
     switch (value.componentType) {
       case ComponentFormEnum.INPUT:
         return (
@@ -154,6 +156,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
             value={field.value || ""}
             onChange={field.onChange}
             onBlur={field.onBlur}
+            className={errorClass}
           />
         );
       case ComponentFormEnum.SELECT:
@@ -167,7 +170,11 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
             }}
             required={value.required}
           >
-            <SelectTrigger className="bg-white h-12 rounded-md text-md font-medium" id={value.id} name={value.name}>
+            <SelectTrigger
+              className={`bg-white h-12 rounded-md text-md font-medium ${errorClass}`}
+              id={value.id}
+              name={value.name}
+            >
               <SelectValue placeholder={value.placeholder} />
             </SelectTrigger>
             <SelectContent className="bg-white">
@@ -189,6 +196,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
             onlyCountries={value.onlyCountries ?? []}
             required={value.required ?? false}
             placeholder={value.placeholder ?? ""}
+            className={errorClass}
           />
         );
       default:
@@ -203,8 +211,10 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
       rules={{ required: value.required, ...value.validation }}
       render={({ field, fieldState: { error } }) => (
         <FormItem>
-          <FormLabel className="text-md" htmlFor={value.id}>{value.label}</FormLabel>
-          {renderComponent(field)}
+          <FormLabel className="text-md" htmlFor={value.id}>
+            {value.label}
+          </FormLabel>
+          {renderComponent(field, !!error)}
           {error && (
             <FormMessage className="text-red-500">{error.message}</FormMessage>
           )}

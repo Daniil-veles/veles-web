@@ -65,8 +65,13 @@ const SignUpForm: React.FC = () => {
             type="submit"
             className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
           >
-            Create an account
+            Зарегистрироваться
           </Button>
+
+          <small className="text-center text-gray-600">
+            Нажимая «Зарегистрироваться», вы соглашаетесь с условиями обработки
+            персональных данных
+          </small>
         </div>
       </form>
     </FormProvider>
