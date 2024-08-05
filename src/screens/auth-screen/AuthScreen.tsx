@@ -1,13 +1,12 @@
 import Layout from "@/layouts/Layout";
 
-import Link from "next/link";
 import Container from "@/components/container/Container";
 import LoginForm from "@/components/ui/login-form/LoginForm";
 import { useState } from "react";
 import SignUpForm from "@/components/ui/sign-up-form/SignUpForm";
 import cn from "classnames";
 
-const LoginScreen: React.FC = () => {
+const AuthScreen: React.FC = () => {
   const [authPage, setAuthPage] = useState("login");
 
   return (
@@ -20,7 +19,7 @@ const LoginScreen: React.FC = () => {
                 <li className="">
                   <button
                     className={cn(
-                      "block w-full py-3.5 px-4 rounded-full text-center",
+                      "block w-full py-3 px-4 rounded-full text-center",
                       authPage === "login" ? "bg-gray-200/30 font-medium" : null
                     )}
                     onClick={() => setAuthPage("login")}
@@ -31,7 +30,7 @@ const LoginScreen: React.FC = () => {
                 <li className="">
                   <button
                     className={cn(
-                      "block w-full py-3.5 px-4 rounded-full text-center",
+                      "block w-full py-3 px-4 rounded-full text-center",
                       authPage === "sign-up"
                         ? "bg-gray-200/30 font-medium"
                         : null
@@ -52,4 +51,4 @@ const LoginScreen: React.FC = () => {
   );
 };
 
-export default LoginScreen;
+export default AuthScreen;

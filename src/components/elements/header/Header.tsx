@@ -68,7 +68,7 @@ const Header: React.FC = () => {
                         </Link>
                       </>
                     ) : (
-                      <Link href="/login">
+                      <Link href="/auth">
                         <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
                           Войти
                         </DropdownMenuItem>

@@ -167,7 +167,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
             }}
             required={value.required}
           >
-            <SelectTrigger className="bg-white" id={value.id} name={value.name}>
+            <SelectTrigger className="bg-white h-12 rounded-md text-md font-medium" id={value.id} name={value.name}>
               <SelectValue placeholder={value.placeholder} />
             </SelectTrigger>
             <SelectContent className="bg-white">
