@@ -3,7 +3,6 @@ import React from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-
 // Оставляем только свойства, поддерживаемые PhoneInput, и добавляем дополнительные свойства
 interface CustomPhoneInputProps {
   country: string;
@@ -35,11 +34,7 @@ const CustomPhoneInput: React.ForwardRefRenderFunction<
         inputProps={{ ref, required }}
         country={country}
         onlyCountries={onlyCountries}
-        // containerClass="w-full"
-        // inputClass="h-14 w-full"
-
-         containerClass="w-full rounded-xl"
-        inputClass="h-14 w-full rounded-xl"
+        containerClass="w-full"
       />
     </div>
   );

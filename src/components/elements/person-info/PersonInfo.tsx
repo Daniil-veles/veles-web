@@ -12,15 +12,13 @@ import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/modal/Modal";
 
 const PersonInfo: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.USER);
   const userInfoFull = { ...userInfo, organization: "ООО Велесъ" };
-  console.log(isEditing);
 
-  const [isVerified, setIsVerified] = useState(true);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -62,6 +60,23 @@ const PersonInfo: React.FC = () => {
 
   const handleEditComplete = (field: keyof typeof userInfo, value: string) => {
     dispatch(setUserInfo({ ...userInfo, [field]: value }));
+  };
+
+  async function verifyUserEmail() {
+    try {
+      const response = await UserService.verifyUserEmail();
+
+      if (response.status == 200) {
+        console.log("User created successfully:", response.data);
+      }
+    } catch (error) {
+      console.error("Failed to verified user:", error.response);
+    }
+  }
+
+  const handleVerifiedEmail = () => {
+    openModal();
+    verifyUserEmail();
   };
 
   return (
@@ -139,7 +154,10 @@ const PersonInfo: React.FC = () => {
             {isVerified ? (
               <CircleCheck size={24} className="stroke-green-500" />
             ) : (
-              <Button className="bg-blue-500 text-white" onClick={openModal}>
+              <Button
+                className="bg-blue-500 text-white"
+                onClick={handleVerifiedEmail}
+              >
                 Подтвердить
               </Button>
             )}
@@ -167,7 +185,10 @@ const PersonInfo: React.FC = () => {
             </p>
 
             <div className="mt-6 flex justify-center">
-              <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+                onClick={verifyUserEmail}
+              >
                 Отправить письмо повторно
               </button>
             </div>

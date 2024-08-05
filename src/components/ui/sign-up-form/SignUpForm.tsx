@@ -63,7 +63,7 @@ const SignUpForm: React.FC = () => {
 
           <Button
             type="submit"
-            className="w-full h-full text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
+            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
           >
             Create an account
           </Button>

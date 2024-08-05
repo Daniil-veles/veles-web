@@ -62,7 +62,7 @@ export const signUpFormFields: IFormField[] = [
         componentType: ComponentFormEnum.PHONE, 
         required: true,
         country: "ru",
-        onlyCountries: ["ru", "by", "kz"], 
+        onlyCountries: ["ru", "by"], 
     },
     {
         id: 'date',

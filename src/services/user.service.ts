@@ -11,6 +11,16 @@ export const UserService = {
             throw error;
         }
     },
+    
+    async verifyUserEmail() {
+        try {
+            const response = await apiClient.post('/users/email');
+            return response.data;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
+        }
+    },
 
 
     // Другие методы для работы с пользователем

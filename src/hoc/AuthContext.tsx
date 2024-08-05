@@ -45,10 +45,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     // checkAuth();
-    // setIsAuth(true);
+    setIsAuth(true);
   }, []);
 
-  console.log(user);
 
   const login = async (data: LoginFormValues) => {
     const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
