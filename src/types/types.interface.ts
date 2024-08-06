@@ -35,7 +35,7 @@ export interface UserListItem {
 
 
 // Определяем тип для ключей объекта
-export type CategoryKeys = 'person' | 'organization' | 'employee' | 'tariff' | 'settings';
+export type CategoryKeys = 'profile' | 'organization' | 'employee' | 'tariff' | 'settings';
 
 
 export enum ComponentFormEnum {
@@ -47,7 +47,7 @@ export enum ComponentFormEnum {
 interface IBaseFormField {
     id: string;
     name: string;
-    label: string;
+    label?: string;
     placeholder?: string;
     required?: boolean;
     validation?: RegisterOptions;

@@ -1,6 +1,5 @@
 import { HeaderMenu } from "@/types/types.interface";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 interface HeaderMenuItemProps {
   value: HeaderMenu;

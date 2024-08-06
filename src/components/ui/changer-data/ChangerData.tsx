@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "../input";
+import { PencilLine } from "lucide-react";
 
 interface IChangerData {
-  className: string;
+  className?: string;
   value: string;
-  isEditing: boolean;
-  onEditComplete: (value: string) => void;
 }
 
 const ChangerData: React.FC<IChangerData> = ({
   className,
   value,
-  isEditing,
-  onEditComplete,
 }) => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>(value ?? "");
 
   useEffect(() => {
@@ -24,30 +22,13 @@ const ChangerData: React.FC<IChangerData> = ({
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onEditComplete(inputValue);
-    }
-  };
-
-  const handleBlur = () => {
-    onEditComplete(inputValue);
-  };
-
   return (
-    <div className={className}>
-      {isEditing ? (
-        <Input
-          className="h-8"
-          value={inputValue}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onBlur={handleBlur}
-          autoFocus
-        />
-      ) : (
-        <p className="h-8 px-2">{inputValue}</p>
-      )}
+    <div className={`${className} flex items-end`}>
+      <p className="pr-2 leading-5">{inputValue}</p>
+
+      <button className="block w-[24px] h-[24px]" onClick={() => setIsEditing(true)}>
+        <PencilLine className="text-gray-500 w-full h-full" />
+      </button>
     </div>
   );
 };

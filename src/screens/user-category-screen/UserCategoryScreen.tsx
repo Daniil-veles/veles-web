@@ -10,7 +10,7 @@ import { CategoryKeys } from "@/types/types.interface";
 import { useRouter } from "next/router";
 
 const categories: Record<CategoryKeys, JSX.Element | string> = {
-  person: <PersonInfo />,
+  profile: <PersonInfo />,
   organization: <OrganizationInfo />,
   employee: <p>Блок сотрудников</p>,
   tariff: <p>Блок тарифных планов</p>,
@@ -38,7 +38,7 @@ const UserCategoryScreen: React.FC = () => {
   return (
     <Layout title="Личный кабинет" description="Это главная страница сайта">
       <Container className="flex flex-col flex-grow">
-        <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10 pt-5">
+        <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
           <UserMenu />
 
           <div className="">{renderContent()}</div>

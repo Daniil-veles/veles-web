@@ -1,6 +1,12 @@
 // import styles from './OrganizationInfo.module.scss';
 
-import { ChevronLeft, CircleCheck, PlusCircle } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  CircleCheck,
+  PlusCircle,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { UserServerData } from "@/types/user.interface";
@@ -10,6 +16,9 @@ import { setUserInfo } from "@/store/slices/userSlice";
 import ChangerData from "@/components/ui/changer-data/ChangerData";
 import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/modal/Modal";
+import FormField from "@/components/ui/form-field/FormField";
+import { ComponentFormEnum } from "@/types/types.interface";
+import { FormProvider, useForm } from "react-hook-form";
 
 const PersonInfo: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,10 +63,6 @@ const PersonInfo: React.FC = () => {
     fetchUserInfo();
   }, [dispatch]);
 
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
-
   const handleEditComplete = (field: keyof typeof userInfo, value: string) => {
     dispatch(setUserInfo({ ...userInfo, [field]: value }));
   };
@@ -79,76 +84,87 @@ const PersonInfo: React.FC = () => {
     verifyUserEmail();
   };
 
+  const isEditData = false;
+
+  // Hook форма.
+  const methods = useForm({
+    mode: "onChange",
+    // resolver: zodResolver(formSchema),
+    // defaultValues: initialValues,
+  });
+
   return (
     <>
-      <h2 className="flex items-center text-xl mb-4 ">Ваша информация</h2>
+      <div className="">
+        <div className="rounded-md border border-zinc-50 shadow p-4 px-6">
+          <img
+            src=""
+            alt=""
+            className="w-[160px] h-[160px] aspect-square rounded-full mb-6"
+          />
 
-      <div className="grid grid-cols-[208px_1fr] gap-x-14">
-        <img src="" alt="" className="w-full h-52 rounded-full" />
+          <h2 className="flex items-center text-2xl mb-4">Личные данные</h2>
 
-        {userInfo.id ? (
-          <div className="">
-            <div className="mb-5">
-              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                <p className="font-medium">ФИО</p>
+          {userInfo.id ? (
+            <div className="">
+              <div className="flex gap-5 items-center h-8 mb-3">
+                <p className="text-gray-500 min-w-[160px]">ФИО</p>
 
                 <ChangerData
-                  className={"border-b"}
+                  // className={"border-b"}
                   value={userInfo.fullName}
-                  isEditing={isEditing}
-                  onEditComplete={(value) =>
-                    handleEditComplete("fullName", value)
-                  }
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                <p className="font-medium">Почта</p>
+              <div className="flex gap-5 items-center h-8 mb-3">
+                <p className="text-gray-500 min-w-[160px]">Почта</p>
 
                 <ChangerData
-                  className={"border-b"}
+                  // className={"border-b"}
                   value={userInfo.email}
-                  isEditing={isEditing}
-                  onEditComplete={(value) => handleEditComplete("email", value)}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                <p className="font-medium">Телефон</p>
+
+              <div className="flex gap-5 items-center h-8 mb-3">
+                <p className="text-gray-500 min-w-[160px]">Телефон</p>
 
                 <ChangerData
-                  className={"border-b"}
+                  // className={"border-b"}
                   value={userInfo.phone}
-                  isEditing={isEditing}
-                  onEditComplete={(value) => handleEditComplete("phone", value)}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                <p className="font-medium">Организация</p>
 
-                <p className="border-b h-8 px-2">{userInfoFull.organization}</p>
+              <div className="flex gap-5 items-center h-8 mb-3">
+                <p className="text-gray-500 min-w-[160px]">Дата рождения</p>
+
+                <ChangerData
+                  // className={"border-b"}
+                  value={userInfo.birthDate}
+                />
               </div>
-              <div className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                <p className="font-medium">Статус</p>
 
-                <p className="border-b h-8 px-2">
+              <div className="flex gap-5 items-center h-8 mb-3">
+                <p className="text-gray-500 min-w-[160px]">Организация</p>
+
+                <p className="h-6">{userInfoFull.organization}</p>
+              </div>
+
+              <div className="flex gap-5 items-center h-8">
+                <p className="text-gray-500 min-w-[160px]">Роль</p>
+
+                <p className="h-6">
                   {userInfo.isSuperuser ? "Начальник" : "Участник"}
                 </p>
               </div>
             </div>
-
-            <Button
-              className="bg-blue-500 text-white"
-              onClick={handleEditToggle}
-            >
-              {isEditing ? "Сохранить" : "Редактировать"}
-            </Button>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
 
         <div className="col-span-full mt-8 border border-zinc-200 rounded p-3">
           <div className="flex items-center justify-between">
-            <p className="font-medium">
-              Подтверидите вашу почту:&nbsp; {userInfo.email}
+            <p className="text-gray-500">
+              Подтверидите вашу почту: &nbsp;
+              <span className="text-black">{userInfo.email}</span>
             </p>
 
             {isVerified ? (
@@ -165,6 +181,7 @@ const PersonInfo: React.FC = () => {
         </div>
       </div>
 
+      {/* Подтверждение почты */}
       {isModalOpen ? (
         <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
           <div className="">
@@ -192,6 +209,43 @@ const PersonInfo: React.FC = () => {
                 Отправить письмо повторно
               </button>
             </div>
+          </div>
+        </Modal>
+      ) : null}
+
+      {/* Редактировать данные */}
+      {isEditData ? (
+        <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
+          <div className="">
+            <h3 className="mb-6 text-2xl font-semibold">
+              Заголовок
+              {/* {title} */}
+            </h3>
+
+            <FormProvider {...methods}>
+              <form
+                // onSubmit={methods.handleSubmit(onSubmit)}
+                className="flex justify-between"
+              >
+                <FormField
+                  value={{
+                    id: "name",
+                    name: "name",
+                    // label: "Имя",
+                    placeholder: "Введите имя",
+                    componentType: ComponentFormEnum.INPUT,
+                  }}
+                />
+
+                <button
+                  className="flex items-center justify-center bg-blue-500 text-white px-4 min-w-[140px] rounded hover:bg-blue-700"
+                  onClick={verifyUserEmail}
+                >
+                  Поменять
+                  <ChevronRight size={20} className="ml-2" />
+                </button>
+              </form>
+            </FormProvider>
           </div>
         </Modal>
       ) : null}

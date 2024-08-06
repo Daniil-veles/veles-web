@@ -197,7 +197,7 @@ export const iconMap: Record<string, React.ElementType<LucideProps>> = {
 
 
 export const userListItems = [
-    { id: 1, iconName: 'User', text: 'Личный кабинет', link: 'person' },
+    { id: 1, iconName: 'User', text: 'Профиль', link: 'profile' },
     { id: 2, iconName: 'CirclePlus', text: 'Организация', link: 'organization' },
     { id: 3, iconName: 'Users', text: 'Сотрудники', link: 'employee' },
     { id: 4, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },

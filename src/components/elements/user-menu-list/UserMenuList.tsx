@@ -18,7 +18,7 @@ function UserMenuList(): JSX.Element {
     const categoryFromLocalStorage = localStorage.getItem(
       LOCAL_STORAGE_USER_MENU_CATEGORY
     );
-    const finalCategory = category || categoryFromLocalStorage || "person";
+    const finalCategory = category || categoryFromLocalStorage || "profile";
 
     if (category !== finalCategory) {
       router.replace(`/user/${finalCategory}`);

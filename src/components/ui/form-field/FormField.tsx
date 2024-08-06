@@ -143,7 +143,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
 
   const renderComponent = (field: any, error: boolean) => {
     const errorClass = error ? "border-red-500" : "border-gray-300"; // Класс ошибки или нормальный класс
-    
+
     switch (value.componentType) {
       case ComponentFormEnum.INPUT:
         return (
@@ -210,10 +210,12 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
       control={control}
       rules={{ required: value.required, ...value.validation }}
       render={({ field, fieldState: { error } }) => (
-        <FormItem>
-          <FormLabel className="text-md" htmlFor={value.id}>
-            {value.label}
-          </FormLabel>
+        <FormItem className="space-y-0">
+          {value.label ? (
+            <FormLabel className="inline-block text-md mb-1" htmlFor={value.id}>
+              {value.label}
+            </FormLabel>
+          ) : null}
           {renderComponent(field, !!error)}
           {error && (
             <FormMessage className="text-red-500">{error.message}</FormMessage>

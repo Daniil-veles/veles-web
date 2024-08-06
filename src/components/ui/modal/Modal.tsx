@@ -12,9 +12,9 @@ interface IModalProp {
 const Modal: React.FC<IModalProp> = ({ children, className, onClose }) => {
   return (
     <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black/10">
-      <div className={`${className} bg-white rounded-md shadow py-6 px-8`}>
+      <div className={`${className} bg-white rounded-md shadow p-6`}>
         <button className="block ml-auto" onClick={onClose}>
-          <X size={26} />
+          <X size={26} className="text-gray-400" />
         </button>
 
         {children}
