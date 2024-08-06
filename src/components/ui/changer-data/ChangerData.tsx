@@ -26,7 +26,7 @@ const ChangerData: React.FC<IChangerData> = ({
     <div className={`${className} flex items-end`}>
       <p className="pr-2 leading-5">{inputValue}</p>
 
-      <button className="block w-[24px] h-[24px]" onClick={() => setIsEditing(true)}>
+      <button className="block w-[18px] h-[18px]" onClick={() => setIsEditing(true)}>
         <PencilLine className="text-gray-500 w-full h-full" />
       </button>
     </div>
