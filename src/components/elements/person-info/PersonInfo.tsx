@@ -21,15 +21,35 @@ import { ComponentFormEnum } from "@/types/types.interface";
 import { FormProvider, useForm } from "react-hook-form";
 
 const PersonInfo: React.FC = () => {
+  // Верификация почты
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  // Изменить Личные данные
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    field: string | null;
+    newValue: string;
+    placeholder: string;
+    buttonText: string;
+  }>({
+    isOpen: false,
+    field: null,
+    newValue: "",
+    placeholder: "",
+    buttonText: "",
+  });
+
+  // const [currentField, setCurrentField] = useState<string | null>(null);
+  // const [newValue, setNewValue] = useState<string>("");
+  // const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.USER);
   const userInfoFull = { ...userInfo, organization: "ООО Велесъ" };
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openVerifyModal = () => setIsModalOpen(true);
+  const closeVerifyModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     async function fetchUserInfo() {
@@ -63,10 +83,6 @@ const PersonInfo: React.FC = () => {
     fetchUserInfo();
   }, [dispatch]);
 
-  const handleEditComplete = (field: keyof typeof userInfo, value: string) => {
-    dispatch(setUserInfo({ ...userInfo, [field]: value }));
-  };
-
   async function verifyUserEmail() {
     try {
       const response = await UserService.verifyUserEmail();
@@ -80,17 +96,54 @@ const PersonInfo: React.FC = () => {
   }
 
   const handleVerifiedEmail = () => {
-    openModal();
+    openVerifyModal();
     verifyUserEmail();
   };
 
-  const isEditData = false;
+  // Модалка
+  const openModal = (field: string, value: string, placeholder: string, buttonText: string) => {
+    setModalState({
+      isOpen: true,
+      field,
+      newValue: value,
+      placeholder,
+      buttonText,
+    });
+  };
+
+  const closeModal = () => {
+    setModalState({
+      isOpen: false,
+      field: null,
+      newValue: "",
+      placeholder: "",
+      buttonText: "",
+    });
+  };
+
+  // const openModal = (field: string, value: string) => {
+  //   setIsEditing(true);
+  //   setCurrentField(field);
+  //   setNewValue(value);
+  // };
+
+  // const closeModal = () => {
+  //   setIsEditing(false);
+  //   setCurrentField(null);
+  //   setNewValue("");
+  // };
+
+  const handleSave = () => {
+    if (modalState.field) {
+      dispatch(setUserInfo({ ...userInfo, [modalState.field]: modalState.newValue }));
+      closeModal();
+    }
+  };
 
   // Hook форма.
   const methods = useForm({
     mode: "onChange",
-    // resolver: zodResolver(formSchema),
-    // defaultValues: initialValues,
+    defaultValues: { newValue: modalState.newValue },
   });
 
   return (
@@ -113,6 +166,8 @@ const PersonInfo: React.FC = () => {
                 <ChangerData
                   // className={"border-b"}
                   value={userInfo.fullName}
+                  onEditClick={() => openModal("fullName", userInfo.fullName, "Введите полное имя", "Сохранить")}
+                  // onEditClick={() => openModal("fullName", userInfo.fullName)}
                 />
               </div>
 
@@ -183,7 +238,7 @@ const PersonInfo: React.FC = () => {
 
       {/* Подтверждение почты */}
       {isModalOpen ? (
-        <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
+        <Modal className="w-1/2 max-w-xl" onClose={closeVerifyModal}>
           <div className="">
             <h3 className="mb-3 text-xl font-semibold">
               Подтвердите вашу почту
@@ -214,7 +269,7 @@ const PersonInfo: React.FC = () => {
       ) : null}
 
       {/* Редактировать данные */}
-      {isEditData ? (
+      {modalState.isOpen ? (
         <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
           <div className="">
             <h3 className="mb-6 text-2xl font-semibold">
@@ -224,7 +279,7 @@ const PersonInfo: React.FC = () => {
 
             <FormProvider {...methods}>
               <form
-                // onSubmit={methods.handleSubmit(onSubmit)}
+                onSubmit={methods.handleSubmit(handleSave)}
                 className="flex justify-between"
               >
                 <FormField
@@ -241,7 +296,8 @@ const PersonInfo: React.FC = () => {
                   className="flex items-center justify-center bg-blue-500 text-white px-4 min-w-[140px] rounded hover:bg-blue-700"
                   onClick={verifyUserEmail}
                 >
-                  Поменять
+                  {/* Поменять */}
+                  {modalState.buttonText}
                   <ChevronRight size={20} className="ml-2" />
                 </button>
               </form>
