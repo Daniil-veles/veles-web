@@ -18,7 +18,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUserInfo(state, action: PayloadAction<AdaptToUserData>) {
+        setUserInfo(state, action: PayloadAction<Partial<AdaptToUserData>>) {
             return { ...state, ...action.payload };
         },
         clearUserInfo() {

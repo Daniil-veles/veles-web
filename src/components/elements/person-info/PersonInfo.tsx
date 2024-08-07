@@ -19,37 +19,30 @@ import Modal from "@/components/ui/modal/Modal";
 import FormField from "@/components/ui/form-field/FormField";
 import { ComponentFormEnum } from "@/types/types.interface";
 import { FormProvider, useForm } from "react-hook-form";
+import VerifyUserData from "@/components/ui/verify-user-data/VerifyUserData";
+import ChangeUserDataForm from "@/components/ui/change-user-data-form/ChangeUserDataForm";
+
+// Интерфейсы для состояния поля и модального окна
+interface FieldState {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  newValue: string;
+  componentType: ComponentFormEnum;
+}
+
+interface ModalState {
+  isOpen: boolean;
+  title: string;
+  buttonText: string;
+  field: FieldState;
+}
 
 const PersonInfo: React.FC = () => {
-  // Верификация почты
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-
-  // Изменить Личные данные
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    field: string | null;
-    newValue: string;
-    placeholder: string;
-    buttonText: string;
-  }>({
-    isOpen: false,
-    field: null,
-    newValue: "",
-    placeholder: "",
-    buttonText: "",
-  });
-
-  // const [currentField, setCurrentField] = useState<string | null>(null);
-  // const [newValue, setNewValue] = useState<string>("");
-  // const [isEditing, setIsEditing] = useState<boolean>(false);
-
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.USER);
   const userInfoFull = { ...userInfo, organization: "ООО Велесъ" };
-
-  const openVerifyModal = () => setIsModalOpen(true);
-  const closeVerifyModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     async function fetchUserInfo() {
@@ -66,14 +59,15 @@ const PersonInfo: React.FC = () => {
           phone: "+1234567890", // Номер телефона пользователя
           isActive: true, // Статус активности пользователя
           isSuperuser: true, // Статус суперпользователя
-          isVerified: true, // Статус верификации пользователя
+          isVerified: false, // Статус верификации пользователя
           picture: "https://example.com/picture.jpg", // Ссылка на фото пользователя
           isAuth: "AUTHENTICATED", // Статус аутентификации пользователя
           organization: "ООО Велесъ", // Статус аутентификации пользователя
         };
-        dispatch(setUserInfo(user));
 
         // Обновляет данные пользователя в сторе
+        dispatch(setUserInfo(user));
+
         // dispatch(setUserInfo(userInfo));
       } catch (error) {
         console.error("Error fetching user info:", error.message);
@@ -83,68 +77,114 @@ const PersonInfo: React.FC = () => {
     fetchUserInfo();
   }, [dispatch]);
 
+  // Верификация почты
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   async function verifyUserEmail() {
     try {
-      const response = await UserService.verifyUserEmail();
+      // Иммитация запроса
+      setTimeout(() => {
+        dispatch(setUserInfo({ isVerified: true }));
+      }, 2000);
 
-      if (response.status == 200) {
-        console.log("User created successfully:", response.data);
-      }
+      // setIsVerified(true);
+
+      // TODO:
+      // const response = await UserService.verifyUserEmail();
+
+      // if (response.status == 200) {
+      //   console.log("User created successfully:", response.data);
+      // }
     } catch (error) {
       console.error("Failed to verified user:", error.response);
     }
   }
 
   const handleVerifiedEmail = () => {
-    openVerifyModal();
+    setIsModalOpen(true);
     verifyUserEmail();
   };
 
-  // Модалка
-  const openModal = (field: string, value: string, placeholder: string, buttonText: string) => {
+  // Изменить Личные данные
+  const [modalState, setModalState] = useState<ModalState>({
+    isOpen: false,
+    title: "",
+    buttonText: "",
+    field: {
+      id: "",
+      name: "",
+      label: "",
+      placeholder: "",
+      newValue: "",
+      componentType: ComponentFormEnum.INPUT,
+    },
+  });
+
+  const openModal = (
+    field: Partial<FieldState>,
+    title: string,
+    value: string,
+    buttonText: string
+  ) => {
     setModalState({
       isOpen: true,
-      field,
-      newValue: value,
-      placeholder,
+      title,
       buttonText,
+      field: {
+        id: field.id || "",
+        name: field.name || "",
+        label: field.label || "",
+        placeholder: field.placeholder || '',
+        newValue: field.newValue || value,
+        componentType: field.componentType || ComponentFormEnum.INPUT, // Используем значение по умолчанию
+      },
     });
   };
 
   const closeModal = () => {
     setModalState({
       isOpen: false,
-      field: null,
-      newValue: "",
-      placeholder: "",
+      title: "",
       buttonText: "",
+      field: {
+        id: "",
+        name: "",
+        label: "",
+        placeholder: "",
+        newValue: "",
+        componentType: ComponentFormEnum.INPUT, // Возвращаем значение по умолчанию
+      },
     });
   };
 
-  // const openModal = (field: string, value: string) => {
-  //   setIsEditing(true);
-  //   setCurrentField(field);
-  //   setNewValue(value);
-  // };
+  const handleSave = (data: any) => {
+    dispatch(
+      setUserInfo({
+        ...userInfo,
+        [modalState.field.name]: data.newValue,
+      })
+    );
 
-  // const closeModal = () => {
-  //   setIsEditing(false);
-  //   setCurrentField(null);
-  //   setNewValue("");
-  // };
-
-  const handleSave = () => {
-    if (modalState.field) {
-      dispatch(setUserInfo({ ...userInfo, [modalState.field]: modalState.newValue }));
-      closeModal();
-    }
+    closeModal();
   };
 
   // Hook форма.
   const methods = useForm({
     mode: "onChange",
-    defaultValues: { newValue: modalState.newValue },
+    defaultValues: { newValue: modalState.field.newValue },
   });
+
+  const text = (
+    <>
+      Для завершения регистрации и доступа ко всем функциям нашего сервиса,
+      пожалуйста, подтвердите вашу электронную почту. На указанный адрес:
+      <b>&nbsp;{userInfo.email}&nbsp;</b> было отправлено письмо с инструкциями
+      по подтверждению.
+      <br />
+      Если вы не получили письмо, проверьте папку "Спам" или нажмите кнопку
+      ниже, чтобы отправить письмо повторно.
+    </>
+  );
 
   return (
     <>
@@ -162,12 +202,15 @@ const PersonInfo: React.FC = () => {
             <div className="">
               <div className="flex gap-5 items-center h-8 mb-3">
                 <p className="text-gray-500 min-w-[160px]">ФИО</p>
-
+             
                 <ChangerData
-                  // className={"border-b"}
                   value={userInfo.fullName}
-                  onEditClick={() => openModal("fullName", userInfo.fullName, "Введите полное имя", "Сохранить")}
-                  // onEditClick={() => openModal("fullName", userInfo.fullName)}
+                  onEditClick={() => openModal(
+                    { id: "fullName", name: "fullName", placeholder: "Введите полное имя" },
+                    "Изменить ФИО",
+                    userInfo.fullName,
+                    "Сохранить"
+                  )}
                 />
               </div>
 
@@ -215,14 +258,14 @@ const PersonInfo: React.FC = () => {
           ) : null}
         </div>
 
-        <div className="col-span-full mt-8 border border-zinc-200 rounded p-3">
+        <div className="mt-8 border border-zinc-200 rounded p-3">
           <div className="flex items-center justify-between">
             <p className="text-gray-500">
               Подтверидите вашу почту: &nbsp;
               <span className="text-black">{userInfo.email}</span>
             </p>
 
-            {isVerified ? (
+            {userInfo.isVerified ? (
               <CircleCheck size={24} className="stroke-green-500" />
             ) : (
               <Button
@@ -237,72 +280,26 @@ const PersonInfo: React.FC = () => {
       </div>
 
       {/* Подтверждение почты */}
-      {isModalOpen ? (
-        <Modal className="w-1/2 max-w-xl" onClose={closeVerifyModal}>
-          <div className="">
-            <h3 className="mb-3 text-xl font-semibold">
-              Подтвердите вашу почту
-            </h3>
-            <p className="mb-4">
-              Для завершения регистрации и доступа ко всем функциям нашего
-              сервиса, пожалуйста, подтвердите вашу электронную почту. На
-              указанный адрес:
-              <b>&nbsp;{userInfo.email}&nbsp;</b>
-              было отправлено письмо с инструкциями по подтверждению.
-            </p>
-
-            <p>
-              Если вы не получили письмо, проверьте папку "Спам" или нажмите
-              кнопку ниже, чтобы отправить письмо повторно.
-            </p>
-
-            <div className="mt-6 flex justify-center">
-              <button
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-                onClick={verifyUserEmail}
-              >
-                Отправить письмо повторно
-              </button>
-            </div>
-          </div>
+      {isModalOpen && !userInfo.isVerified ? (
+        <Modal className="w-1/2 max-w-xl" onClose={() => setIsModalOpen(false)}>
+          <VerifyUserData
+            title="Подтвердите вашу почту"
+            text={text}
+            buttonText="Отправить письмо повторно"
+            handleButtonClick={handleVerifiedEmail}
+          />
         </Modal>
       ) : null}
 
       {/* Редактировать данные */}
       {modalState.isOpen ? (
         <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
-          <div className="">
-            <h3 className="mb-6 text-2xl font-semibold">
-              Заголовок
-              {/* {title} */}
-            </h3>
-
-            <FormProvider {...methods}>
-              <form
-                onSubmit={methods.handleSubmit(handleSave)}
-                className="flex justify-between"
-              >
-                <FormField
-                  value={{
-                    id: "name",
-                    name: "name",
-                    // label: "Имя",
-                    placeholder: "Введите имя",
-                    componentType: ComponentFormEnum.INPUT,
-                  }}
-                />
-
-                <button
-                  className="flex items-center justify-center bg-blue-500 text-white px-4 min-w-[140px] rounded hover:bg-blue-700"
-                  onClick={verifyUserEmail}
-                >
-                  {/* Поменять */}
-                  {modalState.buttonText}
-                  <ChevronRight size={20} className="ml-2" />
-                </button>
-              </form>
-            </FormProvider>
-          </div>
+          <ChangeUserDataForm
+            title={modalState.title}
+            methods={methods}
+            field={modalState.field}
+            handleFormSave={methods.handleSubmit(handleSave)}
+          />
         </Modal>
       ) : null}
     </>
