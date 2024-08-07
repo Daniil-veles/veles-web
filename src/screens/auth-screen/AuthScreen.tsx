@@ -2,12 +2,27 @@ import Layout from "@/layouts/Layout";
 
 import Container from "@/components/container/Container";
 import LoginForm from "@/components/ui/login-form/LoginForm";
-import { useState } from "react";
 import SignUpForm from "@/components/ui/sign-up-form/SignUpForm";
 import cn from "classnames";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
+const authRoutes = ["login", "sign-up"];
 
 const AuthScreen: React.FC = () => {
-  const [authPage, setAuthPage] = useState("login");
+  const router = useRouter();
+  const { route } = router.query;
+  // console.log(route);
+
+  useEffect(() => {
+    if (!route || !authRoutes.includes(route as string)) {
+      router.push("/auth/login");
+    }
+  }, [route, router]);
+
+  if (!route || !authRoutes.includes(route as string)) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -20,9 +35,9 @@ const AuthScreen: React.FC = () => {
                   <button
                     className={cn(
                       "block w-full py-3 px-4 rounded-full text-center",
-                      authPage === "login" ? "bg-gray-200/30 font-medium" : null
+                      route === "login" ? "bg-gray-200/30 font-medium" : null
                     )}
-                    onClick={() => setAuthPage("login")}
+                    onClick={() => router.push("/auth/login")}
                   >
                     Войти
                   </button>
@@ -31,18 +46,16 @@ const AuthScreen: React.FC = () => {
                   <button
                     className={cn(
                       "block w-full py-3 px-4 rounded-full text-center",
-                      authPage === "sign-up"
-                        ? "bg-gray-200/30 font-medium"
-                        : null
+                      route === "sign-up" ? "bg-gray-200/30 font-medium" : null
                     )}
-                    onClick={() => setAuthPage("sign-up")}
+                    onClick={() => router.push("/auth/sign-up")}
                   >
                     Зарегистрироваться
                   </button>
                 </li>
               </ul>
 
-              {authPage === "login" ? <LoginForm /> : <SignUpForm />}
+              {route === "login" ? <LoginForm /> : <SignUpForm />}
             </div>
           </div>
         </Container>

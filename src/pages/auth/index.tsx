@@ -1,13 +1,16 @@
-// import './login.scss';
+import { GetServerSideProps } from 'next';
 
-import AuthScreen from "@/screens/auth-screen/AuthScreen";
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    redirect: {
+      destination: '/auth/login',
+      permanent: false,
+    },
+  };
+};
 
-function LoginPage(): JSX.Element {
-  return (
-    <div>
-      <AuthScreen />
-    </div>
-  );
-}
+const AuthRedirect: React.FC = () => {
+  return null;
+};
 
-export default LoginPage;
+export default AuthRedirect;
