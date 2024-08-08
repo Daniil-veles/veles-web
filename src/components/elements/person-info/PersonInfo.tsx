@@ -14,8 +14,33 @@ import Modal from "@/components/ui/modal/Modal";
 import VerifyPersonInfo from "@/components/ui/verify-user-data/VerifyUserData";
 import UpdatePersonInfoForm from "@/components/ui/change-user-data-form/ChangeUserDataForm";
 import UserVerifiedData from "../user-verified-data/UserVerifiedData";
+import { personInfoVerifiedTexts } from "@/const/const";
 
 const PersonInfo: React.FC = () => {
+  // Обновляет Личные данные
+  const [updateModalState, setUpdateModalState] = useState<ModalState>({
+    isOpen: false,
+    title: "",
+    buttonText: "",
+    field: {
+      id: "",
+      name: "",
+      label: "",
+      placeholder: "",
+      type: "",
+      componentType: ComponentFormEnum.INPUT,
+    },
+  });
+
+  // Верификация почты
+  const [verifyModalState, setVerifyModalState] = useState<{
+    isOpen: boolean;
+    verificationType: "email" | "phone";
+  }>({
+    isOpen: false,
+    verificationType: "email",
+  });
+
   const dispatch = useAppDispatch();
   const userInfo = {
     ...useAppSelector((state) => state.USER),
@@ -55,51 +80,24 @@ const PersonInfo: React.FC = () => {
     fetchUserInfo();
   }, [dispatch]);
 
-  // Верификация почты
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleVerification = (type: "email" | "phone") => {
+    setVerifyModalState({
+      isOpen: true,
+      verificationType: type,
+    });
 
-  async function verifyUserEmail() {
-    try {
-      // Иммитация запроса
-      setTimeout(() => {
-        dispatch(setUserInfo({ isVerified: true }));
-      }, 2000);
-
-      // setIsVerified(true);
-
-      // TODO:
-      // const response = await UserService.verifyUserEmail();
-
-      // if (response.status == 200) {
-      //   console.log("User created successfully:", response.data);
-      // }
-    } catch (error) {
-      console.error("Failed to verified user:", error.response);
-    }
-  }
-
-  const handleVerifiedEmail = () => {
-    setIsModalOpen(true);
-    verifyUserEmail();
+    verifyUserData();
   };
 
-  // Изменить Личные данные
-  const [modalState, setModalState] = useState<ModalState>({
-    isOpen: false,
-    title: "",
-    buttonText: "",
-    field: {
-      id: "",
-      name: "",
-      label: "",
-      placeholder: "",
-      type: "",
-      componentType: ComponentFormEnum.INPUT,
-    },
-  });
+  const verifyUserData = async () => {
+    setTimeout(() => {
+      // Логика для подтверждения данных
+      dispatch(setUserInfo({ ...userInfo, isVerified: true }));
+    }, 2000);
+  };
 
   const openModal = (title: string, buttonText: string, field: IFormField) => {
-    setModalState({
+    setUpdateModalState({
       isOpen: true,
       title,
       buttonText,
@@ -108,7 +106,7 @@ const PersonInfo: React.FC = () => {
   };
 
   const closeModal = () => {
-    setModalState({
+    setUpdateModalState({
       isOpen: false,
       title: "",
       buttonText: "",
@@ -129,7 +127,7 @@ const PersonInfo: React.FC = () => {
     dispatch(
       setUserInfo({
         ...userInfo,
-        [modalState.field.name]: data[modalState.field.name],
+        [updateModalState.field.name]: data[updateModalState.field.name],
       })
     );
 
@@ -137,56 +135,70 @@ const PersonInfo: React.FC = () => {
     methods.reset({});
   };
 
-  //   console.log(userInfo);
-
   // Hook форма.
   const methods = useForm({
     mode: "onChange",
     defaultValues: {},
   });
 
-  const text = (
-    <>
-      Для завершения регистрации и доступа ко всем функциям нашего сервиса,
-      пожалуйста, подтвердите вашу электронную почту. На указанный адрес:
-      <b>&nbsp;{userInfo.email}&nbsp;</b> было отправлено письмо с инструкциями
-      по подтверждению.
-      <br />
-      Если вы не получили письмо, проверьте папку "Спам" или нажмите кнопку
-      ниже, чтобы отправить письмо повторно.
-    </>
-  );
-
   return (
     <div className="">
       <UserProfileCard userInfo={userInfo} openModal={openModal} />
+
       <UserVerifiedData
         title="Подтверидите вашу почту:"
         userInfo={userInfo}
         value={userInfo.email}
-        handleVerifiedEmail={handleVerifiedEmail}
+        handleButtonClick={() => handleVerification("email")}
+      />
+
+      <UserVerifiedData
+        title="Подтверидите ваш телефон:"
+        userInfo={userInfo}
+        value={userInfo.phone}
+        handleButtonClick={() => handleVerification("phone")}
       />
 
       {/* Подтверждение почты */}
-      {isModalOpen && !userInfo.isVerified ? (
-        <Modal className="w-1/2 max-w-xl" onClose={() => setIsModalOpen(false)}>
+      {verifyModalState.isOpen && !userInfo.isVerified ? (
+        <Modal
+          className="w-1/2 max-w-xl"
+          onClose={() =>
+            setVerifyModalState({
+              isOpen: false,
+              verificationType: verifyModalState.verificationType,
+            })
+          }
+        >
           <VerifyPersonInfo
-            title="Подтвердите вашу почту"
-            text={text}
-            buttonText="Отправить письмо повторно"
-            handleButtonClick={handleVerifiedEmail}
+            title={
+              personInfoVerifiedTexts[verifyModalState.verificationType]
+                .modalTitle
+            }
+            text={personInfoVerifiedTexts[
+              verifyModalState.verificationType
+            ].verificationText(
+              verifyModalState.verificationType === "email"
+                ? userInfo.email
+                : userInfo.phone
+            )}
+            buttonText={
+              personInfoVerifiedTexts[verifyModalState.verificationType]
+                .modalButtonText
+            }
+            handleButtonClick={verifyUserData}
           />
         </Modal>
       ) : null}
 
-      {/* Редактировать данные */}
-      {modalState.isOpen ? (
+      {/* Обновляет данные пользователя */}
+      {updateModalState.isOpen ? (
         <Modal className="w-1/2 max-w-xl" onClose={closeModal}>
           <UpdatePersonInfoForm
-            title={modalState.title}
+            title={updateModalState.title}
             methods={methods}
-            field={modalState.field}
-            buttonText={modalState.buttonText}
+            field={updateModalState.field}
+            buttonText={updateModalState.buttonText}
             handleFormSave={methods.handleSubmit(handleModalSave)}
           />
         </Modal>

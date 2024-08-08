@@ -8,17 +8,17 @@ interface IUserVerifiedDataProps {
   title: string;
   value: string;
   userInfo: UserInfo;
-  handleVerifiedEmail: () => void;
+  handleButtonClick: () => void;
 }
 
 const UserVerifiedData: React.FC<IUserVerifiedDataProps> = ({
   title,
   value,
   userInfo,
-  handleVerifiedEmail,
+  handleButtonClick,
 }) => {
   return (
-    <div className="mt-8 border border-zinc-200 rounded p-3">
+    <div className="border border-zinc-200 rounded p-3 mb-3">
       <div className="flex items-center justify-between">
         <p className="text-gray-500">
           {title}
@@ -31,7 +31,7 @@ const UserVerifiedData: React.FC<IUserVerifiedDataProps> = ({
         ) : (
           <Button
             className="bg-blue-500 text-white"
-            onClick={handleVerifiedEmail}
+            onClick={handleButtonClick}
           >
             Подтвердить
           </Button>

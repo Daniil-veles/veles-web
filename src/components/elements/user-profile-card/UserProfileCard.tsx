@@ -35,7 +35,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
 }) => {
   return (
     <>
-      <div className="">
+      <div className="mb-5">
         <div className="rounded-md border border-zinc-50 shadow p-4 px-6">
           <img
             src=""
