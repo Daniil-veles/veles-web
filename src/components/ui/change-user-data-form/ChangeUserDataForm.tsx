@@ -5,7 +5,7 @@ import FormField from "../form-field/FormField";
 import { IFormField } from "@/types/types.interface";
 import { ChevronRight } from "lucide-react";
 
-interface IChangeUserDataFormProps {
+interface IUpdatePersonInfoFormProps {
   title: string;
   methods: any;
   field: IFormField;
@@ -13,7 +13,7 @@ interface IChangeUserDataFormProps {
   handleFormSave: () => void;
 }
 
-const ChangeUserDataForm: React.FC<IChangeUserDataFormProps> = ({
+const UpdatePersonInfoForm: React.FC<IUpdatePersonInfoFormProps> = ({
   title,
   methods,
   field,
@@ -41,4 +41,4 @@ const ChangeUserDataForm: React.FC<IChangeUserDataFormProps> = ({
   );
 };
 
-export default ChangeUserDataForm;
+export default UpdatePersonInfoForm;

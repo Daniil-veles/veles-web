@@ -1,11 +1,11 @@
-interface IVerifyUserData {
+interface IVerifyPersonInfo {
   title: string;
   text?: string | React.ReactNode;
   buttonText?: string;
   handleButtonClick?: () => void;
 }
 
-const VerifyUserData: React.FC<IVerifyUserData> = ({
+const VerifyPersonInfo: React.FC<IVerifyPersonInfo> = ({
   title,
   text,
   buttonText,
@@ -31,4 +31,4 @@ const VerifyUserData: React.FC<IVerifyUserData> = ({
   );
 };
 
-export default VerifyUserData;
+export default VerifyPersonInfo;

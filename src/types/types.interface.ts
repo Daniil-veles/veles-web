@@ -71,3 +71,21 @@ interface IPhoneFormField extends IBaseFormField {
 }
 
 export type IFormField = IInputFormField | ISelectFormField | IPhoneFormField;
+
+
+// Интерфейсы для состояния поля и модального окна
+export interface FieldState {
+    id: string;
+    name: string;
+    label?: string;
+    placeholder?: string;
+    type: string;
+    componentType: ComponentFormEnum;
+}
+
+export interface ModalState {
+    isOpen: boolean;
+    title: string;
+    buttonText: string;
+    field: IFormField;
+}

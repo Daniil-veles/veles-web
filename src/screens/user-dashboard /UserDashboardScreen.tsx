@@ -2,15 +2,15 @@
 
 import Container from "@/components/container/Container";
 import OrganizationInfo from "@/components/elements/organization-info/OrganizationInfo";
+import PersonInfo from "@/components/elements/person-info/PersonInfo";
 import SettingsInfo from "@/components/elements/settings-info/SettingsInfo";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
-import UserProfileCard from "@/components/elements/user-profile-card/UserProfileCard";
 import Layout from "@/layouts/Layout";
 import { CategoryKeys } from "@/types/types.interface";
 import { useRouter } from "next/router";
 
 const categories: Record<CategoryKeys, JSX.Element | string> = {
-  profile: <UserProfileCard />,
+  profile: <PersonInfo />,
   organization: <OrganizationInfo />,
   employee: <p>Блок сотрудников</p>,
   tariff: <p>Блок тарифных планов</p>,
