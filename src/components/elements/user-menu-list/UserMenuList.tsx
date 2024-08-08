@@ -21,7 +21,7 @@ function UserMenuList(): JSX.Element {
     const finalCategory = category || categoryFromLocalStorage || "profile";
 
     if (category !== finalCategory) {
-      router.replace(`/user/${finalCategory}`);
+      router.replace(`/dashboard/${finalCategory}`);
     } else {
       localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, finalCategory);
 
@@ -63,7 +63,7 @@ function UserMenuList(): JSX.Element {
   }, [activeId]);
 
   const handleChangeActive = (activeLink: string) => {
-    router.push(`/user/${activeLink}`);
+    router.push(`/dashboard/${activeLink}`);
     localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, activeLink);
 
     const activeItem = userListItems.find((item) => item.link === activeLink);

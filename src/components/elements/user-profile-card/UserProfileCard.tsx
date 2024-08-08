@@ -21,14 +21,15 @@ import { ComponentFormEnum } from "@/types/types.interface";
 import { FormProvider, useForm } from "react-hook-form";
 import VerifyUserData from "@/components/ui/verify-user-data/VerifyUserData";
 import ChangeUserDataForm from "@/components/ui/change-user-data-form/ChangeUserDataForm";
+import ProfileField from "@/components/ui/profile-field/ProfileField";
 
 // Интерфейсы для состояния поля и модального окна
-interface FieldState {
+export interface FieldState {
   id: string;
   name: string;
-  label: string;
-  placeholder: string;
-  newValue: string;
+  label?: string;
+  placeholder?: string;
+  type: string;
   componentType: ComponentFormEnum;
 }
 
@@ -39,7 +40,7 @@ interface ModalState {
   field: FieldState;
 }
 
-const PersonInfo: React.FC = () => {
+const UserProfileCard: React.FC = () => {
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.USER);
   const userInfoFull = { ...userInfo, organization: "ООО Велесъ" };
@@ -115,16 +116,15 @@ const PersonInfo: React.FC = () => {
       name: "",
       label: "",
       placeholder: "",
-      newValue: "",
+      type: "",
       componentType: ComponentFormEnum.INPUT,
     },
   });
 
   const openModal = (
-    field: Partial<FieldState>,
     title: string,
-    value: string,
-    buttonText: string
+    buttonText: string,
+    field: Partial<FieldState>
   ) => {
     setModalState({
       isOpen: true,
@@ -134,9 +134,9 @@ const PersonInfo: React.FC = () => {
         id: field.id || "",
         name: field.name || "",
         label: field.label || "",
-        placeholder: field.placeholder || '',
-        newValue: field.newValue || value,
-        componentType: field.componentType || ComponentFormEnum.INPUT, // Используем значение по умолчанию
+        placeholder: field.placeholder || "",
+        type: field.type || "",
+        componentType: field.componentType || ComponentFormEnum.INPUT,
       },
     });
   };
@@ -151,27 +151,32 @@ const PersonInfo: React.FC = () => {
         name: "",
         label: "",
         placeholder: "",
-        newValue: "",
-        componentType: ComponentFormEnum.INPUT, // Возвращаем значение по умолчанию
+        type: "",
+        componentType: ComponentFormEnum.INPUT,
       },
     });
   };
 
-  const handleSave = (data: any) => {
+  const handleModalSave = (data: any) => {
+    console.log(data);
+
     dispatch(
       setUserInfo({
         ...userInfo,
-        [modalState.field.name]: data.newValue,
+        [modalState.field.name]: data[modalState.field.name],
       })
     );
 
     closeModal();
+    methods.reset({});
   };
+
+  console.log(userInfo);
 
   // Hook форма.
   const methods = useForm({
     mode: "onChange",
-    defaultValues: { newValue: modalState.field.newValue },
+    defaultValues: {},
   });
 
   const text = (
@@ -200,60 +205,71 @@ const PersonInfo: React.FC = () => {
 
           {userInfo.id ? (
             <div className="">
-              <div className="flex gap-5 items-center h-8 mb-3">
-                <p className="text-gray-500 min-w-[160px]">ФИО</p>
-             
-                <ChangerData
-                  value={userInfo.fullName}
-                  onEditClick={() => openModal(
-                    { id: "fullName", name: "fullName", placeholder: "Введите полное имя" },
-                    "Изменить ФИО",
-                    userInfo.fullName,
-                    "Сохранить"
-                  )}
-                />
-              </div>
+              <ProfileField
+                label="ФИО"
+                value={userInfo.fullName}
+                onEditClick={() =>
+                  openModal("Изменить ФИО", "Сохранить", {
+                    id: "fullName",
+                    name: "fullName",
+                    placeholder: "Введите полное имя",
+                    type: "text",
+                  })
+                }
+              />
 
-              <div className="flex gap-5 items-center h-8 mb-3">
-                <p className="text-gray-500 min-w-[160px]">Почта</p>
+              <ProfileField
+                label="Почта"
+                value={userInfo.email}
+                onEditClick={() =>
+                  openModal("Изменить почту", "Отправить", {
+                    id: "email",
+                    name: "email",
+                    placeholder: "Введите почту",
+                    type: "text",
+                  })
+                }
+              />
 
-                <ChangerData
-                  // className={"border-b"}
-                  value={userInfo.email}
-                />
-              </div>
+              <ProfileField
+                label="Телефон"
+                value={userInfo.phone}
+                onEditClick={() =>
+                  openModal("Изменить телефон", "Отправить", {
+                    id: "phone",
+                    name: "phone",
+                    placeholder: "Введите телефон",
+                    type: "text",
+                  })
+                }
+              />
 
-              <div className="flex gap-5 items-center h-8 mb-3">
-                <p className="text-gray-500 min-w-[160px]">Телефон</p>
+              <ProfileField
+                label="Дата рождения"
+                value={userInfo.birthDate}
+                onEditClick={() =>
+                  openModal("Изменить дату рождения", "Сохранить", {
+                    id: "birthDate",
+                    name: "birthDate",
+                    placeholder: "Введите дату рождения",
+                    type: "date",
+                  })
+                }
+              />
 
-                <ChangerData
-                  // className={"border-b"}
-                  value={userInfo.phone}
-                />
-              </div>
+              <ProfileField
+                label="Организация"
+                value={userInfoFull.organization}
+                // onEditClick={() => {}}
+                isEditable={false}
+              />
 
-              <div className="flex gap-5 items-center h-8 mb-3">
-                <p className="text-gray-500 min-w-[160px]">Дата рождения</p>
-
-                <ChangerData
-                  // className={"border-b"}
-                  value={userInfo.birthDate}
-                />
-              </div>
-
-              <div className="flex gap-5 items-center h-8 mb-3">
-                <p className="text-gray-500 min-w-[160px]">Организация</p>
-
-                <p className="h-6">{userInfoFull.organization}</p>
-              </div>
-
-              <div className="flex gap-5 items-center h-8">
-                <p className="text-gray-500 min-w-[160px]">Роль</p>
-
-                <p className="h-6">
-                  {userInfo.isSuperuser ? "Начальник" : "Участник"}
-                </p>
-              </div>
+              <ProfileField
+                label="Роль"
+                value={userInfo.isSuperuser ? "Начальник" : "Участник"}
+                // onEditClick={() => {}}
+                isEditable={false}
+              />
             </div>
           ) : null}
         </div>
@@ -298,7 +314,8 @@ const PersonInfo: React.FC = () => {
             title={modalState.title}
             methods={methods}
             field={modalState.field}
-            handleFormSave={methods.handleSubmit(handleSave)}
+            buttonText={modalState.buttonText}
+            handleFormSave={methods.handleSubmit(handleModalSave)}
           />
         </Modal>
       ) : null}
@@ -306,4 +323,4 @@ const PersonInfo: React.FC = () => {
   );
 };
 
-export default PersonInfo;
+export default UserProfileCard;

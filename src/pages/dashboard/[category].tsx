@@ -1,9 +1,9 @@
 // import styles from './[category].module.scss';
-import UserCategoryScreen from "@/screens/user-category-screen/UserCategoryScreen";
+import UserDashboardScreen from "@/screens/user-dashboard /UserDashboardScreen";
 
 const UserCategoryPage: React.FC = () => {
   return (
-    <UserCategoryScreen />
+    <UserDashboardScreen />
   );
 };
 

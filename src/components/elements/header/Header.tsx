@@ -57,7 +57,7 @@ const Header: React.FC = () => {
                   <DropdownMenuContent className="absolute right-0 p-2 mt-2 -right-3 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
                     {isAuth ? (
                       <>
-                        <Link href="/user">
+                        <Link href="/dashboard">
                           <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
                             Личный кабинет
                           </DropdownMenuItem>
