@@ -37,8 +37,6 @@ const OrganizationItem: React.FC<IOrganizationItemProps> = ({
     employees,
   } = organization;
 
-  console.log(index);
-
   return (
     <Accordion
       type="single"

@@ -1,4 +1,3 @@
-import { userListItems } from "@/const/const";
 import { AdaptedUserFormData, AdaptToUserData, UserFormData, UserServerData } from "@/types/user.interface";
 
 const getMetaTitle = (title: string) => `${title} | Велесъ`;
@@ -16,7 +15,6 @@ function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement):
     left: `${rect.left - parentRect.left}px`,
     width: `${rect.width}px`,
     height: `${rect.height}px`,
-    backgroundColor: "rgba(0, 0, 0, 0.15)",
   };
 }
 
@@ -52,34 +50,6 @@ function adaptToUserData(data: UserServerData): AdaptToUserData {
     birthDate: data.birth_date,
   };
 }
-
-
-// function getCategoryLinkByUserMenu(activeId: number) {
-//   const categoryName = userListItems.find(item => item.id === activeId)?.text || "";
-//   let link = "?category=";
-
-//   switch (categoryName) {
-//     case "Организация":
-//       link += "organization";
-//       break;
-//     case "Сотрудники":
-//       link += "employee";
-//       break;
-//     case "Тарифный план":
-//       link += "tariff";
-//       break;
-//     case "Настройки":
-//       link += "settings";
-//       break;
-
-//     default:
-//       link = "";
-//       break;
-//   }
-
-//   return link;
-// }
-
 
 export { getMetaTitle, setAccessToken, getAccessToken, deleteAccessToken, getIndicatorStyle, adaptToUserData };
 

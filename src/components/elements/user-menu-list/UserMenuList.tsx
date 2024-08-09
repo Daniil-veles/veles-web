@@ -75,7 +75,7 @@ function UserMenuList(): JSX.Element {
   return (
     <ul ref={listRef} className="relative mb-auto grow">
       <div
-        className="absolute left-0 w-full transition-all duration-300 rounded-xl"
+        className="absolute left-0 w-full transition-all duration-300 rounded-r-xl bg-white text-black border-l-2 border-l-blue-500"
         style={indicatorStyle}
       ></div>
       {userListItems.map((item) => (

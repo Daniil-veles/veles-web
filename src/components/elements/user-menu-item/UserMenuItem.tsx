@@ -20,11 +20,11 @@ function UserMenuItem({
     <li
       onClick={onClick}
       className={cn("relative flex items-center p-3 mb-4 cursor-pointer", {
-        "text-white active": isActive,
-        "text-black": !isActive,
+        "active": isActive,
       })}
     >
-      <IconComponent className="mr-2" size={24} /> {text}
+      <IconComponent className="mr-2" size={24} />
+      {text}
     </li>
   );
 }
