@@ -102,7 +102,7 @@ const CreateOrganizationForm: React.FC = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="grid grid-cols-3 gap-4 text-md"
+        className="grid grid-cols-4 gap-4 text-md"
       >
         <div className="row-span-full col-span-full">
           <FormField

@@ -11,8 +11,8 @@ const OrganizationList: React.FC<IOrganizationListProps> = ({organizationList}) 
        <div className='grid gap-4'>
             {
                 organizationList ? organizationList.map((item, index) => (
-                    <OrganizationItem key={item.name + index} organization={item} />
-                ))  : ''
+                    <OrganizationItem key={item.name + index} organization={item} index={index} openIndex={0} value={`item-${index}`} />
+                ))  : 'Организация не найдена'
             }
        </div>
    );

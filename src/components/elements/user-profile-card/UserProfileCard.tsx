@@ -36,91 +36,91 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
   return (
     <>
       <div className="mb-5">
-        <div className="rounded-md border border-zinc-50 shadow p-4 px-6">
+        <div className="grid grid-cols-[60%_1fr] gap-5 rounded-md border border-zinc-50 shadow p-4 px-6">
           <img
-            src=""
+            src="/user-3.webp"
             alt=""
-            className="w-[160px] h-[160px] aspect-square rounded-full mb-6"
+            className="w-full h-full aspect-square  col-start-2"
           />
 
-          <h2 className="flex items-center text-2xl mb-4">Личные данные</h2>
+          <div className="row-start-1">
+            <h2 className="flex items-center text-2xl mb-4">Личные данные</h2>
 
-          {userInfo.id ? (
-            <div className="">
-              <ProfileField
-                label="ФИО"
-                value={userInfo.fullName}
-                onEditClick={() =>
-                  openModal("Изменить ФИО", "Сохранить", {
-                    id: "fullName",
-                    name: "fullName",
-                    placeholder: "Введите полное имя",
-                    type: "text",
-                    componentType: ComponentFormEnum.INPUT,
-                  })
-                }
-              />
+            {userInfo.id ? (
+              <div className="">
+                <ProfileField
+                  label="ФИО"
+                  value={userInfo.fullName}
+                  onEditClick={() =>
+                    openModal("Изменить ФИО", "Сохранить", {
+                      id: "fullName",
+                      name: "fullName",
+                      placeholder: "Введите полное имя",
+                      type: "text",
+                      componentType: ComponentFormEnum.INPUT,
+                    })
+                  }
+                />
 
-              <ProfileField
-                label="Почта"
-                value={userInfo.email}
-                onEditClick={() =>
-                  openModal("Изменить почту", "Отправить", {
-                    id: "email",
-                    name: "email",
-                    placeholder: "Введите почту",
-                    type: "text",
-                    componentType: ComponentFormEnum.INPUT,
-                  })
-                }
-              />
+                <ProfileField
+                  label="Почта"
+                  value={userInfo.email}
+                  onEditClick={() =>
+                    openModal("Изменить почту", "Отправить", {
+                      id: "email",
+                      name: "email",
+                      placeholder: "Введите почту",
+                      type: "text",
+                      componentType: ComponentFormEnum.INPUT,
+                    })
+                  }
+                />
 
-              <ProfileField
-                label="Телефон"
-                value={userInfo.phone}
-                onEditClick={() =>
-                  openModal("Изменить телефон", "Отправить", {
-                    id: "phone",
-                    name: "phone",
-                    placeholder: "Введите телефон",
-                    type: "text",
-                    componentType: ComponentFormEnum.INPUT,
-                  })
-                }
-              />
+                <ProfileField
+                  label="Телефон"
+                  value={userInfo.phone}
+                  onEditClick={() =>
+                    openModal("Изменить телефон", "Отправить", {
+                      id: "phone",
+                      name: "phone",
+                      placeholder: "Введите телефон",
+                      type: "text",
+                      componentType: ComponentFormEnum.INPUT,
+                    })
+                  }
+                />
 
-              <ProfileField
-                label="Дата рождения"
-                value={userInfo.birthDate}
-                onEditClick={() =>
-                  openModal("Изменить дату рождения", "Сохранить", {
-                    id: "birthDate",
-                    name: "birthDate",
-                    placeholder: "Введите дату рождения",
-                    type: "date",
-                    componentType: ComponentFormEnum.INPUT,
-                  })
-                }
-              />
+                <ProfileField
+                  label="Дата рождения"
+                  value={userInfo.birthDate}
+                  onEditClick={() =>
+                    openModal("Изменить дату рождения", "Сохранить", {
+                      id: "birthDate",
+                      name: "birthDate",
+                      placeholder: "Введите дату рождения",
+                      type: "date",
+                      componentType: ComponentFormEnum.INPUT,
+                    })
+                  }
+                />
 
-              <ProfileField
-                label="Организация"
-                value={userInfo.organization}
-                // onEditClick={() => {}}
-                isEditable={false}
-              />
+                <ProfileField
+                  label="Организация"
+                  value={userInfo.organization}
+                  // onEditClick={() => {}}
+                  isEditable={false}
+                />
 
-              <ProfileField
-                label="Роль"
-                value={userInfo.isSuperuser ? "Начальник" : "Участник"}
-                // onEditClick={() => {}}
-                isEditable={false}
-              />
-            </div>
-          ) : null}
+                <ProfileField
+                  label="Роль"
+                  value={userInfo.isSuperuser ? "Начальник" : "Участник"}
+                  // onEditClick={() => {}}
+                  isEditable={false}
+                />
+              </div>
+            ) : null}
+          </div>
         </div>
-
-      
       </div>
     </>
   );

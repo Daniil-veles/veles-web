@@ -9,10 +9,15 @@ import { ChevronLeft, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import OrganizationList from "../organization-list/OrganizationList";
+import Modal from "@/components/ui/modal/Modal";
 
 const OrganizationInfo: React.FC = () => {
+  // Состояния для модальных окон
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+  });
+
   const [organizationInfo, setOrganizationInfo] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const isSetOrganization = true;
 
   // useEffect(() => {
@@ -24,53 +29,36 @@ const OrganizationInfo: React.FC = () => {
   //   getOrganizationInfo(1);
   // }, []);
 
+  console.log(modalState);
+
+  const closeModal = () => {
+    setModalState((prev) => ({
+      ...prev,
+      isOpen: false,
+    }));
+  };
+
   return (
     <>
-      <h2 className="flex items-center text-xl mb-4 ">
-        Ваши организации
-        <button onClick={() => setIsModalOpen(true)} className="ml-2">
-          <PlusCircle />
-        </button>
-      </h2>
+      <div className="flex justify-between items-bottom mb-6">
+        <h2 className="flex text-xl items-end">Ваши организации:</h2>
+
+        <Button
+          className="max-w-max bg-blue-500 text-white px-3 py-2 hover:bg-blue-800"
+          onClick={() => setModalState({ ...modalState, isOpen: true })}
+        >
+          Добавить организацию
+          <PlusCircle className="ml-2" />
+        </Button>
+      </div>
 
       <OrganizationList organizationList={exampleOrgData} />
 
-      {/* {isSetOrganization ? (
-        <div className="mb-6 bg-blue-50 p-6 rounded-md">
-        <Link className="flex items-center mb-2" href={"/"}>
-        <ChevronLeft className="mr-1" size={20} />
-        Вернуться назад
-      </Link>
-
-          <h2 className="text-xl mb-3">Информация о компании</h2>
-
-          <div className="mb-5">
-            {companyInfoFields && organizationInfo
-              ? companyInfoFields.map((item) => (
-                  <div key={item.field} className="grid grid-cols-2 gap-5 items-center h-8 mb-1">
-                    <p className="font-medium">{item.field}</p>
-
-                    <ChangerData value={organizationInfo[item.value]} />
-                  </div>
-                ))
-              : "Организация не найдена"}
-          </div>
-
-          <Button className="bg-blue-500 text-white">Редактировать</Button>
-        </div>
-      ) : (
-        <CreateOrganizationForm />
-      )} */}
-
-      {isModalOpen ? (
-        <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-black/40">
-          <div className="w-2/3  bg-blue-50 bg-blue-50 shadow rounded p-6 z-10">
+      {modalState.isOpen ? (
+        <Modal className="" onClose={closeModal}>
           <CreateOrganizationForm />
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
+        </Modal>
+      ) : null}
     </>
   );
 };

@@ -18,7 +18,7 @@ const UserVerifiedData: React.FC<IUserVerifiedDataProps> = ({
   handleButtonClick,
 }) => {
   return (
-    <div className="border border-zinc-200 rounded p-3 mb-3">
+    <div className="border border-zinc-50 shadow rounded p-3 mb-3">
       <div className="flex items-center justify-between">
         <p className="text-gray-500">
           {title}
