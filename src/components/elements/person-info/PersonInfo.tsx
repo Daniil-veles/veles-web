@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { setUserInfo } from "@/store/slices/userSlice";
 import { useForm } from "react-hook-form";
 import {
@@ -13,8 +13,12 @@ import VerifyPersonInfo from "@/components/ui/verify-user-data/VerifyUserData";
 import UpdatePersonInfoForm from "@/components/ui/change-user-data-form/ChangeUserDataForm";
 import UserVerifiedData from "../user-verified-data/UserVerifiedData";
 import { personInfoVerifiedTexts } from "@/const/const";
+import { UserService } from "@/services/user.service";
+import { AuthContext } from "@/hoc/AuthContext";
 
 const PersonInfo: React.FC = () => {
+  const authContext = useContext(AuthContext);
+
   // Состояния для модальных окон
   const [modalState, setModalState] = useState<ModalState>({
     isOpen: false,
@@ -32,8 +36,6 @@ const PersonInfo: React.FC = () => {
     verificationType: "email" as "email" | "phone",
   });
 
-  //   console.log(modalState);
-
   const dispatch = useAppDispatch();
   const userInfo = {
     ...useAppSelector((state) => state.USER),
@@ -43,22 +45,22 @@ const PersonInfo: React.FC = () => {
   useEffect(() => {
     async function fetchUserInfo() {
       try {
+        // const user = UserService.getUserInfo();
         // Фейковые данные для примера
-        const user = {
-          id: 1,
-          email: "john.doe@example.com",
-          fullName: "John Doe",
-          birthDate: "1990-01-01",
-          phone: "+1234567890",
-          isActive: true,
-          isSuperuser: true,
-          isVerified: false,
-          picture: "https://example.com/picture.jpg",
-          isAuth: "AUTHENTICATED",
-          organization: "ООО Велесъ",
-        };
-
-        dispatch(setUserInfo(user));
+        // const user = {
+        //   id: 1,
+        //   email: "john.doe@example.com",
+        //   fullName: "John Doe",
+        //   birthDate: "1990-01-01",
+        //   phone: "+1234567890",
+        //   isActive: true,
+        //   isSuperuser: true,
+        //   isVerified: false,
+        //   picture: "https://example.com/picture.jpg",
+        //   isAuth: "AUTHENTICATED",
+        //   organization: "ООО Велесъ",
+        // };
+        // dispatch(setUserInfo(user));
       } catch (error) {
         console.error("Error fetching user info:", error.message);
       }
@@ -118,6 +120,13 @@ const PersonInfo: React.FC = () => {
     mode: "onChange",
     defaultValues: {},
   });
+
+  if (!authContext) {
+    return <div>Loading...</div>;
+  }
+
+  const { user } = authContext;
+  console.log(user);
 
   return (
     <div className="">

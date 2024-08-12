@@ -1,5 +1,5 @@
 // import { useRouter } from "next/router";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect } from "react";
 import { IAuthContextProps } from "./AuthContext.interface";
 import { useRouter } from "next/router";
 import {
@@ -8,8 +8,16 @@ import {
 } from "@/components/ui/login-form/utils";
 import { AdaptedUserLoginData } from "@/components/ui/login-form/LoginForm.interface";
 import { AuthService } from "@/services/auth.service";
-import { AdaptedUserFormData } from "@/types/user.interface";
-import { deleteAccessToken, getAccessToken } from "@/utils/utils";
+import {
+  deleteAccessToken,
+  setAccessToken,
+} from "@/utils/utils";
+import { useAppDispatch } from "@/hooks";
+import {
+  setAuthStatus,
+  setUserInfo,
+} from "@/store/slices/userSlice";
+import { AuthorizationStatus } from "@/types/state.interface";
 
 export const AuthContext = createContext<IAuthContextProps | undefined>(
   undefined
@@ -20,34 +28,27 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuth, setIsAuth] = useState<boolean>(false);
-  const [user, setUser] = useState<AdaptedUserFormData | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   // useEffect(() => {
-  //   // Проверка аутентификации при загрузке приложения
   //   const checkAuth = async () => {
-  //     try {
-  //       const token = getAccessToken();
+  //     const token = getAccessToken();
 
-  //       if (token) {
-  //         const response = await AuthService.checkAuth();
-
-  //         if (response.status === 200) {
-  //           setUser(response.data.user);
-  //           setAccessToken(response.data.access_token);
-  //         }
+  //     if (token) {
+  //       const response = await AuthService.checkAuth();
+  //       if (response.status === 200) {
+  //         dispatch(setAuthStatus(AuthorizationStatus.Auth));
+  //       } else {
+  //         dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
   //       }
-  //     } catch (error) {
-  //       console.error("Failed to check auth:", error);
+  //     } else {
+  //       dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
   //     }
   //   };
 
-  //   checkAuth();
-  //   // setIsAuth(true);
-  // }, []);
-
+  //   // checkAuth();
+  // }, [dispatch]);
 
   const login = async (data: LoginFormValues) => {
     const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
@@ -56,9 +57,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await AuthService.login(formattedUserData);
 
       if (response.status === 200) {
-        setUser(response.data.user);
-        setAccessToken(response.data.access_token);
-        setIsAuth(true);
+        const accessToken = response.data.access_token;
+        dispatch(setAuthStatus(AuthorizationStatus.Auth));
+        setAccessToken(accessToken);
 
         router.push("/dashboard/profile"); // Перенаправление после успешного входа
 
@@ -72,12 +73,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await AuthService.logout();
-      setUser(null);
       deleteAccessToken();
-      setIsAuth(false);
 
-      router.push("/login"); // Перенаправление после выхода
+      const response = await AuthService.logout();
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+
+      router.push("/auth/login"); // Перенаправление после выхода
 
       // Успешно выполненный выход
       console.log("Logout successful:", response);
@@ -87,7 +88,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuth, login, logout }}>
+    <AuthContext.Provider value={{ login, logout }}>
       {children}
     </AuthContext.Provider>
   );

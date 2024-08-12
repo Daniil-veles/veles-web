@@ -11,9 +11,11 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/hoc/AuthContext";
+import { useAppSelector } from "@/hooks";
+import { AuthorizationStatus } from "@/types/state.interface";
 
 const Header: React.FC = () => {
-  const authContext = useContext(AuthContext);
+  // const authContext = useContext(AuthContext);
   const router = useRouter();
   const [isAuthRoute, setIsAuthRoute] = useState(false);
 
@@ -24,11 +26,13 @@ const Header: React.FC = () => {
     }
   }, [router]);
 
-  if (!authContext) {
-    return <div>Loading...</div>;
-  }
+  // if (!authContext) {
+  //   return <div>Loading...</div>;
+  // }
 
-  const { isAuth } = authContext;
+  // const { isAuth } = authContext;
+  const isAuth = useAppSelector((state) => state.USER.isAuth);
+  console.log(isAuth);
 
   return (
     <Container className="">
@@ -37,7 +41,11 @@ const Header: React.FC = () => {
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
           <Link href={"/"}>
-            <img src="https://static.tildacdn.com/tild6365-6234-4231-a539-663763636631/__.png" alt="" className="w-auto h-8 mr-10" />
+            <img
+              src="https://static.tildacdn.com/tild6365-6234-4231-a539-663763636631/__.png"
+              alt=""
+              className="w-auto h-8 mr-10"
+            />
           </Link>
 
           {isAuthRoute ? <p>Авторизация</p> : <HeaderMenu />}
@@ -55,7 +63,7 @@ const Header: React.FC = () => {
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent className="absolute right-0 p-2 mt-2 -right-3 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
-                    {isAuth ? (
+                    {isAuth === AuthorizationStatus.Auth ? (
                       <>
                         <Link href="/dashboard">
                           <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
@@ -66,6 +74,12 @@ const Header: React.FC = () => {
                         <Link href="/logout">
                           <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
                             Выйти
+                          </DropdownMenuItem>
+                        </Link>
+
+                        <Link href="/crm">
+                          <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
+                            CRM
                           </DropdownMenuItem>
                         </Link>
                       </>
