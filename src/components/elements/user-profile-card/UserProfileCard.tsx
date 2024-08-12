@@ -1,28 +1,7 @@
-// import styles from './OrganizationInfo.module.scss';
-
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  CircleCheck,
-  PlusCircle,
-} from "lucide-react";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { UserServerData } from "@/types/user.interface";
-import { UserService } from "@/services/user.service";
-import { adaptToUserData } from "@/utils/utils";
-import { setUserInfo } from "@/store/slices/userSlice";
-import ChangerData from "@/components/ui/changer-data/ChangerData";
-import { Button } from "@/components/ui/button";
-import Modal from "@/components/ui/modal/Modal";
-import FormField from "@/components/ui/form-field/FormField";
 import { ComponentFormEnum } from "@/types/types.interface";
-import { FormProvider, useForm } from "react-hook-form";
-import VerifyUserData from "@/components/ui/verify-user-data/VerifyUserData";
-import ChangeUserDataForm from "@/components/ui/change-user-data-form/ChangeUserDataForm";
 import ProfileField from "@/components/ui/profile-field/ProfileField";
 import { UserInfo } from "@/types/state.interface";
+import Image from "next/image";
 
 interface IUserProfileCardProp {
   userInfo: UserInfo;
@@ -37,16 +16,19 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
     <>
       <div className="mb-5">
         <div className="grid grid-cols-[60%_1fr] gap-5 rounded-md border border-zinc-50 shadow p-4 px-6">
-          <img
-            src="/user-3.webp"
-            alt=""
-            className="w-full h-full aspect-square  col-start-2"
-          />
+          <div className="relative w-full h-full aspect-square col-start-2">
+            <Image
+              src="/user-3.webp"
+              layout="fill"
+              objectFit="cover"
+              alt="Picture of the author"
+            />
+          </div>
 
           <div className="row-start-1">
             <h2 className="flex items-center text-2xl mb-4">Личные данные</h2>
 
-            {userInfo.id ? (
+            {userInfo.email ? (
               <div className="">
                 <ProfileField
                   label="ФИО"
@@ -118,7 +100,9 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
                   isEditable={false}
                 />
               </div>
-            ) : null}
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
         </div>
       </div>

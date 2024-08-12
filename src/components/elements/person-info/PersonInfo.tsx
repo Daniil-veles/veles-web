@@ -45,22 +45,10 @@ const PersonInfo: React.FC = () => {
   useEffect(() => {
     async function fetchUserInfo() {
       try {
-        // const user = UserService.getUserInfo();
-        // Фейковые данные для примера
-        // const user = {
-        //   id: 1,
-        //   email: "john.doe@example.com",
-        //   fullName: "John Doe",
-        //   birthDate: "1990-01-01",
-        //   phone: "+1234567890",
-        //   isActive: true,
-        //   isSuperuser: true,
-        //   isVerified: false,
-        //   picture: "https://example.com/picture.jpg",
-        //   isAuth: "AUTHENTICATED",
-        //   organization: "ООО Велесъ",
-        // };
-        // dispatch(setUserInfo(user));
+        const user = await UserService.getUserInfo();
+        console.log(user);
+
+        dispatch(setUserInfo(user));
       } catch (error) {
         console.error("Error fetching user info:", error.message);
       }
@@ -125,9 +113,6 @@ const PersonInfo: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const { user } = authContext;
-  console.log(user);
-
   return (
     <div className="">
       <UserProfileCard
@@ -189,13 +174,15 @@ const PersonInfo: React.FC = () => {
               handleButtonClick={verifyUserData}
             />
           ) : (
-            <UpdatePersonInfoForm
-              title={modalState.title}
-              methods={methods}
-              field={modalState.field}
-              buttonText={modalState.buttonText}
-              handleFormSave={methods.handleSubmit(handleModalSave)}
-            />
+            modalState.field && (
+              <UpdatePersonInfoForm
+                title={modalState.title}
+                methods={methods}
+                field={modalState.field}
+                buttonText={modalState.buttonText}
+                handleFormSave={methods.handleSubmit(handleModalSave)}
+              />
+            )
           )}
         </Modal>
       )}

@@ -205,7 +205,7 @@ export const userListItems = [
     { id: 5, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
 ];
 
-export enum NameSpace {
+export const enum NameSpace {
     Main = 'MAIN',
     Data = 'DATA',
     User = 'USER',

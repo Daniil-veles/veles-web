@@ -9,7 +9,7 @@ const LogOut: React.FC = () => {
   useEffect(() => {
     if (!authContext) {
       console.error("AuthContext is not available");
-      router.push("/login");
+      router.push("/auth/login");
       return;
     }
 
@@ -17,6 +17,8 @@ const LogOut: React.FC = () => {
 
     async function handleLogout() {
       try {
+        console.log("Выход совершен");
+
         await logout();
       } catch (error) {
         console.error("Ошибка при выходе:", error.message);

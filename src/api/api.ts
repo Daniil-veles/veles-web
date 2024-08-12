@@ -27,14 +27,23 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
         if (error.response) {
             const { status } = error.response;
 
-            if (status === 401) {
-                // Переадресация на логин
+            // if (status === 401) {
+            //     // Переадресация на логин
+            //     if (window.location.pathname !== '/auth/login') {
+            //         window.location.href = '/auth/login';
+            //     }
+
+            //     console.log('Unauthorized - please log in again.');
+            //     // Здесь можно добавить логику для обновления токена или уведомления пользователя
+            // }
+
+            if (status === 401 && config.url !== '/auth/logout') {
+                // Если не происходит логаут, перенаправляем на логин
                 if (window.location.pathname !== '/auth/login') {
                     window.location.href = '/auth/login';
                 }
 
                 console.log('Unauthorized - please log in again.');
-                // Здесь можно добавить логику для обновления токена или уведомления пользователя
             }
         }
 

@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     if (router.asPath === "/auth/login" || router.asPath === "/auth/sign-up") {
-      console.log("Вы на странице: /auth");
+      // console.log("Вы на странице: /auth");
       setIsAuthRoute(true);
     }
   }, [router]);

@@ -1,11 +1,13 @@
 import apiClient from "@/api/api";
 import { UserServerData } from "@/types/user.interface";
+import { adaptToUserData } from "@/utils/utils";
 
 export const UserService = {
     async getUserInfo() {
         try {
             const response = await apiClient.get<UserServerData>('/users/me');
-            return response.data;
+            const adaptedData = adaptToUserData(response.data);
+            return adaptedData;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;
