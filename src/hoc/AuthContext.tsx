@@ -25,28 +25,28 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    // Проверка аутентификации при загрузке приложения
-    const checkAuth = async () => {
-      try {
-        const token = getAccessToken();
+  // useEffect(() => {
+  //   // Проверка аутентификации при загрузке приложения
+  //   const checkAuth = async () => {
+  //     try {
+  //       const token = getAccessToken();
 
-        if (token) {
-          // const response = await AuthService.checkAuth();
+  //       if (token) {
+  //         const response = await AuthService.checkAuth();
 
-          if (response.status === 200) {
-            setUser(response.data.user);
-            setAccessToken(response.data.access_token);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to check auth:", error);
-      }
-    };
+  //         if (response.status === 200) {
+  //           setUser(response.data.user);
+  //           setAccessToken(response.data.access_token);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to check auth:", error);
+  //     }
+  //   };
 
-    // checkAuth();
-    // setIsAuth(true);
-  }, []);
+  //   checkAuth();
+  //   // setIsAuth(true);
+  // }, []);
 
 
   const login = async (data: LoginFormValues) => {
@@ -60,7 +60,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAccessToken(response.data.access_token);
         setIsAuth(true);
 
-        router.push("/user"); // Перенаправление после успешного входа
+        router.push("/dashboard/profile"); // Перенаправление после успешного входа
 
         // Успешно выполненный вход
         console.log("Login successful:", response);

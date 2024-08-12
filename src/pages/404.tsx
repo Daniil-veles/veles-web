@@ -1,10 +1,5 @@
-// import './404.scss';
-
 import Link from "next/link";
 
-{
-  /* Страница 404 */
-}
 function NotFound(): JSX.Element {
   return (
     <div className="bg-gray-200 flex justify-center items-center min-h-screen">

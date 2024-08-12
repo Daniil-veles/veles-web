@@ -18,7 +18,7 @@ const Header: React.FC = () => {
   const [isAuthRoute, setIsAuthRoute] = useState(false);
 
   useEffect(() => {
-    if (router.pathname === "/auth/login" || router.pathname === "/auth/sign-up") {
+    if (router.asPath === "/auth/login" || router.asPath === "/auth/sign-up") {
       console.log("Вы на странице: /auth");
       setIsAuthRoute(true);
     }
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
           <Link href={"/"}>
-            <img src="" alt="" className="w-24 h-8 mr-10" />
+            <img src="https://static.tildacdn.com/tild6365-6234-4231-a539-663763636631/__.png" alt="" className="w-auto h-8 mr-10" />
           </Link>
 
           {isAuthRoute ? <p>Авторизация</p> : <HeaderMenu />}

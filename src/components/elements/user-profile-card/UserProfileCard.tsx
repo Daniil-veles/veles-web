@@ -113,7 +113,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
 
                 <ProfileField
                   label="Роль"
-                  value={userInfo.isSuperuser ? "Начальник" : "Участник"}
+                  value={userInfo.isSuperuser ? "Руководитель" : "Участник"}
                   // onEditClick={() => {}}
                   isEditable={false}
                 />

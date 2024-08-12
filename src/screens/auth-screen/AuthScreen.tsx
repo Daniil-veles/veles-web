@@ -12,7 +12,6 @@ const authRoutes = ["login", "sign-up"];
 const AuthScreen: React.FC = () => {
   const router = useRouter();
   const { route } = router.query;
-  // console.log(route);
 
   useEffect(() => {
     if (!route || !authRoutes.includes(route as string)) {
