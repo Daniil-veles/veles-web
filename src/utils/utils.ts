@@ -18,9 +18,32 @@ function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement):
   };
 }
 
+const enum AdaptToServerUserData {
+  FullName = 'full_name',
+  IsActive = 'is_active',
+  IsSuperuser = 'is_superuser',
+  IsVerified = 'is_verified',
+  BirthDate = 'birth_date',
+  Email = 'email',
+  Phone = 'phone',
+  Picture = 'picture',
+  Id = 'id',
+}
+
+export const toServerDataMapping: { [key in keyof AdaptToUserData]: AdaptToServerUserData } = {
+  id: AdaptToServerUserData.Id,
+  email: AdaptToServerUserData.Email,
+  fullName: AdaptToServerUserData.FullName,
+  isActive: AdaptToServerUserData.IsActive,
+  isSuperuser: AdaptToServerUserData.IsSuperuser,
+  isVerified: AdaptToServerUserData.IsVerified,
+  birthDate: AdaptToServerUserData.BirthDate,
+  phone: AdaptToServerUserData.Phone,
+  picture: AdaptToServerUserData.Picture,
+};
 
 // Преобразование данных: данные в приложени=> данные с сервера
-export function adaptUserFormData(data: UserFormData): AdaptedUserFormData {
+export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormData {
   const adaptedData = {
     email: data.email,
     password: data.password,

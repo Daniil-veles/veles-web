@@ -15,6 +15,8 @@ import UserVerifiedData from "../user-verified-data/UserVerifiedData";
 import { personInfoVerifiedTexts } from "@/const/const";
 import { UserService } from "@/services/user.service";
 import { AuthContext } from "@/hoc/AuthContext";
+import { toServerDataMapping } from "@/utils/utils";
+import { RootState } from "@/store/store";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -46,7 +48,7 @@ const PersonInfo: React.FC = () => {
     async function fetchUserInfo() {
       try {
         const user = await UserService.getUserInfo();
-        console.log(user);
+        // console.log(user);
 
         dispatch(setUserInfo(user));
       } catch (error) {
@@ -85,23 +87,46 @@ const PersonInfo: React.FC = () => {
     }));
   };
 
-  const handleModalSave = (data: any) => {
-    dispatch(
-      setUserInfo({
-        ...userInfo,
-        [modalState.field?.name || ""]: data[modalState.field?.name || ""],
-      })
-    );
-
-    closeModal();
-    methods.reset({});
-  };
-
   const verifyUserData = async () => {
     setTimeout(() => {
       dispatch(setUserInfo({ ...userInfo, isVerified: true }));
       closeModal();
     }, 2000);
+  };
+
+  const user = useAppSelector((state) => {
+    const { id, isAuth, ...userInfo } = state.USER;
+    return userInfo;
+  });
+  // console.log(selectUserInfo);
+
+  const handleModalSave = async (data: any, user) => {
+
+    const adaptedTo
+
+    // // Предположим, что data имеет структуру { keyName: "value" }, например { fullName: "John Doe" }
+    // const keyName = Object.keys(data)[0]; // Получаем первый ключ из объекта data
+    // const value = data[keyName]; // Получаем значение по этому ключу
+
+    // // Получаем соответствующий ключ для сервера из toServerDataMapping
+    // const serverKey = toServerDataMapping[keyName];
+
+    // // Создаем объект для отправки на сервер
+    // const updatedData = { [serverKey]: value };
+
+    // const user = await UserService.updateUserInfo(data);
+    // console.log(user);
+
+    // dispatch(setUserInfo(user));
+    // dispatch(
+    //   setUserInfo({
+    //     ...userInfo,
+    //     [modalState.field?.name || ""]: data[modalState.field?.name || ""],
+    //   })
+    // );
+
+    // closeModal();
+    // methods.reset({});
   };
 
   const methods = useForm({
@@ -180,7 +205,7 @@ const PersonInfo: React.FC = () => {
                 methods={methods}
                 field={modalState.field}
                 buttonText={modalState.buttonText}
-                handleFormSave={methods.handleSubmit(handleModalSave)}
+                handleFormSave={(data) => handleModalSave(data)}
               />
             )
           )}

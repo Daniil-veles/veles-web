@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpFormFields, SignUpFormValues, signUpSchema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
-import { adaptUserFormData } from "@/utils/utils";
+import { adaptToServerUserFormData } from "@/utils/utils";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const SignUpForm: React.FC = () => {
       fullName: "",
     };
 
-    const formattedUserData = adaptUserFormData(userData);
+    const formattedUserData = adaptToServerUserFormData(userData);
     // console.log(formattedUserData);
 
     try {

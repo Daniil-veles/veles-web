@@ -32,7 +32,7 @@ const Header: React.FC = () => {
 
   // const { isAuth } = authContext;
   const isAuth = useAppSelector((state) => state.USER.isAuth);
-  console.log(isAuth);
+  // console.log(isAuth);
 
   return (
     <Container className="">

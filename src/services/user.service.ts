@@ -13,7 +13,17 @@ export const UserService = {
             throw error;
         }
     },
-    
+
+    async updateUserInfo(data: any) {
+        try {
+            const response = await apiClient.patch('/users/me', data);
+            return response;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
+        }
+    },
+
     // async verifyUserEmail() {
     //     try {
     //         const response = await apiClient.post('/users/email');

@@ -8,9 +8,9 @@ import { ChevronRight } from "lucide-react";
 interface IUpdatePersonInfoFormProps {
   title: string;
   methods: any;
-  field: IFormField | undefined;
+  field: IFormField;
   buttonText: string;
-  handleFormSave: () => void;
+  handleFormSave: (data: any) => void;
 }
 
 const UpdatePersonInfoForm: React.FC<IUpdatePersonInfoFormProps> = ({
