@@ -18,7 +18,7 @@ const Header: React.FC = () => {
   const [isAuthRoute, setIsAuthRoute] = useState(false);
 
   useEffect(() => {
-    if (router.pathname === "/auth") {
+    if (router.pathname === "/auth/login" || router.pathname === "/auth/sign-up") {
       console.log("Вы на странице: /auth");
       setIsAuthRoute(true);
     }

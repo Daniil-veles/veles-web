@@ -20,7 +20,7 @@ const LogOut: React.FC = () => {
         await logout();
       } catch (error) {
         console.error("Ошибка при выходе:", error.message);
-        router.push("/login");
+        router.push("/auth/login");
       }
     }
 
