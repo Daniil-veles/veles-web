@@ -8,14 +8,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { AuthContext } from "@/hoc/AuthContext";
 import { useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
+import Image from "next/image";
 
 const Header: React.FC = () => {
-  // const authContext = useContext(AuthContext);
   const router = useRouter();
   const [isAuthRoute, setIsAuthRoute] = useState(false);
 
@@ -26,13 +25,11 @@ const Header: React.FC = () => {
     }
   }, [router]);
 
-  // if (!authContext) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // const { isAuth } = authContext;
   const isAuth = useAppSelector((state) => state.USER.isAuth);
-  // console.log(isAuth);
+
+  if (!isAuth) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container className="">
@@ -40,11 +37,13 @@ const Header: React.FC = () => {
         <div className="relative w-full bg-gray-200/30 p-3 px-6 flex justify-between items-center rounded-md">
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
-          <Link href={"/"}>
-            <img
-              src="https://static.tildacdn.com/tild6365-6234-4231-a539-663763636631/__.png"
-              alt=""
-              className="w-auto h-8 mr-10"
+          <Link className="relative block w-auto mr-5" href={"/"}>
+            <Image
+              src="/header-logo.png"
+              alt="Logo"
+              layout="intrinsic"
+              height={32}
+              width={32}
             />
           </Link>
 

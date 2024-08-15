@@ -17,11 +17,13 @@ const LogOut: React.FC = () => {
 
     async function handleLogout() {
       try {
-        console.log("Выход совершен");
-
         await logout();
+        console.log("Выход совершен");
       } catch (error) {
-        console.error("Ошибка при выходе:", error.message);
+        console.error(
+          "Failed to logout:",
+          error.response?.data || error.message
+        );
         router.push("/auth/login");
       }
     }
