@@ -8,7 +8,6 @@ export const AuthService = {
     async registration(userData: AdaptedUserFormData) {
         try {
             const response = await apiClient.post('/auth/register', userData);
-
             return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
@@ -31,7 +30,6 @@ export const AuthService = {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-
             return response;
         } catch (error) {
             console.error('Error creating user:', error.message);
@@ -41,11 +39,17 @@ export const AuthService = {
 
     async logout() {
         try {
-            const response = await apiClient.post(`/auth/jwt/logout`, null, {
-                headers: {
-                    'Accept': 'application/json',
-                },
-            });
+            const response = await apiClient.post(`/auth/jwt/logout`, null);
+            return response;
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            throw error;
+        }
+    },
+
+    async forgotPassword(userEmail) {
+        try {
+            const response = await apiClient.post(`/auth/forgot-password`, userEmail);
 
             return response;
         } catch (error) {

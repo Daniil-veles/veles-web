@@ -92,7 +92,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
       control={control}
       rules={{ required: value.required, ...value.validation }}
       render={({ field, fieldState: { error } }) => (
-        <FormItem className="space-y-0">
+        <FormItem className="">
           {value.label ? (
             <FormLabel className="inline-block text-md mb-1" htmlFor={value.id}>
               {value.label}
@@ -100,7 +100,9 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
           ) : null}
           {renderComponent(field, !!error)}
           {error && (
-            <FormMessage className="text-red-500">{error.message}</FormMessage>
+            <FormMessage className="text-red-500 mt-1">
+              {error.message}
+            </FormMessage>
           )}
         </FormItem>
       )}

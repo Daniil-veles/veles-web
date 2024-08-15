@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
+import Loading from "@/screens/loading/Loading";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -28,7 +29,7 @@ const Header: React.FC = () => {
   const isAuth = useAppSelector((state) => state.USER.isAuth);
 
   if (!isAuth) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -37,13 +38,12 @@ const Header: React.FC = () => {
         <div className="relative w-full bg-gray-200/30 p-3 px-6 flex justify-between items-center rounded-md">
           <span className="absolute inset-0 rounded-lg backdrop-blur-md pointer-events-none -z-10 transition-colors duration-300 ease"></span>
 
-          <Link className="relative block w-auto mr-5" href={"/"}>
+          <Link className="relative block w-8 h-8 mr-5" href={"/"}>
             <Image
               src="/header-logo.png"
               alt="Logo"
-              layout="intrinsic"
-              height={32}
-              width={32}
+              layout="fill"
+              objectFit="cover"
             />
           </Link>
 
