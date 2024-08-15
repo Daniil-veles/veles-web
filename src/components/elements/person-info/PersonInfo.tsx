@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { setUserInfo } from "@/store/slices/userSlice";
 import { useForm } from "react-hook-form";
 import {
@@ -15,11 +15,12 @@ import UserVerifiedData from "../user-verified-data/UserVerifiedData";
 import { personInfoVerifiedTexts } from "@/const/const";
 import { UserService } from "@/services/user.service";
 import { AuthContext } from "@/hoc/AuthContext";
-import { toServerDataMapping } from "@/utils/utils";
-import { RootState } from "@/store/store";
+import { adaptToUserData, toServerDataMapping } from "@/utils/utils";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);
+  const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state.USER);
 
   // Состояния для модальных окон
   const [modalState, setModalState] = useState<ModalState>({
@@ -38,12 +39,6 @@ const PersonInfo: React.FC = () => {
     verificationType: "email" as "email" | "phone",
   });
 
-  const dispatch = useAppDispatch();
-  const userInfo = {
-    ...useAppSelector((state) => state.USER),
-    organization: "ООО Велесъ",
-  };
-
   useEffect(() => {
     async function fetchUserInfo() {
       try {
@@ -58,6 +53,17 @@ const PersonInfo: React.FC = () => {
 
     fetchUserInfo();
   }, [dispatch]);
+
+  const userInfo = useMemo(
+    () => ({
+      ...userState,
+      organization: "ООО Велесъ",
+    }),
+    [userState]
+  );
+
+  const { id, isAuth, ...userInfoToServer } = userInfo;
+  console.log(userInfoToServer);
 
   const handleModalOpen = (
     type: "update" | "verify",
@@ -94,39 +100,38 @@ const PersonInfo: React.FC = () => {
     }, 2000);
   };
 
-  const user = useAppSelector((state) => {
-    const { id, isAuth, ...userInfo } = state.USER;
-    return userInfo;
-  });
-  // console.log(selectUserInfo);
+  const handleModalSave = async (data: any, userInfo) => {
+    const adaptedData = {
+      email: userInfo.email,
+      password: userInfo.password ?? "dbhsbdS1",
+      is_active: true,
+      is_superuser: false,
+      is_verified: false,
+      full_name: userInfo.fullName,
+      phone: userInfo.phone,
+      picture: userInfo.picture,
+      birth_date: userInfo.birthDate,
+    };
 
-  const handleModalSave = async (data: any, user) => {
+    const keyName = Object.keys(data)[0]; // Получаем первый ключ из объекта data
+    const value = data[keyName]; // Получаем значение по этому ключу
 
-    const adaptedTo
+    // Получаем соответствующий ключ для сервера из toServerDataMapping
+    const serverKey = toServerDataMapping[keyName];
+    console.log(serverKey);
+    console.log(adaptedData);
 
-    // // Предположим, что data имеет структуру { keyName: "value" }, например { fullName: "John Doe" }
-    // const keyName = Object.keys(data)[0]; // Получаем первый ключ из объекта data
-    // const value = data[keyName]; // Получаем значение по этому ключу
+    adaptedData[serverKey] = value;
+    console.log(adaptedData);
 
-    // // Получаем соответствующий ключ для сервера из toServerDataMapping
-    // const serverKey = toServerDataMapping[keyName];
+    // Создаем объект для отправки на сервер
+    const response = await UserService.updateUserInfo(adaptedData);
+    const adaptedResponse = adaptToUserData(response);
+    dispatch(setUserInfo(adaptedResponse));
+    console.log(adaptedResponse);
 
-    // // Создаем объект для отправки на сервер
-    // const updatedData = { [serverKey]: value };
-
-    // const user = await UserService.updateUserInfo(data);
-    // console.log(user);
-
-    // dispatch(setUserInfo(user));
-    // dispatch(
-    //   setUserInfo({
-    //     ...userInfo,
-    //     [modalState.field?.name || ""]: data[modalState.field?.name || ""],
-    //   })
-    // );
-
-    // closeModal();
-    // methods.reset({});
+    closeModal();
+    methods.reset({});
   };
 
   const methods = useForm({
@@ -205,7 +210,9 @@ const PersonInfo: React.FC = () => {
                 methods={methods}
                 field={modalState.field}
                 buttonText={modalState.buttonText}
-                handleFormSave={(data) => handleModalSave(data)}
+                handleFormSave={(data) =>
+                  handleModalSave(data, userInfoToServer)
+                }
               />
             )
           )}

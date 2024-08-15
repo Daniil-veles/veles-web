@@ -19,8 +19,9 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
           <div className="relative w-full h-full aspect-square col-start-2">
             <Image
               src="/user-3.webp"
-              layout="fill"
-              objectFit="cover"
+              width={200}
+              height={200}
+              priority={true}
               alt="Picture of the author"
             />
           </div>

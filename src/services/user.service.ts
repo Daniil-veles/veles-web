@@ -17,7 +17,7 @@ export const UserService = {
     async updateUserInfo(data: any) {
         try {
             const response = await apiClient.patch('/users/me', data);
-            return response;
+            return response.data;
         } catch (error) {
             console.error('Error creating user:', error.message);
             throw error;
