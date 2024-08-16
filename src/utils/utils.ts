@@ -1,12 +1,17 @@
 import { AdaptedUserFormData, AdaptToUserData, UserFormData, UserServerData } from "@/types/user.interface";
 
-const getMetaTitle = (title: string) => `${title} | Велесъ`;
+export const getMetaTitle = (title: string) => `${title} | Велесъ`;
 
-const setAccessToken = (token: string) => localStorage.setItem('accessToken', token);
-const getAccessToken = () => localStorage.getItem('accessToken');
-const deleteAccessToken = () => localStorage.removeItem('accessToken');
+export const setAccessToken = (token: string) => localStorage.setItem('accessToken', token);
+export const getAccessToken = () => localStorage.getItem('accessToken');
+export const deleteAccessToken = () => localStorage.removeItem('accessToken');
 
-function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement): React.CSSProperties {
+export const setUserEmail = (email: string) => localStorage.setItem('userResetEmail', email);
+export const getUserEmail = () => localStorage.getItem('userResetEmail');
+export const deleteUserEmail = () => localStorage.removeItem('userResetEmail');
+
+
+export function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement): React.CSSProperties {
   const rect = activeItem.getBoundingClientRect();
   const parentRect = parentElement.getBoundingClientRect();
 
@@ -18,7 +23,7 @@ function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement):
   };
 }
 
-const enum AdaptToServerUserData {
+export const enum AdaptToServerUserData {
   FullName = 'full_name',
   IsActive = 'is_active',
   IsSuperuser = 'is_superuser',
@@ -60,7 +65,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
 }
 
 // Преобразование данных: данные с сервера => данные в приложении
-function adaptToUserData(data: UserServerData): AdaptToUserData {
+export function adaptToUserData(data: UserServerData): AdaptToUserData {
   return {
     id: data.id,
     email: data.email,
@@ -74,7 +79,6 @@ function adaptToUserData(data: UserServerData): AdaptToUserData {
   };
 }
 
-export { getMetaTitle, setAccessToken, getAccessToken, deleteAccessToken, getIndicatorStyle, adaptToUserData };
 
 
 // Юзер

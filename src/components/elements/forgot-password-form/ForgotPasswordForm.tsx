@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field/FormField";
 import { AuthService } from "@/services/auth.service";
 import { ComponentFormEnum } from "@/types/types.interface";
+import { setUserEmail } from "@/utils/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleArrowLeft } from "lucide-react";
 import { useRouter } from "next/router";
@@ -28,6 +29,7 @@ const ForgotPasswordForm: React.FC = () => {
       console.log(response);
 
       if (response.status == 202) {
+        setUserEmail(data.email);
         router.push("/auth/reset-password");
         methods.reset();
       }

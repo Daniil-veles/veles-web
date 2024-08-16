@@ -8,7 +8,7 @@ export const organizationService = {
 
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error creating company:', error.message);
             throw error;
         }
     },
@@ -19,7 +19,7 @@ export const organizationService = {
 
             return response.data;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error creating company:', error.message);
             throw error;
         }
     },

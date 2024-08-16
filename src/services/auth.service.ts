@@ -10,7 +10,7 @@ export const AuthService = {
             const response = await apiClient.post('/auth/register', userData);
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error auth user:', error.message);
             throw error;
         }
     },
@@ -32,7 +32,7 @@ export const AuthService = {
             });
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error login:', error.message);
             throw error;
         }
     },
@@ -42,18 +42,18 @@ export const AuthService = {
             const response = await apiClient.post(`/auth/jwt/logout`, null);
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error logout:', error.message);
             throw error;
         }
     },
 
-    async forgotPassword(userEmail) {
+    async forgotPassword(data: { email: string }) {
         try {
-            const response = await apiClient.post(`/auth/forgot-password`, userEmail);
+            const response = await apiClient.post(`/auth/forgot-password`, data);
 
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error forgot-password:', error.message);
             throw error;
         }
     },

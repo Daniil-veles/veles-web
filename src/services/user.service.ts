@@ -19,7 +19,7 @@ export const UserService = {
             const response = await apiClient.patch('/users/me', data);
             return response.data;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error update user:', error.message);
             throw error;
         }
     },
