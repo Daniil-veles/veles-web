@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Loading from "../loading/Loading";
 import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
-import ResetPasswordForm from "@/components/elements/reset-password-form/ResetPasswordForm";
+import ResetPasswordWrapper from "@/components/elements/reset-password-wrapper/ResetPasswordWrapper";
 
 const authRoutes = ["login", "sign-up", "forgot-password", "reset-password"];
 
@@ -69,7 +69,7 @@ const AuthScreen: React.FC = () => {
               ) : route === "forgot-password" ? (
                 <ForgotPasswordForm />
               ) : route == "reset-password" ? (
-                <ResetPasswordForm />
+                <ResetPasswordWrapper />
               ) : null}
             </div>
           </div>

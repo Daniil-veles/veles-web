@@ -1,9 +1,6 @@
-// import styles from './ForgotPasswordForm.module.scss';
-
 import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field/FormField";
 import { AuthService } from "@/services/auth.service";
-import { UserService } from "@/services/user.service";
 import { ComponentFormEnum } from "@/types/types.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleArrowLeft } from "lucide-react";
