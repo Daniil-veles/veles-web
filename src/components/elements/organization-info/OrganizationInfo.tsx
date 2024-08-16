@@ -29,7 +29,7 @@ const OrganizationInfo: React.FC = () => {
   //   getOrganizationInfo(1);
   // }, []);
 
-  console.log(modalState);
+  // console.log(modalState);
 
   const closeModal = () => {
     setModalState((prev) => ({

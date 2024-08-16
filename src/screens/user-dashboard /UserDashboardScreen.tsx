@@ -5,6 +5,7 @@ import OrganizationInfo from "@/components/elements/organization-info/Organizati
 import PersonInfo from "@/components/elements/person-info/PersonInfo";
 import SettingsInfo from "@/components/elements/settings-info/SettingsInfo";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
+import PrivateRoute from "@/hoc/PrivateRoute";
 import Layout from "@/layouts/Layout";
 import { CategoryKeys } from "@/types/types.interface";
 import { useRouter } from "next/router";
@@ -36,15 +37,17 @@ const UserDashboardScreen: React.FC = () => {
     return categories[categoryKey] || <p>Неизвестная категория</p>;
   };
   return (
-    <Layout title="Личный кабинет" description="Это главная страница сайта">
-      <Container className="flex flex-col flex-grow">
-        <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
-          <UserMenu />
+    <PrivateRoute>
+      <Layout title="Личный кабинет" description="Это главная страница сайта">
+        <Container className="flex flex-col flex-grow">
+          <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
+            <UserMenu />
 
-          <div className="">{renderContent()}</div>
-        </div>
-      </Container>
-    </Layout>
+            <div className="">{renderContent()}</div>
+          </div>
+        </Container>
+      </Layout>
+    </PrivateRoute>
   );
 };
 
