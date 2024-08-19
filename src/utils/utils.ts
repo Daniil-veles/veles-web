@@ -1,16 +1,19 @@
 import { AdaptedUserFormData, AdaptToUserData, UserFormData, UserServerData } from "@/types/user.interface";
 
+// Формирует метатег названия страницы
 export const getMetaTitle = (title: string) => `${title} | Велесъ`;
 
+// Работа с токеном
 export const setAccessToken = (token: string) => localStorage.setItem('accessToken', token);
 export const getAccessToken = () => localStorage.getItem('accessToken');
 export const deleteAccessToken = () => localStorage.removeItem('accessToken');
 
+// Сброс пароля по почте
 export const setUserEmail = (email: string) => localStorage.setItem('userResetEmail', email);
 export const getUserEmail = () => localStorage.getItem('userResetEmail');
 export const deleteUserEmail = () => localStorage.removeItem('userResetEmail');
 
-
+// Вычисляет положение плашки меню 
 export function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement): React.CSSProperties {
   const rect = activeItem.getBoundingClientRect();
   const parentRect = parentElement.getBoundingClientRect();
@@ -22,30 +25,6 @@ export function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLEl
     height: `${rect.height}px`,
   };
 }
-
-export const enum AdaptToServerUserData {
-  FullName = 'full_name',
-  IsActive = 'is_active',
-  IsSuperuser = 'is_superuser',
-  IsVerified = 'is_verified',
-  BirthDate = 'birth_date',
-  Email = 'email',
-  Phone = 'phone',
-  Picture = 'picture',
-  Id = 'id',
-}
-
-export const toServerDataMapping: { [key in keyof AdaptToUserData]: AdaptToServerUserData } = {
-  id: AdaptToServerUserData.Id,
-  email: AdaptToServerUserData.Email,
-  fullName: AdaptToServerUserData.FullName,
-  isActive: AdaptToServerUserData.IsActive,
-  isSuperuser: AdaptToServerUserData.IsSuperuser,
-  isVerified: AdaptToServerUserData.IsVerified,
-  birthDate: AdaptToServerUserData.BirthDate,
-  phone: AdaptToServerUserData.Phone,
-  picture: AdaptToServerUserData.Picture,
-};
 
 // Преобразование данных: данные в приложени=> данные с сервера
 export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormData {
@@ -66,7 +45,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
 
 // Преобразование данных: данные с сервера => данные в приложении
 export function adaptToUserData(data: UserServerData): AdaptToUserData {
-  return {
+  const adaptedData = {
     id: data.id,
     email: data.email,
     isActive: data.is_active ?? false,
@@ -77,9 +56,9 @@ export function adaptToUserData(data: UserServerData): AdaptToUserData {
     picture: data.picture,
     birthDate: data.birth_date,
   };
+
+  return adaptedData;
 }
-
-
 
 // Юзер
 // vdsgdhs@mail.ru

@@ -22,7 +22,7 @@ const UserVerifiedData: React.FC<IUserVerifiedDataProps> = ({
       <div className="flex items-center justify-between">
         <p className="text-gray-500">
           {title}
-            &nbsp;
+          &nbsp;
           <span className="text-black">{value}</span>
         </p>
 
@@ -30,7 +30,7 @@ const UserVerifiedData: React.FC<IUserVerifiedDataProps> = ({
           <CircleCheck size={24} className="stroke-green-500" />
         ) : (
           <Button
-            className="bg-blue-500 text-white"
+            className="border-2 border-blue-500 hover:border-blue-800"
             onClick={handleButtonClick}
           >
             Подтвердить

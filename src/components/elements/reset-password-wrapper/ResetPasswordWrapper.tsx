@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import ResetKeyForm from "../reset-key-form/ResetKeyForm";
-import ResetPasswordForm from "../reset-password-form/ResetPasswordForm";
+import ResetKeyForm from "../../ui/reset-key-form/ResetKeyForm";
+import ResetPasswordForm from "../../ui/reset-password-form/ResetPasswordForm";
 import { CircleArrowLeft } from "lucide-react";
 import { getUserEmail } from "@/utils/utils";
 
@@ -39,6 +39,8 @@ const ResetPasswordWrapper: React.FC = () => {
       //   router.push("/auth/success");
       // }
       console.log("Пароль сброшен:", newData);
+      router.push("/auth/login");
+
     } catch (error) {
       console.error("Ошибка при сбросе пароля:", error);
     }
@@ -47,7 +49,7 @@ const ResetPasswordWrapper: React.FC = () => {
   return (
     <>
       <button
-        className="flex text-gray-500 hover:text-blue-700 py-2 mb-2"
+        className="flex text-gray-500 hover:text-blue-700 py-2 mb-4"
         onClick={() => router.back()}
       >
         <CircleArrowLeft className="mr-1.5" />
@@ -55,6 +57,7 @@ const ResetPasswordWrapper: React.FC = () => {
       </button>
 
       <h3 className="text-2xl mb-4 text-center">Сбросить пароль</h3>
+      
       {!isTokenVerified ? (
         <ResetKeyForm onSubmit={handleSubmitKey} />
       ) : (

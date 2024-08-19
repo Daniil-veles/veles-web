@@ -41,7 +41,7 @@ const ForgotPasswordForm: React.FC = () => {
   return (
     <>
       <button
-        className="flex text-gray-500 hover:text-blue-700 py-2 mb-2"
+        className="flex text-gray-500 hover:text-blue-700 py-2 mb-4"
         onClick={() => router.back()}
       >
         <CircleArrowLeft className="mr-1.5" />
