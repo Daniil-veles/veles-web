@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field/FormField";
-import { ComponentFormEnum } from "@/types/types.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
+import { ComponentFormEnum } from "@/types/form.interface";
 
 // Схема валидации для сброса пароля
 const resetPasswordSchema = z

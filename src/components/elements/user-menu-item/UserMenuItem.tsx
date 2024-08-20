@@ -1,6 +1,12 @@
 import { iconMap } from "@/const/const";
-import { UserListItem } from "@/types/types.interface";
 import cn from "classnames";
+
+interface UserListItem {
+  id: number;
+  iconName: string;
+  text: string;
+  link: string;
+}
 
 interface IUserMenuItemProps {
   item: UserListItem;

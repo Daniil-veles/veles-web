@@ -10,8 +10,8 @@ import {
   SelectValue,
 } from "../select";
 import CustomPhoneInput from "../custom-phone-input/CustomPhoneInput";
-import { ComponentFormEnum, IFormField } from "@/types/types.interface";
 import React, { useState } from "react";
+import { ComponentFormEnum, IFormField } from "@/types/form.interface";
 
 interface IFormFieldProps {
   value: IFormField;

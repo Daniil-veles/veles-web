@@ -1,4 +1,4 @@
-import { ComponentFormEnum } from "@/types/types.interface";
+import { ComponentFormEnum } from "@/types/form.interface.ts";
 import ProfileField from "@/components/ui/profile-field/ProfileField";
 import { UserInfo } from "@/types/state.interface";
 import Image from "next/image";

@@ -1,11 +1,11 @@
-// Общий интерфейс пользователя
+// I пользователя
 export interface UserBaseData {
     email: string;
     phone: string;
     picture: string;
 }
 
-// Интерфейс для формы регистрации/входа пользователя
+// I пользователя из формы регистрации
 export interface UserFormData extends UserBaseData {
     password: string;
     fullName: string;
@@ -14,8 +14,8 @@ export interface UserFormData extends UserBaseData {
     birthDate: string;
 }
 
-// Интерфейс для данных адаптированных из сервера
-export interface AdaptedUserFormData extends UserBaseData {
+// I пользователя адаптированного для отправки на сервер
+export interface AdaptedUserFormDataToServer extends UserBaseData {
     password: string;
     is_active: boolean | null;
     is_superuser: boolean | null;
@@ -24,8 +24,8 @@ export interface AdaptedUserFormData extends UserBaseData {
     birth_date: string;
 }
 
-// Интерфейс для данных пользователя, получаемых с сервера
-export interface UserServerData extends UserBaseData {
+// I пользователя, получаемого с сервера
+export interface UserServerDataFromServer extends UserBaseData {
     id: number | null;
     is_active: boolean | null;
     is_superuser: boolean | null;
@@ -34,7 +34,7 @@ export interface UserServerData extends UserBaseData {
     birth_date: string;
 }
 
-// Интерфейс для адаптированных данных пользователя
+// I пользователя для сохранения в сторе
 export interface AdaptToUserData extends UserBaseData {
     id: number | null;
     isActive: boolean;

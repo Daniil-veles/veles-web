@@ -3,10 +3,8 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { setUserInfo } from "@/store/slices/userSlice";
 import { useForm } from "react-hook-form";
 import {
-  ComponentFormEnum,
-  IFormField,
   ModalState,
-} from "@/types/types.interface";
+} from "@/types/common.interface.ts";
 import UserProfileCard from "../user-profile-card/UserProfileCard";
 import Modal from "@/components/ui/modal/Modal";
 import VerifyPersonInfo from "@/components/ui/verify-user-data/VerifyUserData";
@@ -16,6 +14,7 @@ import { personInfoVerifiedTexts } from "@/const/const";
 import { UserService } from "@/services/user.service";
 import { adaptToUserData } from "@/utils/utils";
 import { AuthContext } from "@/provider/AuthContext";
+import { ComponentFormEnum } from "@/types/form.interface";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);

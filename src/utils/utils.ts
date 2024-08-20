@@ -1,4 +1,4 @@
-import { AdaptedUserFormData, AdaptToUserData, UserFormData, UserServerData } from "@/types/user.interface";
+import { AdaptedUserFormDataToServer, AdaptToUserData, UserFormData, UserServerDataFromServer } from "@/types/user.interface";
 
 // Формирует метатег названия страницы
 export const getMetaTitle = (title: string) => `${title} | Велесъ`;
@@ -13,21 +13,9 @@ export const setUserEmail = (email: string) => localStorage.setItem('userResetEm
 export const getUserEmail = () => localStorage.getItem('userResetEmail');
 export const deleteUserEmail = () => localStorage.removeItem('userResetEmail');
 
-// Вычисляет положение плашки меню 
-export function getIndicatorStyle(activeItem: HTMLElement, parentElement: HTMLElement): React.CSSProperties {
-  const rect = activeItem.getBoundingClientRect();
-  const parentRect = parentElement.getBoundingClientRect();
-
-  return {
-    top: `${rect.top - parentRect.top}px`,
-    left: `${rect.left - parentRect.left}px`,
-    width: `${rect.width}px`,
-    height: `${rect.height}px`,
-  };
-}
 
 // Преобразование данных: данные в приложени=> данные с сервера
-export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormData {
+export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDataToServer {
   const adaptedData = {
     email: data.email,
     password: data.password,
@@ -44,7 +32,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
 }
 
 // Преобразование данных: данные с сервера => данные в приложении
-export function adaptToUserData(data: UserServerData): AdaptToUserData {
+export function adaptToUserData(data: UserServerDataFromServer): AdaptToUserData {
   const adaptedData = {
     id: data.id,
     email: data.email,

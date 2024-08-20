@@ -1,11 +1,11 @@
 import apiClient from "@/api/api";
-import { UserServerData } from "@/types/user.interface";
+import { UserServerDataFromServer } from "@/types/user.interface";
 import { adaptToUserData } from "@/utils/utils";
 
 export const UserService = {
     async getUserInfo() {
         try {
-            const response = await apiClient.get<UserServerData>('/users/me');
+            const response = await apiClient.get<UserServerDataFromServer>('/users/me');
             const adaptedData = adaptToUserData(response.data);
             return adaptedData;
         } catch (error) {

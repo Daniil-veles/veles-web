@@ -1,6 +1,18 @@
 import { CircleCheckBig } from "lucide-react";
-import { Rate } from "@/types/types.interface";
 import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
+
+export interface OptionRate {
+  id: number;
+  text: string;
+}
+
+interface Rate {
+  id: number;
+  title: string;
+  price: number;
+  text: string;
+  options: OptionRate[];
+}
 
 interface RateItemProps {
   rate: Rate;

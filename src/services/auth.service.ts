@@ -1,11 +1,11 @@
 import apiClient from '@/api/api';
 import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
-import { AdaptedUserFormData } from '@/types/user.interface';
+import { AdaptedUserFormDataToServer } from '@/types/user.interface';
 import qs from 'qs';
 
 
 export const AuthService = {
-    async registration(userData: AdaptedUserFormData) {
+    async registration(userData: AdaptedUserFormDataToServer) {
         try {
             const response = await apiClient.post('/auth/register', userData);
             return response;
