@@ -6,6 +6,7 @@ import { signUpFormFields, SignUpFormValues, signUpSchema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
 import { adaptToServerUserFormData } from "@/utils/utils";
+import ButtonForm from "../custom-button/button-form/ButtonForm";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
@@ -61,12 +62,7 @@ const SignUpForm: React.FC = () => {
               : null}
           </div>
 
-          <Button
-            type="submit"
-            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
-          >
-            Зарегистрироваться
-          </Button>
+          <ButtonForm className="w-full h-min">Зарегистрироваться</ButtonForm>
 
           <small className="text-center text-gray-600">
             Нажимая «Зарегистрироваться», вы соглашаетесь с условиями обработки

@@ -12,8 +12,8 @@ interface CustomButtonProps
 
 const ButtonLittle: React.FC<CustomButtonProps> = ({
   variant = "solid",
-  bgColor = ["bg-blue-500", "hover:bg-blue-800"],
-  borderColor = ["border-blue-500", "hover:border-blue-800"],
+  bgColor = ["bg-blue-500", "hover:bg-blue-600"],
+  borderColor = ["border-blue-500", "hover:border-blue-600"],
   textColor = "text-white",
   className = "",
   children,

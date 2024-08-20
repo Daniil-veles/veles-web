@@ -4,6 +4,7 @@ import { ComponentFormEnum } from "@/types/types.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
+import ButtonForm from "../custom-button/button-form/ButtonForm";
 
 // Схема валидации для ввода кода
 const resetKeySchema = z.object({
@@ -21,26 +22,20 @@ const ResetKeyForm: React.FC<{ onSubmit: (data: { key: string }) => void }> = ({
 
   return (
     <FormProvider {...methods}>
-      <form className="mb-2" onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="grid gap-2">
-          <FormField
-            value={{
-              id: "key",
-              name: "key",
-              label: "Код",
-              placeholder: "Введите код",
-              type: "text",
-              componentType: ComponentFormEnum.INPUT,
-              required: true,
-            }}
-          />
-          <Button
-            type="submit"
-            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
-          >
-            Отправить
-          </Button>
-        </div>
+      <form className="" onSubmit={methods.handleSubmit(onSubmit)}>
+        <FormField
+          value={{
+            id: "key",
+            name: "key",
+            label: "Код",
+            placeholder: "Введите код",
+            type: "text",
+            componentType: ComponentFormEnum.INPUT,
+            required: true,
+          }}
+        />
+
+        <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
       </form>
     </FormProvider>
   );

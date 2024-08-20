@@ -4,6 +4,7 @@ import { ComponentFormEnum } from "@/types/types.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
+import ButtonForm from "../custom-button/button-form/ButtonForm";
 
 // Схема валидации для сброса пароля
 const resetPasswordSchema = z
@@ -50,6 +51,7 @@ const ResetPasswordForm: React.FC<{
               required: true,
             }}
           />
+
           <FormField
             value={{
               id: "confirmPassword",
@@ -61,12 +63,8 @@ const ResetPasswordForm: React.FC<{
               required: true,
             }}
           />
-          <Button
-            type="submit"
-            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
-          >
-            Сбросить
-          </Button>
+
+          <ButtonForm className="w-full h-min mt-6">Сбросить</ButtonForm>
         </div>
       </form>
     </FormProvider>

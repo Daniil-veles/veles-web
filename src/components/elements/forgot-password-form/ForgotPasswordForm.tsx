@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import ButtonForm from "@/components/ui/custom-button/button-form/ButtonForm";
 import FormField from "@/components/ui/form-field/FormField";
 import { AuthService } from "@/services/auth.service";
 import { ComponentFormEnum } from "@/types/types.interface";
@@ -52,28 +53,19 @@ const ForgotPasswordForm: React.FC = () => {
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <div className="grid gap-6">
-            <div className="grid gap-2">
-              <FormField
-                value={{
-                  id: "email",
-                  name: "email",
-                  label: "Почта",
-                  placeholder: "test@mail.ru",
-                  type: "email",
-                  componentType: ComponentFormEnum.INPUT,
-                  required: true,
-                }}
-              />
-            </div>
+          <FormField
+            value={{
+              id: "email",
+              name: "email",
+              label: "Почта",
+              placeholder: "test@mail.ru",
+              type: "email",
+              componentType: ComponentFormEnum.INPUT,
+              required: true,
+            }}
+          />
 
-            <Button
-              type="submit"
-              className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal"
-            >
-              Отправить
-            </Button>
-          </div>
+          <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
         </form>
       </FormProvider>
     </>

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import Link from "next/link";
 import { AuthContext } from "@/provider/AuthContext";
+import ButtonForm from "../custom-button/button-form/ButtonForm";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
@@ -48,12 +49,7 @@ const LoginForm: React.FC = () => {
               ))
             : null}
 
-          <Button
-            type="submit"
-            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
-          >
-            Войти
-          </Button>
+          <ButtonForm className="w-full h-min">Войти</ButtonForm>
         </div>
       </form>
 
