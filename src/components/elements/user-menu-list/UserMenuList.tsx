@@ -1,4 +1,3 @@
-// import './UserMenuList.scss';
 "use client";
 
 import { LOCAL_STORAGE_USER_MENU_CATEGORY, userListItems } from "@/const/const";
@@ -12,16 +11,19 @@ function UserMenuList(): JSX.Element {
   const [indicatorStyle, setIndicatorStyle] = useState({});
   const listRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
-  const { category } = router.query;
 
   useEffect(() => {
+    const currentPath = router.pathname.split("/").pop();
+
     const categoryFromLocalStorage = localStorage.getItem(
       LOCAL_STORAGE_USER_MENU_CATEGORY
     );
-    const finalCategory = category || categoryFromLocalStorage || "profile";
+    const finalCategory = currentPath || categoryFromLocalStorage || "profile";
 
-    if (category !== finalCategory) {
-      router.replace(`/dashboard/${finalCategory}`);
+    if (currentPath !== finalCategory) {
+      // router.replace(`/${finalCategory}`);
+
+      router.replace(`/${finalCategory}`, undefined, { shallow: true });
     } else {
       localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, finalCategory);
 
@@ -34,7 +36,7 @@ function UserMenuList(): JSX.Element {
         setActiveId(userListItems[0].id);
       }
     }
-  }, [category, router]);
+  }, [router, router.pathname]);
 
   const updateIndicatorStyle = () => {
     if (listRef.current) {
@@ -63,7 +65,8 @@ function UserMenuList(): JSX.Element {
   }, [activeId]);
 
   const handleChangeActive = (activeLink: string) => {
-    router.push(`/dashboard/${activeLink}`);
+    // router.push(`/${activeLink}`);
+    router.push(`/${activeLink}`, undefined, { shallow: true });
     localStorage.setItem(LOCAL_STORAGE_USER_MENU_CATEGORY, activeLink);
 
     const activeItem = userListItems.find((item) => item.link === activeLink);
@@ -74,10 +77,10 @@ function UserMenuList(): JSX.Element {
 
   return (
     <ul ref={listRef} className="relative mb-auto grow">
-      <div
+      {/* <div
         className="absolute left-0 w-full transition-all duration-300 rounded-r-xl bg-white text-black border-l-2 border-l-blue-500"
         style={indicatorStyle}
-      ></div>
+      ></div> */}
       {userListItems.map((item) => (
         <UserMenuItem
           key={item.id}

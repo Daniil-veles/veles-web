@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import ChangerData from "@/components/ui/changer-data/ChangerData";
 import CreateOrganizationForm from "@/components/ui/create-organization-form/CreateOrganizationForm";
 import { companyInfoFields, exampleOrgData } from "@/const/const";
-import { organizationService } from "@/services/organisation.service";
+import { OrganizationService } from "@/services/organisation.service";
 import { ChevronLeft, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -22,7 +22,11 @@ const OrganizationInfo: React.FC = () => {
 
   // useEffect(() => {
   //   async function getOrganizationInfo(id: number) {
-  //     const response = await organizationService.getInfo(id);
+  // try {
+  //       const response = await OrganizationService.getInfo(id);
+  // } catch (error) {
+  //   console.error("Failed to create organization:", error.response);
+  // }
   //     setOrganizationInfo(response);
   //   }
 
@@ -39,7 +43,7 @@ const OrganizationInfo: React.FC = () => {
   };
 
   return (
-    <>
+    <div>
       <div className="flex justify-between items-bottom mb-6">
         <h2 className="flex text-xl items-end">Ваши организации:</h2>
 
@@ -59,7 +63,7 @@ const OrganizationInfo: React.FC = () => {
           <CreateOrganizationForm />
         </Modal>
       ) : null}
-    </>
+    </div>
   );
 };
 

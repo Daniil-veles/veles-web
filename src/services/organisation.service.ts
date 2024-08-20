@@ -1,7 +1,7 @@
 import apiClient from '@/api/api';
 import { FormSchemaType } from '@/components/ui/create-organization-form/CreateOrganizationForm.interface';
 
-export const organizationService = {
+export const OrganizationService = {
     async registration(data: FormSchemaType) {
         try {
             const response = await apiClient.post('/company/add', data);

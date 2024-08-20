@@ -1,6 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
 import FormField from "../form-field/FormField";
-import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpFormFields, SignUpFormValues, signUpSchema } from "./utils";
 import { useRouter } from "next/router";
@@ -35,6 +34,7 @@ const SignUpForm: React.FC = () => {
 
     try {
       const response = await AuthService.registration(formattedUserData);
+      console.log(response);
 
       if (response.status === 201) {
         console.log("User created successfully:", response.data);

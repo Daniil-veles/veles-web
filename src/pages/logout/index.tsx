@@ -2,7 +2,7 @@ import { AuthContext } from "@/provider/AuthContext";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 
-const LogOut: React.FC = () => {
+const LogOutPage: React.FC = () => {
   const router = useRouter();
   const authContext = useContext(AuthContext);
 
@@ -34,4 +34,4 @@ const LogOut: React.FC = () => {
   return null;
 };
 
-export default LogOut;
+export default LogOutPage;
