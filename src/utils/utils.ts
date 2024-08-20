@@ -47,7 +47,3 @@ export function adaptToUserData(data: UserServerDataFromServer): AdaptToUserData
 
   return adaptedData;
 }
-
-// Юзер
-// vdsgdhs@mail.ru
-// 23323222
