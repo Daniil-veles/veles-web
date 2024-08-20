@@ -4,8 +4,8 @@ import FormField from "../form-field/FormField";
 import { loginFormFields, LoginFormValues, loginSchema } from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
-import { AuthContext } from "@/hoc/AuthContext";
 import Link from "next/link";
+import { AuthContext } from "@/provider/AuthContext";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({

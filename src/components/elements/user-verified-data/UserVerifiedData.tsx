@@ -30,7 +30,7 @@ const UserVerifiedData: React.FC<IUserVerifiedDataProps> = ({
           <CircleCheck size={24} className="stroke-green-500" />
         ) : (
           <Button
-            className="border-2 border-blue-500 hover:border-blue-800"
+            className="p-3 border-2 border-blue-500 hover:border-blue-800"
             onClick={handleButtonClick}
           >
             Подтвердить

@@ -5,7 +5,31 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import CustomButton from "@/components/ui/custom-button/CustomButton";
+import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
+import { MoveRight } from "lucide-react";
+
+const accordionItems = [
+  {
+    triggerText: "Is it accessible?",
+    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+  },
+  {
+    triggerText: "Is it styled?",
+    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+  },
+  {
+    triggerText: "Is it animated?",
+    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+  },
+  {
+    triggerText: "Is it animated?",
+    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+  },
+  {
+    triggerText: "Is it animated?",
+    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+  },
+];
 
 const Faq: React.FC = () => {
   return (
@@ -15,71 +39,23 @@ const Faq: React.FC = () => {
 
         <div className="max-w-4xl m-auto">
           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
-              <AccordionContent>
-                <p className="mb-4">
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </p>
+            {accordionItems.map((item, index) => (
+              <AccordionItem
+                key={`${item.triggerText}-${index}`}
+                value={`item-${index}`}
+              >
+                <AccordionTrigger>{item.triggerText}</AccordionTrigger>
+                <AccordionContent>
+                  <p className="mb-4">{item.content}</p>
 
-                <CustomButton className="p-3 bg-blue-50">
-                  Перейти к документации
-                </CustomButton>
-              </AccordionContent>
-            </AccordionItem>
+                  <ButtonLittle variant={"minimal"}>
+                    Перейти к документации
 
-            <AccordionItem value="item-2">
-              <AccordionTrigger>Is it styled?</AccordionTrigger>
-
-              <AccordionContent>
-                <p className="mb-4">
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </p>
-
-                <CustomButton className="p-3 bg-blue-50">
-                  Перейти к документации
-                </CustomButton>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-3">
-              <AccordionTrigger>Is it animated?</AccordionTrigger>
-              <AccordionContent>
-                <p className="mb-4">
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </p>
-
-                <CustomButton className="p-3 bg-blue-50">
-                  Перейти к документации
-                </CustomButton>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-4">
-              <AccordionTrigger>Is it animated?</AccordionTrigger>
-              <AccordionContent>
-                <p className="mb-4">
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </p>
-
-                <CustomButton className="p-3 bg-blue-50">
-                  Перейти к документации
-                </CustomButton>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-5">
-              <AccordionTrigger>Is it animated?</AccordionTrigger>
-              <AccordionContent>
-                <p className="mb-4">
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </p>
-
-                <CustomButton className="p-3 bg-blue-50">
-                  Перейти к документации
-                </CustomButton>
-              </AccordionContent>
-            </AccordionItem>
+                    <MoveRight className="ml-1" size={16} />
+                  </ButtonLittle>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
           </Accordion>
         </div>
       </Container>

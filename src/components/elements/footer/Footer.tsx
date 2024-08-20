@@ -1,6 +1,6 @@
 import HeaderMenu from "@/components/elements/header-menu/HeaderMenu";
 import Container from "@/components/container/Container";
-import CustomButton from "@/components/ui/custom-button/CustomButton";
+import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
 
 const Footer: React.FC = () => {
   return (
@@ -11,12 +11,11 @@ const Footer: React.FC = () => {
         <HeaderMenu />
 
         <div className="flex items-center">
-          <CustomButton
-            className="bg-blue-500 text-white px-4 py-2"
+          <ButtonLittle
             onClick={() => console.log("Clicked")}
           >
             Регистрация
-          </CustomButton>
+          </ButtonLittle>
         </div>
       </div>
 

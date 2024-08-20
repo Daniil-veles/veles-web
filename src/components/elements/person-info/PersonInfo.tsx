@@ -14,8 +14,8 @@ import UpdatePersonInfoForm from "@/components/ui/change-user-data-form/ChangeUs
 import UserVerifiedData from "../user-verified-data/UserVerifiedData";
 import { personInfoVerifiedTexts } from "@/const/const";
 import { UserService } from "@/services/user.service";
-import { AuthContext } from "@/hoc/AuthContext";
-import { adaptToUserData, toServerDataMapping } from "@/utils/utils";
+import { adaptToUserData } from "@/utils/utils";
+import { AuthContext } from "@/provider/AuthContext";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);
