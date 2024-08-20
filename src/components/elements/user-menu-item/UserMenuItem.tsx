@@ -19,9 +19,12 @@ function UserMenuItem({
   return (
     <li
       onClick={onClick}
-      className={cn("relative flex items-center p-3 mb-4 cursor-pointer", {
-        "active": isActive,
-      })}
+      className={cn(
+        `flex items-center p-3 mb-4 cursor-pointer rounded-r-lg border-2 border-transparent transition-all duration-300`,
+        {
+          "bg-white border-l-blue-500 animate-slideIn": isActive,
+        }
+      )}
     >
       <IconComponent className="mr-2" size={24} />
       {text}
