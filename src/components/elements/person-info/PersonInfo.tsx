@@ -2,9 +2,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { setUserInfo } from "@/store/slices/userSlice";
 import { useForm } from "react-hook-form";
-import {
-  ModalState,
-} from "@/types/common.interface.ts";
 import UserProfileCard from "../user-profile-card/UserProfileCard";
 import Modal from "@/components/ui/modal/Modal";
 import VerifyPersonInfo from "@/components/ui/verify-user-data/VerifyUserData";
@@ -14,7 +11,8 @@ import { personInfoVerifiedTexts } from "@/const/const";
 import { UserService } from "@/services/user.service";
 import { adaptToUserData } from "@/utils/utils";
 import { AuthContext } from "@/provider/AuthContext";
-import { ComponentFormEnum } from "@/types/form.interface";
+import { ComponentFormEnum, IFormField } from "@/types/form.interface";
+import { ModalState } from "@/types/common.interface";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -62,7 +60,6 @@ const PersonInfo: React.FC = () => {
   );
 
   const { id, isAuth, ...userInfoToServer } = userInfo;
-  console.log(userInfoToServer);
 
   const handleModalOpen = (
     type: "update" | "verify",
@@ -111,17 +108,6 @@ const PersonInfo: React.FC = () => {
       picture: userInfo.picture,
       birth_date: userInfo.birthDate,
     };
-
-    const keyName = Object.keys(data)[0]; // Получаем первый ключ из объекта data
-    const value = data[keyName]; // Получаем значение по этому ключу
-
-    // Получаем соответствующий ключ для сервера из toServerDataMapping
-    const serverKey = toServerDataMapping[keyName];
-    console.log(serverKey);
-    console.log(adaptedData);
-
-    adaptedData[serverKey] = value;
-    console.log(adaptedData);
 
     // Создаем объект для отправки на сервер
     const response = await UserService.updateUserInfo(adaptedData);

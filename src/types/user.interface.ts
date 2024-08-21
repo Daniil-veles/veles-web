@@ -25,7 +25,7 @@ export interface AdaptedUserFormDataToServer extends UserBaseData {
 }
 
 // I пользователя, получаемого с сервера
-export interface UserServerDataFromServer extends UserBaseData {
+export interface UserDataFromServer extends UserBaseData {
     id: number | null;
     is_active: boolean | null;
     is_superuser: boolean | null;

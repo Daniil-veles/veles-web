@@ -2,8 +2,8 @@
 
 import { FormProvider } from "react-hook-form";
 import FormField from "../form-field/FormField";
-import { IFormField } from "@/types/common.interface.ts";
 import { ChevronRight } from "lucide-react";
+import { IFormField } from "@/types/form.interface";
 
 interface IUpdatePersonInfoFormProps {
   title: string;

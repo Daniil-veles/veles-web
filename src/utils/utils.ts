@@ -1,4 +1,4 @@
-import { AdaptedUserFormDataToServer, AdaptToUserData, UserFormData, UserServerDataFromServer } from "@/types/user.interface";
+import { AdaptedUserFormDataToServer, AdaptToUserData, UserDataFromServer, UserFormData } from "@/types/user.interface";
 
 // Формирует метатег названия страницы
 export const getMetaTitle = (title: string) => `${title} | Велесъ`;
@@ -32,7 +32,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
 }
 
 // Преобразование данных: данные с сервера => данные в приложении
-export function adaptToUserData(data: UserServerDataFromServer): AdaptToUserData {
+export function adaptToUserData(data: UserDataFromServer): AdaptToUserData {
   const adaptedData = {
     id: data.id,
     email: data.email,
