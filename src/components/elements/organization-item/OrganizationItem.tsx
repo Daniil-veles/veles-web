@@ -91,10 +91,6 @@ const OrganizationItem: React.FC<IOrganizationItemProps> = ({
           <p>
             <strong>Количество сотрудников:</strong> {employees}
           </p>
-
-          {/* <Button className="max-w-max bg-blue-500 text-white px-3 py-2 mt-3">
-            Редактировать
-          </Button> */}
         </AccordionContent>
       </AccordionItem>
     </Accordion>

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import UserProfileCard from "../user-profile-card/UserProfileCard";
 import Modal from "@/components/ui/modal/Modal";
 import VerifyPersonInfo from "@/components/ui/verify-user-data/VerifyUserData";
-import UpdatePersonInfoForm from "@/components/ui/change-user-data-form/ChangeUserDataForm";
 import UserVerifiedData from "../user-verified-data/UserVerifiedData";
 import { personInfoVerifiedTexts } from "@/const/const";
 import { UserService } from "@/services/user.service";
@@ -13,6 +12,8 @@ import { adaptToUserData } from "@/utils/utils";
 import { AuthContext } from "@/provider/AuthContext";
 import { ComponentFormEnum, IFormField } from "@/types/form.interface";
 import { ModalState } from "@/types/common.interface";
+import UpdatePersonInfoForm from "@/components/ui/update-user-data-form/UpdatePersonInfoForm";
+import { AuthorizationStatus } from "@/types/state.interface";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -39,8 +40,21 @@ const PersonInfo: React.FC = () => {
   useEffect(() => {
     async function fetchUserInfo() {
       try {
-        const user = await UserService.getUserInfo();
+        // const user = await UserService.getUserInfo();
         // console.log(user);
+
+        const user = {
+          id: null,
+          email: "test@mail.ru",
+          fullName: "Даниил Суворов",
+          birthDate: "21.10.2000",
+          phone: "+79807057002",
+          isActive: false,
+          isSuperuser: false,
+          isVerified: false,
+          picture: "",
+          isAuth: AuthorizationStatus.Auth,
+        };
 
         dispatch(setUserInfo(user));
       } catch (error) {
@@ -100,13 +114,13 @@ const PersonInfo: React.FC = () => {
     const adaptedData = {
       email: userInfo.email,
       password: userInfo.password ?? "dbhsbdS1",
+      full_name: userInfo.fullName,
+      birth_date: userInfo.birthDate,
+      phone: userInfo.phone,
+      picture: userInfo.picture,
       is_active: true,
       is_superuser: false,
       is_verified: false,
-      full_name: userInfo.fullName,
-      phone: userInfo.phone,
-      picture: userInfo.picture,
-      birth_date: userInfo.birthDate,
     };
 
     // Создаем объект для отправки на сервер

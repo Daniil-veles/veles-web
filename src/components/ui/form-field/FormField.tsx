@@ -29,8 +29,6 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
     setShowPassword(!showPassword);
   };
 
-  const inputType = value.type === 'password' && !showPassword ? 'password' : 'text';
-
   const renderComponent = (field: any, error: boolean) => {
     const errorClass = error ? "border-red-500" : "border-gray-300"; // Класс ошибки или нормальный класс
 
@@ -41,7 +39,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
             <Input
               id={value.id}
               name={value.name}
-              type={inputType}
+              type={showPassword ? 'text' : value.type }
               placeholder={value.placeholder}
               required={value.required}
               value={field.value || ""}

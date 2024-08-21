@@ -4,6 +4,7 @@ import { FormProvider } from "react-hook-form";
 import FormField from "../form-field/FormField";
 import { ChevronRight } from "lucide-react";
 import { IFormField } from "@/types/form.interface";
+import ButtonLittle from "../custom-button/button-little/ButtonLittle";
 
 interface IUpdatePersonInfoFormProps {
   title: string;
@@ -31,10 +32,10 @@ const UpdatePersonInfoForm: React.FC<IUpdatePersonInfoFormProps> = ({
         >
           <FormField value={field} />
 
-          <button className="flex items-center justify-center bg-blue-500 text-white px-4 min-w-[140px] rounded hover:bg-blue-700">
+          <ButtonLittle>
             {buttonText}
             <ChevronRight size={20} className="ml-2" />
-          </button>
+          </ButtonLittle>
         </form>
       </FormProvider>
     </div>
