@@ -12,8 +12,8 @@ import { adaptToUserData } from "@/utils/utils";
 import { AuthContext } from "@/provider/AuthContext";
 import { ComponentFormEnum, IFormField } from "@/types/form.interface";
 import { ModalState } from "@/types/common.interface";
-import UpdatePersonInfoForm from "@/components/ui/update-user-data-form/UpdatePersonInfoForm";
 import { AuthorizationStatus } from "@/types/state.interface";
+import ModalUpdateInfoForm from "@/components/ui/modal-update-info-form/ModalUpdateInfoForm";
 
 const PersonInfo: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -204,7 +204,7 @@ const PersonInfo: React.FC = () => {
             />
           ) : (
             modalState.field && (
-              <UpdatePersonInfoForm
+              <ModalUpdateInfoForm
                 title={modalState.title}
                 methods={methods}
                 field={modalState.field}

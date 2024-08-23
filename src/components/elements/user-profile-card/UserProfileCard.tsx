@@ -1,7 +1,8 @@
-import { ComponentFormEnum } from "@/types/form.interface.ts";
-import ProfileField from "@/components/ui/profile-field/ProfileField";
 import { UserInfo } from "@/types/state.interface";
 import Image from "next/image";
+import ChangerData from "@/components/ui/changer-data/ChangerData";
+import FieldChanger from "@/components/ui/field-changer/FieldChanger";
+import { ComponentFormEnum } from "@/types/form.interface";
 
 interface IUserProfileCardProp {
   userInfo: UserInfo;
@@ -30,75 +31,91 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
 
             {userInfo.email ? (
               <div className="">
-                <ProfileField
-                  label="ФИО"
-                  value={userInfo.fullName}
-                  onEditClick={() =>
-                    openModal("Изменить ФИО", "Сохранить", {
-                      id: "fullName",
-                      name: "fullName",
-                      placeholder: "Введите полное имя",
-                      type: "text",
-                      componentType: ComponentFormEnum.INPUT,
-                    })
-                  }
-                />
+                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                  <p className="text-gray-500 min-w-[160px]">ФИО</p>
 
-                <ProfileField
-                  label="Почта"
-                  value={userInfo.email}
-                  onEditClick={() =>
-                    openModal("Изменить почту", "Отправить", {
-                      id: "email",
-                      name: "email",
-                      placeholder: "Введите почту",
-                      type: "text",
-                      componentType: ComponentFormEnum.INPUT,
-                    })
-                  }
-                />
+                  <ChangerData
+                    value={userInfo.fullName}
+                    onEditClick={() =>
+                      openModal("Изменить ФИО", "Сохранить", {
+                        id: "fullName",
+                        name: "fullName",
+                        placeholder: "Введите полное имя",
+                        type: "text",
+                        componentType: ComponentFormEnum.INPUT,
+                      })
+                    }
+                  />
+                </FieldChanger>
 
-                <ProfileField
-                  label="Телефон"
-                  value={userInfo.phone}
-                  onEditClick={() =>
-                    openModal("Изменить телефон", "Отправить", {
-                      id: "phone",
-                      name: "phone",
-                      placeholder: "Введите телефон",
-                      type: "text",
-                      componentType: ComponentFormEnum.INPUT,
-                    })
-                  }
-                />
+                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                  <p className="text-gray-500 min-w-[160px]">Почта</p>
 
-                <ProfileField
-                  label="Дата рождения"
-                  value={userInfo.birthDate}
-                  onEditClick={() =>
-                    openModal("Изменить дату рождения", "Сохранить", {
-                      id: "birthDate",
-                      name: "birthDate",
-                      placeholder: "Введите дату рождения",
-                      type: "date",
-                      componentType: ComponentFormEnum.INPUT,
-                    })
-                  }
-                />
+                  <ChangerData
+                    value={userInfo.email}
+                    onEditClick={() =>
+                      openModal("Изменить почту", "Отправить", {
+                        id: "email",
+                        name: "email",
+                        placeholder: "Введите почту",
+                        type: "text",
+                        componentType: ComponentFormEnum.INPUT,
+                      })
+                    }
+                  />
+                </FieldChanger>
 
-                <ProfileField
-                  label="Организация"
-                  value={userInfo.organization}
-                  // onEditClick={() => {}}
-                  isEditable={false}
-                />
+                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                  <p className="text-gray-500 min-w-[160px]">Телефон</p>
 
-                <ProfileField
-                  label="Роль"
-                  value={userInfo.isSuperuser ? "Руководитель" : "Участник"}
-                  // onEditClick={() => {}}
-                  isEditable={false}
-                />
+                  <ChangerData
+                    value={userInfo.phone}
+                    onEditClick={() =>
+                      openModal("Изменить телефон", "Отправить", {
+                        id: "phone",
+                        name: "phone",
+                        placeholder: "Введите телефон",
+                        type: "text",
+                        componentType: ComponentFormEnum.INPUT,
+                      })
+                    }
+                  />
+                </FieldChanger>
+
+                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                  <p className="text-gray-500 min-w-[160px]">Дата рождения</p>
+
+                  <ChangerData
+                    value={userInfo.phone}
+                    onEditClick={() =>
+                      openModal("Изменить дату рождения", "Сохранить", {
+                        id: "birthDate",
+                        name: "birthDate",
+                        placeholder: "Введите дату рождения",
+                        type: "date",
+                        componentType: ComponentFormEnum.INPUT,
+                      })
+                    }
+                  />
+                </FieldChanger>
+
+                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                  <p className="text-gray-500 min-w-[160px]">Организация</p>
+
+                  <ChangerData
+                    value={userInfo.organization}
+                    isEditable={false}
+                  />
+                </FieldChanger>
+
+                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                  <p className="text-gray-500 min-w-[160px]">Роль</p>
+
+                  <ChangerData
+                    value={userInfo.isSuperuser ? "Руководитель" : "Участник"}
+                    isEditable={false}
+                  />
+                </FieldChanger>
               </div>
             ) : (
               <p>Loading...</p>

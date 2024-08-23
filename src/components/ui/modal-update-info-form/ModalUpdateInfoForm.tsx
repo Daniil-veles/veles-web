@@ -1,5 +1,3 @@
-// import styles from './ChangeUserDataForm.module.scss';
-
 import { FormProvider } from "react-hook-form";
 import FormField from "../form-field/FormField";
 import { ChevronRight } from "lucide-react";
@@ -14,7 +12,7 @@ interface IUpdatePersonInfoFormProps {
   handleFormSave: (data: any) => void;
 }
 
-const UpdatePersonInfoForm: React.FC<IUpdatePersonInfoFormProps> = ({
+const ModalUpdateInfoForm: React.FC<IUpdatePersonInfoFormProps> = ({
   title,
   methods,
   field,
@@ -42,4 +40,4 @@ const UpdatePersonInfoForm: React.FC<IUpdatePersonInfoFormProps> = ({
   );
 };
 
-export default UpdatePersonInfoForm;
+export default ModalUpdateInfoForm;

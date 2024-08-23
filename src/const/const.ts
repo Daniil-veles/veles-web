@@ -1,5 +1,6 @@
 import { BadgeRussianRuble, Blocks, CirclePlus, HousePlus, LucideProps, User, Users } from "lucide-react";
 
+// Главная страница
 export const menu = [
     {
         'id': 1,
@@ -187,6 +188,8 @@ export const carousel = [
     },
 ];
 
+
+// Пользовательское меню
 export const iconMap: Record<string, React.ElementType<LucideProps>> = {
     'User': User,
     'CirclePlus': CirclePlus,
@@ -196,7 +199,6 @@ export const iconMap: Record<string, React.ElementType<LucideProps>> = {
     'HousePlus': HousePlus,
 };
 
-
 export const userListItems = [
     { id: 1, iconName: 'User', text: 'Профиль', link: 'profile' },
     { id: 2, iconName: 'CirclePlus', text: 'Организация', link: 'organization' },
@@ -205,6 +207,7 @@ export const userListItems = [
     { id: 5, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
 ];
 
+// Store
 export const enum NameSpace {
     Main = 'MAIN',
     Data = 'DATA',
@@ -214,6 +217,7 @@ export const enum NameSpace {
 export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';
 export const LOCAL_STORAGE_USER_MENU_CATEGORY = 'userMenuCategory';
 export const LOCAL_STORAGE_USER_MENU_INDICATOR = 'userMenuIndicator';
+
 
 export const companyInfoFields = [
     { field: 'Организационная структура', value: 'type' },
@@ -236,70 +240,88 @@ export const companyInfoFields = [
 ]
 
 
-export const exampleOrgData = [
-    {
-        name: "Company A",
-        phone: "+1234567890",
-        email: "contact@companya.com",
-        address: "123 Business St, City A, Country",
-        info: "Leading provider of business solutions.",
-        type: "LLC",
-        INN: "123456789012",
-        KPP: "123456789",
-        OGRN: "1234567890123",
-        OKPO: "12345678",
-        BIK: "123456789",
-        corr_account: "12345678901234567890",
-        employees: 100,
-    },
-    {
-        name: "Company B",
-        phone: "+0987654321",
-        email: "info@companyb.com",
-        address: "456 Industry Rd, City B, Country",
-        info: "Innovative tech solutions and services.",
-        type: "JSC",
-        INN: "987654321098",
-        KPP: "987654321",
-        OGRN: "9876543210987",
-        OKPO: "87654321",
-        BIK: "987654321",
-        corr_account: "98765432109876543210",
-        employees: 200,
-    },
-    {
-        name: "Company C",
-        phone: "+1122334455",
-        email: "support@companyc.com",
-        address: "789 Market Ave, City C, Country",
-        info: "Retail and distribution of consumer goods.",
-        type: "Partnership",
-        INN: "112233445566",
-        KPP: "112233445",
-        OGRN: "1122334455667",
-        OKPO: "54321098",
-        BIK: "112233445",
-        corr_account: "11223344556677889900",
-        employees: 50,
-    },
-    {
-        name: "Company D",
-        phone: "+5566778899",
-        email: "contact@companyd.com",
-        address: "321 Tech Park, City D, Country",
-        info: "Specializing in software development and IT services.",
-        type: "Sole Proprietorship",
-        INN: "665544332211",
-        KPP: "665544332",
-        OGRN: "6655443322116",
-        OKPO: "87654321",
-        BIK: "665544332",
-        corr_account: "66554433221166554433",
-        employees: 75,
-    },
-];
+export const exampleOrgData =
+{
+    name: "ООО Велесъ",
+    phone: "+1234567890",
+    email: "contact@companya.com",
+    address: "123 Business St, City A, Country",
+    info: "Leading provider of business solutions.",
+    type: "LLC",
+    INN: "123456789012",
+    KPP: "123456789",
+    OGRN: "1234567890123",
+    OKPO: "12345678",
+    BIK: "123456789",
+    corr_account: "12345678901234567890",
+    employees: 100,
+};
+
+// export const exampleOrgData = [
+//     {
+//         name: "Company A",
+//         phone: "+1234567890",
+//         email: "contact@companya.com",
+//         address: "123 Business St, City A, Country",
+//         info: "Leading provider of business solutions.",
+//         type: "LLC",
+//         INN: "123456789012",
+//         KPP: "123456789",
+//         OGRN: "1234567890123",
+//         OKPO: "12345678",
+//         BIK: "123456789",
+//         corr_account: "12345678901234567890",
+//         employees: 100,
+//     },
+//     {
+//         name: "Company B",
+//         phone: "+0987654321",
+//         email: "info@companyb.com",
+//         address: "456 Industry Rd, City B, Country",
+//         info: "Innovative tech solutions and services.",
+//         type: "JSC",
+//         INN: "987654321098",
+//         KPP: "987654321",
+//         OGRN: "9876543210987",
+//         OKPO: "87654321",
+//         BIK: "987654321",
+//         corr_account: "98765432109876543210",
+//         employees: 200,
+//     },
+//     {
+//         name: "Company C",
+//         phone: "+1122334455",
+//         email: "support@companyc.com",
+//         address: "789 Market Ave, City C, Country",
+//         info: "Retail and distribution of consumer goods.",
+//         type: "Partnership",
+//         INN: "112233445566",
+//         KPP: "112233445",
+//         OGRN: "1122334455667",
+//         OKPO: "54321098",
+//         BIK: "112233445",
+//         corr_account: "11223344556677889900",
+//         employees: 50,
+//     },
+//     {
+//         name: "Company D",
+//         phone: "+5566778899",
+//         email: "contact@companyd.com",
+//         address: "321 Tech Park, City D, Country",
+//         info: "Specializing in software development and IT services.",
+//         type: "Sole Proprietorship",
+//         INN: "665544332211",
+//         KPP: "665544332",
+//         OGRN: "6655443322116",
+//         OKPO: "87654321",
+//         BIK: "665544332",
+//         corr_account: "66554433221166554433",
+//         employees: 75,
+//     },
+// ];
 
 // texts.ts
+
 export const personInfoVerifiedTexts = {
     email: {
         modalTitle: "Подтвердите вашу почту",
