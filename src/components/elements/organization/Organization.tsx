@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Modal from "@/components/ui/modal/Modal";
 import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
 import OrganizationInfo from "../organization-info/OrganizationInfo";
+import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
 
 const Organization: React.FC = () => {
   // Состояния для модальных окон
@@ -45,8 +46,8 @@ const Organization: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-bottom mb-6">
-        <h2 className="flex text-xl items-end">Ваши организации:</h2>
+      <div className="flex justify-between items-center mb-6">
+        <ScreenTitle title="Ваша организация" />
 
         <ButtonLittle
           onClick={() => setModalState({ ...modalState, isOpen: true })}

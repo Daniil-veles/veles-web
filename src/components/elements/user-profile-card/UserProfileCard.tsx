@@ -3,6 +3,7 @@ import Image from "next/image";
 import ChangerData from "@/components/ui/changer-data/ChangerData";
 import FieldChanger from "@/components/ui/field-changer/FieldChanger";
 import { ComponentFormEnum } from "@/types/form.interface";
+import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
 
 interface IUserProfileCardProp {
   userInfo: UserInfo;
@@ -27,7 +28,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
           </div>
 
           <div className="row-start-1">
-            <h2 className="flex items-center text-2xl mb-4">Личные данные</h2>
+          <ScreenTitle className="mb-4" title="Личные данные" />
 
             {userInfo.email ? (
               <div className="">

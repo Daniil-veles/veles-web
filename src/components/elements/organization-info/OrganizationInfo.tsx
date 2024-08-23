@@ -94,8 +94,6 @@ const OrganizationInfo: React.FC<IOrganizationItemProps> = ({
     }));
   };
 
-  console.log(modalState);
-
   return (
     <div className="rounded-md border border-zinc-50 shadow p-4 px-6">
       <div>
