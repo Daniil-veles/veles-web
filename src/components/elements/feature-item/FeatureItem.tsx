@@ -16,7 +16,7 @@ const FeaturesItem: React.FC<FeatureItemProps> = ({ feature }) => {
 
       <h3 className="mb-1 text-lg font-medium">{feature.title}</h3>
 
-      <p className="text-base text-gray-700">{feature.description}</p>
+      <p className="text-base text-black/60">{feature.description}</p>
     </li>
   );
 };

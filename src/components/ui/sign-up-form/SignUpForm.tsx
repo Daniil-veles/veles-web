@@ -64,7 +64,7 @@ const SignUpForm: React.FC = () => {
 
           <ButtonForm className="w-full h-min">Зарегистрироваться</ButtonForm>
 
-          <small className="text-center text-gray-600">
+          <small className="text-center text-gray-500">
             Нажимая «Зарегистрироваться», вы соглашаетесь с условиями обработки
             персональных данных
           </small>

@@ -48,7 +48,7 @@ const OrganizationInfo: React.FC = () => {
         <h2 className="flex text-xl items-end">Ваши организации:</h2>
 
         <Button
-          className="max-w-max bg-blue-500 text-white px-3 py-2 hover:bg-blue-800"
+          className="max-w-max bg-blue-500 text-white px-3 py-2 hover:bg-blue-600"
           onClick={() => setModalState({ ...modalState, isOpen: true })}
         >
           Добавить организацию

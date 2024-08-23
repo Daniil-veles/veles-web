@@ -26,7 +26,7 @@ const ChangerData: React.FC<IChangerData> = ({
       <p className="pr-2 leading-5">{inputValue}</p>
 
       {isEditable ? (
-        <ButtonLittle className="w-[18px] h-[18px] text-gray-500" variant="minimal">
+        <ButtonLittle onClick={onEditClick} className="w-[18px] h-[18px] text-gray-500" variant="minimal">
           <PencilLine className=" w-full h-full" />
         </ButtonLittle>
       ) : null}

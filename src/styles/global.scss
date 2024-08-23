@@ -31,16 +31,19 @@
 // bg-blue-500: Средний голубой (medium blue)
 // bg-blue-900: Темно-синий (dark blue)
 // bg-gray-200: Светло-серый (light gray)
-// bg-gray-200/10: Светло-серый с 30% непрозрачностью (light gray with 30% opacity)
+// bg-gray-200/30: Светло-серый с 30% непрозрачностью
+// bg-gray-200/10: Сильно светло-серый с 10% непрозрачностью
 // bg-orange-600: Средний оранжевый (medium orange)
-// hover:bg-blue-700
 // hover:bg-blue-600
 
+// text-black/60: Светло-черный с 60% непрозрачностью
+// text-gray-400: Серый (gray)
 // text-gray-500: Серый (gray)
-// text-blue-800: Темный голубой (dark blue)
 // text-blue-500: Светлый голубой (light blue)
+// text-blue-700: Голубой (blue)
+// text-blue-800: Темный голубой (dark blue)
 // text-yellow-200: Светло-желтый (light yellow)
-
+// hover:text-blue-800
 
 body {
   overflow-x: hidden;
@@ -81,7 +84,6 @@ p {
   font-size: 16px;
   line-height: 1.7;
 }
-
 
 .react-tel-input {
   height: 48px;
