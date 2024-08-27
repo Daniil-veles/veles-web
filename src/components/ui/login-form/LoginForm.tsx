@@ -28,7 +28,7 @@ const LoginForm: React.FC = () => {
   const { login } = authContext; // Получаем метод login из контекста
 
   async function onSubmit(data: LoginFormValues) {
-    try {
+    try {      
       await login(data);
 
       methods.reset();

@@ -33,8 +33,10 @@ const SignUpForm: React.FC = () => {
     // console.log(formattedUserData);
 
     try {
-      const response = await AuthService.registration(formattedUserData);
-      console.log(response);
+      console.log(userData);
+
+      // const response = await AuthService.registration(formattedUserData);
+      // console.log(response);
 
       if (response.status === 201) {
         console.log("User created successfully:", response.data);
