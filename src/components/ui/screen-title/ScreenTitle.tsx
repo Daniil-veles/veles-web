@@ -4,7 +4,7 @@ interface IScreenTitleProp {
 }
 
 const ScreenTitle: React.FC<IScreenTitleProp> = ({ className, title }) => {
-  return <h2 className={`${className} text-xl font-medium`}>{title}</h2>;
+  return <h2 className={`${className} font-medium`}>{title}</h2>;
 };
 
 export default ScreenTitle;

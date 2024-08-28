@@ -35,7 +35,7 @@ const ButtonLittle: React.FC<CustomButtonProps> = ({
 
   return (
     <button
-      className={`text-sm rounded-md transition-colors duration-300 ease-in-out ${buttonStyles} ${className}`}
+      className={`flex justify-center text-sm rounded-md transition-colors duration-300 ease-in-out ${buttonStyles} ${className}`}
       {...props}
     >
       <span className="flex items-center">{children}</span>

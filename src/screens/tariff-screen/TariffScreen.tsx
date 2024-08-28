@@ -1,4 +1,5 @@
 import Container from "@/components/container/Container";
+import TariffInfo from "@/components/elements/tariff-info/TariffInfo";
 import UserMenu from "@/components/elements/user-meu/UserMenu";
 import PrivateRoute from "@/hoc/PrivateRoute";
 import Layout from "@/layouts/Layout";
@@ -11,7 +12,7 @@ const TariffScreen: React.FC = () => {
           <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
             <UserMenu />
 
-            <p>Тарифы</p>
+            <TariffInfo />
           </div>
         </Container>
       </Layout>

@@ -1,7 +1,7 @@
 import ButtonForm from "@/components/ui/custom-button/button-form/ButtonForm";
 import FormField from "@/components/ui/form-field/FormField";
 import { AuthService } from "@/services/auth.service";
-import { ComponentFormEnum } from "@/types/form.interface.ts";
+import { ComponentFormEnum } from "@/types/form.interface";
 import { setUserEmail } from "@/utils/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleArrowLeft } from "lucide-react";

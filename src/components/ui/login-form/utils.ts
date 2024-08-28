@@ -19,6 +19,17 @@ export const adaptedUserData = (userData: UserLoginData) => {
 
 export const loginFormFields: IFormField[] = [
   {
+    id: "intro",
+    name: "intro",
+    label: "Параметры входа",
+    placeholder: "Выберите организацию",
+    componentType: ComponentFormEnum.SELECT,
+    options: [
+      { label: "Личный кабинет", value: "user" },
+      { label: "СК Велесъ", value: "5030100587" },
+    ]
+  },
+  {
     id: 'email',
     name: 'email',
     label: 'Email',

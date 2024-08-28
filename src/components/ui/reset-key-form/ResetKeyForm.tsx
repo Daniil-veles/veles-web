@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field/FormField";
-import { ComponentFormEnum } from "@/types/form.interface.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
+import { ComponentFormEnum } from "@/types/form.interface";
 
 // Схема валидации для ввода кода
 const resetKeySchema = z.object({
