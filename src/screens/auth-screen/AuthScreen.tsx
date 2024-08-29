@@ -72,6 +72,7 @@ const AuthScreen: React.FC = () => {
                       <p>Суворов Даниил Сергеевич</p>
                     </div>
                   </li>
+                  
 
                   <li className="flex items-center min-w-[300px]  p-4 px-8 bg-gray-200/30 hover:bg-gray-200/40 rounded-lg">
                     <div className="relative w-10 h-10 mr-3">
