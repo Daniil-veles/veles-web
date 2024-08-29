@@ -12,7 +12,7 @@ const initialState: UserInfo = {
     isSuperuser: false,
     isVerified: false,
     picture: '',
-    isAuth: AuthorizationStatus.Unknown
+    isAuth: AuthorizationStatus.Auth
 };
 const userSlice = createSlice({
     name: 'user',

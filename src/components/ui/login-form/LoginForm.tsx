@@ -1,5 +1,4 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { Button } from "../button";
 import FormField from "../form-field/FormField";
 import { loginFormFields, LoginFormValues, loginSchema } from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,7 +27,7 @@ const LoginForm: React.FC = () => {
   const { login } = authContext; // Получаем метод login из контекста
 
   async function onSubmit(data: LoginFormValues) {
-    try {      
+    try {
       await login(data);
 
       methods.reset();
