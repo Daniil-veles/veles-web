@@ -78,7 +78,7 @@ const Header: React.FC = () => {
 
                         <Link href="/crm">
                           <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
-                            CRM
+                            Организация
                           </DropdownMenuItem>
                         </Link>
                       </>

@@ -22,12 +22,12 @@ const ChangerData: React.FC<IChangerData> = ({
   }, [value]);
 
   return (
-    <div className={`${className} flex items-end`}>
+    <div className={`${className} flex items-center`}>
       <p className="pr-2 leading-5">{inputValue}</p>
 
       {isEditable ? (
-        <ButtonLittle onClick={onEditClick} className="w-[18px] h-[18px] text-gray-500" variant="minimal">
-          <PencilLine className=" w-full h-full" />
+        <ButtonLittle onClick={onEditClick} className="flex text-gray-500" variant="minimal">
+          <PencilLine className="w-[18px] h-[18px]" />
         </ButtonLittle>
       ) : null}
     </div>

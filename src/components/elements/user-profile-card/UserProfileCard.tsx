@@ -32,7 +32,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
 
             {userInfo.email ? (
               <div className="">
-                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                <FieldChanger className="flex gap-5 items-center mb-2">
                   <p className="text-gray-500 min-w-[160px]">ФИО</p>
 
                   <ChangerData
@@ -49,7 +49,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
                   />
                 </FieldChanger>
 
-                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                <FieldChanger className="flex gap-5 items-center mb-2">
                   <p className="text-gray-500 min-w-[160px]">Почта</p>
 
                   <ChangerData
@@ -66,7 +66,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
                   />
                 </FieldChanger>
 
-                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                <FieldChanger className="flex gap-5 items-center mb-2">
                   <p className="text-gray-500 min-w-[160px]">Телефон</p>
 
                   <ChangerData
@@ -83,7 +83,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
                   />
                 </FieldChanger>
 
-                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                <FieldChanger className="flex gap-5 items-center mb-2">
                   <p className="text-gray-500 min-w-[160px]">Дата рождения</p>
 
                   <ChangerData
@@ -100,7 +100,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
                   />
                 </FieldChanger>
 
-                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                <FieldChanger className="flex gap-5 items-center mb-2">
                   <p className="text-gray-500 min-w-[160px]">Организация</p>
 
                   <ChangerData
@@ -109,7 +109,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
                   />
                 </FieldChanger>
 
-                <FieldChanger className="flex gap-5 items-center h-8 mb-2">
+                <FieldChanger className="flex gap-5 items-center mb-2">
                   <p className="text-gray-500 min-w-[160px]">Роль</p>
 
                   <ChangerData

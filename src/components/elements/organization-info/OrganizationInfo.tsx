@@ -95,8 +95,8 @@ const OrganizationInfo: React.FC<IOrganizationItemProps> = ({
   };
 
   return (
-    <div className="rounded-md border border-zinc-50 shadow p-4 px-6">
-      <div>
+    <div className="rounded-md border border-zinc-50 shadow p-4 px-6 mb-8">
+      <div cl>
         <h3 className="text-xl font-semibold mb-3">
           <ChangerData
             className="text-xl inline-block"
@@ -113,199 +113,207 @@ const OrganizationInfo: React.FC<IOrganizationItemProps> = ({
           />
         </h3>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">ФИО</p>
+        <div className="grid grid-cols-2 gap-x-5">
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">ФИО</p>
 
-          <ChangerData
-            value={phone}
-            onEditClick={() =>
-              handleModalOpen("Изменить телефон", "Сохранить", {
-                id: "phone",
-                name: "phone",
-                placeholder: "Введите телефон",
-                type: "tel",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+            <ChangerData
+              value={phone}
+              onEditClick={() =>
+                handleModalOpen("Изменить телефон", "Сохранить", {
+                  id: "phone",
+                  name: "phone",
+                  placeholder: "Введите телефон",
+                  type: "tel",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">Электронная почта</p>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">Электронная почта</p>
 
-          <ChangerData
-            value={email}
-            onEditClick={() =>
-              handleModalOpen("Изменить электронную почту", "Сохранить", {
-                id: "phone",
-                name: "phone",
-                placeholder: "Введите электронную почту",
-                type: "email",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+            <ChangerData
+              value={email}
+              onEditClick={() =>
+                handleModalOpen("Изменить электронную почту", "Сохранить", {
+                  id: "phone",
+                  name: "phone",
+                  placeholder: "Введите электронную почту",
+                  type: "email",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">Адрес</p>
-          <ChangerData
-            value={address}
-            onEditClick={() =>
-              handleModalOpen("Изменить адрес", "Сохранить", {
-                id: "address",
-                name: "address",
-                placeholder: "Введите адрес",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">Адрес</p>
+            <ChangerData
+              value={address}
+              onEditClick={() =>
+                handleModalOpen("Изменить адрес", "Сохранить", {
+                  id: "address",
+                  name: "address",
+                  placeholder: "Введите адрес",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">Информация</p>
-          <ChangerData
-            value={info}
-            onEditClick={() =>
-              handleModalOpen("Изменить информацию", "Сохранить", {
-                id: "info",
-                name: "info",
-                placeholder: "Введите информацию",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">Информация</p>
+            <ChangerData
+              value={info}
+              onEditClick={() =>
+                handleModalOpen("Изменить информацию", "Сохранить", {
+                  id: "info",
+                  name: "info",
+                  placeholder: "Введите информацию",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">Тип</p>
-          <ChangerData
-            value={type}
-            onEditClick={() =>
-              handleModalOpen("Изменить тип", "Сохранить", {
-                id: "type",
-                name: "type",
-                placeholder: "Введите тип",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">Тип</p>
+            <ChangerData
+              value={type}
+              onEditClick={() =>
+                handleModalOpen("Изменить тип", "Сохранить", {
+                  id: "type",
+                  name: "type",
+                  placeholder: "Введите тип",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">ИНН</p>
-          <ChangerData
-            value={INN}
-            onEditClick={() =>
-              handleModalOpen("Изменить ИНН", "Сохранить", {
-                id: "INN",
-                name: "INN",
-                placeholder: "Введите ИНН",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">ИНН</p>
+            <ChangerData
+              value={INN}
+              onEditClick={() =>
+                handleModalOpen("Изменить ИНН", "Сохранить", {
+                  id: "INN",
+                  name: "INN",
+                  placeholder: "Введите ИНН",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">КПП</p>
-          <ChangerData
-            value={KPP}
-            onEditClick={() =>
-              handleModalOpen("Изменить КПП", "Сохранить", {
-                id: "KPP",
-                name: "KPP",
-                placeholder: "Введите КПП",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">КПП</p>
+            <ChangerData
+              value={KPP}
+              onEditClick={() =>
+                handleModalOpen("Изменить КПП", "Сохранить", {
+                  id: "KPP",
+                  name: "KPP",
+                  placeholder: "Введите КПП",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">ОГРН</p>
-          <ChangerData
-            value={OGRN}
-            onEditClick={() =>
-              handleModalOpen("Изменить ОГРН", "Сохранить", {
-                id: "OGRN",
-                name: "OGRN",
-                placeholder: "Введите ОГРН",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">ОГРН</p>
+            <ChangerData
+              value={OGRN}
+              onEditClick={() =>
+                handleModalOpen("Изменить ОГРН", "Сохранить", {
+                  id: "OGRN",
+                  name: "OGRN",
+                  placeholder: "Введите ОГРН",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">ОКПО</p>
-          <ChangerData
-            value={OKPO}
-            onEditClick={() =>
-              handleModalOpen("Изменить ОКПО", "Сохранить", {
-                id: "OKPO",
-                name: "OKPO",
-                placeholder: "Введите ОКПО",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">ОКПО</p>
+            <ChangerData
+              value={OKPO}
+              onEditClick={() =>
+                handleModalOpen("Изменить ОКПО", "Сохранить", {
+                  id: "OKPO",
+                  name: "OKPO",
+                  placeholder: "Введите ОКПО",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">БИК</p>
-          <ChangerData
-            value={BIK}
-            onEditClick={() =>
-              handleModalOpen("Изменить БИК", "Сохранить", {
-                id: "BIK",
-                name: "BIK",
-                placeholder: "Введите БИК",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">БИК</p>
+            <ChangerData
+              value={BIK}
+              onEditClick={() =>
+                handleModalOpen("Изменить БИК", "Сохранить", {
+                  id: "BIK",
+                  name: "BIK",
+                  placeholder: "Введите БИК",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8 mb-2">
-          <p className="text-gray-500 min-w-[200px]">Корр. счет</p>
-          <ChangerData
-            value={corr_account}
-            onEditClick={() =>
-              handleModalOpen("Изменить корр. счет", "Сохранить", {
-                id: "corr_account",
-                name: "corr_account",
-                placeholder: "Введите корр. счет",
-                type: "text",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center mb-2">
+            <p className="text-gray-500 min-w-[200px]">Корр. счет</p>
+            <ChangerData
+              value={corr_account}
+              onEditClick={() =>
+                handleModalOpen("Изменить корр. счет", "Сохранить", {
+                  id: "corr_account",
+                  name: "corr_account",
+                  placeholder: "Введите корр. счет",
+                  type: "text",
+                  componentType: ComponentFormEnum.INPUT,
+                })
+              }
+            />
+          </FieldChanger>
 
-        <FieldChanger className="flex gap-5 items-center h-8">
-          <p className="text-gray-500 min-w-[200px]">Количество сотрудников</p>
-          <ChangerData
-            value={employees}
-            onEditClick={() =>
-              handleModalOpen("Изменить количество сотрудников", "Сохранить", {
-                id: "employees",
-                name: "employees",
-                placeholder: "Введите количество сотрудников",
-                type: "number",
-                componentType: ComponentFormEnum.INPUT,
-              })
-            }
-          />
-        </FieldChanger>
+          <FieldChanger className="flex gap-5 items-center h-8">
+            <p className="text-gray-500 min-w-[200px]">
+              Количество сотрудников
+            </p>
+            <ChangerData
+              value={employees}
+              onEditClick={() =>
+                handleModalOpen(
+                  "Изменить количество сотрудников",
+                  "Сохранить",
+                  {
+                    id: "employees",
+                    name: "employees",
+                    placeholder: "Введите количество сотрудников",
+                    type: "number",
+                    componentType: ComponentFormEnum.INPUT,
+                  }
+                )
+              }
+            />
+          </FieldChanger>
+        </div>
       </div>
 
       {modalState.isOpen && (

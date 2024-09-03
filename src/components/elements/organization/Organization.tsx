@@ -45,8 +45,8 @@ const Organization: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
+    <div className="max-w-full">
+      <div className="flex w-full justify-between items-center mb-6">
         <ScreenTitle title="Ваша организация" />
 
         <ButtonLittle
@@ -58,6 +58,34 @@ const Organization: React.FC = () => {
       </div>
 
       <OrganizationInfo organization={exampleOrgData} />
+
+      <div className="flex-grow">
+        <ButtonLittle
+          className="mb-5"
+          onClick={() => setModalState({ ...modalState, isOpen: true })}
+        >
+          Добавить отдел
+          <PlusCircle className="ml-2" />
+        </ButtonLittle>
+
+        <ul className="flex h-full overflow-x-auto pb-4">
+          <li className="flex flex-col justify-center items-center rounded-md border border-zinc-50 shadow p-4 px-6 min-h-40 mr-5 flex-shrink-0">
+            <h4 className="text-xl mb-2">Бухгалтерия</h4>
+
+            <p className="">сотрудников: {`${5}`}</p>
+          </li>
+          <li className="flex flex-col justify-center items-center rounded-md border border-zinc-50 shadow p-4 px-6 min-h-40 mr-5 flex-shrink-0">
+            <h4 className="text-xl mb-2">Тех надзор</h4>
+
+            <p className="">сотрудника: {`${3}`}</p>
+          </li>
+          <li className="flex flex-col justify-center items-center rounded-md border border-zinc-50 shadow p-4 px-6 min-h-40 mr-5 flex-shrink-0">
+            <h4 className="text-xl mb-2">Администрация</h4>
+
+            <p className="">сотрудников: {`${55}`}</p>
+          </li>
+        </ul>
+      </div>
 
       {modalState.isOpen ? (
         <Modal className="" onClose={closeModal}>
