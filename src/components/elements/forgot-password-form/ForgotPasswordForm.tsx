@@ -25,14 +25,18 @@ const ForgotPasswordForm: React.FC = () => {
 
   async function onSubmit(data: { email: string }) {
     try {
-      const response = await AuthService.forgotPassword(data);
-      console.log(response);
+      // COMMENT: Замокал отправку кода
+      console.log("Код отправлен на почту:", data);
+      router.push("/auth/reset-password");
 
-      if (response.status == 202) {
-        setUserEmail(data.email);
-        router.push("/auth/reset-password");
-        methods.reset();
-      }
+      // const response = await AuthService.forgotPassword(data);
+      // console.log(response);
+
+      // if (response.status == 202) {
+      //   setUserEmail(data.email);
+      //   router.push("/auth/reset-password");
+      //   methods.reset();
+      // }
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }
@@ -41,11 +45,12 @@ const ForgotPasswordForm: React.FC = () => {
   return (
     <>
       <button
-        className="flex text-gray-500 hover:text-blue-700 py-2 mb-4"
+        className="flex items-center text-gray-500 hover:text-c-blue py-2 mb-4"
         onClick={() => router.back()}
       >
         <CircleArrowLeft className="mr-1.5" />
-        Вернуться
+
+        <span className="text-sm">Вернуться</span>
       </button>
 
       <h3 className="text-2xl mb-4 text-center">Восстановить пароль</h3>
@@ -64,7 +69,9 @@ const ForgotPasswordForm: React.FC = () => {
             }}
           />
 
-          <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
+          <div className="flex justify-center">
+            <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
+          </div>
         </form>
       </FormProvider>
     </>

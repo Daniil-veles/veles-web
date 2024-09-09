@@ -1,142 +1,99 @@
 import Layout from "@/layouts/Layout";
-
 import Container from "@/components/container/Container";
 import LoginForm from "@/components/ui/login-form/LoginForm";
 import SignUpForm from "@/components/ui/sign-up-form/SignUpForm";
 import cn from "classnames";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Loading from "../loading/Loading";
-import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
 import ResetPasswordWrapper from "@/components/elements/reset-password-wrapper/ResetPasswordWrapper";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
 import Image from "next/image";
-
-const authRoutes = ["login", "sign-up", "forgot-password", "reset-password"];
-
-// {
-//   id: "intro",
-//   name: "intro",
-//   label: "Параметры входа",
-//   placeholder: "Выберите организацию",
-//   componentType: ComponentFormEnum.SELECT,
-//   options: [
-//     { label: "Личный кабинет", value: "user" },
-//     { label: "СК Велесъ", value: "5030100587" },
-//   ]
-// },
+import { AuthService } from "@/services/auth.service";
+import { deleteAccessToken, getAccessToken } from "@/utils/utils";
+import Link from "next/link";
+import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
+import { setAuthStatus } from "@/store/slices/userSlice";
 
 const AuthScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state.USER.isAuth);
-  console.log(authStatus);
-
   const router = useRouter();
   const { route } = router.query;
 
   useEffect(() => {
-    if (!route || !authRoutes.includes(route as string)) {
-      router.push("/auth/login");
-    }
-  }, [route, router]);
+    // deleteAccessToken();
+    const token = getAccessToken();
 
-  if (!route || !authRoutes.includes(route as string)) {
-    return <Loading />;
-  }
+    if (!token) {
+      return;
+    }
+
+    // const isAuth = AuthService.checkAuthStatus(token);
+
+    // Мокаем проверку авторизации
+    dispatch(setAuthStatus(AuthorizationStatus.Auth));
+  }, []);
+
+  // useEffect(() => {
+  //   if (router.isReady) {
+  //     if (!AuthRoutes.includes(route as string)) {
+  //       router.push("/404");
+  //     }
+  //   }
+  // }, [route, router.isReady, router]);
 
   return (
     <>
       <Layout title="Авторизация" description="Это главная страница сайта">
-        <Container className="">
-          <div className="w-full h-full flex items-center justify-center">
-            {authStatus === AuthorizationStatus.Auth ? (
-              <div className="mb-20">
-                <ScreenTitle
-                  className="text-2xl text-center mb-6"
-                  title="Войти"
-                />
+        <div className="w-full grow grid grid-cols-2 rounded-2xl bg-white overflow-hidden">
+          <div className="bg-c-blue flex flex-col justify-center p-20 px-10">
+            <h3 className="mb-8 text-3xl text-white">Главная страница</h3>
 
-                <ul className="flex flex-col gap-5">
-                  <li className="flex items-center min-w-[300px] p-4 px-8 bg-gray-200/30 hover:bg-gray-200/40 rounded-lg">
-                    <div className="relative w-10 h-10 mr-3">
-                      <Image
-                        src="/userIcon.webp"
-                        alt="Logo"
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-
-                    <div>
-                      <p>Суворов Даниил Сергеевич</p>
-                    </div>
-                  </li>
-                  
-
-                  <li className="flex items-center min-w-[300px]  p-4 px-8 bg-gray-200/30 hover:bg-gray-200/40 rounded-lg">
-                    <div className="relative w-10 h-10 mr-3">
-                      <Image
-                        src="/header-logo.png"
-                        alt="Logo"
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-
-                    <div>
-                      <p>СК ВЕЛЕСЪ</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <div className="mx-auto grid w-full max-w-[480px]">
-                {route === "login" || route === "sign-up" ? (
-                  <ul className="grid grid-cols-[40%_1fr] p-1 rounded-full border border-gray-200 mb-6">
-                    <li className="">
-                      <button
-                        className={cn(
-                          "block w-full py-3 px-4 rounded-full text-center",
-                          route === "login"
-                            ? "bg-gray-200/30 font-medium"
-                            : null
-                        )}
-                        onClick={() => router.push("/auth/login")}
-                      >
-                        Войти
-                      </button>
-                    </li>
-
-                    <li className="">
-                      <button
-                        className={cn(
-                          "block w-full py-3 px-4 rounded-full text-center",
-                          route === "sign-up"
-                            ? "bg-gray-200/30 font-medium"
-                            : null
-                        )}
-                        onClick={() => router.push("/auth/sign-up")}
-                      >
-                        Зарегистрироваться
-                      </button>
-                    </li>
-                  </ul>
-                ) : null}
-
-                {route === "login" ? (
-                  <LoginForm />
-                ) : route === "sign-up" ? (
-                  <SignUpForm />
-                ) : route === "forgot-password" ? (
-                  <ForgotPasswordForm />
-                ) : route == "reset-password" ? (
-                  <ResetPasswordWrapper />
-                ) : null}
-              </div>
-            )}
+            <img className="w-full h-3/4" src="/auth-logo.webp"></img>
           </div>
-        </Container>
+
+          <div className="w-2/3 h-full mx-auto flex text-sm flex-col justify-center">
+            {route === "login" || route === "sign-up" ? (
+              <ul className="grid grid-cols-[40%_1fr] p-1 rounded-full border border-c-gray mb-6 h-min">
+                <li className="">
+                  <button
+                    className={cn(
+                      "block w-full py-3 px-4 rounded-full text-center",
+                      route === "login" ? "bg-c-gray font-medium" : null
+                    )}
+                    onClick={() => router.push("/auth/login")}
+                  >
+                    Войти
+                  </button>
+                </li>
+
+                <li className="">
+                  <button
+                    className={cn(
+                      "block w-full py-3 px-4 rounded-full text-center",
+                      route === "sign-up" ? "bg-c-gray font-medium" : null
+                    )}
+                    onClick={() => router.push("/auth/sign-up")}
+                  >
+                    Зарегистрироваться
+                  </button>
+                </li>
+              </ul>
+            ) : null}
+
+            {route === "login" ? (
+              <LoginForm />
+            ) : route === "sign-up" ? (
+              <SignUpForm />
+            ) : route === "forgot-password" ? (
+              <ForgotPasswordForm />
+            ) : route == "reset-password" ? (
+              <ResetPasswordWrapper />
+            ) : null}
+          </div>
+        </div>
       </Layout>
     </>
   );

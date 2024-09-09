@@ -15,6 +15,7 @@ const ResetPasswordWrapper: React.FC = () => {
   async function handleSubmitKey(data: { key: string }) {
     console.log("Код отправлен:", data.key);
     try {
+      // COMMENT: Замокал ввод кода
       setIsTokenVerified(true);
       setTokenVerified(data.key);
     } catch (error) {
@@ -33,14 +34,15 @@ const ResetPasswordWrapper: React.FC = () => {
     };
 
     try {
-      // Пример сброса пароля
-      // const response = await AuthService.resetPassword(data);
-      // if (response.status === 200) {
-      //   router.push("/auth/success");
-      // }
+      // COMMENT: Замокал сброс пароля
       console.log("Пароль сброшен:", newData);
       router.push("/auth/login");
 
+      // Пример сброса пароля
+      // const response = await AuthService.resetPassword(data);
+      // if (response.status === 200) {
+      //   router.push("/auth/login");
+      // }
     } catch (error) {
       console.error("Ошибка при сбросе пароля:", error);
     }
@@ -49,7 +51,7 @@ const ResetPasswordWrapper: React.FC = () => {
   return (
     <>
       <button
-        className="flex text-gray-500 hover:text-blue-700 py-2 mb-4"
+        className="flex items-center text-gray-500 hover:text-c-blue py-2 mb-4"
         onClick={() => router.back()}
       >
         <CircleArrowLeft className="mr-1.5" />
@@ -57,7 +59,7 @@ const ResetPasswordWrapper: React.FC = () => {
       </button>
 
       <h3 className="text-2xl mb-4 text-center">Сбросить пароль</h3>
-      
+
       {!isTokenVerified ? (
         <ResetKeyForm onSubmit={handleSubmitKey} />
       ) : (

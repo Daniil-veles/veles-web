@@ -63,7 +63,9 @@ const ResetPasswordForm: React.FC<{
             }}
           />
 
-          <ButtonForm className="w-full h-min mt-6">Сбросить</ButtonForm>
+          <div className="flex justify-center">
+            <ButtonForm className="w-full h-min mt-6">Сбросить</ButtonForm>
+          </div>
         </div>
       </form>
     </FormProvider>

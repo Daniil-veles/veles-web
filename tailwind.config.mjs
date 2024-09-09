@@ -11,19 +11,14 @@ export default {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      colors: {
+        'c-light-blue': '#F4F9FD',
+        'c-blue': '#3F8CFF',
+        'c-gray': '#E6EDF5',
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
-      },
-      padding: {
-        // '100px': '100px',
       },
       animation: {
         slideIn: 'slideIn 0.3s ease forwards',

@@ -1,13 +1,22 @@
 import { FormProvider, useForm } from "react-hook-form";
 import FormField from "../form-field/FormField";
-import { loginFormFields, LoginFormValues, loginSchema } from "./utils";
+import {
+  adaptedUserData,
+  loginFormFields,
+  LoginFormValues,
+  loginSchema,
+} from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
 import Link from "next/link";
-import { AuthContext } from "@/provider/AuthContext";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
+import { useAppDispatch } from "@/hooks";
+import { AuthorizationStatus } from "@/types/state.interface";
+import { setAccessToken } from "@/utils/utils";
+import { AuthService } from "@/services/auth.service";
+import { ArrowRight, MoveRight } from "lucide-react";
 
 const LoginForm: React.FC = () => {
+  const dispatch = useAppDispatch();
   const methods = useForm({
     mode: "onChange",
     resolver: zodResolver(loginSchema),
@@ -17,18 +26,23 @@ const LoginForm: React.FC = () => {
     },
   });
 
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    console.error("AuthContext is not available");
-    return null;
-  }
-
-  const { login } = authContext; // Получаем метод login из контекста
-
   async function onSubmit(data: LoginFormValues) {
+    // const formattedUserData: IAdaptedUserLoginData = adaptedUserData(data);
+
     try {
-      await login(data);
+      // const response = await AuthService.login(formattedUserData);
+
+      // if (response.status === 200) {
+      //   const accessToken = response.data.access_token;
+
+      // Моковый токен
+      const accessToken = "123456";
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      setAccessToken(accessToken);
+
+      //   // Успешно выполненный вход
+      //   console.log("Login successful:", response);
+      // }
 
       methods.reset();
     } catch (error) {
@@ -38,7 +52,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <form className="mb-2" onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="grid gap-4">
           {loginFormFields
             ? loginFormFields.map((field) => (
@@ -48,16 +62,28 @@ const LoginForm: React.FC = () => {
               ))
             : null}
 
-          <ButtonForm className="w-full h-min">Войти</ButtonForm>
+          <div className="flex justify-between">
+            <span>
+              <input className="mr-2" type="checkbox" name="" id="" />
+              Remember
+            </span>
+
+            <Link
+              href={"/auth/forgot-password"}
+              className=" text-center text-gray-500 hover:text-blue-800 underline underline-offset-4 py-1"
+            >
+              Не помню пароль
+            </Link>
+          </div>
+
+          <div className="flex justify-center">
+            <ButtonForm className="flex items-center">
+              Войти
+              <MoveRight className="ml-2" size={16} />
+            </ButtonForm>
+          </div>
         </div>
       </form>
-
-      <Link
-        href={"/auth/forgot-password"}
-        className="w-full text-center text-gray-500 hover:text-blue-800 underline underline-offset-4 py-1"
-      >
-        Не помню пароль
-      </Link>
     </FormProvider>
   );
 };

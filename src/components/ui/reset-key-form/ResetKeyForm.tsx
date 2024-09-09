@@ -35,7 +35,9 @@ const ResetKeyForm: React.FC<{ onSubmit: (data: { key: string }) => void }> = ({
           }}
         />
 
-        <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
+        <div className="flex justify-center">
+          <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
+        </div>
       </form>
     </FormProvider>
   );

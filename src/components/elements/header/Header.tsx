@@ -15,8 +15,6 @@ import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
 import Loading from "@/screens/loading/Loading";
 
-// ds
-
 const Header: React.FC = () => {
   const router = useRouter();
   const [isAuthRoute, setIsAuthRoute] = useState(false);

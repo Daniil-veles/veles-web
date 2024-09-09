@@ -45,7 +45,7 @@ const SignUpForm: React.FC = () => {
         methods.reset({ phone: "+7" });
 
         // Перенаправялет на страницу Логин
-        router.push("/login");
+        router.push("/auth/login");
       }
     } catch (error) {
       console.error("Failed to create user:", error.response);
@@ -64,7 +64,9 @@ const SignUpForm: React.FC = () => {
               : null}
           </div>
 
-          <ButtonForm className="w-full h-min">Зарегистрироваться</ButtonForm>
+          <div className="flex justify-center">
+            <ButtonForm className="w-full h-min">Зарегистрироваться</ButtonForm>
+          </div>
 
           <small className="text-center text-gray-500">
             Нажимая «Зарегистрироваться», вы соглашаетесь с условиями обработки

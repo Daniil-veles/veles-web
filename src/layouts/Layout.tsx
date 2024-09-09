@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../components/elements/header/Header";
 import Head from "next/head";
 import { getMetaTitle } from "@/utils/utils";
 
@@ -28,12 +27,8 @@ const Layout: React.FC<ILayout> = ({ children, title, description = null }) => {
         )}
       </Head>
 
-      <div className="flex flex-col min-h-screen pt-[100px] pb-6">
-        <Header></Header>
-
-        <main className="flex flex-col flex-grow justify-center">
-          {children}
-        </main>
+      <div className="bg-c-light-blue flex flex-col h-screen p-5 pb-8">
+        <main className="h-full flex flex-col flex-grow">{children}</main>
       </div>
     </>
   );
