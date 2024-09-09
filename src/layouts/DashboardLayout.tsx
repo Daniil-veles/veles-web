@@ -1,5 +1,6 @@
 import UserMenu from "@/components/elements/user-meu/UserMenu";
 import Layout from "./Layout";
+import DashboardHeader from "@/components/elements/dashboard-header/DashboardHeader";
 
 interface IDashboardLayout {
   title: string;
@@ -18,10 +19,7 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
         <UserMenu />
 
         <div>
-          <div className="mb-5">
-            Header
-            <p>ffdfd</p>
-          </div>
+          <DashboardHeader />
 
           {children}
         </div>
