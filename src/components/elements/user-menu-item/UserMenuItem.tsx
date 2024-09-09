@@ -1,5 +1,7 @@
+import { useRouter } from "next/router";
 import { iconMap } from "@/const/const";
 import cn from "classnames";
+import Link from "next/link";
 
 interface UserListItem {
   id: number;
@@ -10,30 +12,36 @@ interface UserListItem {
 
 interface IUserMenuItemProps {
   item: UserListItem;
-  isActive: boolean;
-  onClick: () => void;
 }
 
-function UserMenuItem({
-  item,
-  isActive,
-  onClick,
-}: IUserMenuItemProps): JSX.Element {
-  const { iconName, text } = item;
+function UserMenuItem({ item }: IUserMenuItemProps): JSX.Element {
+  const router = useRouter();
+  const { iconName, text, link } = item;
+
+  const currentPath = router.pathname.split("/").pop();
+  const isActive = currentPath === link;
+
   const IconComponent = iconMap[iconName];
 
   return (
-    <li
-      onClick={onClick}
-      className={cn(
-        `flex items-center p-3 mb-4 cursor-pointer rounded-r-lg border-2 border-transparent transition-all duration-300`,
-        {
-          "bg-white border-l-blue-500 animate-slideIn": isActive,
-        }
-      )}
-    >
-      <IconComponent className="mr-2" size={24} />
-      {text}
+    <li className="relative pr-3">
+      <Link
+        className={cn(
+          `flex items-center p-2 py-3 font-medium cursor-pointer rounded-lg transition-all duration-300`,
+          {
+            "bg-c-blue/10 text-c-blue": isActive,
+            "text-c-dark-gray": !isActive,
+          }
+        )}
+        href={`/${link}`}
+      >
+        {isActive && (
+          <span className="absolute w-1 h-full top-0 right-0 bg-c-blue rounded-sm"></span>
+        )}
+
+        <IconComponent className="mr-2" size={24} />
+        {text}
+      </Link>
     </li>
   );
 }

@@ -5,7 +5,7 @@ const initialState: AuthSliceState = {
     isAuth: AuthorizationStatus.Auth
 };
 const userSlice = createSlice({
-    name: 'user',
+    name: 'auth',
     initialState,
     reducers: {
         setAuthStatus(state, action: PayloadAction<AuthorizationStatus>) {

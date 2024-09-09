@@ -10,10 +10,8 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const router = useRouter();
-  // const authStatus = useAppSelector((state) => state.USER.isAuth);
+  const authStatus = useAppSelector((state) => state.AUTH.isAuth);
   
-  const authStatus = AuthorizationStatus.Auth;
-
   useEffect(() => {
     if (authStatus !== AuthorizationStatus.Auth) {
       router.push("/auth/login"); // Перенаправление на страницу входа, если пользователь не авторизован

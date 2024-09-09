@@ -17,20 +17,11 @@ export default {
         'c-blue': '#3F8CFF',
         'c-blue-darker': '#2B5BCC',
         'c-gray': '#E6EDF5',
+        'c-dark-gray': '#7D8592',
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
-      animation: {
-        slideIn: 'slideIn 0.3s ease forwards',
-      },
-      keyframes: {
-        slideIn: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(10px)' },
-        },
-      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
 }
