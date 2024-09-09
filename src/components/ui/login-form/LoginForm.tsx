@@ -14,10 +14,13 @@ import { AuthorizationStatus } from "@/types/state.interface";
 import { setAccessToken } from "@/utils/utils";
 import { AuthService } from "@/services/auth.service";
 import { MoveRight } from "lucide-react";
-import { setAuthStatus } from "@/store/slices/userSlice";
+import { useState } from "react";
+import { setAuthStatus } from "@/store/slices/authSlice";
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [rememberMe, setRememberMe] = useState(false);
+
   const methods = useForm({
     mode: "onChange",
     resolver: zodResolver(loginSchema),
@@ -39,7 +42,9 @@ const LoginForm: React.FC = () => {
       // Моковый токен
       const accessToken = "123456";
       dispatch(setAuthStatus(AuthorizationStatus.Auth));
-      setAccessToken(accessToken);
+
+      // Cохраняет токен в зависимости от состояния rememberMe в local или session
+      setAccessToken(accessToken, rememberMe);
 
       //   // Успешно выполненный вход
       //   console.log("Login successful:", response);
@@ -65,7 +70,12 @@ const LoginForm: React.FC = () => {
 
           <div className="flex justify-between">
             <span>
-              <input className="mr-2" type="checkbox" name="" id="" />
+              <input
+                className="mr-2"
+                type="checkbox"
+                onChange={(e) => setRememberMe(e.target.checked)}
+                checked={rememberMe}
+              />
               Remember
             </span>
 

@@ -5,6 +5,7 @@ import userReducer from "./slices/userSlice";
 const store = configureStore({
     reducer: {
         [NameSpace.User]: userReducer,
+        [NameSpace.Auth]: userReducer,
         //
     },
     devTools: process.env.IS_DEV !== 'production',

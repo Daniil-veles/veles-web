@@ -9,7 +9,7 @@ import { AdaptedUserLoginData } from "@/components/ui/login-form/LoginForm.inter
 import { AuthService } from "@/services/auth.service";
 import { deleteAccessToken, setAccessToken } from "@/utils/utils";
 import { useAppDispatch } from "@/hooks";
-import { setAuthStatus } from "@/store/slices/userSlice";
+import { setAuthStatus } from "@/store/slices/authSlice";
 import { AuthorizationStatus } from "@/types/state.interface";
 
 interface IAuthContextProps {

@@ -10,14 +10,13 @@ const ResetPasswordWrapper: React.FC = () => {
   const [isTokenVerified, setIsTokenVerified] = useState(false);
   const router = useRouter();
 
-  const userEmail = getUserEmail();
-
   async function handleSubmitKey(data: { key: string }) {
-    console.log("Код отправлен:", data.key);
     try {
       // COMMENT: Замокал ввод кода
       setIsTokenVerified(true);
       setTokenVerified(data.key);
+      
+      console.log("Код отправлен:", data.key);
     } catch (error) {
       console.error("Ошибка при проверке кода:", error);
     }
@@ -27,6 +26,8 @@ const ResetPasswordWrapper: React.FC = () => {
     password: string;
     confirmPassword: string;
   }) {
+    const userEmail = getUserEmail();
+
     const newData = {
       email: userEmail,
       token: tokenVerified,

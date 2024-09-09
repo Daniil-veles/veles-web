@@ -57,6 +57,20 @@ export const AuthService = {
         }
     },
 
+    // TODO: Дописать метод
+    // async resetPassword(data: {
+    //     email: string,
+    //     token: string,
+    //     password: string
+    // }) {
+    //     try {
+    //         const response = await apiClient.post(`/auth/reset-password`, data);
+    //         return response;
+    //     } catch (error) {
+    //         console.error('Error forgot-password:', error.message);
+    //         throw error;
+    //     }
+    // },
 
     async checkAuthStatus() {
         try {

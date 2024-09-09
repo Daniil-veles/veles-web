@@ -3,10 +3,23 @@ import { AdaptedUserFormDataToServer, AdaptToUserData, UserDataFromServer, UserF
 // Формирует метатег названия страницы
 export const getMetaTitle = (title: string) => `${title} | Велесъ`;
 
+
 // Работа с токеном
-export const setAccessToken = (token: string) => localStorage.setItem('accessToken', token);
-export const getAccessToken = () => localStorage.getItem('accessToken');
-export const deleteAccessToken = () => localStorage.removeItem('accessToken');
+export const setAccessToken = (token: string, rememberMe: boolean = false) => {
+  if (rememberMe) {
+    localStorage.setItem('accessToken', token);
+  } else {
+    sessionStorage.setItem('accessToken', token); 
+  }
+};
+export const getAccessToken = () => {
+  return localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+};
+export const deleteAccessToken = () => {
+  localStorage.removeItem('accessToken');
+  sessionStorage.removeItem('accessToken');
+};
+
 
 // Сброс пароля по почте
 export const setUserEmail = (email: string) => localStorage.setItem('userResetEmail', email);
@@ -30,6 +43,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
 
   return adaptedData;
 }
+
 
 // Преобразование данных: данные с сервера => данные в приложении
 export function adaptToUserData(data: UserDataFromServer): AdaptToUserData {

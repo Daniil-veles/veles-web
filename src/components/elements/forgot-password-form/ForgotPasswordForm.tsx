@@ -34,8 +34,8 @@ const ForgotPasswordForm: React.FC = () => {
 
       // if (response.status == 202) {
       //   setUserEmail(data.email);
-      //   router.push("/auth/reset-password");
       //   methods.reset();
+      //   router.push("/auth/reset-password");
       // }
     } catch (error) {
       console.error("Failed to create user:", error.response);

@@ -10,7 +10,8 @@ import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
 import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
-import { setAuthStatus } from "@/store/slices/userSlice";
+import { setAuthStatus } from "@/store/slices/authSlice";
+import { getAccessToken } from "@/utils/utils";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,9 @@ const AuthScreen: React.FC = () => {
   const { route } = router.query;
 
   useEffect(() => {
+    const token = getAccessToken();
+    console.log("Токен авторизации:", token);
+
     // const isAuth = AuthService.checkAuthStatus(token);
 
     // Мокаем проверку авторизации
@@ -30,7 +34,6 @@ const AuthScreen: React.FC = () => {
 
   }, [dispatch]);
 
-  console.log("Статус авторизации:", authStatus);
 
   // Перенаправляет пользователя если он авторизован
   // useEffect(() => {
