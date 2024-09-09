@@ -1,17 +1,16 @@
 import apiClient from '@/api/api';
 import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
-import { AdaptedUserFormData } from '@/types/user.interface';
+import { AdaptedUserFormDataToServer } from '@/types/user.interface';
 import qs from 'qs';
 
 
 export const AuthService = {
-    async registration(userData: AdaptedUserFormData) {
+    async registration(userData: AdaptedUserFormDataToServer) {
         try {
             const response = await apiClient.post('/auth/register', userData);
-
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error auth user:', error.message);
             throw error;
         }
     },
@@ -31,42 +30,31 @@ export const AuthService = {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error login:', error.message);
             throw error;
         }
     },
 
     async logout() {
         try {
-            const response = await apiClient.post(`/auth/jwt/logout`, null, {
-                headers: {
-                    'Accept': 'application/json',
-                },
-            });
-
+            const response = await apiClient.post(`/auth/jwt/logout`, null);
             return response;
         } catch (error) {
-            console.error('Error creating user:', error.message);
+            console.error('Error logout:', error.message);
             throw error;
         }
     },
 
-    // TODO Переделать
-    // async checkAuth() {
-    //     try {
-    //         const response = await apiClient.post(`/auth/jwt/login`, urlEncodedData, {
-    //             headers: {
-    //                 'Content-Type': 'application/x-www-form-urlencoded'
-    //             }
-    //         });
+    async forgotPassword(data: { email: string }) {
+        try {
+            const response = await apiClient.post(`/auth/forgot-password`, data);
 
-    //         return response;
-    //     } catch (error) {
-    //         console.error('Error creating user:', error.message);
-    //         throw error;
-    //     }
-    // }
+            return response;
+        } catch (error) {
+            console.error('Error forgot-password:', error.message);
+            throw error;
+        }
+    },
 }

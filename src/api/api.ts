@@ -29,7 +29,9 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
 
             if (status === 401) {
                 // Переадресация на логин
-                window.location.href = '/login';
+                if (window.location.pathname !== '/auth/login') {
+                    window.location.href = '/auth/login';
+                }
 
                 console.log('Unauthorized - please log in again.');
                 // Здесь можно добавить логику для обновления токена или уведомления пользователя

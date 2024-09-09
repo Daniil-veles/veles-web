@@ -1,14 +1,11 @@
-// import './404.scss';
-
-import Image from "next/image";
+import Link from "next/link";
 
 function NotFound(): JSX.Element {
   return (
-    <div className="bg-sky-700">
-      {/* Страница 404 */}
-      <div className="d-flex justify-center ">
-        <Image priority src='http://localhost:3000/404.png' width={400} height={400} alt="Изображение" />
-        <img className='w-100' width={400} height={400} src="./404.png" alt="" />
+    <div className="bg-gray-200 flex justify-center items-center min-h-screen">
+      <div className='flex flex-col items-center'>
+        <h1 className="text-[100px] text-black mb-2">404</h1>
+        <Link className="text-xl underline text-blue-800" href={"/"}>На главную</Link>
       </div>
     </div>
   );

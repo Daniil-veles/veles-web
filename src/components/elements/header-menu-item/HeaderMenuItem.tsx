@@ -1,5 +1,10 @@
-import { HeaderMenu } from "@/types/types.interface";
 import Link from "next/link";
+
+interface HeaderMenu {
+  id: number,
+  text: string,
+  link: string,
+}
 
 interface HeaderMenuItemProps {
   value: HeaderMenu;

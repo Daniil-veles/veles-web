@@ -25,10 +25,15 @@ export default {
       padding: {
         // '100px': '100px',
       },
-      // colors: {
-      //   ...bgColors,
-      //   ...textColors,
-      // }
+      animation: {
+        slideIn: 'slideIn 0.3s ease forwards',
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(10px)' },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

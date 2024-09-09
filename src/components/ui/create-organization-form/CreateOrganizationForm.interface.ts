@@ -2,7 +2,7 @@ import { z } from "zod";
 import { additionalFields, baseSchema, createFormValidation } from "./utils";
 
 // Создайте перечисление для типов организаций
-export enum OrganizationTypeEnum {
+export const enum OrganizationTypeEnum {
     ООО = "ООО",
     АО = "АО",
     ТНВ = "ТНВ",

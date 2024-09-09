@@ -12,7 +12,7 @@ const initialState: UserInfo = {
     isSuperuser: false,
     isVerified: false,
     picture: '',
-    isAuth: AuthorizationStatus.Unknown
+    isAuth: AuthorizationStatus.Auth
 };
 const userSlice = createSlice({
     name: 'user',
@@ -30,5 +30,5 @@ const userSlice = createSlice({
     }
 });
 
-export const { setUserInfo, clearUserInfo } = userSlice.actions;
+export const { setUserInfo, clearUserInfo, setAuthStatus } = userSlice.actions;
 export default userSlice.reducer;

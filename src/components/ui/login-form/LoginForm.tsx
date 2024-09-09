@@ -1,10 +1,11 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { Button } from "../button";
 import FormField from "../form-field/FormField";
 import { loginFormFields, LoginFormValues, loginSchema } from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
-import { AuthContext } from "@/hoc/AuthContext";
+import Link from "next/link";
+import { AuthContext } from "@/provider/AuthContext";
+import ButtonForm from "../custom-button/button-form/ButtonForm";
 
 const LoginForm: React.FC = () => {
   const methods = useForm({
@@ -37,7 +38,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form className="mb-2" onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="grid gap-4">
           {loginFormFields
             ? loginFormFields.map((field) => (
@@ -47,18 +48,16 @@ const LoginForm: React.FC = () => {
               ))
             : null}
 
-          <Button
-            type="submit"
-            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
-          >
-            Войти
-          </Button>
-
-          <p className="text-center text-gray-500 underline underline-offset-4">
-            Не помню пароль
-          </p>
+          <ButtonForm className="w-full h-min">Войти</ButtonForm>
         </div>
       </form>
+
+      <Link
+        href={"/auth/forgot-password"}
+        className="w-full text-center text-gray-500 hover:text-blue-800 underline underline-offset-4 py-1"
+      >
+        Не помню пароль
+      </Link>
     </FormProvider>
   );
 };

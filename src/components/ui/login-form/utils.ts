@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { UserLoginData } from "./LoginForm.interface";
-import { ComponentFormEnum, IFormField } from "@/types/types.interface";
+import { ComponentFormEnum, IFormField } from "@/types/form.interface";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Неверный формат email адреса." }),

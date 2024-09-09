@@ -1,15 +1,15 @@
-import { AuthContext } from "@/hoc/AuthContext";
+import { AuthContext } from "@/provider/AuthContext";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 
-const LogOut: React.FC = () => {
+const LogOutPage: React.FC = () => {
   const router = useRouter();
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
     if (!authContext) {
       console.error("AuthContext is not available");
-      router.push("/login");
+      router.push("/auth/login");
       return;
     }
 
@@ -18,9 +18,13 @@ const LogOut: React.FC = () => {
     async function handleLogout() {
       try {
         await logout();
+        console.log("Выход совершен");
       } catch (error) {
-        console.error("Ошибка при выходе:", error.message);
-        router.push("/login");
+        console.error(
+          "Failed to logout:",
+          error.response?.data || error.message
+        );
+        router.push("/auth/login");
       }
     }
 
@@ -30,4 +34,4 @@ const LogOut: React.FC = () => {
   return null;
 };
 
-export default LogOut;
+export default LogOutPage;

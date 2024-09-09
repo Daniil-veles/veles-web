@@ -1,11 +1,11 @@
 import { FormProvider, useForm } from "react-hook-form";
 import FormField from "../form-field/FormField";
-import { Button } from "../button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpFormFields, SignUpFormValues, signUpSchema } from "./utils";
 import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth.service";
-import { adaptUserFormData } from "@/utils/utils";
+import { adaptToServerUserFormData } from "@/utils/utils";
+import ButtonForm from "../custom-button/button-form/ButtonForm";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
@@ -29,11 +29,14 @@ const SignUpForm: React.FC = () => {
       fullName: "",
     };
 
-    const formattedUserData = adaptUserFormData(userData);
+    const formattedUserData = adaptToServerUserFormData(userData);
     // console.log(formattedUserData);
 
     try {
-      const response = await AuthService.registration(formattedUserData);
+      console.log(userData);
+
+      // const response = await AuthService.registration(formattedUserData);
+      // console.log(response);
 
       if (response.status === 201) {
         console.log("User created successfully:", response.data);
@@ -61,14 +64,9 @@ const SignUpForm: React.FC = () => {
               : null}
           </div>
 
-          <Button
-            type="submit"
-            className="w-full h-min text-base py-4 bg-blue-500 text-white rounded-full font-normal mt-3"
-          >
-            Зарегистрироваться
-          </Button>
+          <ButtonForm className="w-full h-min">Зарегистрироваться</ButtonForm>
 
-          <small className="text-center text-gray-600">
+          <small className="text-center text-gray-500">
             Нажимая «Зарегистрироваться», вы соглашаетесь с условиями обработки
             персональных данных
           </small>
