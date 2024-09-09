@@ -15,6 +15,7 @@ export default {
       colors: {
         'c-light-blue': '#F4F9FD',
         'c-blue': '#3F8CFF',
+        'c-blue-darker': '#2B5BCC',
         'c-gray': '#E6EDF5',
       },
       fontFamily: {
