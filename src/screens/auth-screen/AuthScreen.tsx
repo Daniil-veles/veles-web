@@ -56,7 +56,7 @@ const AuthScreen: React.FC = () => {
             <img className="w-full h-3/4" src="/auth-logo.webp" />
           </div>
 
-          <div className="w-2/3 h-full mx-auto flex text-sm flex-col justify-center">
+          <div className="w-2/3 h-full mx-auto flex flex-col justify-center">
             {route === "login" || route === "sign-up" ? (
               <ul className="grid grid-cols-[40%_1fr] p-1 rounded-full border border-c-gray mb-6 h-min">
                 <li className="">

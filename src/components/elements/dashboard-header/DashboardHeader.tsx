@@ -1,6 +1,7 @@
 import FormField from "@/components/ui/form-field/FormField";
 import { ComponentFormEnum } from "@/types/form.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Bell } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -28,19 +29,20 @@ const DashboardHeader: React.FC = () => {
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <FormField
             value={{
-              id: "email",
-              name: "email",
-              placeholder: "m@example.com",
-              type: "email",
+              id: "search",
+              name: "search",
+              placeholder: "...",
+              type: "text",
               componentType: ComponentFormEnum.INPUT,
-              required: true,
             }}
           />
         </form>
       </FormProvider>
 
-      <div>
-        <p>Напоминалка</p>
+      <div className="flex items-center">
+        <div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl mr-6">
+          <Bell />
+        </div>
         <p>Аккаунт</p>
       </div>
     </div>
