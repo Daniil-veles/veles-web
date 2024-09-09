@@ -50,11 +50,21 @@ export const AuthService = {
     async forgotPassword(data: { email: string }) {
         try {
             const response = await apiClient.post(`/auth/forgot-password`, data);
-
             return response;
         } catch (error) {
             console.error('Error forgot-password:', error.message);
             throw error;
         }
     },
+
+
+    async checkAuthStatus() {
+        try {
+            const response = await apiClient.post(`/user/me`);
+            return response;
+        } catch (error) {
+            console.error('Error check auth:', error.message);
+            throw error;
+        }
+    }
 }

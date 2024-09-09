@@ -1,4 +1,5 @@
 
+import { BirthDate, LettersOnlyRegex, PasswordRegex, PhoneRegex } from "@/const/const";
 import { ComponentFormEnum, IFormField } from "@/types/form.interface";
 import { z } from "zod";
 
@@ -7,14 +8,21 @@ export const signUpSchema = z.object({
     password: z
         .string()
         .length(8, { message: "Пароль должен быть 8 символов." })
-        .regex(/^(?=.*[a-z])(?=.*[0-9]).+$/i, {
+        .regex(PasswordRegex, {
             message: "Пароль должен содержать как минимум одну цифру и одну букву.",
         }),
-    firstName: z.string().min(2, { message: "Имя обязательное." }),
-    lastName: z.string().min(2, { message: "Фамилия обязательное." }),
+    firstName: z.string().min(2, { message: "Имя обязательное." }).refine(value => LettersOnlyRegex.test(value), {
+        message: "Имя должно содержать только буквы.",
+    }),
+    lastName: z.string().min(2, { message: "Фамилия обязательное." }).refine(value => LettersOnlyRegex.test(value), {
+        message: "Имя должно содержать только буквы.",
+    }),
     phone: z
-        .string(),
-    birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
+        .string()
+        .refine((value) => PhoneRegex.test(value), {
+            message: 'Номер телефона должен содержать ровно 11 цифр',
+        }),
+    birthDate: z.string().regex(BirthDate, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
 });
 
 
@@ -24,7 +32,7 @@ export const signUpFormFields: IFormField[] = [
         name: 'firstName',
         label: 'Имя',
         placeholder: 'Павел',
-        type: 'text', 
+        type: 'text',
         componentType: ComponentFormEnum.INPUT,
         required: true,
     },
@@ -34,7 +42,7 @@ export const signUpFormFields: IFormField[] = [
         label: 'Фамилия',
         placeholder: 'Петров',
         type: 'text',
-        componentType: ComponentFormEnum.INPUT, 
+        componentType: ComponentFormEnum.INPUT,
         required: true,
     },
     {
@@ -43,7 +51,7 @@ export const signUpFormFields: IFormField[] = [
         label: 'Email',
         placeholder: 'm@example.com',
         type: 'email',
-        componentType: ComponentFormEnum.INPUT, 
+        componentType: ComponentFormEnum.INPUT,
         required: true,
     },
     {
@@ -51,7 +59,7 @@ export const signUpFormFields: IFormField[] = [
         name: 'password',
         label: 'Password',
         placeholder: '*****',
-        type: 'password', 
+        type: 'password',
         componentType: ComponentFormEnum.INPUT,
         required: true,
     },
@@ -60,10 +68,10 @@ export const signUpFormFields: IFormField[] = [
         name: 'phone',
         label: 'Телефон',
         placeholder: '+7 (123) 456 78 90',
-        componentType: ComponentFormEnum.PHONE, 
+        componentType: ComponentFormEnum.PHONE,
         required: true,
         country: "ru",
-        onlyCountries: ["ru", "by"], 
+        onlyCountries: ["ru", "by"],
     },
     {
         id: 'date',

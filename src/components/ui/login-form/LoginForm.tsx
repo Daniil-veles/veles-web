@@ -13,7 +13,8 @@ import { useAppDispatch } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import { setAccessToken } from "@/utils/utils";
 import { AuthService } from "@/services/auth.service";
-import { ArrowRight, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
+import { setAuthStatus } from "@/store/slices/userSlice";
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();

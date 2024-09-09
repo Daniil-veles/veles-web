@@ -1,5 +1,4 @@
 import Layout from "@/layouts/Layout";
-import Container from "@/components/container/Container";
 import LoginForm from "@/components/ui/login-form/LoginForm";
 import SignUpForm from "@/components/ui/sign-up-form/SignUpForm";
 import cn from "classnames";
@@ -8,11 +7,8 @@ import { useEffect } from "react";
 import ResetPasswordWrapper from "@/components/elements/reset-password-wrapper/ResetPasswordWrapper";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
-import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
 import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
-import { deleteAccessToken, getAccessToken } from "@/utils/utils";
-import Link from "next/link";
 import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
 import { setAuthStatus } from "@/store/slices/userSlice";
 
@@ -23,35 +19,38 @@ const AuthScreen: React.FC = () => {
   const { route } = router.query;
 
   useEffect(() => {
-    // deleteAccessToken();
-    const token = getAccessToken();
-
-    if (!token) {
-      return;
-    }
-
     // const isAuth = AuthService.checkAuthStatus(token);
 
     // Мокаем проверку авторизации
-    dispatch(setAuthStatus(AuthorizationStatus.Auth));
-  }, []);
+    const isAuth = false;
 
+    if (isAuth) {
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    }
+
+  }, [dispatch]);
+
+  console.log("Статус авторизации:", authStatus);
+
+  // Перенаправляет пользователя если он авторизован
   // useEffect(() => {
-  //   if (router.isReady) {
-  //     if (!AuthRoutes.includes(route as string)) {
-  //       router.push("/404");
-  //     }
+  //   if (authStatus === AuthorizationStatus.Auth) {
+  //       router.push("/dasboard");
   //   }
-  // }, [route, router.isReady, router]);
+  // }, [authStatus, router]);
 
   return (
     <>
       <Layout title="Авторизация" description="Это главная страница сайта">
         <div className="w-full grow grid grid-cols-2 rounded-2xl bg-white overflow-hidden">
           <div className="bg-c-blue flex flex-col justify-center p-20 px-10">
-            <h3 className="mb-8 text-3xl text-white">Главная страница</h3>
+            <div className="flex mb-8">
+              <img className="bg-white mr-3 w-10 h-10" src="/header-logo.png" />
 
-            <img className="w-full h-3/4" src="/auth-logo.webp"></img>
+              <h3 className="text-3xl text-white">Главная страница</h3>
+            </div>
+
+            <img className="w-full h-3/4" src="/auth-logo.webp" />
           </div>
 
           <div className="w-2/3 h-full mx-auto flex text-sm flex-col justify-center">
@@ -83,15 +82,10 @@ const AuthScreen: React.FC = () => {
               </ul>
             ) : null}
 
-            {route === "login" ? (
-              <LoginForm />
-            ) : route === "sign-up" ? (
-              <SignUpForm />
-            ) : route === "forgot-password" ? (
-              <ForgotPasswordForm />
-            ) : route == "reset-password" ? (
-              <ResetPasswordWrapper />
-            ) : null}
+            {route === "login" && <LoginForm />}
+            {route === "sign-up" && <SignUpForm />}
+            {route === "forgot-password" && <ForgotPasswordForm />}
+            {route === "reset-password" && <ResetPasswordWrapper />}
           </div>
         </div>
       </Layout>
