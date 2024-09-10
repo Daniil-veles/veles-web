@@ -15,13 +15,13 @@ import { getAccessToken } from "@/utils/utils";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.USER.isAuth);
+  const authStatus = useAppSelector((state) => state.AUTH.isAuth);
   const router = useRouter();
   const { route } = router.query;
 
   useEffect(() => {
     const token = getAccessToken();
-    console.log("Токен авторизации:", token);
+    // console.log("Токен авторизации:", token);
 
     // const isAuth = AuthService.checkAuthStatus(token);
 

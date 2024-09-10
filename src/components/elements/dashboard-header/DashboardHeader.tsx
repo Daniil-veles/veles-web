@@ -1,4 +1,6 @@
+import CustomSearchField from "@/components/ui/custom-fields/custom-search-field/CustomSearchField";
 import FormField from "@/components/ui/form-field/FormField";
+import { Input } from "@/components/ui/input";
 import { ComponentFormEnum } from "@/types/form.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Bell } from "lucide-react";
@@ -32,8 +34,9 @@ const DashboardHeader: React.FC = () => {
               id: "search",
               name: "search",
               placeholder: "...",
-              type: "text",
+              type: "search",
               componentType: ComponentFormEnum.INPUT,
+              className: "",
             }}
           />
         </form>

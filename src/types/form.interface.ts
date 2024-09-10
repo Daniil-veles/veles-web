@@ -14,6 +14,7 @@ interface IBaseFormField {
     required?: boolean;
     validation?: RegisterOptions;
     defaultValue?: string;
+    className?: string;
 }
 
 interface IInputFormField extends IBaseFormField {

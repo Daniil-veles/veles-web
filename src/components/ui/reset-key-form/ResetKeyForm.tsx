@@ -32,6 +32,7 @@ const ResetKeyForm: React.FC<{ onSubmit: (data: { key: string }) => void }> = ({
             type: "text",
             componentType: ComponentFormEnum.INPUT,
             required: true,
+             className: ''
           }}
         />
 

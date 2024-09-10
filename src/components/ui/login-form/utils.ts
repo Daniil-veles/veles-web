@@ -27,6 +27,7 @@ export const loginFormFields: IFormField[] = [
     type: 'email',
     componentType: ComponentFormEnum.INPUT,
     required: true,
+    className: ''
   },
   {
     id: 'password',
@@ -36,6 +37,7 @@ export const loginFormFields: IFormField[] = [
     type: 'password',
     componentType: ComponentFormEnum.INPUT,
     required: true,
+    className: ''
   },
 ];
 

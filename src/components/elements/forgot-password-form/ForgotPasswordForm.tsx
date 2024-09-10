@@ -66,6 +66,7 @@ const ForgotPasswordForm: React.FC = () => {
               type: "email",
               componentType: ComponentFormEnum.INPUT,
               required: true,
+              className: ''
             }}
           />
 

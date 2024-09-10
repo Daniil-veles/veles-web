@@ -48,6 +48,7 @@ const ResetPasswordForm: React.FC<{
               type: "password",
               componentType: ComponentFormEnum.INPUT,
               required: true,
+              className: "",
             }}
           />
 
@@ -60,6 +61,7 @@ const ResetPasswordForm: React.FC<{
               type: "password",
               componentType: ComponentFormEnum.INPUT,
               required: true,
+              className: "",
             }}
           />
 

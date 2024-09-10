@@ -16,9 +16,11 @@ import { AuthService } from "@/services/auth.service";
 import { MoveRight } from "lucide-react";
 import { useState } from "react";
 import { setAuthStatus } from "@/store/slices/authSlice";
+import { useRouter } from "next/router";
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [rememberMe, setRememberMe] = useState(false);
 
   const methods = useForm({
@@ -46,6 +48,7 @@ const LoginForm: React.FC = () => {
       // Cохраняет токен в зависимости от состояния rememberMe в local или session
       setAccessToken(accessToken, rememberMe);
 
+      router.push("/profile");
       //   // Успешно выполненный вход
       //   console.log("Login successful:", response);
       // }

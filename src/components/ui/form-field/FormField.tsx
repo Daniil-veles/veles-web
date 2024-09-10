@@ -1,17 +1,12 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { FormItem, FormLabel, FormMessage } from "../form";
-import { Eye, EyeOff } from "lucide-react";
 import { Input } from "../input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../select";
-import CustomPhoneInput from "../custom-phone-input/CustomPhoneInput";
-import React, { useState } from "react";
+import React from "react";
 import { ComponentFormEnum, IFormField } from "@/types/form.interface";
+import CustomPasswordField from "../custom-fields/custom-password-field/CustomPasswordField";
+import CustomSelectField from "../custom-fields/custom-select-field/CustomSelectField";
+import CustomPhoneField from "../custom-fields/custom-phone-field/CustomPhoneField";
+import CustomSearchField from "../custom-fields/custom-search-field/CustomSearchField";
 
 interface IFormFieldProps {
   value: IFormField;
@@ -22,77 +17,71 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
   value,
   onValueChange,
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
   const { control } = useFormContext();
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   const renderComponent = (field: any, error: boolean) => {
-    const errorClass = error ? "border-red-500" : "border-gray-300"; // Класс ошибки или нормальный класс
+    const errorClass = error ? "border-red-500" : "border-gray-300";
 
     switch (value.componentType) {
       case ComponentFormEnum.INPUT:
-        return (
-          <div className="relative">
-            <Input
-              id={value.id}
-              name={value.name}
-              type={showPassword ? 'text' : value.type }
-              placeholder={value.placeholder}
-              required={value.required}
-              value={field.value || ""}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              className={errorClass}
-            />
-
-            {value.type === "password" && (
-              <button
-                type="button"
-                onClick={handleTogglePassword}
-                className="absolute inset-y-0 right-3 flex items-center"
-              >
-                {showPassword ? (
-                  <EyeOff size={24} className="text-gray-500" />
-                ) : (
-                  <Eye size={24}  className=" text-gray-500" />
-                )}
-              </button>
-            )}
-          </div>
+        return value.type === "password" ? (
+          <CustomPasswordField
+            id={value.id}
+            name={value.name}
+            placeholder={value.placeholder || ""}
+            required={value.required || false}
+            value={field.value || ""}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            errorClass={errorClass}
+            className={`${value.className}` || ""}
+          />
+        ) : value.type === "search" ? (
+          <CustomSearchField
+            id={value.id}
+            name={value.name}
+            type={value.type}
+            placeholder={value.placeholder || ""}
+            required={value.required || false}
+            value={field.value || ""}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            errorClass={errorClass}
+            className={`${value.className}` || ""}
+          />
+        ) : (
+          <Input
+            id={value.id}
+            name={value.name}
+            type={value.type}
+            placeholder={value.placeholder}
+            required={value.required}
+            value={field.value || ""}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            errorClass={errorClass}
+            className={`${value.className}` || ""}
+          />
         );
       case ComponentFormEnum.SELECT:
         return (
-          <Select
+          <CustomSelectField
+            id={value.id}
+            name={value.name}
             value={field.value || ""}
-            defaultValue={field.defaultValue}
-            onValueChange={(value) => {
-              field.onChange(value);
-              if (onValueChange) onValueChange(value);
+            placeholder={value.placeholder || ""}
+            options={value.options || []}
+            required={value.required || false}
+            errorClass={errorClass}
+            onValueChange={(val) => {
+              field.onChange(val);
+              if (onValueChange) onValueChange(val);
             }}
-            required={value.required}
-          >
-            <SelectTrigger
-              className={`bg-white h-12 rounded-md text-md font-medium ${errorClass}`}
-              id={value.id}
-              name={value.name}
-            >
-              <SelectValue placeholder={value.placeholder} />
-            </SelectTrigger>
-            <SelectContent className="bg-white">
-              {value.options?.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          />
         );
       case ComponentFormEnum.PHONE:
         return (
-          <CustomPhoneInput
+          <CustomPhoneField
             {...field}
             value={field.value}
             onChange={field.onChange}
@@ -101,6 +90,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
             required={value.required ?? false}
             placeholder={value.placeholder ?? ""}
             className={errorClass}
+            inputClassName={value.className}
           />
         );
       default:

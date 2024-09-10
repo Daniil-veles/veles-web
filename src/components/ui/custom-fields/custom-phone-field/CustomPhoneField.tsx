@@ -1,10 +1,8 @@
-// import './CustomPhoneInput.scss';
 import React from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-// Оставляем только свойства, поддерживаемые PhoneInput, и добавляем дополнительные свойства
-interface CustomPhoneInputProps {
+interface ICustomPhoneFieldProps {
   country: string;
   onlyCountries: string[];
   placeholder?: string;
@@ -16,18 +14,20 @@ interface CustomPhoneInputProps {
     event: React.ChangeEvent<HTMLInputElement>,
     formattedValue: string
   ) => void;
+  inputClassName?: string;
 }
 
-const CustomPhoneInput: React.ForwardRefRenderFunction<
+const CustomPhoneField: React.ForwardRefRenderFunction<
   HTMLInputElement,
-  CustomPhoneInputProps
+  ICustomPhoneFieldProps
 > = (
-  { country, onlyCountries, placeholder, required, value, onChange },
+  { country, onlyCountries, placeholder, required, value, onChange, inputClassName },
   ref
 ) => {
   return (
     <div className="w-full">
       <PhoneInput
+        inputClass={`bg-red-500 ${inputClassName}`}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
@@ -40,4 +40,4 @@ const CustomPhoneInput: React.ForwardRefRenderFunction<
   );
 };
 
-export default React.forwardRef(CustomPhoneInput);
+export default React.forwardRef(CustomPhoneField);

@@ -35,6 +35,7 @@ export const signUpFormFields: IFormField[] = [
         type: 'text',
         componentType: ComponentFormEnum.INPUT,
         required: true,
+        className: ''
     },
     {
         id: 'last-name',
@@ -44,6 +45,7 @@ export const signUpFormFields: IFormField[] = [
         type: 'text',
         componentType: ComponentFormEnum.INPUT,
         required: true,
+        className: ''
     },
     {
         id: 'email',
@@ -53,6 +55,7 @@ export const signUpFormFields: IFormField[] = [
         type: 'email',
         componentType: ComponentFormEnum.INPUT,
         required: true,
+        className: ''
     },
     {
         id: 'password',
@@ -62,6 +65,7 @@ export const signUpFormFields: IFormField[] = [
         type: 'password',
         componentType: ComponentFormEnum.INPUT,
         required: true,
+        className: ''
     },
     {
         id: 'phone',
@@ -72,6 +76,7 @@ export const signUpFormFields: IFormField[] = [
         required: true,
         country: "ru",
         onlyCountries: ["ru", "by"],
+        className: ''
     },
     {
         id: 'date',
@@ -81,6 +86,7 @@ export const signUpFormFields: IFormField[] = [
         type: 'date',
         componentType: ComponentFormEnum.INPUT,
         required: true,
+        className: ''
     },
 ];
 
