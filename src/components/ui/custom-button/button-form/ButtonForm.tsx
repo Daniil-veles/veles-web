@@ -14,7 +14,7 @@ const ButtonForm: React.FC<IButtonFormProps> = ({
 }) => {
   return (
     <button
-    className={`text-sm w-min py-3 px-10 transition-colors duration-300 ease-in-out bg-c-blue hover:bg-c-blue-darker text-white rounded-xl font-normal ${className}`}
+    className={`text-sm w-min py-3 px-10 transition-colors duration-300 ease-in-out bg-c-blue-500 hover:bg-c-blue-600 active:bg-c-blue-800 text-white rounded-xl font-normal ${className}`}
     {...props}
     >
       {children}

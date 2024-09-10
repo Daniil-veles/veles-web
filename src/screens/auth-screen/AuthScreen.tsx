@@ -46,7 +46,7 @@ const AuthScreen: React.FC = () => {
     <>
       <Layout title="Авторизация" description="Это главная страница сайта">
         <div className="w-full grow grid grid-cols-2 rounded-3xl bg-white overflow-hidden">
-          <div className="bg-c-blue flex flex-col justify-center p-20 px-10">
+          <div className="bg-c-blue-500 flex flex-col justify-center p-20 px-10">
             <div className="flex mb-8">
               <img className="bg-white mr-3 w-10 h-10" src="/header-logo.png" />
 

@@ -13,9 +13,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'c-light-blue': '#F4F9FD',
-        'c-blue': '#3F8CFF',
-        'c-blue-darker': '#2B5BCC',
+        'c-blue-300': '#F4F9FD',
+        'c-blue-500': '#3F8CFF',
+        'c-blue-600': '#3A81EB',
+        'c-blue-800': '#1F6DE0',
         'c-gray': '#E6EDF5',
         'c-dark-gray': '#7D8592',
       },

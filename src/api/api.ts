@@ -8,6 +8,13 @@ const apiClient = axios.create({
     },
 });
 
+// const apiClient = axios.create({
+//     baseURL: process.env.API_URL,  // Используем переменную окружения
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+// });
+
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     const token = getAccessToken();
     if (token) {

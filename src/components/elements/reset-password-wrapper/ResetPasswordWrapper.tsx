@@ -52,7 +52,7 @@ const ResetPasswordWrapper: React.FC = () => {
   return (
     <>
       <button
-        className="flex items-center text-gray-500 hover:text-c-blue py-2 mb-4"
+        className="flex items-center text-gray-500 hover:text-c-blue-500 py-2 mb-4"
         onClick={() => router.back()}
       >
         <CircleArrowLeft className="mr-1.5" />

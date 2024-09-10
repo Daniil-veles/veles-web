@@ -40,21 +40,24 @@ const LoginForm: React.FC = () => {
       const response = await AuthService.login(formattedUserData);
 
       if (response.status === 200) {
-        const accessToken = response.data.access_token;
-
         // Моковый токен
         // const accessToken = "123456";
+
         dispatch(setAuthStatus(AuthorizationStatus.Auth));
 
         // Cохраняет токен в зависимости от состояния rememberMe в local или session
+        const accessToken = response.data.access_token;
         setAccessToken(accessToken, rememberMe);
 
-        // router.push("/profile");
+        // Сбрасывает поля формы
+        methods.reset();
+
+        // Перенаправялет на страницу Профиль
+        router.push("/profile");
+
         // Успешно выполненный вход
         console.log("Login successful:", response);
       }
-
-      methods.reset();
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

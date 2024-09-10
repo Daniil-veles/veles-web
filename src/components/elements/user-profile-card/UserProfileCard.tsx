@@ -28,7 +28,7 @@ const UserProfileCard: React.FC<IUserProfileCardProp> = ({
           </div>
 
           <div className="row-start-1">
-          <ScreenTitle className="text-4xl mb-4" title="Личные данные" />
+          {/* <ScreenTitle className="text-4xl mb-4" title="Личные данные" /> */}
 
             {userInfo.email ? (
               <div className="">

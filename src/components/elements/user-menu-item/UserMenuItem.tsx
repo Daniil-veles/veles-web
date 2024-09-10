@@ -29,14 +29,14 @@ function UserMenuItem({ item }: IUserMenuItemProps): JSX.Element {
         className={cn(
           `flex items-center p-2 py-3 font-medium cursor-pointer rounded-lg transition-all duration-300`,
           {
-            "bg-c-blue/10 text-c-blue": isActive,
+            "bg-c-blue-500/10 text-c-blue-500": isActive,
             "text-c-dark-gray": !isActive,
           }
         )}
         href={`/${link}`}
       >
         {isActive && (
-          <span className="absolute w-1 h-full top-0 right-0 bg-c-blue rounded-sm"></span>
+          <span className="absolute w-1 h-full top-0 right-0 bg-c-blue-500 rounded-sm"></span>
         )}
 
         <IconComponent className="mr-2" size={24} />
