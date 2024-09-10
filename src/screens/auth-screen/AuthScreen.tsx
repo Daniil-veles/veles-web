@@ -11,7 +11,7 @@ import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
 import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
 import { setAuthStatus } from "@/store/slices/authSlice";
-import { getAccessToken } from "@/utils/utils";
+import { deleteAccessToken, getAccessToken } from "@/utils/utils";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();

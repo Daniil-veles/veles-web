@@ -2,11 +2,10 @@ import { getAccessToken } from '@/utils/utils';
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const apiClient = axios.create({
-    baseURL: process.env.IS_DEV === 'development' ? '/api' : process.env.API_URL,
+    baseURL: process.env.IS_DEV ? '/api' : process.env.API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
 });
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {

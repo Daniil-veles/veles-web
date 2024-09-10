@@ -1,7 +1,7 @@
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const apiProxy = createProxyMiddleware({
-    target: process.env.API_URL, // URL вашего Python сервера
+    target: process.env.API_URL || 'http://134.0.107.118:8000', // URL бэка
     changeOrigin: true,
     pathRewrite: {
         '^/api': '', // Убираем /api из пути запроса

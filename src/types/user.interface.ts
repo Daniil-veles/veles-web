@@ -8,7 +8,6 @@ export interface UserBaseData {
 // I пользователя из формы регистрации
 export interface UserFormData extends UserBaseData {
     password: string;
-    fullName: string;
     firstName: string;
     lastName: string;
     birthDate: string;
@@ -20,7 +19,7 @@ export interface AdaptedUserFormDataToServer extends UserBaseData {
     is_active: boolean | null;
     is_superuser: boolean | null;
     is_verified: boolean | null;
-    full_name: string;
+    username: string;
     birth_date: string;
 }
 
@@ -30,7 +29,7 @@ export interface UserDataFromServer extends UserBaseData {
     is_active: boolean | null;
     is_superuser: boolean | null;
     is_verified: boolean | null;
-    full_name: string;
+    username: string;
     birth_date: string;
 }
 

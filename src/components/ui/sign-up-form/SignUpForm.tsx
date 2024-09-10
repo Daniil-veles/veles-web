@@ -26,30 +26,27 @@ const SignUpForm: React.FC = () => {
     const userData = {
       ...data,
       picture: "",
-      fullName: "",
     };
 
     const formattedUserData = adaptToServerUserFormData(userData);
-    // console.log(formattedUserData);
+    console.log(formattedUserData);
 
     try {
-      console.log(userData);
-
       // Моковая регистрация
-      router.push("/auth/login");
+      // router.push("/auth/login");
 
-      // const response = await AuthService.registration(formattedUserData);
-      // console.log(response);
+      const response = await AuthService.registration(formattedUserData);
+      console.log(response);
 
-      // if (response.status === 201) {
-      //   console.log("User created successfully:", response.data);
+      if (response.status === 201) {
+        console.log("User created successfully:", response.data);
 
-      //   // Сбрасывает поля формы
-      //   methods.reset({ phone: "+7" });
+        // Сбрасывает поля формы
+        methods.reset({ phone: "+7" });
 
-      //   // Перенаправялет на страницу Логин
-      //   router.push("/auth/login");
-      // }
+        // Перенаправялет на страницу Логин
+        router.push("/auth/login");
+      }
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

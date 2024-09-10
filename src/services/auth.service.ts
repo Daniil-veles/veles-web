@@ -1,5 +1,5 @@
 import apiClient from '@/api/api';
-import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
+import { IAdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
 import { AdaptedUserFormDataToServer } from '@/types/user.interface';
 import qs from 'qs';
 
@@ -15,7 +15,7 @@ export const AuthService = {
         }
     },
 
-    async login(userData: AdaptedUserLoginData) {
+    async login(userData: IAdaptedUserLoginData) {
         try {
             const urlEncodedData = qs.stringify({
                 ...userData,

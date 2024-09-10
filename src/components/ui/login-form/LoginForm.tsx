@@ -17,6 +17,7 @@ import { MoveRight } from "lucide-react";
 import { useState } from "react";
 import { setAuthStatus } from "@/store/slices/authSlice";
 import { useRouter } from "next/router";
+import { IAdaptedUserLoginData } from "./LoginForm.interface";
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,25 +34,25 @@ const LoginForm: React.FC = () => {
   });
 
   async function onSubmit(data: LoginFormValues) {
-    // const formattedUserData: IAdaptedUserLoginData = adaptedUserData(data);
+    const formattedUserData: IAdaptedUserLoginData = adaptedUserData(data);
 
     try {
-      // const response = await AuthService.login(formattedUserData);
+      const response = await AuthService.login(formattedUserData);
 
-      // if (response.status === 200) {
-      //   const accessToken = response.data.access_token;
+      if (response.status === 200) {
+        const accessToken = response.data.access_token;
 
-      // Моковый токен
-      const accessToken = "123456";
-      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+        // Моковый токен
+        // const accessToken = "123456";
+        dispatch(setAuthStatus(AuthorizationStatus.Auth));
 
-      // Cохраняет токен в зависимости от состояния rememberMe в local или session
-      setAccessToken(accessToken, rememberMe);
+        // Cохраняет токен в зависимости от состояния rememberMe в local или session
+        setAccessToken(accessToken, rememberMe);
 
-      router.push("/profile");
-      //   // Успешно выполненный вход
-      //   console.log("Login successful:", response);
-      // }
+        // router.push("/profile");
+        // Успешно выполненный вход
+        console.log("Login successful:", response);
+      }
 
       methods.reset();
     } catch (error) {
