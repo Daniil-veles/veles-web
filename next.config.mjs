@@ -3,35 +3,11 @@ const isDev = process.env.NODE_ENV == 'development' ? 'development' : 'productio
 
 const nextConfig = {
     images: {
-        domains: ['localhost'],
+        domains: ['localhost', 'http://134.0.107.118:8000'],
     },
     env: {
         API_URL: process.env.API_URL,
         IS_DEV: isDev,
-    },
-    async rewrites() {
-        if (isDev) {
-            return [
-                {
-                    source: '/api/:path*',
-                    destination: `${process.env.API_URL}/:path*`,
-                },
-            ];
-        }
-
-        return [];
-    },
-    async headers() {
-        return isDev ? [
-            {
-                source: '/api/:path*',
-                headers: [
-                    { key: 'Access-Control-Allow-Origin', value: '*' },
-                    { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS, PUT, PATCH, DELETE' },
-                    { key: 'Access-Control-Allow-Headers', value: 'X-Requested-With,content-type' },
-                ],
-            },
-        ] : [];
     },
 };
 
