@@ -3,8 +3,8 @@ interface IScreenTitleProp {
   title: string;
 }
 
-const ScreenTitle: React.FC<IScreenTitleProp> = ({ className, title }) => {
+const DashboardTitle: React.FC<IScreenTitleProp> = ({ className, title }) => {
   return <h2 className={`${className} font-medium`}>{title}</h2>;
 };
 
-export default ScreenTitle;
+export default DashboardTitle;

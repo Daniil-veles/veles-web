@@ -29,7 +29,7 @@ const CustomSearchField: React.FC<ICustomSearchFieldProps> = ({
 }) => {
   return (
     <div className="relative">
-      <Search className="absolute inset-y-0 left-3 flex items-center" />
+      <Search className="absolute top-[50%] -translate-y-[50%] left-3 flex items-center" size={20} />
 
       <Input
         id={id}

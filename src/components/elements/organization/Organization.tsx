@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import Modal from "@/components/ui/modal/Modal";
 import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
 import OrganizationInfo from "../organization-info/OrganizationInfo";
-import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
+import ScreenTitle from "@/components/ui/dashboard-title/ScreenTitle";
 
 const Organization: React.FC = () => {
   // Состояния для модальных окон

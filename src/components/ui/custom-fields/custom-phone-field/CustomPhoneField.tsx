@@ -21,7 +21,15 @@ const CustomPhoneField: React.ForwardRefRenderFunction<
   HTMLInputElement,
   ICustomPhoneFieldProps
 > = (
-  { country, onlyCountries, placeholder, required, value, onChange, inputClassName },
+  {
+    country,
+    onlyCountries,
+    placeholder,
+    required,
+    value,
+    onChange,
+    inputClassName,
+  },
   ref
 ) => {
   return (

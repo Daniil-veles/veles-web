@@ -2,20 +2,18 @@ import CustomSearchField from "@/components/ui/custom-fields/custom-search-field
 import FormField from "@/components/ui/form-field/FormField";
 import { Input } from "@/components/ui/input";
 import { ComponentFormEnum } from "@/types/form.interface";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Bell } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
 
 // Определяем схему валидации с помощью Zod
-const dashboardSchema = z.object({
-  search: z.string().min(2, { message: "Минимальное кол-во символов 2." }),
-});
+// const dashboardSchema = z.object({
+//   search: z.string().min(2, { message: "Минимальное кол-во символов 2." }),
+// });
 
 const DashboardHeader: React.FC = () => {
   const methods = useForm({
     mode: "onChange",
-    resolver: zodResolver(dashboardSchema),
+    // resolver: zodResolver(dashboardSchema),
     defaultValues: {
       email: "",
     },
@@ -33,10 +31,10 @@ const DashboardHeader: React.FC = () => {
             value={{
               id: "search",
               name: "search",
-              placeholder: "...",
+              placeholder: "Поиск",
               type: "search",
               componentType: ComponentFormEnum.INPUT,
-              className: "",
+              className: "px-4 py-3 pl-12 w-full rounded-xl",
             }}
           />
         </form>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import ChangerData from "@/components/ui/changer-data/ChangerData";
 import FieldChanger from "@/components/ui/field-changer/FieldChanger";
 import { ComponentFormEnum } from "@/types/form.interface";
-import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
+import ScreenTitle from "@/components/ui/dashboard-title/ScreenTitle";
 
 interface IUserProfileCardProp {
   userInfo: UserInfo;
