@@ -4,10 +4,13 @@ import PrivateRoute from "@/hoc/PrivateRoute";
 import { useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { ComponentFormEnum } from "@/types/form.interface";
-import { Settings, SquarePen } from "lucide-react";
+import cn from "classnames";
+import { MoveLeft, MoveRight, Settings, SquarePen } from "lucide-react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 const ProfileScreen: React.FC = () => {
+  const [isCommonInfo, setIsCommonInfo] = useState(true);
   const userInfo = useAppSelector((state) => state.USER);
 
   const methods = useForm({
@@ -70,75 +73,116 @@ const ProfileScreen: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col justify-between grow pt-4 px-6 pb-8">
-                  <div>
-                    <h3 className="mb-3 text-lg">Общая информация</h3>
+                  {isCommonInfo ? (
+                    <div>
+                      <h3 className="mb-3 text-lg">Общая информация</h3>
 
-                    <ul className="">
-                      <li className="mb-2">
-                        <FormField
-                          value={{
-                            id: "fullName",
-                            name: "fullName",
-                            label: "Имя",
-                            placeholder: ".",
-                            type: "text",
-                            componentType: ComponentFormEnum.INPUT,
-                            required: true,
-                            className: "",
-                          }}
-                        />
-                      </li>
+                      <ul className="">
+                        <li className="mb-2">
+                          <FormField
+                            value={{
+                              id: "fullName",
+                              name: "fullName",
+                              label: "Имя",
+                              placeholder: ".",
+                              type: "text",
+                              componentType: ComponentFormEnum.INPUT,
+                              required: true,
+                              className: "",
+                            }}
+                          />
+                        </li>
 
-                      <li>
-                        <FormField
-                          value={{
-                            id: "birthDate",
-                            name: "birthDate",
-                            label: "Дата рождения",
-                            placeholder: ".",
-                            type: "date",
-                            componentType: ComponentFormEnum.INPUT,
-                            required: true,
-                            className: "",
-                          }}
-                        />
-                      </li>
-                    </ul>
-                  </div>
+                        <li>
+                          <FormField
+                            value={{
+                              id: "birthDate",
+                              name: "birthDate",
+                              label: "Дата рождения",
+                              placeholder: ".",
+                              type: "date",
+                              componentType: ComponentFormEnum.INPUT,
+                              required: true,
+                              className: "",
+                            }}
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  ) : (
+                    <div>
+                      <h3 className="mb-3 text-lg">Контакты</h3>
 
-                  <div>
-                    <h3 className="mb-1 text-lg">Контакты</h3>
+                      <ul>
+                        <li className="mb-2">
+                          <FormField
+                            value={{
+                              id: "email",
+                              name: "email",
+                              label: "Почта",
+                              placeholder: ".",
+                              type: "email",
+                              componentType: ComponentFormEnum.INPUT,
+                              required: true,
+                              className: "",
+                            }}
+                          />
+                        </li>
+                        <li>
+                          <FormField
+                            value={{
+                              id: "phone",
+                              name: "phone",
+                              label: "Телефон",
+                              placeholder: ".",
+                              type: "tel",
+                              componentType: ComponentFormEnum.INPUT,
+                              required: true,
+                              className: "",
+                            }}
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  )}
 
-                    <ul>
-                      <li className="mb-2">
-                        <FormField
-                          value={{
-                            id: "email",
-                            name: "email",
-                            label: "Почта",
-                            placeholder: ".",
-                            type: "email",
-                            componentType: ComponentFormEnum.INPUT,
-                            required: true,
-                            className: "",
-                          }}
-                        />
-                      </li>
-                      <li>
-                        <FormField
-                          value={{
-                            id: "phone",
-                            name: "phone",
-                            label: "Телефон",
-                            placeholder: ".",
-                            type: "tel",
-                            componentType: ComponentFormEnum.INPUT,
-                            required: true,
-                            className: "",
-                          }}
-                        />
-                      </li>
-                    </ul>
+                  <div className="flex justify-between items-center text-c-dark-gray">
+                    {!isCommonInfo ? (
+                      <button onClick={() => setIsCommonInfo(true)}>
+                        <MoveLeft size={18} />
+                      </button>
+                    ) : (
+                      <span className="block w-[18px]"></span>
+                    )}
+
+                    <div className="flex gap-2">
+                      <span
+                        className={cn(
+                          "block w-2 h-2 rounded-full transition-colors duration-500 ease-in-out ease",
+                          {
+                            "bg-c-blue-500": isCommonInfo,
+                            "bg-c-dark-gray": !isCommonInfo,
+                          }
+                        )}
+                      ></span>
+                      <span
+                        className={cn(
+                          "block w-2 h-2 rounded-full transition-colors duration-500 ease-in-out ease",
+                          {
+                            "bg-c-blue-500": !isCommonInfo,
+                            "bg-c-dark-gray": isCommonInfo,
+                          }
+                        )}
+                      ></span>
+                    </div>
+
+                    {isCommonInfo ? (
+                      <button onClick={() => setIsCommonInfo(false)}>
+                        <MoveRight size={18} />
+                      </button>
+                    ) : (
+                      <span className="block w-[18px]"></span>
+                    )}
                   </div>
                 </div>
               </div>
