@@ -37,15 +37,15 @@ const DashboardHeader: React.FC = () => {
               placeholder: "Поиск",
               type: "search",
               componentType: ComponentFormEnum.INPUT,
-              className: "px-4 py-3 pl-12 w-full rounded-xl",
+              className: "h-10 flex items-center px-3 pl-12 rounded-xl",
             }}
           />
         </form>
       </FormProvider>
 
       <div className="flex items-center">
-        <div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl mr-6">
-          <Bell />
+        <div className="bg-white w-10 h-10 flex items-center justify-center rounded-xl mr-6">
+          <Bell size={18} />
         </div>
 
         <Link href={'/profile'} className="flex items-center bg-white p-2 px-3 rounded-xl">

@@ -46,14 +46,16 @@ const AuthScreen: React.FC = () => {
     <>
       <Layout title="Авторизация" description="Это главная страница сайта">
         <div className="w-full grow grid grid-cols-2 rounded-3xl bg-white overflow-hidden">
-          <div className="bg-c-blue-500 flex flex-col justify-center p-20 px-10">
+          <div className="bg-c-blue-500 flex flex-col justify-center items-center">
+            <div className="w-3/4">
             <div className="flex mb-8">
               <img className="bg-white mr-3 w-10 h-10" src="/header-logo.png" />
 
               <h3 className="text-3xl text-white">Главная страница</h3>
             </div>
 
-            <img className="w-full h-3/4" src="/auth-logo.webp" />
+            <img className="w-full ratio-square" src="/auth-logo.webp" />
+            </div>
           </div>
 
           <div className="w-2/3 h-full mx-auto flex flex-col justify-center">
@@ -62,7 +64,7 @@ const AuthScreen: React.FC = () => {
                 <li className="">
                   <button
                     className={cn(
-                      "block w-full py-3 px-4 rounded-full text-center",
+                      "block w-full py-2 px-3 rounded-full text-center",
                       route === "login" ? "bg-c-gray font-medium" : null
                     )}
                     onClick={() => router.push("/auth/login")}
@@ -74,7 +76,7 @@ const AuthScreen: React.FC = () => {
                 <li className="">
                   <button
                     className={cn(
-                      "block w-full py-3 px-4 rounded-full text-center",
+                      "block w-full py-2 px-3 rounded-full text-center",
                       route === "sign-up" ? "bg-c-gray font-medium" : null
                     )}
                     onClick={() => router.push("/auth/sign-up")}

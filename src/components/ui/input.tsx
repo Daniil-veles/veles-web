@@ -13,7 +13,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
           disabled:cursor-not-allowed disabled:opacity-50`;
 
-    const commonStyles = `flex h-12 w-full rounded-xl border px-4 py-3`;
+    const commonStyles = `flex h-10 w-full rounded-xl border px-3`;
 
     // Применяем commonStyles только если className пустой
     const appliedStyles = className
