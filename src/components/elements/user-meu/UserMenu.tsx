@@ -11,7 +11,7 @@ function UserMenu(): JSX.Element {
       <UserMenuList />
 
       <div className="pr-4">
-        <div className="relative w-full h-[168px] flex flex-col justify-end rounded-3xl p-5 pb-6 bg-c-blue-300 mb-12">
+        <div className="relative w-full h-[168px] flex flex-col justify-end rounded-3xl p-5 pb-6 bg-c-blue-300 mb-7">
           <img className="relative -top-4 w-[140px]" src="./support-icon.svg" alt="" />
           
           <ButtonLittle className="w-full">

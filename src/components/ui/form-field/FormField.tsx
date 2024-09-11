@@ -106,7 +106,7 @@ const FormFieldComponent: React.FC<IFormFieldProps> = ({
       render={({ field, fieldState: { error } }) => (
         <FormItem className="">
           {value.label ? (
-            <FormLabel className="inline-block text-md mb-1" htmlFor={value.id}>
+            <FormLabel className="font-normal" htmlFor={value.id}>
               {value.label}
             </FormLabel>
           ) : null}
