@@ -35,7 +35,7 @@ const CustomPhoneField: React.ForwardRefRenderFunction<
   return (
     <div className="w-full">
       <PhoneInput
-        inputClass={`bg-red-500 ${inputClassName}`}
+        inputClass={`${inputClassName}`}
         value={value}
         onChange={onChange}
         placeholder={placeholder}

@@ -6,7 +6,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { ComponentFormEnum } from "@/types/form.interface";
 import cn from "classnames";
 import { MoveLeft, MoveRight, Settings, SquarePen } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 const ProfileScreen: React.FC = () => {
@@ -15,14 +15,24 @@ const ProfileScreen: React.FC = () => {
 
   const methods = useForm({
     mode: "onChange",
-    // resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      fullName: userInfo.fullName,
-      email: userInfo.email,
-      phone: userInfo.phone,
-      birthDate: userInfo.birthDate,
+      fullName: "",
+      email: "",
+      phone: "",
+      birthDate: "",
     },
   });
+
+  useEffect(() => {
+    if (userInfo) {
+      methods.reset({
+        fullName: userInfo.fullName,
+        email: userInfo.email,
+        phone: userInfo.phone,
+        birthDate: userInfo.birthDate,
+      });
+    }
+  }, [userInfo, methods]);
 
   async function onSubmit(data: { email: string }) {
     try {
@@ -83,8 +93,8 @@ const ProfileScreen: React.FC = () => {
                             value={{
                               id: "fullName",
                               name: "fullName",
-                              label: "Имя",
-                              placeholder: ".",
+                              label: "Полное имя",
+                              placeholder: "Павел Петров",
                               type: "text",
                               componentType: ComponentFormEnum.INPUT,
                               required: true,
@@ -99,7 +109,7 @@ const ProfileScreen: React.FC = () => {
                               id: "birthDate",
                               name: "birthDate",
                               label: "Дата рождения",
-                              placeholder: ".",
+                              placeholder: "",
                               type: "date",
                               componentType: ComponentFormEnum.INPUT,
                               required: true,
@@ -120,7 +130,7 @@ const ProfileScreen: React.FC = () => {
                               id: "email",
                               name: "email",
                               label: "Почта",
-                              placeholder: ".",
+                              placeholder: "m@example.com",
                               type: "email",
                               componentType: ComponentFormEnum.INPUT,
                               required: true,
@@ -134,10 +144,11 @@ const ProfileScreen: React.FC = () => {
                               id: "phone",
                               name: "phone",
                               label: "Телефон",
-                              placeholder: ".",
-                              type: "tel",
-                              componentType: ComponentFormEnum.INPUT,
+                              placeholder: "+7 (123) 456 78 90",
+                              componentType: ComponentFormEnum.PHONE,
                               required: true,
+                              country: "ru",
+                              onlyCountries: ["ru", "by"],
                               className: "",
                             }}
                           />
