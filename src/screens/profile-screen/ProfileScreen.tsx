@@ -38,8 +38,8 @@ const ProfileScreen: React.FC = () => {
           <header className="flex justify-between mb-2 pl-2">
             <DashboardTitle title="Профиль" />
 
-            <div className="bg-white rounded-xl p-3">
-              <Settings size={24} />
+            <div className="w-10 h-10 flex justify-center items-center bg-white rounded-xl">
+              <Settings size={18} />
             </div>
           </header>
 
@@ -59,19 +59,19 @@ const ProfileScreen: React.FC = () => {
                       />
                     </div>
 
-                    <div className="bg-c-blue-300 p-3 rounded-xl">
-                      <SquarePen />
+                    <div className="w-10 h-10 flex justify-center items-center bg-c-blue-300 rounded-xl">
+                      <SquarePen size={18} />
                     </div>
                   </div>
 
-                  <h2 className="mb-1 text-xl">{userInfo.fullName}</h2>
+                  <h2 className="mb-1 text-lg">{userInfo.fullName}</h2>
 
                   <p>{userInfo.fullName}</p>
                 </div>
 
                 <div className="flex flex-col justify-between grow pt-4 px-6 pb-8">
                   <div>
-                    <h3 className="mb-1 text-lg">Общая информация</h3>
+                    <h3 className="mb-3 text-lg">Общая информация</h3>
 
                     <ul className="">
                       <li className="mb-2">
