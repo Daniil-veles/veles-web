@@ -37,7 +37,7 @@ const SignUpForm: React.FC = () => {
         console.log("User created successfully:", response.data);
 
         // Сбрасывает поля формы
-        reset({ phone: "+7" });
+        reset({ phone: "7" });
 
         // Перенаправялет на страницу Логин
         router.push("/auth/login");
@@ -149,7 +149,7 @@ const SignUpForm: React.FC = () => {
                   id: "phone",
                   name: "phone",
                   label: "Телефон",
-                  placeholder: "+7 (123) 456 78 90",
+                  placeholder: "7 (123) 456 78 90",
                   type: "tel",
                 }}
                 fieldValue={field.value}
