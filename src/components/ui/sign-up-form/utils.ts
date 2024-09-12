@@ -25,69 +25,78 @@ export const signUpSchema = z.object({
     birthDate: z.string().regex(BirthDate, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
 });
 
+export type SignUpFormDataType = z.infer<typeof signUpSchema>;
 
-export const signUpFormFields: IFormField[] = [
-    {
-        id: 'first-name',
-        name: 'firstName',
-        label: 'Имя',
-        placeholder: 'Павел',
-        type: 'text',
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-        className: ''
-    },
-    {
-        id: 'last-name',
-        name: 'lastName',
-        label: 'Фамилия',
-        placeholder: 'Петров',
-        type: 'text',
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-        className: ''
-    },
-    {
-        id: 'email',
-        name: 'email',
-        label: 'Email',
-        placeholder: 'm@example.com',
-        type: 'email',
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-        className: ''
-    },
-    {
-        id: 'password',
-        name: 'password',
-        label: 'Password',
-        placeholder: '*****',
-        type: 'password',
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-        className: ''
-    },
-    {
-        id: 'phone',
-        name: 'phone',
-        label: 'Телефон',
-        placeholder: '+7 (123) 456 78 90',
-        componentType: ComponentFormEnum.PHONE,
-        required: true,
-        country: "ru",
-        onlyCountries: ["ru", "by"],
-        className: ''
-    },
-    {
-        id: 'date',
-        name: 'birthDate',
-        label: 'Дата рождения',
-        placeholder: '22.06.1990',
-        type: 'date',
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-        className: ''
-    },
-];
+export const formDefaultValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phone: "+7",
+    birthDate: "",
+};
 
-export type SignUpFormValues = z.infer<typeof signUpSchema>;
+
+// export const signUpFormFields: IFormField[] = [
+//     {
+//         id: 'first-name',
+//         name: 'firstName',
+//         label: 'Имя',
+//         placeholder: 'Павел',
+//         type: 'text',
+//         componentType: ComponentFormEnum.INPUT,
+//         required: true,
+//         className: ''
+//     },
+//     {
+//         id: 'last-name',
+//         name: 'lastName',
+//         label: 'Фамилия',
+//         placeholder: 'Петров',
+//         type: 'text',
+//         componentType: ComponentFormEnum.INPUT,
+//         required: true,
+//         className: ''
+//     },
+//     {
+//         id: 'email',
+//         name: 'email',
+//         label: 'Email',
+//         placeholder: 'm@example.com',
+//         type: 'email',
+//         componentType: ComponentFormEnum.INPUT,
+//         required: true,
+//         className: ''
+//     },
+//     {
+//         id: 'password',
+//         name: 'password',
+//         label: 'Password',
+//         placeholder: '*****',
+//         type: 'password',
+//         componentType: ComponentFormEnum.INPUT,
+//         required: true,
+//         className: ''
+//     },
+//     {
+//         id: 'phone',
+//         name: 'phone',
+//         label: 'Телефон',
+//         placeholder: '+7 (123) 456 78 90',
+//         componentType: ComponentFormEnum.PHONE,
+//         required: true,
+//         country: "ru",
+//         onlyCountries: ["ru", "by"],
+//         className: ''
+//     },
+//     {
+//         id: 'date',
+//         name: 'birthDate',
+//         label: 'Дата рождения',
+//         placeholder: '22.06.1990',
+//         type: 'date',
+//         componentType: ComponentFormEnum.INPUT,
+//         required: true,
+//         className: ''
+//     },
+// ];

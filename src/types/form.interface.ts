@@ -1,4 +1,4 @@
-import { RegisterOptions } from "react-hook-form";
+// import { RegisterOptions } from "react-hook-form";
 
 // Новый
 export interface ICustomInput {
@@ -9,44 +9,55 @@ export interface ICustomInput {
     type: string;
 }
 
+export interface IOption {
+    value: string;
+    name: string;
+}
+
+export interface ICustomSelect<T> {
+    id: string;
+    name: string;
+    label?: string;
+    options: T[];
+}
 
 
 
 // Старый
-export enum ComponentFormEnum {
-    INPUT = "input",
-    SELECT = "select",
-    PHONE = "phone",
-}
+// export enum ComponentFormEnum {
+//     INPUT = "input",
+//     SELECT = "select",
+//     PHONE = "phone",
+// }
 
-interface IBaseFormField {
-    id: string;
-    name: string;
-    label?: string;
-    placeholder?: string;
-    required?: boolean;
-    validation?: RegisterOptions;
-    defaultValue?: string;
-    className?: string;
-}
+// interface IBaseFormField {
+//     id: string;
+//     name: string;
+//     label?: string;
+//     placeholder?: string;
+//     required?: boolean;
+//     validation?: RegisterOptions;
+//     defaultValue?: string;
+//     className?: string;
+// }
 
-interface IInputFormField extends IBaseFormField {
-    type?: string; // Например, text, password, email и т.д.
-    componentType: ComponentFormEnum.INPUT;
-}
+// interface IInputFormField extends IBaseFormField {
+//     type?: string; // Например, text, password, email и т.д.
+//     componentType: ComponentFormEnum.INPUT;
+// }
 
-interface ISelectFormField extends IBaseFormField {
-    options: { label: string; value: string }[];
-    componentType: ComponentFormEnum.SELECT;
-}
+// interface ISelectFormField extends IBaseFormField {
+//     options: { label: string; value: string }[];
+//     componentType: ComponentFormEnum.SELECT;
+// }
 
-interface IPhoneFormField extends IBaseFormField {
-    country?: string;
-    onlyCountries?: string[];
-    componentType: ComponentFormEnum.PHONE;
-}
+// interface IPhoneFormField extends IBaseFormField {
+//     country?: string;
+//     onlyCountries?: string[];
+//     componentType: ComponentFormEnum.PHONE;
+// }
 
-export type IFormField = IInputFormField | ISelectFormField | IPhoneFormField;
+// export type IFormField = IInputFormField | ISelectFormField | IPhoneFormField;
 
 
 // Интерфейсы для состояния поля и модального окна

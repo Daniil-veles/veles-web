@@ -108,7 +108,7 @@ const LoginForm: React.FC = () => {
         />
 
         <div className="flex justify-between">
-          <span>
+          <span className="flex items-center">
             <input
               className="mr-2"
               type="checkbox"

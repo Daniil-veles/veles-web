@@ -1,16 +1,6 @@
+import { ICustomSelect, IOption } from "@/types/form.interface";
 import { FieldError } from "react-hook-form";
 
-export interface IOption {
-  value: string;
-  name: string;
-}
-
-export interface ICustomSelect<T> {
-  id: string;
-  name: string;
-  label?: string;
-  options: T[];
-}
 
 interface ICustomSelectProps<T extends IOption>
   extends React.InputHTMLAttributes<HTMLSelectElement> {
