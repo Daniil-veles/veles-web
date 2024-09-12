@@ -1,46 +1,50 @@
-import { Button } from "@/components/ui/button";
-import FormField from "@/components/ui/form-field/FormField";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
+import { Controller, useForm } from "react-hook-form";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
-import { ComponentFormEnum } from "@/types/form.interface";
-
-// Схема валидации для ввода кода
-const resetKeySchema = z.object({
-  key: z.string().length(6, { message: "Код должен быть 6 символов." }),
-});
+import CustomInput from "../custom-input/CustomInput";
+import {
+  formDefaultValues,
+  ResetKeyFormDataType,
+  resetKeySchema,
+} from "./utils";
 
 const ResetKeyForm: React.FC<{ onSubmit: (data: { key: string }) => void }> = ({
   onSubmit,
 }) => {
-  const methods = useForm({
-    mode: "onChange",
+  const { control, handleSubmit, reset } = useForm<ResetKeyFormDataType>({
+    defaultValues: formDefaultValues,
     resolver: zodResolver(resetKeySchema),
-    defaultValues: { key: "" },
+    mode: "onChange",
   });
 
   return (
-    <FormProvider {...methods}>
-      <form className="" onSubmit={methods.handleSubmit(onSubmit)}>
-        <FormField
-          value={{
-            id: "key",
-            name: "key",
-            label: "Код",
-            placeholder: "Введите код",
-            type: "text",
-            componentType: ComponentFormEnum.INPUT,
-            required: true,
-             className: ''
-          }}
-        />
+    <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="key"
+        control={control}
+        render={({ field, fieldState }) => (
+          <CustomInput
+            className=""
+            fieldData={{
+              id: "key",
+              name: "key",
+              label: "Код",
+              placeholder: "Введите код",
+              type: "text",
+            }}
+            fieldValue={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={fieldState.error}
+            required
+          />
+        )}
+      />
 
-        <div className="flex justify-center">
-          <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
-        </div>
-      </form>
-    </FormProvider>
+      <div className="flex justify-center">
+        <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
+      </div>
+    </form>
   );
 };
 

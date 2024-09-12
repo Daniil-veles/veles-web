@@ -135,6 +135,7 @@ const SignUpForm: React.FC = () => {
                 onBlur={field.onBlur}
                 error={fieldState.error}
                 required
+                maxLength={8}
               />
             )}
           />
@@ -157,6 +158,7 @@ const SignUpForm: React.FC = () => {
                 onBlur={field.onBlur}
                 error={fieldState.error}
                 required
+                maxLength={12}
               />
             )}
           />

@@ -1,26 +1,24 @@
 import ButtonForm from "@/components/ui/custom-button/button-form/ButtonForm";
-import FormField from "@/components/ui/form-field/FormField";
+import CustomInput from "@/components/ui/custom-input/CustomInput";
 import { AuthService } from "@/services/auth.service";
-import { ComponentFormEnum } from "@/types/form.interface";
 import { setUserEmail } from "@/utils/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleArrowLeft } from "lucide-react";
 import { useRouter } from "next/router";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
+import { Controller, useForm } from "react-hook-form";
+import {
+  ForgotPasswordFormDataType,
+  forgotPasswordSchema,
+  formDefaultValues,
+} from "./utils";
 
 const ForgotPasswordForm: React.FC = () => {
   const router = useRouter();
-  const forgotPasswordSchema = z.object({
-    email: z.string().email({ message: "Неверный формат email адреса." }),
-  });
 
-  const methods = useForm({
-    mode: "onChange",
+  const { control, handleSubmit, reset } = useForm<ForgotPasswordFormDataType>({
+    defaultValues: formDefaultValues,
     resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: {
-      email: "",
-    },
+    mode: "onChange",
   });
 
   async function onSubmit(data: { email: string }) {
@@ -37,6 +35,8 @@ const ForgotPasswordForm: React.FC = () => {
       //   methods.reset();
       //   router.push("/auth/reset-password");
       // }
+
+      reset();
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }
@@ -53,28 +53,35 @@ const ForgotPasswordForm: React.FC = () => {
         <span className="text-sm">Вернуться</span>
       </button>
 
-      <h3 className="text-2xl mb-4 text-center">Восстановить пароль</h3>
+      <h3 className="text-xl mb-4 text-center">Восстановить пароль</h3>
 
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormField
-            value={{
-              id: "email",
-              name: "email",
-              label: "Почта",
-              placeholder: "test@mail.ru",
-              type: "email",
-              componentType: ComponentFormEnum.INPUT,
-              required: true,
-              className: ''
-            }}
-          />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field, fieldState }) => (
+            <CustomInput
+              className=""
+              fieldData={{
+                id: "email",
+                name: "email",
+                label: "Почта",
+                placeholder: "m@example.com",
+                type: "email",
+              }}
+              fieldValue={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error}
+              required
+            />
+          )}
+        />
 
-          <div className="flex justify-center">
-            <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
-          </div>
-        </form>
-      </FormProvider>
+        <div className="flex justify-center">
+          <ButtonForm className="w-full h-min mt-6">Отправить</ButtonForm>
+        </div>
+      </form>
     </>
   );
 };

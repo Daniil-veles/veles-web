@@ -1,15 +1,15 @@
 import Layout from "@/layouts/Layout";
 import LoginForm from "@/components/ui/login-form/LoginForm";
 import SignUpForm from "@/components/ui/sign-up-form/SignUpForm";
+import ResetPasswordWrapper from "@/components/elements/reset-password-wrapper/ResetPasswordWrapper";
+import ForgotPasswordForm from "@/components/ui/forgot-password-form/ForgotPasswordForm";
 import cn from "classnames";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import ResetPasswordWrapper from "@/components/elements/reset-password-wrapper/ResetPasswordWrapper";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
-import ForgotPasswordForm from "@/components/elements/forgot-password-form/ForgotPasswordForm";
 import { setAuthStatus } from "@/store/slices/authSlice";
 import { deleteAccessToken, getAccessToken } from "@/utils/utils";
 
