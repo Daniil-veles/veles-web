@@ -1,6 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import {
   adaptedUserData,
+  formDefaultValues,
   LoginFormDataType,
   loginSchema,
 } from "./utils";
@@ -18,11 +19,6 @@ import { useRouter } from "next/router";
 import { IAdaptedLoginFormData, ILoginFormData } from "./LoginForm.interface";
 import CustomInput from "../custom-input/CustomInput";
 
-const formDefaultValues: ILoginFormData = {
-  email: "",
-  password: "",
-};
-
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -33,15 +29,6 @@ const LoginForm: React.FC = () => {
     resolver: zodResolver(loginSchema),
     mode: "onChange",
   });
-
-  // const methods = useForm({
-  //   mode: "onChange",
-  //   resolver: zodResolver(loginSchema),
-  //   defaultValues: {
-  //     email: "",
-  //     password: "",
-  //   },
-  // });
 
   async function onSubmit(data: ILoginFormData) {
     const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
@@ -73,81 +60,52 @@ const LoginForm: React.FC = () => {
     }
   }
 
-  // {
-    //     id: 'email',
-    //     name: 'email',
-    //     label: 'Email',
-    //     placeholder: 'm@example.com',
-    //     type: 'email',
-    //     componentType: ComponentFormEnum.INPUT,
-    //     required: true,
-    //     className: ''
-    //   },
-    //   {
-    //     id: 'password',
-    //     name: 'password',
-    //     label: 'Password',
-    //     placeholder: '*****',
-    //     type: 'password',
-    //     componentType: ComponentFormEnum.INPUT,
-    //     required: true,
-    //     className: ''
-    //   },
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-4">
-          <Controller
-              name="email"
-              control={control}
-              render={({ field, fieldState }) => (
-                <CustomInput
-                  className=""
-                  fieldData={{
-                    id: "email",
-                    name: "email",
-                    label: "Электронная почта",
-                    placeholder: "Введите ваш email",
-                    type: "email",
-                  }}
-                  fieldValue={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error}
-                  required
-                />
-              )}
+        <Controller
+          name="email"
+          control={control}
+          render={({ field, fieldState }) => (
+            <CustomInput
+              className=""
+              fieldData={{
+                id: "email",
+                name: "email",
+                label: "Электронная почта",
+                placeholder: "Введите ваш email",
+                type: "email",
+              }}
+              fieldValue={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error}
+              required
             />
-          
-          <Controller
-              name="password"
-              control={control}
-              render={({ field, fieldState }) => (
-                <CustomInput
-                  className=""
-                  fieldData={{
-                    id: "password",
-                    name: "password",
-                    label: "Пароль",
-                    placeholder: "*****",
-                    type: "password",
-                  }}
-                  fieldValue={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error}
-                  required
-                />
-              )}
-            />
+          )}
+        />
 
-        {/* {loginFormFields
-            ? loginFormFields.map((field) => (
-                <div key={field.name} className="grid gap-2">
-                  <FormField key={field.name} value={field} />
-                </div>
-              ))
-            : null} */}
+        <Controller
+          name="password"
+          control={control}
+          render={({ field, fieldState }) => (
+            <CustomInput
+              className=""
+              fieldData={{
+                id: "password",
+                name: "password",
+                label: "Пароль",
+                placeholder: "*****",
+                type: "password",
+              }}
+              fieldValue={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error}
+              required
+            />
+          )}
+        />
 
         <div className="flex justify-between">
           <span>

@@ -8,6 +8,13 @@ export const loginSchema = z.object({
     .regex(PasswordRegex, { message: "Неверный формат пароля." }),
 });
 
+export type LoginFormDataType = z.infer<typeof loginSchema>;
+
+export const formDefaultValues: ILoginFormData = {
+  email: "",
+  password: "",
+};
+
 export const adaptedUserData = (userData: ILoginFormData) => {
   const adaptedData = {
     username: userData.email,
@@ -16,30 +23,4 @@ export const adaptedUserData = (userData: ILoginFormData) => {
 
   return adaptedData;
 }
-
-// export const loginFormFields: IFormField[] = [
-//   {
-//     id: 'email',
-//     name: 'email',
-//     label: 'Email',
-//     placeholder: 'm@example.com',
-//     type: 'email',
-//     componentType: ComponentFormEnum.INPUT,
-//     required: true,
-//     className: ''
-//   },
-//   {
-//     id: 'password',
-//     name: 'password',
-//     label: 'Password',
-//     placeholder: '*****',
-//     type: 'password',
-//     componentType: ComponentFormEnum.INPUT,
-//     required: true,
-//     className: ''
-//   },
-// ];
-
-
-export type LoginFormDataType = z.infer<typeof loginSchema>;
 
