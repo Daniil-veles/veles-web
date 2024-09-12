@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../select";
+} from "../select";
 import React from "react";
 
 interface ICustomSelectFieldProps {

@@ -3,10 +3,10 @@ import { FormItem, FormLabel, FormMessage } from "../form";
 import { Input } from "../input";
 import React from "react";
 import { ComponentFormEnum, IFormField } from "@/types/form.interface";
-import CustomPasswordField from "../custom-fields/custom-password-field/CustomPasswordField";
-import CustomSelectField from "../custom-fields/custom-select-field/CustomSelectField";
-import CustomPhoneField from "../custom-fields/custom-phone-field/CustomPhoneField";
-import CustomSearchField from "../custom-fields/custom-search-field/CustomSearchField";
+import CustomPasswordField from "../custom-input/CustomInput";
+import CustomSelectField from "../custom-select-field/CustomSelectField";
+import CustomPhoneField from "../custom-phone-field/CustomPhoneField";
+import CustomSearchField from "../custom-search-field/CustomSearchField";
 
 interface IFormFieldProps {
   value: IFormField;

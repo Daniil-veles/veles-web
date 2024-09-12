@@ -1,4 +1,4 @@
-import CustomSearchField from "@/components/ui/custom-fields/custom-search-field/CustomSearchField";
+import CustomSearchField from "@/components/ui/custom-search-field/CustomSearchField";
 import FormField from "@/components/ui/form-field/FormField";
 import { Input } from "@/components/ui/input";
 import { useAppSelector } from "@/hooks";

@@ -1,5 +1,18 @@
 import { RegisterOptions } from "react-hook-form";
 
+// Новый
+export interface ICustomInput {
+    id: string;
+    name: string;
+    label?: string;
+    placeholder?: string;
+    type: string;
+}
+
+
+
+
+// Старый
 export enum ComponentFormEnum {
     INPUT = "input",
     SELECT = "select",

@@ -1,9 +1,7 @@
-import { FormProvider, useForm } from "react-hook-form";
-import FormField from "../form-field/FormField";
+import { Controller, useForm } from "react-hook-form";
 import {
   adaptedUserData,
-  loginFormFields,
-  LoginFormValues,
+  LoginFormDataType,
   loginSchema,
 } from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,24 +15,36 @@ import { MoveRight } from "lucide-react";
 import { useState } from "react";
 import { setAuthStatus } from "@/store/slices/authSlice";
 import { useRouter } from "next/router";
-import { IAdaptedUserLoginData } from "./LoginForm.interface";
+import { IAdaptedLoginFormData, ILoginFormData } from "./LoginForm.interface";
+import CustomInput from "../custom-input/CustomInput";
+
+const formDefaultValues: ILoginFormData = {
+  email: "",
+  password: "",
+};
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState(false);
 
-  const methods = useForm({
-    mode: "onChange",
+  const { control, handleSubmit, reset } = useForm<LoginFormDataType>({
+    defaultValues: formDefaultValues,
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    mode: "onChange",
   });
 
-  async function onSubmit(data: LoginFormValues) {
-    const formattedUserData: IAdaptedUserLoginData = adaptedUserData(data);
+  // const methods = useForm({
+  //   mode: "onChange",
+  //   resolver: zodResolver(loginSchema),
+  //   defaultValues: {
+  //     email: "",
+  //     password: "",
+  //   },
+  // });
+
+  async function onSubmit(data: ILoginFormData) {
+    const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
 
     try {
       const response = await AuthService.login(formattedUserData);
@@ -50,7 +60,7 @@ const LoginForm: React.FC = () => {
         setAccessToken(accessToken, rememberMe);
 
         // Сбрасывает поля формы
-        methods.reset();
+        reset();
 
         // Перенаправялет на страницу Профиль
         router.push("/profile");
@@ -63,46 +73,109 @@ const LoginForm: React.FC = () => {
     }
   }
 
+  // {
+    //     id: 'email',
+    //     name: 'email',
+    //     label: 'Email',
+    //     placeholder: 'm@example.com',
+    //     type: 'email',
+    //     componentType: ComponentFormEnum.INPUT,
+    //     required: true,
+    //     className: ''
+    //   },
+    //   {
+    //     id: 'password',
+    //     name: 'password',
+    //     label: 'Password',
+    //     placeholder: '*****',
+    //     type: 'password',
+    //     componentType: ComponentFormEnum.INPUT,
+    //     required: true,
+    //     className: ''
+    //   },
+
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="grid gap-4">
-          {loginFormFields
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid gap-4">
+          <Controller
+              name="email"
+              control={control}
+              render={({ field, fieldState }) => (
+                <CustomInput
+                  className=""
+                  fieldData={{
+                    id: "email",
+                    name: "email",
+                    label: "Электронная почта",
+                    placeholder: "Введите ваш email",
+                    type: "email",
+                  }}
+                  fieldValue={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error}
+                  required
+                />
+              )}
+            />
+          
+          <Controller
+              name="password"
+              control={control}
+              render={({ field, fieldState }) => (
+                <CustomInput
+                  className=""
+                  fieldData={{
+                    id: "password",
+                    name: "password",
+                    label: "Пароль",
+                    placeholder: "*****",
+                    type: "password",
+                  }}
+                  fieldValue={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error}
+                  required
+                />
+              )}
+            />
+
+        {/* {loginFormFields
             ? loginFormFields.map((field) => (
                 <div key={field.name} className="grid gap-2">
                   <FormField key={field.name} value={field} />
                 </div>
               ))
-            : null}
+            : null} */}
 
-          <div className="flex justify-between">
-            <span>
-              <input
-                className="mr-2"
-                type="checkbox"
-                onChange={(e) => setRememberMe(e.target.checked)}
-                checked={rememberMe}
-              />
-              Remember
-            </span>
+        <div className="flex justify-between">
+          <span>
+            <input
+              className="mr-2"
+              type="checkbox"
+              onChange={(e) => setRememberMe(e.target.checked)}
+              checked={rememberMe}
+            />
+            Remember
+          </span>
 
-            <Link
-              href={"/auth/forgot-password"}
-              className=" text-center text-gray-500 hover:text-blue-800 underline underline-offset-4 py-1"
-            >
-              Не помню пароль
-            </Link>
-          </div>
-
-          <div className="flex justify-center">
-            <ButtonForm className="flex items-center">
-              Войти
-              <MoveRight className="ml-2" size={16} />
-            </ButtonForm>
-          </div>
+          <Link
+            href={"/auth/forgot-password"}
+            className=" text-center text-gray-500 hover:text-blue-800 underline underline-offset-4 py-1"
+          >
+            Не помню пароль
+          </Link>
         </div>
-      </form>
-    </FormProvider>
+
+        <div className="flex justify-center">
+          <ButtonForm className="flex items-center">
+            Войти
+            <MoveRight className="ml-2" size={16} />
+          </ButtonForm>
+        </div>
+      </div>
+    </form>
   );
 };
 
