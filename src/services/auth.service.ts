@@ -1,5 +1,5 @@
 import apiClient from '@/api/api';
-import { IAdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
+import { IAdaptedLoginFormData } from '@/components/ui/login-form/LoginForm.interface';
 import { AdaptedUserFormDataToServer } from '@/types/user.interface';
 import qs from 'qs';
 
@@ -15,7 +15,7 @@ export const AuthService = {
         }
     },
 
-    async login(userData: IAdaptedUserLoginData) {
+    async login(userData: IAdaptedLoginFormData) {
         try {
             const urlEncodedData = qs.stringify({
                 ...userData,
@@ -47,17 +47,27 @@ export const AuthService = {
         }
     },
 
-    async forgotPassword(data: { email: string }) {
+    async checkAuthStatus() {
         try {
-            const response = await apiClient.post(`/auth/forgot-password`, data);
+            const response = await apiClient.get('/users/me');
             return response;
         } catch (error) {
-            console.error('Error forgot-password:', error.message);
+            console.error('Error check auth:', error.message);
             throw error;
         }
     },
 
-    // TODO: Дописать метод
+    // TODO: Дописать методы
+    // async forgotPassword(data: { email: string }) {
+    //     try {
+    //         const response = await apiClient.post(`/auth/forgot-password`, data);
+    //         return response;
+    //     } catch (error) {
+    //         console.error('Error forgot-password:', error.message);
+    //         throw error;
+    //     }
+    // },
+
     // async resetPassword(data: {
     //     email: string,
     //     token: string,
@@ -72,13 +82,4 @@ export const AuthService = {
     //     }
     // },
 
-    async checkAuthStatus() {
-        try {
-            const response = await apiClient.post(`/user/me`);
-            return response;
-        } catch (error) {
-            console.error('Error check auth:', error.message);
-            throw error;
-        }
-    }
 }

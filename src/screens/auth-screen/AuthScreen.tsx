@@ -8,10 +8,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
-import Image from "next/image";
+// import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
 import { setAuthStatus } from "@/store/slices/authSlice";
-import { deleteAccessToken, getAccessToken } from "@/utils/utils";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,27 +19,31 @@ const AuthScreen: React.FC = () => {
   const { route } = router.query;
 
   useEffect(() => {
-    const token = getAccessToken();
-    // console.log("Токен авторизации:", token);
+    const checkAuth = async () => {
+      try {
+        const response = await AuthService.checkAuthStatus();
+        console.log(response);
 
-    // const isAuth = AuthService.checkAuthStatus(token);
+        if (response.status === 200) {
+          dispatch(setAuthStatus(AuthorizationStatus.Auth));
+        } else {
+          dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+        }
+      } catch (error) {
+        console.error("Ошибка при проверке авторизации:", error);
+        dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      }
+    };
 
-    // Мокаем проверку авторизации
-    const isAuth = false;
-
-    if (isAuth) {
-      dispatch(setAuthStatus(AuthorizationStatus.Auth));
-    }
-
+    checkAuth();
   }, [dispatch]);
 
-
-  // Перенаправляет пользователя если он авторизован
-  // useEffect(() => {
-  //   if (authStatus === AuthorizationStatus.Auth) {
-  //       router.push("/dasboard");
-  //   }
-  // }, [authStatus, router]);
+  // Перенаправляет пользователя на профиль, если он авторизован
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      router.push("/profile");
+    }
+  }, [authStatus, router]);
 
   return (
     <>
@@ -48,13 +51,16 @@ const AuthScreen: React.FC = () => {
         <div className="w-full grow grid grid-cols-2 rounded-3xl bg-white overflow-hidden">
           <div className="bg-c-blue-500 flex flex-col justify-center items-center">
             <div className="w-3/4">
-            <div className="flex mb-8">
-              <img className="bg-white mr-3 w-10 h-10" src="/header-logo.png" />
+              <div className="flex mb-8">
+                <img
+                  className="bg-white mr-3 w-10 h-10"
+                  src="/header-logo.png"
+                />
 
-              <h3 className="text-3xl text-white">Главная страница</h3>
-            </div>
+                <h3 className="text-3xl text-white">Главная страница</h3>
+              </div>
 
-            <img className="w-full ratio-square" src="/auth-logo.webp" />
+              <img className="w-full ratio-square" src="/auth-logo.webp" />
             </div>
           </div>
 
