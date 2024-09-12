@@ -7,7 +7,7 @@ export const LOCAL_STORAGE_USER_MENU_INDICATOR = 'userMenuIndicator';
 
 // Регулярные выражения
 export const PasswordRegex = /^(?=.*[a-z])(?=.*[0-9]).+$/i;
-export const PhoneRegex = /^(\+7)[0-9]{10}$/;
+export const PhoneRegex = /^(7)[0-9]{10}$/;
 export const LettersOnlyRegex = /^[A-Za-zА-Яа-яЁё]+$/;
 export const BirthDate = /^\d{4}-\d{2}-\d{2}$/;
 

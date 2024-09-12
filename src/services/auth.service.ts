@@ -50,7 +50,7 @@ export const AuthService = {
     async checkAuthStatus() {
         try {
             const response = await apiClient.get('/users/me');
-            return response;
+            return response.status;
         } catch (error) {
             console.error('Error check auth:', error.message);
             throw error;

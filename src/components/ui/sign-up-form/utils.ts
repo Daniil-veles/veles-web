@@ -19,7 +19,7 @@ export const signUpSchema = z.object({
     phone: z
         .string()
         .refine((value) => PhoneRegex.test(value), {
-            message: 'Номер телефона должен начинаться с +7 и содержать ровно 11 цифр',
+            message: 'Номер телефона должен начинаться с 7 и содержать ровно 11 цифр',
         }),
     birthDate: z.string().regex(BirthDate, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
 });
@@ -31,6 +31,6 @@ export const formDefaultValues = {
     lastName: "",
     email: "",
     password: "",
-    phone: "+7",
+    phone: "7",
     birthDate: "",
 };

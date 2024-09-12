@@ -14,18 +14,20 @@ import { setAuthStatus } from "@/store/slices/authSlice";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.AUTH.isAuth);
+  // const authStatus = useAppSelector((state) => state.AUTH.isAuth);
   const router = useRouter();
   const { route } = router.query;
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await AuthService.checkAuthStatus();
-        console.log(response);
+        const responseStatus = await AuthService.checkAuthStatus();
 
-        if (response.status === 200) {
+        if (responseStatus === 200) {
           dispatch(setAuthStatus(AuthorizationStatus.Auth));
+
+          // Перенаправляет пользователя на профиль
+          router.push("/profile");
         } else {
           dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
         }
@@ -36,14 +38,7 @@ const AuthScreen: React.FC = () => {
     };
 
     checkAuth();
-  }, [dispatch]);
-
-  // Перенаправляет пользователя на профиль, если он авторизован
-  useEffect(() => {
-    if (authStatus === AuthorizationStatus.Auth) {
-      router.push("/profile");
-    }
-  }, [authStatus, router]);
+  }, [dispatch, router]);
 
   return (
     <>
