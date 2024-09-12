@@ -49,7 +49,7 @@ function CustomInput({
         )}
 
         <input
-          className={`${className} w-full border bg-white border-gray-300 rounded-xl px-3 py-2 
+          className={`${className} w-full bg-white border border-gray-300 rounded-xl px-3 py-2 
           ${type === "password" ? "pr-10 !important" : ""} 
           ${type === "search" ? "pl-10 !important" : ""} 
           ${error ? "border-red-500" : ""}`}
@@ -67,7 +67,7 @@ function CustomInput({
         {type === "password" && (
           <button
             type="button"
-            className="absolute inset-y-0 right-3 flex items-center"
+            className="absolute inset-y-0 right-3 flex items-center text-c-dark-gray"
             onClick={togglePasswordVisibility}
           >
             {isPasswordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
