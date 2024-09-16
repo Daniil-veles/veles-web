@@ -4,7 +4,11 @@ import ProfileTaskList from "@/components/elements/profile-task-list/ProfileTask
 import CustomInput from "@/components/ui/custom-input/CustomInput";
 import DashboardTab from "@/components/ui/dashboard-tab/DashboardTab";
 import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
-import { exampleEmployeeList, exampleObjectList, exampleTaskList } from "@/const/const";
+import {
+  exampleEmployeeList,
+  exampleObjectList,
+  exampleTaskList,
+} from "@/const/const";
 import PrivateRoute from "@/hoc/PrivateRoute";
 import { useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -13,11 +17,13 @@ import {
   Calendar,
   MoveLeft,
   MoveRight,
+  Save,
   Settings,
   SquarePen,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+
 
 export const formDefaultValues = {
   fullName: "",
@@ -26,38 +32,68 @@ export const formDefaultValues = {
   birthDate: "",
 };
 
+
 const list = [
   { name: "оbject", title: "Объекты" },
   { name: "task", title: "Задачи" },
   { name: "department", title: "Отдел" },
 ];
 
-// const taskList = [
-//   { name: "оbject", title: "Объекты" },
-//   { name: "task", title: "Задачи" },
-// ];
 
 const ProfileScreen: React.FC = () => {
+  const [userInfo, setUserInfo] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    birthDate: ''
+  });
+
+
   const [isCommonInfo, setIsCommonInfo] = useState(true);
+  const [isEditable, setIsEditable] = useState(false);
   const [activeItem, setActiveItem] = useState(list[0].name);
-  const userInfo = useAppSelector((state) => state.USER);
+  // const userInfoState = useAppSelector((state) => state.USER);
 
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: formDefaultValues,
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      birthDate: "",
+    },
     // resolver: zodResolver(loginSchema),
     mode: "onChange",
   });
 
   useEffect(() => {
+    console.log('userInfo:', userInfo);
     if (userInfo) {
-      reset({
+      console.log('Resetting with:', {
         fullName: userInfo.fullName,
+        birthDate: userInfo.birthDate,
         email: userInfo.email,
         phone: userInfo.phone,
-        birthDate: userInfo.birthDate,
+      });
+      reset({
+        fullName: userInfoState.fullName,
+        birthDate: userInfoState.birthDate,
+        email: userInfoState.email,
+        phone: userInfoState.phone,
       });
     }
-  }, [userInfo, reset]);
+  }, [userInfoState, userInfo, reset]);
+
+  // useEffect(() => {
+  //   console.log("userInfo:", userInfo);
+  //   if (userInfo) {
+  //     reset({
+  //       fullName: userInfo.fullName,
+  //       birthDate: userInfo.birthDate,
+  //       email: userInfo.email,
+  //       phone: userInfo.phone,
+  //     });
+  //   }
+  // }, [userInfo, reset]);
 
   async function onSubmit(data: { email: string }) {
     try {
@@ -98,7 +134,13 @@ const ProfileScreen: React.FC = () => {
                     </div>
 
                     <div className="w-10 h-10 flex justify-center items-center bg-c-blue-300 rounded-xl">
-                      <SquarePen size={18} />
+                      <button onClick={() => setIsEditable((prev) => !prev)}>
+                        {isEditable ? (
+                          <Save size={18} />
+                        ) : (
+                          <SquarePen size={18} />
+                        )}
+                      </button>
                     </div>
                   </div>
 
@@ -132,6 +174,7 @@ const ProfileScreen: React.FC = () => {
                                 onBlur={field.onBlur}
                                 error={fieldState.error}
                                 required
+                                disabled={!isEditable}
                               />
                             )}
                           />
@@ -156,6 +199,7 @@ const ProfileScreen: React.FC = () => {
                                 onBlur={field.onBlur}
                                 error={fieldState.error}
                                 required
+                                disabled={!isEditable}
                               />
                             )}
                           />
@@ -186,6 +230,7 @@ const ProfileScreen: React.FC = () => {
                                 onBlur={field.onBlur}
                                 error={fieldState.error}
                                 required
+                                disabled={!isEditable}
                               />
                             )}
                           />
@@ -210,6 +255,7 @@ const ProfileScreen: React.FC = () => {
                                 onBlur={field.onBlur}
                                 error={fieldState.error}
                                 required
+                                disabled={!isEditable}
                               />
                             )}
                           />
