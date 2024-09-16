@@ -246,7 +246,24 @@ export const companyInfoFields = [
     // { field: 'Сотрудники', value: 'director' }
 ]
 
+export const personInfoVerifiedTexts = {
+    email: {
+        modalTitle: "Подтвердите вашу почту",
+        verificationText: (email: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите вашу электронную почту. На указанный адрес: ${email} было отправлено письмо с инструкциями по подтверждению. Если вы не получили письмо, проверьте папку "Спам" или нажмите кнопку ниже, чтобы отправить письмо повторно.`,
+        modalButtonText: "Отправить письмо повторно",
+    },
 
+    phone: {
+        modalTitle: "Подтвердите ваш телефон",
+        verificationText: (phone: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите ваш номер телефона. На указанный номер: ${phone} было отправлено SMS с кодом подтверждения. Если вы не получили SMS, нажмите кнопку ниже, чтобы отправить код повторно.`,
+        modalButtonText: "Отправить код повторно",
+    },
+
+    // Добавьте другие тексты, если необходимо
+};
+
+
+// Моковые данные
 export const exampleOrgData =
 {
     name: "ООО Велесъ",
@@ -264,18 +281,81 @@ export const exampleOrgData =
     employees: 100,
 };
 
-export const personInfoVerifiedTexts = {
-    email: {
-        modalTitle: "Подтвердите вашу почту",
-        verificationText: (email: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите вашу электронную почту. На указанный адрес: ${email} было отправлено письмо с инструкциями по подтверждению. Если вы не получили письмо, проверьте папку "Спам" или нажмите кнопку ниже, чтобы отправить письмо повторно.`,
-        modalButtonText: "Отправить письмо повторно",
+export const exampleObjectList = [
+    {
+        title: "Объект 1",
+        data: "11.20.2020",
+        priority: "high",
+        tasks: 100,
+        activeTasks: 10,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
     },
-
-    phone: {
-        modalTitle: "Подтвердите ваш телефон",
-        verificationText: (phone: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите ваш номер телефона. На указанный номер: ${phone} было отправлено SMS с кодом подтверждения. Если вы не получили SMS, нажмите кнопку ниже, чтобы отправить код повторно.`,
-        modalButtonText: "Отправить код повторно",
+    {
+        title: "Объект 2",
+        data: "11.20.2022",
+        priority: "medium",
+        tasks: 300,
+        activeTasks: 30,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
     },
-
-    // Добавьте другие тексты, если необходимо
-};
+    {
+        title: "Объект3 ",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+    {
+        title: "Объект 4",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+    {
+        title: "Объект 5",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+    {
+        title: "Объект 6",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+];

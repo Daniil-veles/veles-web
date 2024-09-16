@@ -67,7 +67,7 @@ function CustomInput({
         {type === "password" && (
           <button
             type="button"
-            className="absolute inset-y-0 right-3 flex items-center text-c-dark-gray"
+            className="absolute inset-y-0 right-3 flex items-center text-c-gray-800"
             onClick={togglePasswordVisibility}
           >
             {isPasswordVisible ? <EyeOff size={20} /> : <Eye size={20} />}

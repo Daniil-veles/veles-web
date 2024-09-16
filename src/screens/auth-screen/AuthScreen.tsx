@@ -63,12 +63,12 @@ const AuthScreen: React.FC = () => {
 
           <div className="w-2/3 h-full mx-auto flex flex-col justify-center">
             {route === "login" || route === "sign-up" ? (
-              <ul className="grid grid-cols-[40%_1fr] p-1 rounded-full border border-c-gray mb-6 h-min">
+              <ul className="grid grid-cols-[40%_1fr] p-1 rounded-full border border-c-gray-500 mb-6 h-min">
                 <li className="">
                   <button
                     className={cn(
                       "block w-full py-2 px-3 rounded-full text-center",
-                      route === "login" ? "bg-c-gray font-medium" : null
+                      route === "login" ? "bg-c-gray-500 font-medium" : null
                     )}
                     onClick={() => router.push("/auth/login")}
                   >
@@ -80,7 +80,7 @@ const AuthScreen: React.FC = () => {
                   <button
                     className={cn(
                       "block w-full py-2 px-3 rounded-full text-center",
-                      route === "sign-up" ? "bg-c-gray font-medium" : null
+                      route === "sign-up" ? "bg-c-gray-500 font-medium" : null
                     )}
                     onClick={() => router.push("/auth/sign-up")}
                   >

@@ -22,7 +22,7 @@ function UserMenu(): JSX.Element {
 
         <Link
           href={"/logout"}
-          className="flex items-center pl-2 text-c-dark-gray hover:text-c-blue-500"
+          className="flex items-center pl-2 text-c-gray-800 hover:text-c-blue-500"
         >
           <LogOut className="mr-3" size={24} />
           Выйти

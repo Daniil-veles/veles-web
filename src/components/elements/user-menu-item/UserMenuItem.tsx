@@ -30,7 +30,7 @@ function UserMenuItem({ item }: IUserMenuItemProps): JSX.Element {
           `flex items-center p-2 py-3 font-medium cursor-pointer rounded-lg transition-all duration-300`,
           {
             "bg-c-blue-500/10 text-c-blue-500": isActive,
-            "text-c-dark-gray": !isActive,
+            "text-c-gray-800": !isActive,
           }
         )}
         href={`/${link}`}
