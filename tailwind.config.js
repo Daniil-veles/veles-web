@@ -19,6 +19,8 @@ export default {
         'c-blue-800': '#1F6DE0',
         'c-gray-500': '#E6EDF5',
         'c-gray-800': '#7D8592',
+        'c-green-500': '#0AC947',
+        'c-yellow-500': '#FFBD21',
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
