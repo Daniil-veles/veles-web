@@ -6,6 +6,7 @@ import { AuthorizationStatus } from "@/types/state.interface";
 import { setUserInfo } from "@/store/slices/userSlice";
 import { useAppDispatch } from "@/hooks";
 import { UserService } from "@/services/user.service";
+import { adaptToUserData } from "@/utils/utils";
 
 interface IDashboardLayout {
   title: string;
@@ -38,9 +39,10 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
         // };
 
         const user = await UserService.getUserInfo();
-        console.log(user);
+        const adaptedData = adaptToUserData(user);
+        // console.log(adaptedData);
 
-        dispatch(setUserInfo(user));
+        dispatch(setUserInfo(adaptedData));
       } catch (error) {
         console.error("Error fetching user info:", error.message);
       }

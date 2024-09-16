@@ -10,8 +10,11 @@ import {
   exampleTaskList,
 } from "@/const/const";
 import PrivateRoute from "@/hoc/PrivateRoute";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { UserService } from "@/services/user.service";
+import { setUserInfo } from "@/store/slices/userSlice";
+import { adaptToUserData } from "@/utils/utils";
 import cn from "classnames";
 import {
   Calendar,
@@ -24,81 +27,81 @@ import {
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-
-export const formDefaultValues = {
-  fullName: "",
-  email: "",
-  phone: "",
-  birthDate: "",
-};
-
-
 const list = [
   { name: "оbject", title: "Объекты" },
   { name: "task", title: "Задачи" },
   { name: "department", title: "Отдел" },
 ];
 
+interface IProfileFormData {
+  fullName: string;
+  birthDate: string;
+  email: string;
+  phone: string;
+}
 
 const ProfileScreen: React.FC = () => {
-  const [userInfo, setUserInfo] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    birthDate: ''
-  });
-
-
+  const dispatch = useAppDispatch();
   const [isCommonInfo, setIsCommonInfo] = useState(true);
   const [isEditable, setIsEditable] = useState(false);
   const [activeItem, setActiveItem] = useState(list[0].name);
-  // const userInfoState = useAppSelector((state) => state.USER);
+  const userInfo = useAppSelector((state) => state.USER);
+
+  const formDefaultValues = {
+    fullName: "",
+    birthDate: "",
+    email: "",
+    phone: "",
+  };
 
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      birthDate: "",
-    },
+    defaultValues: formDefaultValues,
     // resolver: zodResolver(loginSchema),
     mode: "onChange",
   });
 
   useEffect(() => {
-    console.log('userInfo:', userInfo);
     if (userInfo) {
-      console.log('Resetting with:', {
+      // console.log("userInfo:", userInfo);
+      reset({
         fullName: userInfo.fullName,
         birthDate: userInfo.birthDate,
         email: userInfo.email,
         phone: userInfo.phone,
       });
-      reset({
-        fullName: userInfoState.fullName,
-        birthDate: userInfoState.birthDate,
-        email: userInfoState.email,
-        phone: userInfoState.phone,
-      });
     }
-  }, [userInfoState, userInfo, reset]);
+  }, [userInfo, reset]);
 
-  // useEffect(() => {
-  //   console.log("userInfo:", userInfo);
-  //   if (userInfo) {
-  //     reset({
-  //       fullName: userInfo.fullName,
-  //       birthDate: userInfo.birthDate,
-  //       email: userInfo.email,
-  //       phone: userInfo.phone,
-  //     });
-  //   }
-  // }, [userInfo, reset]);
-
-  async function onSubmit(data: { email: string }) {
+  async function onSubmit(data: IProfileFormData) {
     try {
+      setIsEditable((prev) => !prev);
+
+      // fullName: "Даниил Суворов", birthDate: "2000-10-21", email: "test-daniil@mail.ru", phone: "79807057002"
+
+      if (isEditable) {
+        console.log(data);
+
+        const { fullName, birthDate, ...rest } = data;
+
+        const newData = {
+          password: "123456A@",
+          is_active: true,
+          is_superuser: true,
+          is_verified: true,
+          picture: '',
+          birth_date: data.birthDate,
+          username: data.fullName,
+          ...rest,
+        };
+
+        const user = await UserService.updateUserInfo(newData);
+        const adaptedData = adaptToUserData(user);
+        console.log(adaptedData);
+
+        dispatch(setUserInfo(adaptedData));
+      }
     } catch (error) {
-      console.error("Failed to create user:", error.response);
+      console.error("Failed to update user info:", error.response);
     }
   }
 
@@ -134,7 +137,7 @@ const ProfileScreen: React.FC = () => {
                     </div>
 
                     <div className="w-10 h-10 flex justify-center items-center bg-c-blue-300 rounded-xl">
-                      <button onClick={() => setIsEditable((prev) => !prev)}>
+                      <button type="submit">
                         {isEditable ? (
                           <Save size={18} />
                         ) : (
@@ -155,7 +158,7 @@ const ProfileScreen: React.FC = () => {
                       <h3 className="mb-3 text-lg">Общая информация</h3>
 
                       <ul className="">
-                        <li className="mb-2">
+                        <li key="fullName" className="mb-2">
                           <Controller
                             name="fullName"
                             control={control}
@@ -180,7 +183,7 @@ const ProfileScreen: React.FC = () => {
                           />
                         </li>
 
-                        <li>
+                        <li key="birthDate">
                           <Controller
                             name="birthDate"
                             control={control}
@@ -192,7 +195,7 @@ const ProfileScreen: React.FC = () => {
                                   name: "birthDate",
                                   label: "Дата рождения",
                                   placeholder: "21.10.1990",
-                                  type: "text",
+                                  type: "date",
                                 }}
                                 fieldValue={field.value}
                                 onChange={field.onChange}
@@ -211,7 +214,7 @@ const ProfileScreen: React.FC = () => {
                       <h3 className="mb-3 text-lg">Контакты</h3>
 
                       <ul>
-                        <li className="mb-2">
+                        <li key="email" className="mb-2">
                           <Controller
                             name="email"
                             control={control}
@@ -236,7 +239,7 @@ const ProfileScreen: React.FC = () => {
                           />
                         </li>
 
-                        <li>
+                        <li key="phone">
                           <Controller
                             name="phone"
                             control={control}
