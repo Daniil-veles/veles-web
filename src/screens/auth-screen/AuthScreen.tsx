@@ -14,31 +14,33 @@ import { setAuthStatus } from "@/store/slices/authSlice";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();
-  // const authStatus = useAppSelector((state) => state.AUTH.isAuth);
+  const authStatus = useAppSelector((state) => state.AUTH.isAuth);
   const router = useRouter();
   const { route } = router.query;
 
   useEffect(() => {
     const checkAuth = async () => {
-      try {
-        const responseStatus = await AuthService.checkAuthStatus();
-
-        if (responseStatus === 200) {
-          dispatch(setAuthStatus(AuthorizationStatus.Auth));
-
-          // Перенаправляет пользователя на профиль
-          router.push("/profile");
-        } else {
-          dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-        }
-      } catch (error) {
-        console.error("Ошибка при проверке авторизации:", error);
-        dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      if (authStatus === AuthorizationStatus.Auth) {
+        // Перенаправляет пользователя на профиль
+        router.push("/profile");
       }
+      // try {
+      //   const responseStatus = await AuthService.checkAuthStatus();
+
+      //   if (responseStatus === 200) {
+      //     dispatch(setAuthStatus(AuthorizationStatus.Auth));
+
+      //     // Перенаправляет пользователя на профиль
+      //     router.push("/profile");
+      //   }
+      // } catch (error) {
+      //   console.log("Ошибка при проверке авторизации");
+      //   // dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      // }
     };
 
-    checkAuth();
-  }, [dispatch, router]);
+    // checkAuth();
+  }, [authStatus, router]);
 
   return (
     <>

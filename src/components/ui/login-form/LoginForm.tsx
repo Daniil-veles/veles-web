@@ -115,7 +115,7 @@ const LoginForm: React.FC = () => {
               onChange={(e) => setRememberMe(e.target.checked)}
               checked={rememberMe}
             />
-            Remember
+            Запомнить меня
           </span>
 
           <Link
