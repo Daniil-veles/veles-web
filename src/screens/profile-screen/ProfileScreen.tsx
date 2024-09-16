@@ -1,9 +1,10 @@
+import ProfileEmployeeList from "@/components/elements/profile-employee-list/ProfileEmployeeList";
 import ProfileObjectList from "@/components/elements/profile-object-list/ProfileObjectList";
 import ProfileTaskList from "@/components/elements/profile-task-list/ProfileTaskList";
 import CustomInput from "@/components/ui/custom-input/CustomInput";
 import DashboardTab from "@/components/ui/dashboard-tab/DashboardTab";
 import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
-import { exampleObjectList, exampleTaskList } from "@/const/const";
+import { exampleEmployeeList, exampleObjectList, exampleTaskList } from "@/const/const";
 import PrivateRoute from "@/hoc/PrivateRoute";
 import { useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -273,6 +274,9 @@ const ProfileScreen: React.FC = () => {
               )}
               {activeItem === "task" && (
                 <ProfileTaskList list={exampleTaskList} />
+              )}
+              {activeItem === "department" && (
+                <ProfileEmployeeList list={exampleEmployeeList} />
               )}
             </div>
           </div>

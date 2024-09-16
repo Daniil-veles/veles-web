@@ -422,3 +422,66 @@ export const exampleTaskList = [
         status: "Завершено",
     },
 ];
+
+export const exampleEmployeeList = [
+    {
+        avatar: "/images/avatar1.jpg",
+        name: "Алексей Иванов",
+        position: "Frontend Developer",
+        level: "Junior",
+    },
+    {
+        avatar: "/images/avatar2.jpg",
+        name: "Мария Смирнова",
+        position: "Backend Developer",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar3.jpg",
+        name: "Дмитрий Кузнецов",
+        position: "DevOps Engineer",
+        level: "Senior",
+    },
+    {
+        avatar: "/images/avatar4.jpg",
+        name: "Анна Попова",
+        position: "Project Manager",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar5.jpg",
+        name: "Екатерина Волкова",
+        position: "UI/UX Designer",
+        level: "Senior",
+    },
+    {
+        avatar: "/images/avatar6.jpg",
+        name: "Павел Соколов",
+        position: "QA Engineer",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar7.jpg",
+        name: "Иван Воробьев",
+        position: "Data Scientist",
+        level: "Senior",
+    },
+    {
+        avatar: "/images/avatar8.jpg",
+        name: "Ольга Михайлова",
+        position: "Product Owner",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar9.jpg",
+        name: "Виктор Сергеев",
+        position: "Fullstack Developer",
+        level: "Junior",
+    },
+    {
+        avatar: "/images/avatar10.jpg",
+        name: "Татьяна Федорова",
+        position: "HR Specialist",
+        level: "Senior",
+    },
+]

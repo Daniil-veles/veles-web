@@ -61,7 +61,7 @@ const ProfileObjectItem: React.FC<IProfileObjectItemProps> = ({ object }) => {
             <div className="flex items-center">
               {object.employee && object.employee.length > 0
                 ? object.employee
-                    .slice(0, 4)
+                    .slice(0, 3)
                     .map((employee, index) => (
                       <img
                         key={index}
@@ -72,9 +72,9 @@ const ProfileObjectItem: React.FC<IProfileObjectItemProps> = ({ object }) => {
                     ))
                 : null}
 
-              {object.employee && object.employee.length > 4 && (
+              {object.employee && object.employee.length > 3 && (
                 <span className="flex items-center justify-center bg-c-blue-800 text-white text-sm w-6 h-6 rounded-full">
-                  +{object.employee.length - 4}
+                  +{object.employee.length - 3}
                 </span>
               )}
             </div>

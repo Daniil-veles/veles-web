@@ -30,3 +30,10 @@ export interface IProfileTask {
   finishDate: string;
   status: string;
 }
+
+export interface IProfileEmployee {
+  avatar: string;
+  name: string;
+  position: string;
+  level: string;
+}
