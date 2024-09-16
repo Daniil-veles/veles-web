@@ -1,4 +1,4 @@
-import { IFormField } from "./form.interface";
+// import { IFormField } from "./form.interface";
 
 // Тип для описания состояния модального окна
 // export interface ModalState {
@@ -22,4 +22,11 @@ export interface IProfileObject {
   tasks: number;
   activeTasks: number;
   employee: IProfileObjectEmployee[];
+}
+
+export interface IProfileTask {
+  title: string;
+  startDate: string;
+  finishDate: string;
+  status: string;
 }

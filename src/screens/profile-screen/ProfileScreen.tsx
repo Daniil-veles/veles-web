@@ -1,8 +1,9 @@
 import ProfileObjectList from "@/components/elements/profile-object-list/ProfileObjectList";
+import ProfileTaskList from "@/components/elements/profile-task-list/ProfileTaskList";
 import CustomInput from "@/components/ui/custom-input/CustomInput";
 import DashboardTab from "@/components/ui/dashboard-tab/DashboardTab";
 import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
-import { exampleObjectList } from "@/const/const";
+import { exampleObjectList, exampleTaskList } from "@/const/const";
 import PrivateRoute from "@/hoc/PrivateRoute";
 import { useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -81,7 +82,7 @@ const ProfileScreen: React.FC = () => {
 
           <div className="flex grow gap-x-[30px]">
             <form
-              className="flex flex-col max-w-[265px] w-full"
+              className="flex flex-col w-[265px] flex-shrink-0"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="grow flex flex-col bg-white rounded-3xl">
@@ -269,6 +270,9 @@ const ProfileScreen: React.FC = () => {
 
               {activeItem === "оbject" && (
                 <ProfileObjectList list={exampleObjectList} />
+              )}
+              {activeItem === "task" && (
+                <ProfileTaskList list={exampleTaskList} />
               )}
             </div>
           </div>

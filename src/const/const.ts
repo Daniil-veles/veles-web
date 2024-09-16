@@ -359,3 +359,66 @@ export const exampleObjectList = [
         ],
     },
 ];
+
+export const exampleTaskList = [
+    {
+        title: "Разработка пользовательского интерфейса",
+        startDate: "2024-09-01",
+        finishDate: "2024-09-10",
+        status: "В процессе",
+    },
+    {
+        title: "Тестирование системы безопасности",
+        startDate: "2024-09-05",
+        finishDate: "2024-09-12",
+        status: "Завершено",
+    },
+    {
+        title: "Оптимизация базы данных",
+        startDate: "2024-08-15",
+        finishDate: "2024-08-25",
+        status: "В процессе",
+    },
+    {
+        title: "Создание документации для API",
+        startDate: "2024-09-02",
+        finishDate: "2024-09-05",
+        status: "Завершено",
+    },
+    {
+        title: "Внедрение системы мониторинга",
+        startDate: "2024-09-03",
+        finishDate: "2024-09-15",
+        status: "Отложено",
+    },
+    {
+        title: "Рефакторинг кода основного модуля",
+        startDate: "2024-08-20",
+        finishDate: "2024-08-30",
+        status: "Завершено",
+    },
+    {
+        title: "Миграция на новый сервер",
+        startDate: "2024-09-10",
+        finishDate: "2024-09-17",
+        status: "Планируется",
+    },
+    {
+        title: "Настройка CI/CD",
+        startDate: "2024-09-11",
+        finishDate: "2024-09-18",
+        status: "В процессе",
+    },
+    {
+        title: "Проектирование новой архитектуры",
+        startDate: "2024-08-25",
+        finishDate: "2024-09-05",
+        status: "Отложено",
+    },
+    {
+        title: "Анализ требований клиента",
+        startDate: "2024-09-01",
+        finishDate: "2024-09-08",
+        status: "Завершено",
+    },
+];
