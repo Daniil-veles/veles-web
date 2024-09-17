@@ -40,8 +40,6 @@ const LoginForm: React.FC = () => {
         // Моковый токен
         // const accessToken = "123456";
 
-        dispatch(setAuthStatus(AuthorizationStatus.Auth));
-
         // Cохраняет токен в зависимости от состояния rememberMe в local или session
         const accessToken = response.data.access_token;
         setAccessToken(accessToken, rememberMe);

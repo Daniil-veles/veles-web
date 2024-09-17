@@ -1,36 +1,17 @@
-import { CircleUser, X } from "lucide-react";
 import HeaderMenu from "../header-menu/HeaderMenu";
 import Container from "@/components/container/Container";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppSelector } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
-import Loading from "@/screens/loading/Loading";
+import { ChevronDown } from "lucide-react";
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const [isAuthRoute, setIsAuthRoute] = useState(false);
-
-  useEffect(() => {
-    if (router.asPath === "/auth/login" || router.asPath === "/auth/sign-up") {
-      // console.log("Вы на странице: /auth");
-      setIsAuthRoute(true);
-    }
-  }, [router]);
-
-  const isAuth = useAppSelector((state) => state.USER.isAuth);
-
-  if (!isAuth) {
-    return <Loading />;
-  }
+  const userInfo = useAppSelector((state) => state.USER);
+  const isAuth = useAppSelector((state) => state.AUTH.isAuth);
+  console.log(userInfo);
 
   return (
     <Container className="">
@@ -47,52 +28,61 @@ const Header: React.FC = () => {
             />
           </Link>
 
-          {isAuthRoute ? <p>Авторизация</p> : <HeaderMenu />}
+          <HeaderMenu />
 
           <div className="flex items-center">
-            {isAuthRoute ? (
-              <Link href={"/"}>
-                <X size={26} />
-              </Link>
-            ) : (
-              <div className="relative flex items-center">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="relative">
-                    <CircleUser className="text-black" />
-                  </DropdownMenuTrigger>
+            <div className="relative flex items-center">
+              {isAuth === AuthorizationStatus.Auth ? (
+                <Link
+                  href={"/profile"}
+                  className="flex items-center px-3 rounded-lg"
+                >
+                  <img
+                    className="w-7 h-7 mr-2 rounded-full"
+                    // src={userInfo.picture}
+                    src={"/userIcon.webp"}
+                    alt="Аватарка"
+                  />
 
-                  <DropdownMenuContent className="absolute right-0 p-2 mt-2 -right-3 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-20">
-                    {isAuth === AuthorizationStatus.Auth ? (
-                      <>
-                        <Link href="/dashboard">
-                          <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
-                            Личный кабинет
-                          </DropdownMenuItem>
-                        </Link>
+                  {/* <p>{userInfo.fullName}</p> */}
+                  <p className="min-w-max mr-2">Даниил Суворов</p>
 
-                        <Link href="/logout">
-                          <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
-                            Выйти
-                          </DropdownMenuItem>
-                        </Link>
+                  <ChevronDown size={20} />
+                </Link>
+              ) : (
+                <div>
+                  <Link href={"/auth/sign-up"}>Зарегистрироваться</Link>
+                  <Link href={"/auth/login"}>Войти</Link>
+                </div>
+              )}
 
-                        <Link href="/crm">
-                          <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
-                            Организация
-                          </DropdownMenuItem>
-                        </Link>
-                      </>
-                    ) : (
-                      <Link href="/auth">
-                        <DropdownMenuItem className="p-4 text-md rounded-xl hover:bg-gray-200/30">
-                          Войти
-                        </DropdownMenuItem>
-                      </Link>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              <div className="absolute hidden">
+                {isAuth === AuthorizationStatus.Auth ? (
+                  <>
+                    <Link
+                      className="p-4 text-md rounded-xl hover:bg-gray-200/30"
+                      href="/profile"
+                    >
+                      Личный кабинет
+                    </Link>
+
+                    <Link
+                      className="p-4 text-md rounded-xl hover:bg-gray-200/30"
+                      href="/logout"
+                    >
+                      Выйти
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    className="p-4 text-md rounded-xl hover:bg-gray-200/30"
+                    href="/auth"
+                  >
+                    Войти
+                  </Link>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ const Layout: React.FC<ILayout> = ({ children, title, description = null }) => {
         )}
       </Head>
 
-      <div className="bg-c-blue-300 flex flex-col h-screen p-5 pb-8">
+      <div className="bg-c-blue-300 flex flex-col h-screen">
         <main className="h-full flex flex-col flex-grow">{children}</main>
       </div>
     </>

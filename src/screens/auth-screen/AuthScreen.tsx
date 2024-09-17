@@ -11,6 +11,7 @@ import { AuthorizationStatus } from "@/types/state.interface";
 // import Image from "next/image";
 import { AuthService } from "@/services/auth.service";
 import { setAuthStatus } from "@/store/slices/authSlice";
+import Link from "next/link";
 
 const AuthScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -48,14 +49,14 @@ const AuthScreen: React.FC = () => {
         <div className="w-full grow grid grid-cols-2 rounded-3xl bg-white overflow-hidden">
           <div className="bg-c-blue-500 flex flex-col justify-center items-center">
             <div className="w-3/4">
-              <div className="flex mb-8">
+              <Link href={'/'} className="flex mb-8">
                 <img
                   className="bg-white mr-3 w-10 h-10"
                   src="/header-logo.png"
                 />
 
                 <h3 className="text-3xl text-white">Главная страница</h3>
-              </div>
+              </Link>
 
               <img className="w-full ratio-square" src="/auth-logo.webp" />
             </div>

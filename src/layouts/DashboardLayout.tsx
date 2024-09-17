@@ -52,8 +52,8 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
   }, [dispatch]);
 
   return (
-    <Layout title={title} description={description}>
-      <div className="h-full grid grid-cols-[200px_1fr] gap-x-[30px]">
+    <Layout  title={title} description={description}>
+      <div className="h-full grid grid-cols-[200px_1fr] gap-x-[30px] p-5 pb-8">
         <UserMenu />
 
         <div className="flex flex-col gap-8">

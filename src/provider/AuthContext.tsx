@@ -34,13 +34,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     try {
       const response = await AuthService.login(formattedUserData);
+      console.log(response);
 
       if (response.status === 200) {
         const accessToken = response.data.access_token;
-        dispatch(setAuthStatus(AuthorizationStatus.Auth));
         setAccessToken(accessToken);
+        dispatch(setAuthStatus(AuthorizationStatus.Auth));
 
-        router.push("/dashboard/profile"); // Перенаправление после успешного входа
+        router.push("/profile"); // Перенаправление после успешного входа
 
         // Успешно выполненный вход
         console.log("Login successful:", response);
@@ -53,6 +54,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async () => {
     try {
       const response = await AuthService.logout();
+      console.log(response);
 
       deleteAccessToken();
       dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
