@@ -39,7 +39,7 @@ export const AuthService = {
 
     async logout() {
         try {
-            const response = await apiClient.post(`/auth/jwt/logout`, null);
+            const response = await apiClient.post(`/auth/jwt/logout`);
             return response;
         } catch (error) {
             console.error('Error logout:', error.message);

@@ -40,7 +40,7 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
 
         const user = await UserService.getUserInfo();
         const adaptedData = adaptToUserData(user);
-        // console.log(adaptedData);
+        console.log(adaptedData);
 
         dispatch(setUserInfo(adaptedData));
       } catch (error) {

@@ -24,9 +24,9 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
 },
     async (error: AxiosError) => {
         if (error.response) {
-            const { status } = error.response;
+            const { status, config } = error.response;
 
-            if (status === 401) {
+            if (status === 401 && config?.url && !config.url.includes('/logout')) {
                 // Переадресация на логин
                 if (window.location.pathname !== '/auth/login') {
                     window.location.href = '/auth/login';

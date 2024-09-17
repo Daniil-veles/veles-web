@@ -9,12 +9,11 @@ import { deleteAccessToken, setAccessToken } from "@/utils/utils";
 import { AuthorizationStatus } from "@/types/state.interface";
 
 interface IAuthContextProps {
-  user: any; // можно уточнить тип, если известно
   login: (
     data: ILoginFormData,
     rememberMe: boolean
   ) => Promise<{ success: boolean } | void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   authStatus: AuthorizationStatus;
 }
 
@@ -27,12 +26,9 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<any>(null);
   const [authStatus, setAuthStatus] = useState<AuthorizationStatus>(
     AuthorizationStatus.Unknown
   );
-
-  console.log(authStatus);
 
   // Проверка авторизации при первой загрузке
   useEffect(() => {
@@ -42,16 +38,15 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const response = await AuthService.checkAuthStatus();
 
         if (response.status === 200) {
-          setUser(response.data); // Устанавливаем данные пользователя
-          setAuthStatus(AuthorizationStatus.Auth); // Обновляем статус авторизации
+          setAuthStatus(AuthorizationStatus.Auth);
         } else {
-          setAuthStatus(AuthorizationStatus.NoAuth); // Если токен недействителен, то считаем пользователя неавторизованным
-          deleteAccessToken(); // Очищаем токен, если он недействителен
+          setAuthStatus(AuthorizationStatus.NoAuth);
+          deleteAccessToken();
         }
       } catch (error) {
         console.error("Error fetching user info:", error.message);
         setAuthStatus(AuthorizationStatus.NoAuth);
-        deleteAccessToken(); // Удаляем токен в случае ошибки
+        deleteAccessToken();
       }
     };
 
@@ -63,13 +58,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     try {
       const response = await AuthService.login(formattedUserData);
+      // console.log(response);
 
       if (response.status === 200) {
         const accessToken = response.data.access_token;
         setAccessToken(accessToken, rememberMe);
 
         // Устанавливаем пользователя и статус
-        // setUser(response.data.user);
         setAuthStatus(AuthorizationStatus.Auth);
 
         return { success: true };
@@ -82,29 +77,22 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = async () => {
-    // try {
-    //   await AuthService.logout();
-    //   deleteAccessToken();
-    //   setUser(null);
-    //   setAuthStatus(AuthorizationStatus.NoAuth);
-    // } catch (error) {
-    //   console.error("Failed to logout:", error.message);
-    // }
-
     try {
-      await AuthService.logout(); // Попытка отправить запрос на сервер для выхода
+      await AuthService.logout();
+      // const response = await AuthService.logout();
+      // console.log(response);
     } catch (error) {
-      console.error("Failed to logout:", error.message);
-      // Если произошла ошибка, например, 401, всё равно продолжить разлогин на клиенте
+      console.error(
+        "Failed to logout:",
+        error.response?.data.detail || error.message
+      );
     } finally {
-      deleteAccessToken(); // Удаление токена независимо от успеха или неудачи
-      setUser(null);       // Сброс состояния пользователя
-      setAuthStatus(AuthorizationStatus.NoAuth); // Установка статуса неавторизованного пользователя
+      deleteAccessToken();
+      setAuthStatus(AuthorizationStatus.NoAuth);
     }
   };
 
   const value = {
-    user,
     login,
     logout,
     authStatus,

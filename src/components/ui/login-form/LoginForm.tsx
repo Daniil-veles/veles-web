@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
         await router.push("/profile");
 
         // Успешно выполненный вход
-        console.log("Login successful");
+        console.log("Вход совершен");
       }
     } catch (error) {
       console.error("Failed to create user:", error.response);

@@ -1,6 +1,5 @@
 import apiClient from "@/api/api";
 import { UserDataFromServer } from "@/types/user.interface";
-import { adaptToUserData } from "@/utils/utils";
 
 export const UserService = {
     async getUserInfo() {
