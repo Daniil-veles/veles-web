@@ -1,6 +1,5 @@
 import { LogOut, MessageCircle } from "lucide-react";
 import UserMenuList from "../user-menu-list/UserMenuList";
-import Link from "next/link";
 import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
 import { useAuth } from "@/hooks";
 
