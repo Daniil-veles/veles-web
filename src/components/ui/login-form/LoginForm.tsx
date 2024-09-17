@@ -1,28 +1,18 @@
 import { Controller, useForm } from "react-hook-form";
-import {
-  adaptedUserData,
-  formDefaultValues,
-  LoginFormDataType,
-  loginSchema,
-} from "./utils";
+import { formDefaultValues, LoginFormDataType, loginSchema } from "./utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
-import { useAppDispatch, useAuth } from "@/hooks";
-import { AuthorizationStatus } from "@/types/state.interface";
-import { setAccessToken } from "@/utils/utils";
-import { AuthService } from "@/services/auth.service";
+import { useAuth } from "@/hooks";
 import { MoveRight } from "lucide-react";
 import { useState } from "react";
-import { setAuthStatus } from "@/store/slices/authSlice";
 import { useRouter } from "next/router";
-import { IAdaptedLoginFormData, ILoginFormData } from "./LoginForm.interface";
+import { ILoginFormData } from "./LoginForm.interface";
 import CustomInput from "../custom-input/CustomInput";
 
 const LoginForm: React.FC = () => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const { login, isAuthenticated } = useAuth();
+  const { login } = useAuth();
   const [rememberMe, setRememberMe] = useState(false);
 
   const { control, handleSubmit, reset } = useForm<LoginFormDataType>({
@@ -32,28 +22,19 @@ const LoginForm: React.FC = () => {
   });
 
   async function onSubmit(data: ILoginFormData) {
-    // const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
-
     try {
-      // const response = await AuthService.login(formattedUserData);
+      const response = await login(data, rememberMe);
 
-      // if (response.status === 200) {
-      //   // Моковый токен
-      //   // const accessToken = "123456";
-
-      //   // Cохраняет токен в зависимости от состояния rememberMe в local или session
-      //   const accessToken = response.data.access_token;
-      //   setAccessToken(accessToken, rememberMe);
-
+      if (response?.success) {
         // Сбрасывает поля формы
-        // reset();
+        reset();
 
-      //   // Перенаправялет на страницу Профиль
-      //   router.push("/profile");
+        // Перенаправялет на страницу Профиль
+        await router.push("/profile");
 
-      //   // Успешно выполненный вход
-      //   console.log("Login successful:", response);
-      // }
+        // Успешно выполненный вход
+        console.log("Login successful");
+      }
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

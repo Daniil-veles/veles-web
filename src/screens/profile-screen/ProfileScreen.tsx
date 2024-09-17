@@ -17,7 +17,6 @@ import { setUserInfo } from "@/store/slices/userSlice";
 import { adaptToUserData } from "@/utils/utils";
 import cn from "classnames";
 import {
-  Calendar,
   MoveLeft,
   MoveRight,
   Save,

@@ -2,8 +2,6 @@ import { BadgeRussianRuble, Blocks, CirclePlus, HousePlus, LucideProps, User, Us
 
 // Константы имен в LOCAL
 export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';
-export const LOCAL_STORAGE_USER_MENU_CATEGORY = 'userMenuCategory';
-export const LOCAL_STORAGE_USER_MENU_INDICATOR = 'userMenuIndicator';
 
 // Регулярные выражения
 export const PasswordRegex = /^(?=.*[a-z])(?=.*[0-9]).+$/i;

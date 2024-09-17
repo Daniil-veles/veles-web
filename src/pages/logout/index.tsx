@@ -24,7 +24,6 @@ const LogOutPage: React.FC = () => {
           "Failed to logout:",
           error.response?.data || error.message
         );
-        router.push("/auth/login");
       }
     }
 

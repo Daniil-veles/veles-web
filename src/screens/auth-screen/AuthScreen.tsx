@@ -6,16 +6,12 @@ import ForgotPasswordForm from "@/components/ui/forgot-password-form/ForgotPassw
 import cn from "classnames";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
-// import Image from "next/image";
-import { AuthService } from "@/services/auth.service";
-import { setAuthStatus } from "@/store/slices/authSlice";
 import Link from "next/link";
 
 const AuthScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.AUTH.isAuth);
+  const { authStatus } = useAuth();
   const router = useRouter();
   const { route } = router.query;
 
@@ -25,22 +21,9 @@ const AuthScreen: React.FC = () => {
         // Перенаправляет пользователя на профиль
         router.push("/profile");
       }
-      // try {
-      //   const responseStatus = await AuthService.checkAuthStatus();
-
-      //   if (responseStatus === 200) {
-      //     dispatch(setAuthStatus(AuthorizationStatus.Auth));
-
-      //     // Перенаправляет пользователя на профиль
-      //     router.push("/profile");
-      //   }
-      // } catch (error) {
-      //   console.log("Ошибка при проверке авторизации");
-      //   // dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-      // }
     };
 
-    // checkAuth();
+    checkAuth();
   }, [authStatus, router]);
 
   return (
@@ -49,7 +32,7 @@ const AuthScreen: React.FC = () => {
         <div className="w-full grow grid grid-cols-2 rounded-3xl bg-white overflow-hidden">
           <div className="bg-c-blue-500 flex flex-col justify-center items-center">
             <div className="w-3/4">
-              <Link href={'/'} className="flex mb-8">
+              <Link href={"/"} className="flex mb-8">
                 <img
                   className="bg-white mr-3 w-10 h-10"
                   src="/header-logo.png"

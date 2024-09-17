@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { adaptedUserData } from "@/components/ui/login-form/utils";
 import {
   IAdaptedLoginFormData,
@@ -10,9 +10,12 @@ import { AuthorizationStatus } from "@/types/state.interface";
 
 interface IAuthContextProps {
   user: any; // можно уточнить тип, если известно
-  login: (data: ILoginFormData, rememberMe: boolean) => Promise<void>;
+  login: (
+    data: ILoginFormData,
+    rememberMe: boolean
+  ) => Promise<{ success: boolean } | void>;
   logout: () => void;
-  isAuth: AuthorizationStatus;
+  authStatus: AuthorizationStatus;
 }
 
 export const AuthContext = createContext<IAuthContextProps | undefined>(
@@ -25,27 +28,51 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
-  const [isAuth, setIsAuth] = useState<AuthorizationStatus>(
+  const [authStatus, setAuthStatus] = useState<AuthorizationStatus>(
     AuthorizationStatus.Unknown
   );
+
+  console.log(authStatus);
+
+  // Проверка авторизации при первой загрузке
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        // Попробуйте получить информацию о пользователе с помощью сохраненного токена
+        const response = await AuthService.checkAuthStatus();
+
+        if (response.status === 200) {
+          setUser(response.data); // Устанавливаем данные пользователя
+          setAuthStatus(AuthorizationStatus.Auth); // Обновляем статус авторизации
+        } else {
+          setAuthStatus(AuthorizationStatus.NoAuth); // Если токен недействителен, то считаем пользователя неавторизованным
+          deleteAccessToken(); // Очищаем токен, если он недействителен
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error.message);
+        setAuthStatus(AuthorizationStatus.NoAuth);
+        deleteAccessToken(); // Удаляем токен в случае ошибки
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   const login = async (data: ILoginFormData, rememberMe: boolean) => {
     const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
 
     try {
       const response = await AuthService.login(formattedUserData);
-      console.log(response);
 
       if (response.status === 200) {
         const accessToken = response.data.access_token;
         setAccessToken(accessToken, rememberMe);
 
         // Устанавливаем пользователя и статус
-        setUser(response.data.user);
-        setIsAuth(AuthorizationStatus.Auth);
+        // setUser(response.data.user);
+        setAuthStatus(AuthorizationStatus.Auth);
 
-        // Успешно выполненный вход
-        console.log("Login successful:", response);
+        return { success: true };
       } else {
         console.error("Login failed:", response.error);
       }
@@ -55,18 +82,24 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = async () => {
+    // try {
+    //   await AuthService.logout();
+    //   deleteAccessToken();
+    //   setUser(null);
+    //   setAuthStatus(AuthorizationStatus.NoAuth);
+    // } catch (error) {
+    //   console.error("Failed to logout:", error.message);
+    // }
+
     try {
-      const response = await AuthService.logout();
-      console.log(response);
-
-      deleteAccessToken();
-      setUser(null);
-      setIsAuth(AuthorizationStatus.NoAuth);
-
-      // Успешно выполненный выход
-      console.log("Logout successful:", response);
+      await AuthService.logout(); // Попытка отправить запрос на сервер для выхода
     } catch (error) {
-      console.error("Failed to logout:", error);
+      console.error("Failed to logout:", error.message);
+      // Если произошла ошибка, например, 401, всё равно продолжить разлогин на клиенте
+    } finally {
+      deleteAccessToken(); // Удаление токена независимо от успеха или неудачи
+      setUser(null);       // Сброс состояния пользователя
+      setAuthStatus(AuthorizationStatus.NoAuth); // Установка статуса неавторизованного пользователя
     }
   };
 
@@ -74,7 +107,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     login,
     logout,
-    isAuth,
+    authStatus,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

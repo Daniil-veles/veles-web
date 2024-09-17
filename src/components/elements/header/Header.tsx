@@ -2,7 +2,7 @@ import HeaderMenu from "../header-menu/HeaderMenu";
 import Container from "@/components/container/Container";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useAppSelector } from "@/hooks";
+import { useAppSelector, useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
@@ -10,7 +10,7 @@ import { ChevronDown } from "lucide-react";
 const Header: React.FC = () => {
   const router = useRouter();
   const userInfo = useAppSelector((state) => state.USER);
-  const isAuth = useAppSelector((state) => state.AUTH.isAuth);
+  const { authStatus } = useAuth();
   console.log(userInfo);
 
   return (
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
 
           <div className="flex items-center">
             <div className="relative flex items-center">
-              {isAuth === AuthorizationStatus.Auth ? (
+              {authStatus === AuthorizationStatus.Auth ? (
                 <Link
                   href={"/profile"}
                   className="flex items-center px-3 rounded-lg"
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
               )}
 
               <div className="absolute hidden">
-                {isAuth === AuthorizationStatus.Auth ? (
+                {authStatus === AuthorizationStatus.Auth ? (
                   <>
                     <Link
                       className="p-4 text-md rounded-xl hover:bg-gray-200/30"

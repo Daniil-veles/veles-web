@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAppSelector } from "@/hooks";
+import { useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Loading from "@/screens/loading/Loading";
 
@@ -10,7 +10,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const router = useRouter();
-  const authStatus = useAppSelector((state) => state.AUTH.isAuth);
+  const { authStatus } = useAuth();
 
   useEffect(() => {
     if (authStatus !== AuthorizationStatus.Auth) {
