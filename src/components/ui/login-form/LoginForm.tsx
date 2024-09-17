@@ -31,9 +31,6 @@ const LoginForm: React.FC = () => {
 
         // Перенаправялет на страницу Профиль
         await router.push("/profile");
-
-        // Успешно выполненный вход
-        console.log("Вход совершен");
       }
     } catch (error) {
       console.error("Failed to create user:", error.response);

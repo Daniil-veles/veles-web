@@ -5,10 +5,16 @@ import { getMetaTitle } from "@/utils/utils";
 interface ILayout {
   title: string;
   description?: string;
+  className?: string;
   children: React.ReactNode;
 }
 
-const Layout: React.FC<ILayout> = ({ children, title, description = null }) => {
+const Layout: React.FC<ILayout> = ({
+  children,
+  className,
+  title,
+  description = null,
+}) => {
   return (
     <>
       <Head>
@@ -27,7 +33,7 @@ const Layout: React.FC<ILayout> = ({ children, title, description = null }) => {
         )}
       </Head>
 
-      <div className="bg-c-blue-300 flex flex-col h-screen">
+      <div className={`bg-c-blue-300 flex flex-col h-screen ${className}`}>
         <main className="h-full flex flex-col flex-grow">{children}</main>
       </div>
     </>

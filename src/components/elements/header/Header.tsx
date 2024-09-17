@@ -1,14 +1,12 @@
 import HeaderMenu from "../header-menu/HeaderMenu";
 import Container from "@/components/container/Container";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useAppSelector, useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 
 const Header: React.FC = () => {
-  const router = useRouter();
   const userInfo = useAppSelector((state) => state.USER);
   const { authStatus } = useAuth();
   console.log(userInfo);
@@ -51,8 +49,8 @@ const Header: React.FC = () => {
                 </Link>
               ) : (
                 <div>
-                  <Link href={"/auth/sign-up"}>Зарегистрироваться</Link>
-                  <Link href={"/auth/login"}>Войти</Link>
+                  <Link className="bg-c-blue-500 hover:bg-c-blue-800 text-white p-2 rounded-md mr-2" href={"/auth/sign-up"}>Зарегистрироваться</Link>
+                  <Link className="bg-c-blue-500 hover:bg-c-blue-800 text-white p-2 rounded-md" href={"/auth/login"}>Войти</Link>
                 </div>
               )}
 

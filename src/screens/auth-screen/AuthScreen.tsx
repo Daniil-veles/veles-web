@@ -28,7 +28,7 @@ const AuthScreen: React.FC = () => {
 
   return (
     <>
-      <Layout title="Авторизация" description="Это главная страница сайта">
+      <Layout className="p-5 pb-8" title="Авторизация" description="Это главная страница сайта">
         <div className="w-full grow grid grid-cols-2 rounded-3xl bg-white overflow-hidden">
           <div className="bg-c-blue-500 flex flex-col justify-center items-center">
             <div className="w-3/4">
@@ -37,8 +37,6 @@ const AuthScreen: React.FC = () => {
                   className="bg-white mr-3 w-10 h-10"
                   src="/header-logo.png"
                 />
-
-                <h3 className="text-3xl text-white">Главная страница</h3>
               </Link>
 
               <img className="w-full ratio-square" src="/auth-logo.webp" />

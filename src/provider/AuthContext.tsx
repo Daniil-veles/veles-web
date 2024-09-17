@@ -44,7 +44,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           deleteAccessToken();
         }
       } catch (error) {
-        console.error("Error fetching user info:", error.message);
+        // console.error("Error check auth AuthContext:", error.message);
         setAuthStatus(AuthorizationStatus.NoAuth);
         deleteAccessToken();
       }
@@ -58,7 +58,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     try {
       const response = await AuthService.login(formattedUserData);
-      // console.log(response);
 
       if (response.status === 200) {
         const accessToken = response.data.access_token;
@@ -66,6 +65,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         // Устанавливаем пользователя и статус
         setAuthStatus(AuthorizationStatus.Auth);
+
+        // Успешно выполненный вход
+        console.log("Вход совершен");
 
         return { success: true };
       } else {
@@ -79,8 +81,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async () => {
     try {
       await AuthService.logout();
-      // const response = await AuthService.logout();
-      // console.log(response);
+
+      // Успешно выполненный выход
+      console.log("Выход совершен");
     } catch (error) {
       console.error(
         "Failed to logout:",
