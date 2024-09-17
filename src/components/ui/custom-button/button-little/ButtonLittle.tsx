@@ -12,7 +12,7 @@ interface CustomButtonProps
 
 const ButtonLittle: React.FC<CustomButtonProps> = ({
   variant = "solid",
-  bgColor = ["bg-blue-500", "hover:bg-blue-600"],
+  bgColor = ["bg-c-blue-500", "hover:bg-c-blue-600", "active:bg-c-blue-800"],
   borderColor = ["border-blue-500", "hover:border-blue-600"],
   textColor = "text-white",
   className = "",
@@ -26,7 +26,7 @@ const ButtonLittle: React.FC<CustomButtonProps> = ({
       buttonStyles = `p-3 py-2 border-2 ${borderColor[0]} ${borderColor[1]} ${textColor}`;
       break;
     case "solid":
-      buttonStyles = `p-3 py-2 ${bgColor[0]} ${bgColor[1]} ${textColor}`;
+      buttonStyles = `p-3 py-2 ${bgColor[0]} ${bgColor[1]} ${bgColor[2]} ${textColor}`;
       break;
     case "minimal":
       buttonStyles = `p-0 bg-transparent text-blue-800 hover:text-blue-600 `;

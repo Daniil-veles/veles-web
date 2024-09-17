@@ -1,72 +1,74 @@
-import FormField from "@/components/ui/form-field/FormField";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
+import { Controller, useForm } from "react-hook-form";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
-import { ComponentFormEnum } from "@/types/form.interface";
-
-// Схема валидации для сброса пароля
-const resetPasswordSchema = z
-  .object({
-    password: z
-      .string()
-      .min(8, { message: "Пароль должен быть минимум 8 символов." })
-      .regex(/^(?=.*[a-z])(?=.*[0-9]).+$/i, {
-        message: "Пароль должен содержать буквы и цифры.",
-      }),
-    confirmPassword: z
-      .string()
-      .min(8, { message: "Пароль должен быть минимум 8 символов." }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Пароли не совпадают",
-  });
+import CustomInput from "../custom-input/CustomInput";
+import {
+  formDefaultValues,
+  ResetPasswordFormDataType,
+  resetPasswordSchema,
+} from "./utils";
 
 const ResetPasswordForm: React.FC<{
   onSubmit: (data: { password: string; confirmPassword: string }) => void;
 }> = ({ onSubmit }) => {
-  const methods = useForm({
-    mode: "onChange",
+  const { control, handleSubmit, reset } = useForm<ResetPasswordFormDataType>({
+    defaultValues: formDefaultValues,
     resolver: zodResolver(resetPasswordSchema),
-    defaultValues: {
-      password: "",
-      confirmPassword: "",
-    },
+    mode: "onChange",
   });
 
   return (
-    <FormProvider {...methods}>
-      <form className="mb-2" onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="grid gap-2">
-          <FormField
-            value={{
-              id: "password",
-              name: "password",
-              label: "Новый пароль",
-              placeholder: "***",
-              type: "password",
-              componentType: ComponentFormEnum.INPUT,
-              required: true,
-            }}
-          />
+    <form className="mb-2" onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid gap-2">
+        <Controller
+          name="password"
+          control={control}
+          render={({ field, fieldState }) => (
+            <CustomInput
+              className=""
+              fieldData={{
+                id: "password",
+                name: "password",
+                label: "Новый пароль",
+                placeholder: "*****",
+                type: "password",
+              }}
+              fieldValue={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error}
+              required
+            />
+          )}
+        />
 
-          <FormField
-            value={{
-              id: "confirmPassword",
-              name: "confirmPassword",
-              label: "Подтвердите пароль",
-              placeholder: "***",
-              type: "password",
-              componentType: ComponentFormEnum.INPUT,
-              required: true,
-            }}
-          />
+        <Controller
+          name="confirmPassword"
+          control={control}
+          render={({ field, fieldState }) => (
+            <CustomInput
+              className=""
+              fieldData={{
+                id: "confirmPassword",
+                name: "confirmPassword",
+                label: "Подтвердите пароль",
+                placeholder: "*****",
+                type: "password",
+              }}
+              fieldValue={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error}
+              required
+            />
+          )}
+        />
 
+        <div className="flex justify-center">
           <ButtonForm className="w-full h-min mt-6">Сбросить</ButtonForm>
         </div>
-      </form>
-    </FormProvider>
+      </div>
+    </form>
   );
 };
 

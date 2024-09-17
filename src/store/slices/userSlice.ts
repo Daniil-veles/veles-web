@@ -1,8 +1,8 @@
-import { AuthorizationStatus, UserInfo } from '@/types/state.interface';
+import { UserSliceState } from '@/types/state.interface';
 import { AdaptToUserData } from '@/types/user.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: UserInfo = {
+const initialState: UserSliceState = {
     id: null,
     email: '',
     fullName: '',
@@ -12,7 +12,6 @@ const initialState: UserInfo = {
     isSuperuser: false,
     isVerified: false,
     picture: '',
-    isAuth: AuthorizationStatus.Auth
 };
 const userSlice = createSlice({
     name: 'user',
@@ -24,11 +23,8 @@ const userSlice = createSlice({
         clearUserInfo() {
             return initialState;
         },
-        setAuthStatus(state, action: PayloadAction<AuthorizationStatus>) {
-            state.isAuth = action.payload;
-        },
     }
 });
 
-export const { setUserInfo, clearUserInfo, setAuthStatus } = userSlice.actions;
+export const { setUserInfo, clearUserInfo } = userSlice.actions;
 export default userSlice.reducer;

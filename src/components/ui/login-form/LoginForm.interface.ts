@@ -1,9 +1,9 @@
-export interface UserLoginData {
+export interface ILoginFormData {
     email: string;
     password: string;
 }
 
-export interface AdaptedUserLoginData {
+export interface IAdaptedLoginFormData {
     username: string,
     password: string,
 }

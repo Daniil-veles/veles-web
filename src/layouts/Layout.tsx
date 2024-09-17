@@ -1,15 +1,20 @@
 import React from "react";
-import Header from "../components/elements/header/Header";
 import Head from "next/head";
 import { getMetaTitle } from "@/utils/utils";
 
 interface ILayout {
   title: string;
   description?: string;
+  className?: string;
   children: React.ReactNode;
 }
 
-const Layout: React.FC<ILayout> = ({ children, title, description = null }) => {
+const Layout: React.FC<ILayout> = ({
+  children,
+  className,
+  title,
+  description = null,
+}) => {
   return (
     <>
       <Head>
@@ -28,12 +33,8 @@ const Layout: React.FC<ILayout> = ({ children, title, description = null }) => {
         )}
       </Head>
 
-      <div className="flex flex-col min-h-screen pt-[100px] pb-6">
-        <Header></Header>
-
-        <main className="flex flex-col flex-grow justify-center">
-          {children}
-        </main>
+      <div className={`bg-c-blue-300 flex flex-col h-screen ${className}`}>
+        <main className="h-full flex flex-col flex-grow">{children}</main>
       </div>
     </>
   );

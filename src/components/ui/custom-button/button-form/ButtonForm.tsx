@@ -1,5 +1,3 @@
-// import './ButtonForm.scss';
-
 import React from "react";
 
 interface IButtonFormProps {
@@ -14,8 +12,8 @@ const ButtonForm: React.FC<IButtonFormProps> = ({
 }) => {
   return (
     <button
-      className={`text-base py-4 transition-colors duration-300 ease-in-out bg-blue-500 hover:bg-blue-600 text-white rounded-full font-normal ${className}`}
-      {...props}
+    className={`text-sm w-min py-2 px-8 transition-colors duration-300 ease-in-out bg-c-blue-500 hover:bg-c-blue-600 active:bg-c-blue-800 text-white rounded-xl font-normal ${className}`}
+    {...props}
     >
       {children}
     </button>

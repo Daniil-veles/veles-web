@@ -3,10 +3,23 @@ import { AdaptedUserFormDataToServer, AdaptToUserData, UserDataFromServer, UserF
 // Формирует метатег названия страницы
 export const getMetaTitle = (title: string) => `${title} | Велесъ`;
 
+
 // Работа с токеном
-export const setAccessToken = (token: string) => localStorage.setItem('accessToken', token);
-export const getAccessToken = () => localStorage.getItem('accessToken');
-export const deleteAccessToken = () => localStorage.removeItem('accessToken');
+export const setAccessToken = (token: string, rememberMe: boolean = false) => {
+  if (rememberMe) {
+    localStorage.setItem('accessToken', token);
+  } else {
+    sessionStorage.setItem('accessToken', token); 
+  }
+};
+export const getAccessToken = () => {
+  return localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+};
+export const deleteAccessToken = () => {
+  localStorage.removeItem('accessToken');
+  sessionStorage.removeItem('accessToken');
+};
+
 
 // Сброс пароля по почте
 export const setUserEmail = (email: string) => localStorage.setItem('userResetEmail', email);
@@ -22,7 +35,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
     is_active: true,
     is_superuser: false,
     is_verified: false,
-    full_name: `${data.firstName} ${data.lastName}`,
+    username: `${data.firstName} ${data.lastName}`,
     phone: data.phone,
     picture: data.picture,
     birth_date: data.birthDate,
@@ -30,6 +43,7 @@ export function adaptToServerUserFormData(data: UserFormData): AdaptedUserFormDa
 
   return adaptedData;
 }
+
 
 // Преобразование данных: данные с сервера => данные в приложении
 export function adaptToUserData(data: UserDataFromServer): AdaptToUserData {
@@ -39,7 +53,7 @@ export function adaptToUserData(data: UserDataFromServer): AdaptToUserData {
     isActive: data.is_active ?? false,
     isSuperuser: data.is_superuser ?? false,
     isVerified: data.is_verified ?? false,
-    fullName: data.full_name,
+    fullName: data.username,
     phone: data.phone,
     picture: data.picture,
     birthDate: data.birth_date,
