@@ -37,33 +37,33 @@ const PersonInfo: React.FC = () => {
     verificationType: "email" as "email" | "phone",
   });
 
-  useEffect(() => {
-    async function fetchUserInfo() {
-      try {
-        // const user = await UserService.getUserInfo();
-        // console.log(user);
+  // useEffect(() => {
+  //   async function fetchUserInfo() {
+  //     try {
+  //       // const user = await UserService.getUserInfo();
+  //       // console.log(user);
 
-        const user = {
-          id: null,
-          email: "test@mail.ru",
-          fullName: "Даниил Суворов",
-          birthDate: "21.10.2000",
-          phone: "+79807057002",
-          isActive: false,
-          isSuperuser: false,
-          isVerified: false,
-          picture: "",
-          isAuth: AuthorizationStatus.Auth,
-        };
+  //       const user = {
+  //         id: null,
+  //         email: "test@mail.ru",
+  //         fullName: "Даниил Суворов",
+  //         birthDate: "21.10.2000",
+  //         phone: "+79807057002",
+  //         isActive: false,
+  //         isSuperuser: false,
+  //         isVerified: false,
+  //         picture: "",
+  //         isAuth: AuthorizationStatus.Auth,
+  //       };
 
-        dispatch(setUserInfo(user));
-      } catch (error) {
-        console.error("Error fetching user info:", error.message);
-      }
-    }
+  //       dispatch(setUserInfo(user));
+  //     } catch (error) {
+  //       console.error("Error fetching user info:", error.message);
+  //     }
+  //   }
 
-    fetchUserInfo();
-  }, [dispatch]);
+  //   fetchUserInfo();
+  // }, [dispatch]);
 
   const userInfo = useMemo(
     () => ({

@@ -1,4 +1,4 @@
-import ScreenTitle from "@/components/ui/screen-title/ScreenTitle";
+import ScreenTitle from "@/components/ui/dashboard-title/ScreenTitle";
 import TariffTime from "@/components/ui/tariff-time/TariffTime";
 import TariffList from "../tariff-list/TariffList";
 

@@ -1,5 +1,5 @@
 
-import { ComponentFormEnum, IFormField } from "@/types/form.interface";
+import { BirthDate, LettersOnlyRegex, PasswordRegex, PhoneRegex } from "@/const/const";
 import { z } from "zod";
 
 export const signUpSchema = z.object({
@@ -7,73 +7,30 @@ export const signUpSchema = z.object({
     password: z
         .string()
         .length(8, { message: "Пароль должен быть 8 символов." })
-        .regex(/^(?=.*[a-z])(?=.*[0-9]).+$/i, {
+        .regex(PasswordRegex, {
             message: "Пароль должен содержать как минимум одну цифру и одну букву.",
         }),
-    firstName: z.string().min(2, { message: "Имя обязательное." }),
-    lastName: z.string().min(2, { message: "Фамилия обязательное." }),
+    firstName: z.string().min(2, { message: "Имя обязательное." }).refine(value => LettersOnlyRegex.test(value), {
+        message: "Имя должно содержать только буквы.",
+    }),
+    lastName: z.string().min(2, { message: "Фамилия обязательное." }).refine(value => LettersOnlyRegex.test(value), {
+        message: "Имя должно содержать только буквы.",
+    }),
     phone: z
-        .string(),
-    birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
+        .string()
+        .refine((value) => PhoneRegex.test(value), {
+            message: 'Номер телефона должен начинаться с 7 и содержать ровно 11 цифр',
+        }),
+    birthDate: z.string().regex(BirthDate, { message: "Дата рождения должна быть в формате ДД-ММ-ГГГГ." }),
 });
 
+export type SignUpFormDataType = z.infer<typeof signUpSchema>;
 
-export const signUpFormFields: IFormField[] = [
-    {
-        id: 'first-name',
-        name: 'firstName',
-        label: 'Имя',
-        placeholder: 'Павел',
-        type: 'text', 
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-    },
-    {
-        id: 'last-name',
-        name: 'lastName',
-        label: 'Фамилия',
-        placeholder: 'Петров',
-        type: 'text',
-        componentType: ComponentFormEnum.INPUT, 
-        required: true,
-    },
-    {
-        id: 'email',
-        name: 'email',
-        label: 'Email',
-        placeholder: 'm@example.com',
-        type: 'email',
-        componentType: ComponentFormEnum.INPUT, 
-        required: true,
-    },
-    {
-        id: 'password',
-        name: 'password',
-        label: 'Password',
-        placeholder: '*****',
-        type: 'password', 
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-    },
-    {
-        id: 'phone',
-        name: 'phone',
-        label: 'Телефон',
-        placeholder: '+7 (123) 456 78 90',
-        componentType: ComponentFormEnum.PHONE, 
-        required: true,
-        country: "ru",
-        onlyCountries: ["ru", "by"], 
-    },
-    {
-        id: 'date',
-        name: 'birthDate',
-        label: 'Дата рождения',
-        placeholder: '22.06.1990',
-        type: 'date',
-        componentType: ComponentFormEnum.INPUT,
-        required: true,
-    },
-];
-
-export type SignUpFormValues = z.infer<typeof signUpSchema>;
+export const formDefaultValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phone: "7",
+    birthDate: "",
+};

@@ -1,5 +1,15 @@
 import { BadgeRussianRuble, Blocks, CirclePlus, HousePlus, LucideProps, User, Users } from "lucide-react";
 
+// Константы имен в LOCAL
+export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';
+
+// Регулярные выражения
+export const PasswordRegex = /^(?=.*[a-z])(?=.*[0-9]).+$/i;
+export const PhoneRegex = /^(7)[0-9]{10}$/;
+export const LettersOnlyRegex = /^[A-Za-zА-Яа-яЁё]+$/;
+export const BirthDate = /^\d{4}-\d{2}-\d{2}$/;
+
+
 // Главная страница
 export const menu = [
     {
@@ -207,17 +217,12 @@ export const userListItems = [
     { id: 5, iconName: 'BadgeRussianRuble', text: 'Тарифный план', link: 'tariff' },
 ];
 
-// Store
+// Slice name
 export const enum NameSpace {
     Main = 'MAIN',
-    Data = 'DATA',
+    Auth = 'AUTH',
     User = 'USER',
 }
-
-export const LOCAL_STORAGE_KEY_ORGANIZATION = 'organizationFormData';
-export const LOCAL_STORAGE_USER_MENU_CATEGORY = 'userMenuCategory';
-export const LOCAL_STORAGE_USER_MENU_INDICATOR = 'userMenuIndicator';
-
 
 export const companyInfoFields = [
     { field: 'Организационная структура', value: 'type' },
@@ -239,7 +244,24 @@ export const companyInfoFields = [
     // { field: 'Сотрудники', value: 'director' }
 ]
 
+export const personInfoVerifiedTexts = {
+    email: {
+        modalTitle: "Подтвердите вашу почту",
+        verificationText: (email: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите вашу электронную почту. На указанный адрес: ${email} было отправлено письмо с инструкциями по подтверждению. Если вы не получили письмо, проверьте папку "Спам" или нажмите кнопку ниже, чтобы отправить письмо повторно.`,
+        modalButtonText: "Отправить письмо повторно",
+    },
 
+    phone: {
+        modalTitle: "Подтвердите ваш телефон",
+        verificationText: (phone: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите ваш номер телефона. На указанный номер: ${phone} было отправлено SMS с кодом подтверждения. Если вы не получили SMS, нажмите кнопку ниже, чтобы отправить код повторно.`,
+        modalButtonText: "Отправить код повторно",
+    },
+
+    // Добавьте другие тексты, если необходимо
+};
+
+
+// Моковые данные
 export const exampleOrgData =
 {
     name: "ООО Велесъ",
@@ -257,83 +279,207 @@ export const exampleOrgData =
     employees: 100,
 };
 
-// export const exampleOrgData = [
-//     {
-//         name: "Company A",
-//         phone: "+1234567890",
-//         email: "contact@companya.com",
-//         address: "123 Business St, City A, Country",
-//         info: "Leading provider of business solutions.",
-//         type: "LLC",
-//         INN: "123456789012",
-//         KPP: "123456789",
-//         OGRN: "1234567890123",
-//         OKPO: "12345678",
-//         BIK: "123456789",
-//         corr_account: "12345678901234567890",
-//         employees: 100,
-//     },
-//     {
-//         name: "Company B",
-//         phone: "+0987654321",
-//         email: "info@companyb.com",
-//         address: "456 Industry Rd, City B, Country",
-//         info: "Innovative tech solutions and services.",
-//         type: "JSC",
-//         INN: "987654321098",
-//         KPP: "987654321",
-//         OGRN: "9876543210987",
-//         OKPO: "87654321",
-//         BIK: "987654321",
-//         corr_account: "98765432109876543210",
-//         employees: 200,
-//     },
-//     {
-//         name: "Company C",
-//         phone: "+1122334455",
-//         email: "support@companyc.com",
-//         address: "789 Market Ave, City C, Country",
-//         info: "Retail and distribution of consumer goods.",
-//         type: "Partnership",
-//         INN: "112233445566",
-//         KPP: "112233445",
-//         OGRN: "1122334455667",
-//         OKPO: "54321098",
-//         BIK: "112233445",
-//         corr_account: "11223344556677889900",
-//         employees: 50,
-//     },
-//     {
-//         name: "Company D",
-//         phone: "+5566778899",
-//         email: "contact@companyd.com",
-//         address: "321 Tech Park, City D, Country",
-//         info: "Specializing in software development and IT services.",
-//         type: "Sole Proprietorship",
-//         INN: "665544332211",
-//         KPP: "665544332",
-//         OGRN: "6655443322116",
-//         OKPO: "87654321",
-//         BIK: "665544332",
-//         corr_account: "66554433221166554433",
-//         employees: 75,
-//     },
-// ];
-
-// texts.ts
-
-export const personInfoVerifiedTexts = {
-    email: {
-        modalTitle: "Подтвердите вашу почту",
-        verificationText: (email: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите вашу электронную почту. На указанный адрес: ${email} было отправлено письмо с инструкциями по подтверждению. Если вы не получили письмо, проверьте папку "Спам" или нажмите кнопку ниже, чтобы отправить письмо повторно.`,
-        modalButtonText: "Отправить письмо повторно",
+export const exampleObjectList = [
+    {
+        title: "Объект 1",
+        data: "11.20.2020",
+        priority: "high",
+        tasks: 100,
+        activeTasks: 10,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
     },
-
-    phone: {
-        modalTitle: "Подтвердите ваш телефон",
-        verificationText: (phone: string) => `Для завершения регистрации и доступа ко всем функциям нашего сервиса, пожалуйста, подтвердите ваш номер телефона. На указанный номер: ${phone} было отправлено SMS с кодом подтверждения. Если вы не получили SMS, нажмите кнопку ниже, чтобы отправить код повторно.`,
-        modalButtonText: "Отправить код повторно",
+    {
+        title: "Объект 2",
+        data: "11.20.2022",
+        priority: "medium",
+        tasks: 300,
+        activeTasks: 30,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
     },
+    {
+        title: "Объект3 ",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+    {
+        title: "Объект 4",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+    {
+        title: "Объект 5",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+    {
+        title: "Объект 6",
+        data: "11.20.2023",
+        priority: "low",
+        tasks: 888,
+        activeTasks: 88,
+        employee: [
+            { picture: "https://via.placeholder.com/600/92c952", name: "John" },
+            { picture: "https://via.placeholder.com/600/92c952", name: "David" },
+            { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+        ],
+    },
+];
 
-    // Добавьте другие тексты, если необходимо
-};
+export const exampleTaskList = [
+    {
+        title: "Разработка пользовательского интерфейса",
+        startDate: "2024-09-01",
+        finishDate: "2024-09-10",
+        status: "В процессе",
+    },
+    {
+        title: "Тестирование системы безопасности",
+        startDate: "2024-09-05",
+        finishDate: "2024-09-12",
+        status: "Завершено",
+    },
+    {
+        title: "Оптимизация базы данных",
+        startDate: "2024-08-15",
+        finishDate: "2024-08-25",
+        status: "В процессе",
+    },
+    {
+        title: "Создание документации для API",
+        startDate: "2024-09-02",
+        finishDate: "2024-09-05",
+        status: "Завершено",
+    },
+    {
+        title: "Внедрение системы мониторинга",
+        startDate: "2024-09-03",
+        finishDate: "2024-09-15",
+        status: "Отложено",
+    },
+    {
+        title: "Рефакторинг кода основного модуля",
+        startDate: "2024-08-20",
+        finishDate: "2024-08-30",
+        status: "Завершено",
+    },
+    {
+        title: "Миграция на новый сервер",
+        startDate: "2024-09-10",
+        finishDate: "2024-09-17",
+        status: "Планируется",
+    },
+    {
+        title: "Настройка CI/CD",
+        startDate: "2024-09-11",
+        finishDate: "2024-09-18",
+        status: "В процессе",
+    },
+    {
+        title: "Проектирование новой архитектуры",
+        startDate: "2024-08-25",
+        finishDate: "2024-09-05",
+        status: "Отложено",
+    },
+    {
+        title: "Анализ требований клиента",
+        startDate: "2024-09-01",
+        finishDate: "2024-09-08",
+        status: "Завершено",
+    },
+];
+
+export const exampleEmployeeList = [
+    {
+        avatar: "/images/avatar1.jpg",
+        name: "Алексей Иванов",
+        position: "Frontend Developer",
+        level: "Junior",
+    },
+    {
+        avatar: "/images/avatar2.jpg",
+        name: "Мария Смирнова",
+        position: "Backend Developer",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar3.jpg",
+        name: "Дмитрий Кузнецов",
+        position: "DevOps Engineer",
+        level: "Senior",
+    },
+    {
+        avatar: "/images/avatar4.jpg",
+        name: "Анна Попова",
+        position: "Project Manager",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar5.jpg",
+        name: "Екатерина Волкова",
+        position: "UI/UX Designer",
+        level: "Senior",
+    },
+    {
+        avatar: "/images/avatar6.jpg",
+        name: "Павел Соколов",
+        position: "QA Engineer",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar7.jpg",
+        name: "Иван Воробьев",
+        position: "Data Scientist",
+        level: "Senior",
+    },
+    {
+        avatar: "/images/avatar8.jpg",
+        name: "Ольга Михайлова",
+        position: "Product Owner",
+        level: "Middle",
+    },
+    {
+        avatar: "/images/avatar9.jpg",
+        name: "Виктор Сергеев",
+        position: "Fullstack Developer",
+        level: "Junior",
+    },
+    {
+        avatar: "/images/avatar10.jpg",
+        name: "Татьяна Федорова",
+        position: "HR Specialist",
+        level: "Senior",
+    },
+]

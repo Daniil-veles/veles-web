@@ -1,5 +1,5 @@
 import apiClient from '@/api/api';
-import { AdaptedUserLoginData } from '@/components/ui/login-form/LoginForm.interface';
+import { IAdaptedLoginFormData } from '@/components/ui/login-form/LoginForm.interface';
 import { AdaptedUserFormDataToServer } from '@/types/user.interface';
 import qs from 'qs';
 
@@ -15,7 +15,7 @@ export const AuthService = {
         }
     },
 
-    async login(userData: AdaptedUserLoginData) {
+    async login(userData: IAdaptedLoginFormData) {
         try {
             const urlEncodedData = qs.stringify({
                 ...userData,
@@ -39,7 +39,7 @@ export const AuthService = {
 
     async logout() {
         try {
-            const response = await apiClient.post(`/auth/jwt/logout`, null);
+            const response = await apiClient.post(`/auth/jwt/logout`);
             return response;
         } catch (error) {
             console.error('Error logout:', error.message);
@@ -47,14 +47,39 @@ export const AuthService = {
         }
     },
 
-    async forgotPassword(data: { email: string }) {
+    async checkAuthStatus() {
         try {
-            const response = await apiClient.post(`/auth/forgot-password`, data);
-
+            const response = await apiClient.get('/users/me');
             return response;
         } catch (error) {
-            console.error('Error forgot-password:', error.message);
+            console.error('Error check auth:', error.message);
             throw error;
         }
     },
+
+    // TODO: Дописать методы
+    // async forgotPassword(data: { email: string }) {
+    //     try {
+    //         const response = await apiClient.post(`/auth/forgot-password`, data);
+    //         return response;
+    //     } catch (error) {
+    //         console.error('Error forgot-password:', error.message);
+    //         throw error;
+    //     }
+    // },
+
+    // async resetPassword(data: {
+    //     email: string,
+    //     token: string,
+    //     password: string
+    // }) {
+    //     try {
+    //         const response = await apiClient.post(`/auth/reset-password`, data);
+    //         return response;
+    //     } catch (error) {
+    //         console.error('Error forgot-password:', error.message);
+    //         throw error;
+    //     }
+    // },
+
 }

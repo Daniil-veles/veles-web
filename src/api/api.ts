@@ -2,11 +2,10 @@ import { getAccessToken } from '@/utils/utils';
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const apiClient = axios.create({
-    baseURL: process.env.IS_DEV === 'development' ? '/api' : process.env.API_URL,
+    baseURL: process.env.API_URL, // Используем переменную окружения
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
 });
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -25,9 +24,9 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
 },
     async (error: AxiosError) => {
         if (error.response) {
-            const { status } = error.response;
+            const { status, config } = error.response;
 
-            if (status === 401) {
+            if (status === 401 && config?.url && !config.url.includes('/logout') && !config.url.includes('/')) {
                 // Переадресация на логин
                 if (window.location.pathname !== '/auth/login') {
                     window.location.href = '/auth/login';
