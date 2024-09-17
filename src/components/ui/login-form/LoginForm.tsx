@@ -8,7 +8,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import ButtonForm from "../custom-button/button-form/ButtonForm";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import { setAccessToken } from "@/utils/utils";
 import { AuthService } from "@/services/auth.service";
@@ -22,6 +22,7 @@ import CustomInput from "../custom-input/CustomInput";
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { login, isAuthenticated } = useAuth();
   const [rememberMe, setRememberMe] = useState(false);
 
   const { control, handleSubmit, reset } = useForm<LoginFormDataType>({
@@ -31,28 +32,28 @@ const LoginForm: React.FC = () => {
   });
 
   async function onSubmit(data: ILoginFormData) {
-    const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
+    // const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
 
     try {
-      const response = await AuthService.login(formattedUserData);
+      // const response = await AuthService.login(formattedUserData);
 
-      if (response.status === 200) {
-        // Моковый токен
-        // const accessToken = "123456";
+      // if (response.status === 200) {
+      //   // Моковый токен
+      //   // const accessToken = "123456";
 
-        // Cохраняет токен в зависимости от состояния rememberMe в local или session
-        const accessToken = response.data.access_token;
-        setAccessToken(accessToken, rememberMe);
+      //   // Cохраняет токен в зависимости от состояния rememberMe в local или session
+      //   const accessToken = response.data.access_token;
+      //   setAccessToken(accessToken, rememberMe);
 
         // Сбрасывает поля формы
-        reset();
+        // reset();
 
-        // Перенаправялет на страницу Профиль
-        router.push("/profile");
+      //   // Перенаправялет на страницу Профиль
+      //   router.push("/profile");
 
-        // Успешно выполненный вход
-        console.log("Login successful:", response);
-      }
+      //   // Успешно выполненный вход
+      //   console.log("Login successful:", response);
+      // }
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

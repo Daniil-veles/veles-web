@@ -1,20 +1,18 @@
-// import { useRouter } from "next/router";
-import { createContext, ReactNode, useEffect } from "react";
-import { useRouter } from "next/router";
+import { createContext, ReactNode, useState } from "react";
+import { adaptedUserData } from "@/components/ui/login-form/utils";
 import {
-  adaptedUserData,
-  LoginFormValues,
-} from "@/components/ui/login-form/utils";
-import { AdaptedUserLoginData } from "@/components/ui/login-form/LoginForm.interface";
+  IAdaptedLoginFormData,
+  ILoginFormData,
+} from "@/components/ui/login-form/LoginForm.interface";
 import { AuthService } from "@/services/auth.service";
 import { deleteAccessToken, setAccessToken } from "@/utils/utils";
-import { useAppDispatch } from "@/hooks";
-import { setAuthStatus } from "@/store/slices/authSlice";
 import { AuthorizationStatus } from "@/types/state.interface";
 
 interface IAuthContextProps {
-  login: (data: LoginFormValues) => Promise<void>;
-  logout: () => Promise<void>;
+  user: any; // можно уточнить тип, если известно
+  login: (data: ILoginFormData, rememberMe: boolean) => Promise<void>;
+  logout: () => void;
+  isAuth: AuthorizationStatus;
 }
 
 export const AuthContext = createContext<IAuthContextProps | undefined>(
@@ -26,11 +24,13 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+  const [isAuth, setIsAuth] = useState<AuthorizationStatus>(
+    AuthorizationStatus.Unknown
+  );
 
-  const login = async (data: LoginFormValues) => {
-    const formattedUserData: AdaptedUserLoginData = adaptedUserData(data);
+  const login = async (data: ILoginFormData, rememberMe: boolean) => {
+    const formattedUserData: IAdaptedLoginFormData = adaptedUserData(data);
 
     try {
       const response = await AuthService.login(formattedUserData);
@@ -38,13 +38,16 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (response.status === 200) {
         const accessToken = response.data.access_token;
-        setAccessToken(accessToken);
-        dispatch(setAuthStatus(AuthorizationStatus.Auth));
+        setAccessToken(accessToken, rememberMe);
 
-        router.push("/profile"); // Перенаправление после успешного входа
+        // Устанавливаем пользователя и статус
+        setUser(response.data.user);
+        setIsAuth(AuthorizationStatus.Auth);
 
         // Успешно выполненный вход
         console.log("Login successful:", response);
+      } else {
+        console.error("Login failed:", response.error);
       }
     } catch (error) {
       console.error("Failed to login:", error);
@@ -57,9 +60,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log(response);
 
       deleteAccessToken();
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-
-      router.push("/auth/login"); // Перенаправление после выхода
+      setUser(null);
+      setIsAuth(AuthorizationStatus.NoAuth);
 
       // Успешно выполненный выход
       console.log("Logout successful:", response);
@@ -68,11 +70,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  return (
-    <AuthContext.Provider value={{ login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    login,
+    logout,
+    isAuth,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
