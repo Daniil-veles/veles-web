@@ -5,8 +5,10 @@ import { useAppSelector, useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 const Header: React.FC = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const userInfo = useAppSelector((state) => state.USER);
   const { authStatus } = useAuth();
   console.log(userInfo);
@@ -31,10 +33,7 @@ const Header: React.FC = () => {
           <div className="flex items-center">
             <div className="relative flex items-center">
               {authStatus === AuthorizationStatus.Auth ? (
-                <Link
-                  href={"/profile"}
-                  className="flex items-center px-3 rounded-lg"
-                >
+                <div className="flex items-center px-3 rounded-lg">
                   <img
                     className="w-7 h-7 mr-2 rounded-full"
                     // src={userInfo.picture}
@@ -45,41 +44,43 @@ const Header: React.FC = () => {
                   {/* <p>{userInfo.fullName}</p> */}
                   <p className="min-w-max mr-2">Даниил Суворов</p>
 
-                  <ChevronDown size={20} />
-                </Link>
+                  <ChevronDown className={`${"rotate-180"}`} size={20} />
+                </div>
               ) : (
                 <div>
-                  <Link className="bg-c-blue-500 hover:bg-c-blue-800 text-white p-2 rounded-md mr-2" href={"/auth/sign-up"}>Зарегистрироваться</Link>
-                  <Link className="bg-c-blue-500 hover:bg-c-blue-800 text-white p-2 rounded-md" href={"/auth/login"}>Войти</Link>
-                </div>
-              )}
-
-              <div className="absolute hidden">
-                {authStatus === AuthorizationStatus.Auth ? (
-                  <>
-                    <Link
-                      className="p-4 text-md rounded-xl hover:bg-gray-200/30"
-                      href="/profile"
-                    >
-                      Личный кабинет
-                    </Link>
-
-                    <Link
-                      className="p-4 text-md rounded-xl hover:bg-gray-200/30"
-                      href="/logout"
-                    >
-                      Выйти
-                    </Link>
-                  </>
-                ) : (
                   <Link
-                    className="p-4 text-md rounded-xl hover:bg-gray-200/30"
-                    href="/auth"
+                    className="bg-c-blue-500 hover:bg-c-blue-800 text-white p-2 rounded-md mr-2"
+                    href={"/auth/sign-up"}
+                  >
+                    Зарегистрироваться
+                  </Link>
+
+                  <Link
+                    className="bg-c-blue-500 hover:bg-c-blue-800 text-white p-2 rounded-md"
+                    href={"/auth/login"}
                   >
                     Войти
                   </Link>
-                )}
-              </div>
+                </div>
+              )}
+
+              {authStatus === AuthorizationStatus.Auth ? (
+                <div className="absolute bottom-0 right-0  hidden">
+                  <Link
+                    className="p-4 text-md rounded-xl hover:bg-gray-200/30"
+                    href="/profile"
+                  >
+                    Личный кабинет
+                  </Link>
+
+                  <Link
+                    className="p-4 text-md rounded-xl hover:bg-gray-200/30"
+                    href="/logout"
+                  >
+                    Выйти
+                  </Link>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

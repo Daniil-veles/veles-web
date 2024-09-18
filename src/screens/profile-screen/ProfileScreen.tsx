@@ -142,7 +142,8 @@ const ProfileScreen: React.FC = () => {
 
                   <h2 className="mb-1 text-lg">{userInfo.fullName}</h2>
 
-                  <p>{userInfo.fullName}</p>
+                  {/* <p>{userInfo.fullName}</p> */}
+                  <p>Должность</p>
                 </div>
 
                 <div className="flex flex-col justify-between grow pt-4 px-6 pb-8">
