@@ -9,20 +9,24 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const { authStatus, isLoading } = useAuth();
   const router = useRouter();
-  const { authStatus } = useAuth();
 
   useEffect(() => {
-    if (authStatus !== AuthorizationStatus.Auth) {
+    if (!isLoading && authStatus !== AuthorizationStatus.Auth) {
       router.push("/auth/login"); // Перенаправление на страницу входа, если пользователь не авторизован
     }
-  }, [authStatus, router]);
+  }, [authStatus, isLoading, router]);
+
+  if (isLoading) {
+    return <Loading />; // Возвращаем дочерние компоненты, если пользователь авторизован
+  }
 
   if (authStatus === AuthorizationStatus.Auth) {
     return <>{children}</>; // Возвращаем дочерние компоненты, если пользователь авторизован
   }
 
-  return <Loading />;
+  return null;
 };
 
 export default PrivateRoute;

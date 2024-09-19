@@ -23,6 +23,7 @@ interface IAuthContextProps {
   ) => Promise<{ success: boolean } | void>;
   logout: () => Promise<void>;
   authStatus: AuthorizationStatus;
+  isLoading: boolean;
 }
 
 export const AuthContext = createContext<IAuthContextProps | undefined>(
@@ -36,6 +37,7 @@ interface AuthProviderProps {
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [authStatus, setAuthStatus] = useState<AuthorizationStatus>(
     AuthorizationStatus.Unknown
   );
@@ -45,17 +47,22 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         const response = await AuthService.checkAuthStatus();
+        console.log("Check authStatus:", response);
 
         if (response.status === 200) {
           setAuthStatus(AuthorizationStatus.Auth);
         } else {
           setAuthStatus(AuthorizationStatus.NoAuth);
           deleteAccessToken();
+          router.push("/auth/login");
         }
       } catch (error) {
         console.error("Error check auth AuthContext:", error?.message);
         setAuthStatus(AuthorizationStatus.NoAuth);
         deleteAccessToken();
+        router.push("/auth/login");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -124,6 +131,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     logout,
     authStatus,
+    isLoading
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
