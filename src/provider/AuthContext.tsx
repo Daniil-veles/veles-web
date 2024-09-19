@@ -5,8 +5,16 @@ import {
   ILoginFormData,
 } from "@/components/ui/login-form/LoginForm.interface";
 import { AuthService } from "@/services/auth.service";
-import { deleteAccessToken, setAccessToken } from "@/utils/utils";
+import {
+  adaptToUserData,
+  deleteAccessToken,
+  setAccessToken,
+} from "@/utils/utils";
 import { AuthorizationStatus } from "@/types/state.interface";
+import { useAppDispatch } from "@/hooks";
+import { UserService } from "@/services/user.service";
+import { setUserInfo } from "@/store/slices/userSlice";
+import { useRouter } from "next/router";
 
 interface IAuthContextProps {
   login: (
@@ -26,6 +34,8 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const [authStatus, setAuthStatus] = useState<AuthorizationStatus>(
     AuthorizationStatus.Unknown
   );
@@ -34,7 +44,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        // Попробуйте получить информацию о пользователе с помощью сохраненного токена
         const response = await AuthService.checkAuthStatus();
 
         if (response.status === 200) {
@@ -44,7 +53,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           deleteAccessToken();
         }
       } catch (error) {
-        // console.error("Error check auth AuthContext:", error.message);
+        console.error("Error check auth AuthContext:", error?.message);
         setAuthStatus(AuthorizationStatus.NoAuth);
         deleteAccessToken();
       }
@@ -60,38 +69,54 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await AuthService.login(formattedUserData);
 
       if (response.status === 200) {
+        // Успешно выполненный вход
+        console.log("Вход выполнен:", response);
+
         const accessToken = response.data.access_token;
         setAccessToken(accessToken, rememberMe);
-
-        // Устанавливаем пользователя и статус
         setAuthStatus(AuthorizationStatus.Auth);
 
-        // Успешно выполненный вход
-        console.log("Вход совершен");
+        // Мокает данные юзера
+        // const user = {
+        //   id: null,
+        //   email: "test@mail.ru",
+        //   fullName: "Даниил Суворов",
+        //   birthDate: "21.10.2000",
+        //   phone: "+79807057002",
+        //   isActive: false,
+        //   isSuperuser: false,
+        //   isVerified: false,
+        //   picture: "",
+        //   isAuth: AuthorizationStatus.Auth,
+        // };
+        const user = await UserService.getUserInfo();
+        const adaptedData = adaptToUserData(user);
+        dispatch(setUserInfo(adaptedData));
 
+        router.push("/profile");
         return { success: true };
       } else {
         console.error("Login failed:", response.error);
+        return { success: false };
       }
     } catch (error) {
-      console.error("Failed to login:", error);
+      console.error("Failed to login:", error?.message);
+      return { success: false };
     }
   };
 
   const logout = async () => {
     try {
-      await AuthService.logout();
+      // await AuthService.logout();
 
       // Успешно выполненный выход
       console.log("Выход совершен");
     } catch (error) {
-      console.error(
-        "Failed to logout:",
-        error.response?.data.detail || error.message
-      );
+      console.error("Failed to logout:", error?.message);
     } finally {
       deleteAccessToken();
       setAuthStatus(AuthorizationStatus.NoAuth);
+      router.push("/auth/login");
     }
   };
 

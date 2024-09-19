@@ -23,15 +23,14 @@ const LoginForm: React.FC = () => {
 
   async function onSubmit(data: ILoginFormData) {
     try {
-      const response = await login(data, rememberMe);
+      // const response = await login(data, rememberMe);
 
-      if (response?.success) {
-        // Сбрасывает поля формы
-        reset();
+      // if (response?.success) {
+      // Сбрасывает поля формы
+      //   reset();
+      // }
 
-        // Перенаправялет на страницу Профиль
-        await router.push("/profile");
-      }
+      router.push("/profile");
     } catch (error) {
       console.error("Failed to create user:", error.response);
     }

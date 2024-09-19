@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/hooks";
 import { AuthorizationStatus } from "@/types/state.interface";
 import Link from "next/link";
+import { getAccessToken } from "@/utils/utils";
 
 const AuthScreen: React.FC = () => {
   const { authStatus } = useAuth();
@@ -16,6 +17,8 @@ const AuthScreen: React.FC = () => {
   const { route } = router.query;
 
   useEffect(() => {
+    // console.log(getAccessToken());
+
     const checkAuth = async () => {
       if (authStatus === AuthorizationStatus.Auth) {
         // Перенаправляет пользователя на профиль
