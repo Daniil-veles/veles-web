@@ -1,5 +1,6 @@
-import { getAccessToken } from '@/utils/utils';
+import { deleteAccessToken, getAccessToken } from '@/utils/utils';
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import Router from "next/router";
 
 const apiClient = axios.create({
     baseURL: process.env.API_URL, // Используем переменную окружения
@@ -24,16 +25,21 @@ apiClient.interceptors.response.use((response: AxiosResponse) => {
 },
     async (error: AxiosError) => {
         if (error.response) {
-            const { status, config } = error.response;
+            const { status } = error.response;
 
-            if (status === 401 && config?.url && !config.url.includes('/logout') && !config.url.includes('/')) {
-                // Переадресация на логин
-                if (window.location.pathname !== '/auth/login') {
-                    window.location.href = '/auth/login';
-                }
-
+            if (status === 401) {
                 console.log('Unauthorized - please log in again.');
-                // Здесь можно добавить логику для обновления токена или уведомления пользователя
+
+                // Удаляем токен
+                deleteAccessToken();
+
+                // Проверяем текущий маршрут
+                const currentPath = Router.pathname;
+
+                // Если текущий путь НЕ главная страница ("/"), выполняем редирект
+                if (currentPath !== '/' && currentPath !== '/auth/login') {
+                    Router.push('/auth/login'); // Редиректим на страницу логина
+                }
             }
         }
 

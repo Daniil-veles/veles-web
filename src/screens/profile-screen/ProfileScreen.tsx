@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { UserService } from "@/services/user.service";
 import { setUserInfo } from "@/store/slices/userSlice";
-import { adaptToUserData, deleteAccessToken } from "@/utils/utils";
+import { adaptToUserData } from "@/utils/utils";
 import cn from "classnames";
 import { MoveLeft, MoveRight, Save, Settings, SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
