@@ -3,7 +3,7 @@ import ProfileObjectList from "@/components/elements/profile-object-list/Profile
 import ProfileTaskList from "@/components/elements/profile-task-list/ProfileTaskList";
 import DashboardTab from "@/components/ui/dashboard-tab/DashboardTab";
 import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
-import ProfileScreenUserForm from "@/components/ui/profile-screen-user-form/ProfileScreenUserForm";
+import ProfileScreenForm from "@/components/ui/profile-screen-form/ProfileScreenForm";
 import {
   exampleEmployeeList,
   exampleObjectList,
@@ -30,7 +30,7 @@ const ProfileScreen: React.FC = () => {
       description="Это главная страница сайта"
     >
       <div className="h-full flex flex-col">
-        <header className="flex justify-between mb-2 pl-2">
+        <header className="flex justify-between items-center mb-2 pl-2">
           <DashboardTitle title="Профиль" />
 
           <div className="w-10 h-10 flex justify-center items-center bg-white rounded-xl">
@@ -39,7 +39,7 @@ const ProfileScreen: React.FC = () => {
         </header>
 
         <div className="flex grow gap-x-[30px]">
-          <ProfileScreenUserForm />
+          <ProfileScreenForm />
 
           <div className="w-full h-full grid-row-[200px_1fr] flex flex-col">
             <div className="mb-6">

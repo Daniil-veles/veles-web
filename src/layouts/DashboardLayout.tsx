@@ -4,7 +4,8 @@ import DashboardHeader from "@/components/elements/dashboard-header/DashboardHea
 import { useEffect } from "react";
 import { useAppDispatch } from "@/hooks";
 import { setUserInfo } from "@/store/slices/userSlice";
-import { AuthorizationStatus } from "@/types/state.interface";
+import { setOrganizationInfo } from "@/store/slices/organizationSlice";
+import { exampleOrganizationData, exampleUserData } from "@/const/const";
 
 interface IDashboardLayout {
   title: string;
@@ -20,21 +21,11 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const user = {
-      id: 1,
-      email: "test@mail.ru",
-      fullName: "Даниил Суворов",
-      birthDate: "21.10.2000",
-      phone: "+79807057002",
-      isActive: true,
-      isSuperuser: false,
-      isVerified: true,
-      picture: "/path/to/picture",
-      isAuth: AuthorizationStatus.Auth,
-    };
+    // Передаем мокированные данные в Redux
+    dispatch(setUserInfo(exampleUserData));
 
     // Передаем мокированные данные в Redux
-    dispatch(setUserInfo(user));
+    dispatch(setOrganizationInfo(exampleOrganizationData));
   }, [dispatch]); 
 
   return (

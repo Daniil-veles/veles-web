@@ -8,18 +8,18 @@ import { setUserInfo } from "@/store/slices/userSlice";
 import ProfileScreenNavigation from "../profile-screen-navigation/ProfileScreenNavigation";
 import { Save, SquarePen } from "lucide-react";
 
-interface IProfileFormData {
+interface IOrganizationFormData {
   fullName: string;
   birthDate: string;
   email: string;
   phone: string;
 }
 
-const ProfileScreenUserForm: React.FC = () => {
+const OrganizationScreenForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isCommonInfo, setIsCommonInfo] = useState(true);
   const [isEditable, setIsEditable] = useState(false);
-  const userInfo = useAppSelector((state) => state.USER);
+  const userInfo = useAppSelector((state) => state.ORGANIZATION);
 
   const formDefaultValues = {
     fullName: "",
@@ -46,7 +46,7 @@ const ProfileScreenUserForm: React.FC = () => {
     }
   }, [userInfo, reset]);
 
-  async function onSubmit(data: IProfileFormData) {
+  async function onSubmit(data: IOrganizationFormData) {
     try {
       setIsEditable((prev) => !prev);
 
@@ -55,24 +55,24 @@ const ProfileScreenUserForm: React.FC = () => {
       if (isEditable) {
         console.log(data);
 
-        const { fullName, birthDate, ...rest } = data;
+        // const { fullName, birthDate, ...rest } = data;
 
-        const newData = {
-          password: "123456A@",
-          is_active: true,
-          is_superuser: true,
-          is_verified: true,
-          picture: "",
-          birth_date: data.birthDate,
-          username: data.fullName,
-          ...rest,
-        };
+        // const newData = {
+        //   password: "123456A@",
+        //   is_active: true,
+        //   is_superuser: true,
+        //   is_verified: true,
+        //   picture: "",
+        //   birth_date: data.birthDate,
+        //   username: data.fullName,
+        //   ...rest,
+        // };
 
-        const user = await UserService.updateUserInfo(newData);
-        const adaptedData = adaptToUserData(user);
-        console.log(adaptedData);
+        // const user = await UserService.updateUserInfo(newData);
+        // const adaptedData = adaptToUserData(user);
+        // console.log(adaptedData);
 
-        dispatch(setUserInfo(adaptedData));
+        // dispatch(setUserInfo(adaptedData));
       }
     } catch (error) {
       console.error("Failed to update user info:", error.response);
@@ -233,4 +233,4 @@ const ProfileScreenUserForm: React.FC = () => {
   );
 };
 
-export default ProfileScreenUserForm;
+export default OrganizationScreenForm;

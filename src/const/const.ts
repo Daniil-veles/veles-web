@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from "@/types/state.interface";
 import { BadgeRussianRuble, Blocks, CirclePlus, HousePlus, LucideProps, User, Users } from "lucide-react";
 
 // Константы имен в LOCAL
@@ -219,8 +220,7 @@ export const userListItems = [
 
 // Slice name
 export const enum NameSpace {
-    Main = 'MAIN',
-    Auth = 'AUTH',
+    Organization = 'ORGANIZATION',
     User = 'USER',
 }
 
@@ -483,3 +483,36 @@ export const exampleEmployeeList = [
         level: "Senior",
     },
 ]
+
+export const exampleUserData = {
+    id: 1,
+    email: "test@mail.ru",
+    fullName: "Даниил Суворов",
+    birthDate: "21.10.2000",
+    phone: "+79807057002",
+    isActive: true,
+    isSuperuser: false,
+    isVerified: true,
+    picture: "/path/to/picture",
+    isAuth: AuthorizationStatus.Auth,
+  };
+
+export const exampleOrganizationData = {
+    name: 'ООО "Пример"',                          // Имя организации
+    phone: '+7 (999) 123-45-67',                   // Телефон
+    email: 'info@example.com',                     // Email
+    address: 'г. Москва, ул. Примерная, д. 10',    // Адрес
+    location: 'Москва',                            // Местоположение
+    info: 'Пример организации для тестирования.',  // Информация об организации
+    name_legal: 'ООО "Пример Легал"',              // Юридическое имя
+    INN: '1234567890',                             // ИНН
+    KPP: '987654321',                              // КПП
+    OGRN: '1027700132195',                         // ОГРН
+    OKPO: '12345678',                              // ОКПО
+    BIK: '044525225',                              // БИК
+    bank_name: 'Сбербанк',                         // Название банка
+    bank_address: 'г. Москва, ул. Ленина, д. 50',  // Адрес банка
+    corr_account: '30101810200000000225',          // Корреспондентский счёт
+    employees: 'Иванов Иван, Петров Петр, Сидоров Сидор',  // Сотрудники (перечислены через запятую)
+};
+

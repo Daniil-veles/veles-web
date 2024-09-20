@@ -1,9 +1,7 @@
-import Container from "@/components/container/Container";
-import Organization from "@/components/elements/organization/Organization";
-import UserMenu from "@/components/elements/user-meu/UserMenu";
+import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
+import OrganizationScreenForm from "@/components/ui/organization-screen-form/OrganizationScreenForm";
 import PrivateRoute from "@/hoc/PrivateRoute";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import Layout from "@/layouts/Layout";
 
 const OrganizationScreen: React.FC = () => {
   return (
@@ -12,10 +10,24 @@ const OrganizationScreen: React.FC = () => {
       title="Личный кабинет"
       description="Это главная страница сайта"
     >
-      <div className="flex-grow grid grid-cols-[max-content_1fr] gap-10">
-        Организация
-        {/* <UserMenu /> */}
-        {/* <Organization /> */}
+      <div className="h-full flex flex-col">
+        <header className="flex justify-between items-center mb-2 pl-2">
+          <DashboardTitle title="Организация" />
+
+          {/* <div className="w-10 h-10 flex justify-center items-center bg-white rounded-xl">
+            <Settings size={18} />
+          </div> */}
+        </header>
+
+        <div className="flex grow gap-x-[30px]">
+          <OrganizationScreenForm />
+
+          <div>
+            <p>Блок</p>
+          </div>
+          {/* <UserMenu /> */}
+          {/* <Organization /> */}
+        </div>
       </div>
     </DashboardLayout>
     // </PrivateRoute>
