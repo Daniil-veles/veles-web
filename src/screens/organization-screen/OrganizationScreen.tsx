@@ -20,11 +20,18 @@ const OrganizationScreen: React.FC = () => {
         </header>
 
         <div className="flex grow gap-x-[30px]">
-          <OrganizationScreenForm />
-
-          <div>
+          <div className="flex w-[265px] bg-white rounded-3xl pt-4 px-6 pb-4 flex-shrink-0">
             <p>Блок</p>
           </div>
+
+          <div className="flex flex-col w-full">
+            <div className="h-10">
+              <h3>ЧТо-то</h3>
+            </div>
+
+            <OrganizationScreenForm />
+          </div>
+
           {/* <UserMenu /> */}
           {/* <Organization /> */}
         </div>
