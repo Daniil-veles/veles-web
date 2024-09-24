@@ -28,13 +28,24 @@ const formFields = [
 ];
 
 interface IOrganizationFormData {
-  fullName: string;
-  birthDate: string;
-  email: string;
-  phone: string;
+  name: string; // Имя организации
+  phone: string; // Телефон (возможно форматировать через маску)
+  email: string; // Email
+  address: string; // Физический адрес организации
+  location: string; // Местоположение организации
+  info: string; // Общая информация об организации
+  name_legal: string; // Юридическое имя организации
+  INN: string; // ИНН
+  KPP: string; // КПП
+  OGRN: string; // ОГРН
+  OKPO: string; // ОКПО
+  BIK: string; // БИК
+  bank_name: string; // Название банка
+  bank_address: string; // Адрес банка
+  corr_account: string;
 }
 
-const OrganizationScreenForm: React.FC = () => {
+const OrganizationScreenUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isEditable, setIsEditable] = useState(false);
   const organizationInfo = useAppSelector((state) => state.ORGANIZATION);
@@ -83,7 +94,7 @@ const OrganizationScreenForm: React.FC = () => {
         bank_name: organizationInfo.bank_name, // Название банка
         bank_address: organizationInfo.bank_address, // Адрес банка
         corr_account: organizationInfo.corr_account, // Корреспондентский счёт
-        employees: organizationInfo.employees,
+        // employees: organizationInfo.employees,
       });
     }
   }, [organizationInfo, reset]);
@@ -106,59 +117,43 @@ const OrganizationScreenForm: React.FC = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grow flex flex-col bg-white rounded-3xl">
-        <div className="border-b border-c-gray-500 pt-4 px-6 pb-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg">{organizationInfo.name}</h2>
+        <div>
+          <h3 className="mb-3 text-lg">Общая информация</h3>
 
-            <div className="w-10 h-10 flex justify-center items-center bg-c-blue-300 rounded-xl">
-              <button type="submit">
-                {isEditable ? <Save size={18} /> : <SquarePen size={18} />}
-              </button>
-            </div>
-          </div>
-
-          <p>{organizationInfo.address}</p>
-        </div>
-
-        <div className="flex flex-col justify-between grow pt-4 px-6 pb-8">
-          <div>
-            <h3 className="mb-3 text-lg">Общая информация</h3>
-
-            <ul className="grid grid-cols-3 gap-4">
-              {formFields
-                ? formFields.map((item) => (
-                    <li key={item.key}>
-                      <Controller
-                        name={item.key}
-                        control={control}
-                        render={({ field, fieldState }) => (
-                          <CustomInput
-                            className=""
-                            fieldData={{
-                              id: item.key,
-                              name: item.key,
-                              label: item.label,
-                              placeholder: "",
-                              type: "text",
-                            }}
-                            fieldValue={field.value || ''}
-                            onChange={field.onChange}
-                            onBlur={field.onBlur}
-                            error={fieldState.error}
-                            required
-                            disabled={!isEditable}
-                          />
-                        )}
-                      />
-                    </li>
-                  ))
-                : null}
-            </ul>
-          </div>
+          <ul className="grid grid-cols-3 gap-4">
+            {formFields
+              ? formFields.map((item) => (
+                  <li key={item.key}>
+                    <Controller
+                      name={item.key}
+                      control={control}
+                      render={({ field, fieldState }) => (
+                        <CustomInput
+                          className=""
+                          fieldData={{
+                            id: item.key,
+                            name: item.key,
+                            label: item.label,
+                            placeholder: "",
+                            type: "text",
+                          }}
+                          fieldValue={field.value || ""}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                          error={fieldState.error}
+                          required
+                          disabled={!isEditable}
+                        />
+                      )}
+                    />
+                  </li>
+                ))
+              : null}
+          </ul>
         </div>
       </div>
     </form>
   );
 };
 
-export default OrganizationScreenForm;
+export default OrganizationScreenUpdateForm;

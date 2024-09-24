@@ -1,8 +1,9 @@
 import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
 import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
 import Modal from "@/components/ui/modal/Modal";
-import OrganizationScreenForm from "@/components/ui/organization-screen-form/OrganizationScreenForm";
+// import OrganizationScreenUpdateForm from "@/components/ui/organization-screen-update-form/OrganizationScreenUpdateForm";
 import PrivateRoute from "@/hoc/PrivateRoute";
+import { useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -19,8 +20,9 @@ const employee = [
 
 const OrganizationScreen: React.FC = () => {
   // Состояния для модальных окон
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const [organization, setOrganization] = useState(false);
+  const organizationInfo = useAppSelector((state) => state.ORGANIZATION);
 
   return (
     // <PrivateRoute>
@@ -32,16 +34,18 @@ const OrganizationScreen: React.FC = () => {
         <header className="flex justify-between items-center mb-2 pl-2">
           <DashboardTitle title="Организация" />
 
-          <ButtonLittle onClick={() => setIsModalOpen(true)}>
-            <Plus className="mr-1" size={18} />
-            Добавить организацию
-          </ButtonLittle>
+          {!organization ? (
+            <ButtonLittle onClick={() => setIsModalOpen(true)}>
+              <Plus className="mr-1" size={18} />
+              Добавить организацию
+            </ButtonLittle>
+          ) : null}
         </header>
 
         {organization ? (
           <div className="flex grow gap-x-[30px]">
             <div className="flex flex-col w-[265px] bg-white rounded-3xl pt-4 px-6 pb-4 flex-shrink-0">
-              <h2 className="mb-3 text-lg">Общая инфорамация</h2>
+              <h2 className="mb-3 text-lg">Данные из ФНС</h2>
 
               <div className="mb-3">
                 <p className="mb-2 text-c-gray-800">Директор:</p>
@@ -97,6 +101,23 @@ const OrganizationScreen: React.FC = () => {
                   </p>
                 </li>
                 <li className="mb-3">
+                  <p className="mb-1 text-c-gray-800">
+                    Среднесписочная численность:
+                  </p>
+
+                  <p className="">200</p>
+                </li>
+                <li className="mb-3">
+                  <p className="mb-1 text-c-gray-800">Телефон:</p>
+
+                  <p className="">8 (980) 800 80 01</p>
+                </li>
+                <li className="mb-3">
+                  <p className="mb-1 text-c-gray-800">Электронная почта:</p>
+
+                  <p className="">test@mail.ru</p>
+                </li>
+                <li className="mb-3">
                   <p className="mb-1 text-c-gray-800">Дата регистрации:</p>
 
                   <p className="">01.01.2000</p>
@@ -111,10 +132,10 @@ const OrganizationScreen: React.FC = () => {
 
             <div className="flex flex-col w-full">
               <div className="h-10">
-                <h3>ЧТо-то</h3>
+                <h1 className="text-lg font-medium">{`${organizationInfo.name_legal} (${organizationInfo.INN})`}</h1>
               </div>
 
-              <OrganizationScreenForm />
+              {/* <OrganizationScreenUpdateForm /> */}
             </div>
           </div>
         ) : (
@@ -127,9 +148,9 @@ const OrganizationScreen: React.FC = () => {
       </div>
 
       {isModalOpen && (
-        <Modal className="w-2/3" onClose={() => setIsModalOpen(false)}>
-          <div className="w-2/3">
-            <p>dsds</p>
+        <Modal className="w-[90%]" onClose={() => setIsModalOpen(false)}>
+          <div className="w-full max-w-4xl m-auto">
+            <OrganizationScreen />
 
             <ButtonLittle
               onClick={() => {

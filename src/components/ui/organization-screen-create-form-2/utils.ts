@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { OrganizationType } from "./CreateOrganizationForm.interface";
+import { OrganizationType } from "./OrganizationScreenCreateForm";
 import { ComponentFormEnum, IFormField } from "@/types/form.interface";
 
 // Функция для проверки валидности email

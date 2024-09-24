@@ -10,15 +10,14 @@ interface IModalProp {
 
 const Modal: React.FC<IModalProp> = ({ children, className, onClose }) => {
   return (
-    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black/10">
-      <div className={`${className} bg-white rounded-3xl p-7`}>
-        <ButtonLittle
+    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black/10 py-10">
+      <div className={`${className} relative bg-white rounded-3xl p-7`}>
+        <button
           onClick={onClose}
-          className="block ml-auto text-gray-400"
-          variant="minimal"
+          className="absolute top-5 end-5 w-10 h-10 flex justify-center items-center bg-c-blue-300 rounded-xl"
         >
-          <X size={26} />
-        </ButtonLittle>
+          <X size={20} />
+        </button>
 
         {children}
       </div>
