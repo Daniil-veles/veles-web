@@ -116,7 +116,7 @@ const OrganizationScreenUpdateForm: React.FC = () => {
       className="flex flex-col grow w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="grow flex flex-col bg-white rounded-3xl">
+      <div className="grow flex flex-col bg-white rounded-3xl p-7">
         <div>
           <h3 className="mb-3 text-lg">Общая информация</h3>
 

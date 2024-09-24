@@ -33,7 +33,7 @@ function CustomInput({
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-end">
       {label && (
         <label className="block text-black mb-2" htmlFor={id}>
           {label}

@@ -1,7 +1,8 @@
 import ButtonLittle from "@/components/ui/custom-button/button-little/ButtonLittle";
 import DashboardTitle from "@/components/ui/dashboard-title/DashboardTitle";
 import Modal from "@/components/ui/modal/Modal";
-// import OrganizationScreenUpdateForm from "@/components/ui/organization-screen-update-form/OrganizationScreenUpdateForm";
+import OrganizationScreenUpdateForm from "@/components/ui/organization-screen-update-form/OrganizationScreenUpdateForm";
+import OrganizationScreenCreateForm from "@/components/ui/organization-screen-create-form/OrganizationScreenCreateForm";
 import PrivateRoute from "@/hoc/PrivateRoute";
 import { useAppSelector } from "@/hooks";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -14,13 +15,13 @@ const employee = [
   { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
   { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
   { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
-  { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
+  { picture: "https://via.placeholdexr.com/150/51aa97", name: "Morfi" },
   { picture: "https://via.placeholder.com/150/51aa97", name: "Morfi" },
 ];
 
 const OrganizationScreen: React.FC = () => {
   // Состояния для модальных окон
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [organization, setOrganization] = useState(false);
   const organizationInfo = useAppSelector((state) => state.ORGANIZATION);
 
@@ -135,7 +136,7 @@ const OrganizationScreen: React.FC = () => {
                 <h1 className="text-lg font-medium">{`${organizationInfo.name_legal} (${organizationInfo.INN})`}</h1>
               </div>
 
-              {/* <OrganizationScreenUpdateForm /> */}
+              <OrganizationScreenUpdateForm />
             </div>
           </div>
         ) : (
@@ -150,16 +151,10 @@ const OrganizationScreen: React.FC = () => {
       {isModalOpen && (
         <Modal className="w-[90%]" onClose={() => setIsModalOpen(false)}>
           <div className="w-full max-w-4xl m-auto">
-            <OrganizationScreen />
-
-            <ButtonLittle
-              onClick={() => {
-                setOrganization(true);
-                setIsModalOpen(false);
-              }}
-            >
-              Сохранить
-            </ButtonLittle>
+            <OrganizationScreenCreateForm
+              setOrganization={(state) => setOrganization(state)}
+              setIsModalOpen={(state) => setIsModalOpen(state)}
+            />
           </div>
         </Modal>
       )}
